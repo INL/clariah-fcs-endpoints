@@ -1,0 +1,746 @@
+{
+    "corpus_hits": {
+        "SALTNLD-SV": 5525
+    }, 
+    "corpus_order": [
+        "SALTNLD-SV"
+    ], 
+    "hits": 5525, 
+    "kwic": [
+        {
+            "corpus": "SALTNLD-SV", 
+            "match": {
+                "end": 20, 
+                "position": 57, 
+                "start": 17
+            }, 
+            "tokens": [
+                {
+                    "word": "Det"
+                }, 
+                {
+                    "word": "som"
+                }, 
+                {
+                    "word": "skr\u00e4mde"
+                }, 
+                {
+                    "word": "dem"
+                }, 
+                {
+                    "word": "mer"
+                }, 
+                {
+                    "word": "\u00e4n"
+                }, 
+                {
+                    "word": "allt"
+                }, 
+                {
+                    "word": "annat"
+                }, 
+                {
+                    "word": "var"
+                }, 
+                {
+                    "word": "om"
+                }, 
+                {
+                    "word": "barnen"
+                }, 
+                {
+                    "word": "skulle"
+                }, 
+                {
+                    "word": "f\u00e5"
+                }, 
+                {
+                    "word": "tillg\u00e5ng"
+                }, 
+                {
+                    "word": "till"
+                }, 
+                {
+                    "word": "en"
+                }, 
+                {
+                    "word": "stor"
+                }, 
+                {
+                    "word": "och"
+                }, 
+                {
+                    "word": "besynnerlig"
+                }, 
+                {
+                    "word": "byggnad"
+                }, 
+                {
+                    "word": "med"
+                }, 
+                {
+                    "word": "m\u00e5nga"
+                }, 
+                {
+                    "word": "rum"
+                }, 
+                {
+                    "word": ","
+                }, 
+                {
+                    "word": "vars"
+                }, 
+                {
+                    "word": "inneh\u00e5ll"
+                }, 
+                {
+                    "word": "de"
+                }, 
+                {
+                    "word": "inte"
+                }, 
+                {
+                    "word": "beh\u00f6vde"
+                }, 
+                {
+                    "word": "ber\u00e4tta"
+                }, 
+                {
+                    "word": "f\u00f6r"
+                }, 
+                {
+                    "word": "n\u00e5gon"
+                }, 
+                {
+                    "word": "enda"
+                }, 
+                {
+                    "word": "m\u00e4nniska"
+                }, 
+                {
+                    "word": "om"
+                }, 
+                {
+                    "word": "."
+                }
+            ]
+        }, 
+        {
+            "corpus": "SALTNLD-SV", 
+            "match": {
+                "end": 9, 
+                "position": 311, 
+                "start": 6
+            }, 
+            "tokens": [
+                {
+                    "word": "D\u00e4r"
+                }, 
+                {
+                    "word": "sj\u00f6nk"
+                }, 
+                {
+                    "word": "hon"
+                }, 
+                {
+                    "word": "ner"
+                }, 
+                {
+                    "word": "p\u00e5"
+                }, 
+                {
+                    "word": "kn\u00e4"
+                }, 
+                {
+                    "word": "och"
+                }, 
+                {
+                    "word": "tog"
+                }, 
+                {
+                    "word": "vatten"
+                }, 
+                {
+                    "word": "i"
+                }, 
+                {
+                    "word": "h\u00e4nderna"
+                }, 
+                {
+                    "word": "."
+                }
+            ]
+        }, 
+        {
+            "corpus": "SALTNLD-SV", 
+            "match": {
+                "end": 24, 
+                "position": 411, 
+                "start": 21
+            }, 
+            "tokens": [
+                {
+                    "word": "Men"
+                }, 
+                {
+                    "word": "hon"
+                }, 
+                {
+                    "word": "visste"
+                }, 
+                {
+                    "word": "att"
+                }, 
+                {
+                    "word": "om"
+                }, 
+                {
+                    "word": "det"
+                }, 
+                {
+                    "word": "varit"
+                }, 
+                {
+                    "word": "m\u00e4nniskor"
+                }, 
+                {
+                    "word": "d\u00e4rnere"
+                }, 
+                {
+                    "word": "och"
+                }, 
+                {
+                    "word": "inte"
+                }, 
+                {
+                    "word": "f\u00e5r"
+                }, 
+                {
+                    "word": ","
+                }, 
+                {
+                    "word": "s\u00e5"
+                }, 
+                {
+                    "word": "hade"
+                }, 
+                {
+                    "word": "hennes"
+                }, 
+                {
+                    "word": "k\u00e4nsla"
+                }, 
+                {
+                    "word": "varit"
+                }, 
+                {
+                    "word": "bekl\u00e4mning"
+                }, 
+                {
+                    "word": "och"
+                }, 
+                {
+                    "word": "r\u00e4dsla"
+                }, 
+                {
+                    "word": "och"
+                }, 
+                {
+                    "word": "hennes"
+                }, 
+                {
+                    "word": "kl\u00e4der"
+                }, 
+                {
+                    "word": "skulle"
+                }, 
+                {
+                    "word": "ha"
+                }, 
+                {
+                    "word": "luktat"
+                }, 
+                {
+                    "word": "av"
+                }, 
+                {
+                    "word": "sur"
+                }, 
+                {
+                    "word": "svett"
+                }, 
+                {
+                    "word": "."
+                }
+            ]
+        }, 
+        {
+            "corpus": "SALTNLD-SV", 
+            "match": {
+                "end": 13, 
+                "position": 765, 
+                "start": 10
+            }, 
+            "tokens": [
+                {
+                    "word": "N\u00e5gon"
+                }, 
+                {
+                    "word": "hade"
+                }, 
+                {
+                    "word": "satt"
+                }, 
+                {
+                    "word": "in"
+                }, 
+                {
+                    "word": "ett"
+                }, 
+                {
+                    "word": "glas"
+                }, 
+                {
+                    "word": "med"
+                }, 
+                {
+                    "word": "sm\u00e5"
+                }, 
+                {
+                    "word": "bleka"
+                }, 
+                {
+                    "word": "bl\u00e5klockor"
+                }, 
+                {
+                    "word": "och"
+                }, 
+                {
+                    "word": "gles"
+                }, 
+                {
+                    "word": "stj\u00e4rnarv"
+                }, 
+                {
+                    "word": "."
+                }
+            ]
+        }, 
+        {
+            "corpus": "SALTNLD-SV", 
+            "match": {
+                "end": 5, 
+                "position": 887, 
+                "start": 2
+            }, 
+            "tokens": [
+                {
+                    "word": "M\u00f6rkbl\u00e5"
+                }, 
+                {
+                    "word": "\u00f6gon"
+                }, 
+                {
+                    "word": "och"
+                }, 
+                {
+                    "word": "en"
+                }, 
+                {
+                    "word": "mun"
+                }, 
+                {
+                    "word": "med"
+                }, 
+                {
+                    "word": "tydliga"
+                }, 
+                {
+                    "word": "amourb\u00e5gar"
+                }, 
+                {
+                    "word": "."
+                }
+            ]
+        }, 
+        {
+            "corpus": "SALTNLD-SV", 
+            "match": {
+                "end": 20, 
+                "position": 918, 
+                "start": 17
+            }, 
+            "tokens": [
+                {
+                    "word": "Det"
+                }, 
+                {
+                    "word": "fanns"
+                }, 
+                {
+                    "word": "tusentals"
+                }, 
+                {
+                    "word": "av"
+                }, 
+                {
+                    "word": "dem"
+                }, 
+                {
+                    "word": "i"
+                }, 
+                {
+                    "word": "ett"
+                }, 
+                {
+                    "word": "luftskikt"
+                }, 
+                {
+                    "word": "som"
+                }, 
+                {
+                    "word": "r\u00f6rde"
+                }, 
+                {
+                    "word": "sig"
+                }, 
+                {
+                    "word": "en"
+                }, 
+                {
+                    "word": "bit"
+                }, 
+                {
+                    "word": "ovanf\u00f6r"
+                }, 
+                {
+                    "word": "starrgr\u00e4sets"
+                }, 
+                {
+                    "word": "alla"
+                }, 
+                {
+                    "word": "r\u00f6dgula"
+                }, 
+                {
+                    "word": "och"
+                }, 
+                {
+                    "word": "gr\u00f6na"
+                }, 
+                {
+                    "word": "skiftningar"
+                }, 
+                {
+                    "word": "."
+                }
+            ]
+        }, 
+        {
+            "corpus": "SALTNLD-SV", 
+            "match": {
+                "end": 9, 
+                "position": 1224, 
+                "start": 6
+            }, 
+            "tokens": [
+                {
+                    "word": "Vinden"
+                }, 
+                {
+                    "word": "f\u00f6rde"
+                }, 
+                {
+                    "word": "f\u00f6rst"
+                }, 
+                {
+                    "word": "skyar"
+                }, 
+                {
+                    "word": "av"
+                }, 
+                {
+                    "word": "tunn"
+                }, 
+                {
+                    "word": "och"
+                }, 
+                {
+                    "word": "kylig"
+                }, 
+                {
+                    "word": "vatten\u00e5nga"
+                }, 
+                {
+                    "word": "med"
+                }, 
+                {
+                    "word": "sig"
+                }, 
+                {
+                    "word": "."
+                }
+            ]
+        }, 
+        {
+            "corpus": "SALTNLD-SV", 
+            "match": {
+                "end": 9, 
+                "position": 1393, 
+                "start": 6
+            }, 
+            "tokens": [
+                {
+                    "word": "I"
+                }, 
+                {
+                    "word": "en"
+                }, 
+                {
+                    "word": "bod"
+                }, 
+                {
+                    "word": "med"
+                }, 
+                {
+                    "word": "gamla"
+                }, 
+                {
+                    "word": "redskap"
+                }, 
+                {
+                    "word": "och"
+                }, 
+                {
+                    "word": "rostiga"
+                }, 
+                {
+                    "word": "sillhinkar"
+                }, 
+                {
+                    "word": "hittade"
+                }, 
+                {
+                    "word": "han"
+                }, 
+                {
+                    "word": "en"
+                }, 
+                {
+                    "word": "r\u00e5ttbur"
+                }, 
+                {
+                    "word": "."
+                }
+            ]
+        }, 
+        {
+            "corpus": "SALTNLD-SV", 
+            "match": {
+                "end": 39, 
+                "position": 2150, 
+                "start": 36
+            }, 
+            "tokens": [
+                {
+                    "word": "Men"
+                }, 
+                {
+                    "word": "n\u00e4r"
+                }, 
+                {
+                    "word": "de"
+                }, 
+                {
+                    "word": "gav"
+                }, 
+                {
+                    "word": "sig"
+                }, 
+                {
+                    "word": "av"
+                }, 
+                {
+                    "word": "fr\u00e5n"
+                }, 
+                {
+                    "word": "Olas"
+                }, 
+                {
+                    "word": "bil"
+                }, 
+                {
+                    "word": "hade"
+                }, 
+                {
+                    "word": "hon"
+                }, 
+                {
+                    "word": "inte"
+                }, 
+                {
+                    "word": "anat"
+                }, 
+                {
+                    "word": "att"
+                }, 
+                {
+                    "word": "landskapet"
+                }, 
+                {
+                    "word": "var"
+                }, 
+                {
+                    "word": "s\u00e5"
+                }, 
+                {
+                    "word": "fullt"
+                }, 
+                {
+                    "word": "av"
+                }, 
+                {
+                    "word": "stigar"
+                }, 
+                {
+                    "word": "som"
+                }, 
+                {
+                    "word": "grenade"
+                }, 
+                {
+                    "word": "sig"
+                }, 
+                {
+                    "word": "och"
+                }, 
+                {
+                    "word": "uppl\u00f6stes"
+                }, 
+                {
+                    "word": "i"
+                }, 
+                {
+                    "word": "l\u00e5nga"
+                }, 
+                {
+                    "word": "v\u00e5ta"
+                }, 
+                {
+                    "word": "str\u00e5k"
+                }, 
+                {
+                    "word": "av"
+                }, 
+                {
+                    "word": "myrmark"
+                }, 
+                {
+                    "word": ","
+                }, 
+                {
+                    "word": "av"
+                }, 
+                {
+                    "word": "diffusa"
+                }, 
+                {
+                    "word": "gr\u00e5"
+                }, 
+                {
+                    "word": "byggnader"
+                }, 
+                {
+                    "word": "och"
+                }, 
+                {
+                    "word": "m\u00e4nskliga"
+                }, 
+                {
+                    "word": "anordningar"
+                }, 
+                {
+                    "word": "d\u00e4r"
+                }, 
+                {
+                    "word": "allt"
+                }, 
+                {
+                    "word": "borde"
+                }, 
+                {
+                    "word": "vara"
+                }, 
+                {
+                    "word": "\u00f6de"
+                }, 
+                {
+                    "word": ","
+                }, 
+                {
+                    "word": "av"
+                }, 
+                {
+                    "word": "h\u00f6jningar"
+                }, 
+                {
+                    "word": "och"
+                }, 
+                {
+                    "word": "s\u00e4nkningar"
+                }, 
+                {
+                    "word": "som"
+                }, 
+                {
+                    "word": "hon"
+                }, 
+                {
+                    "word": "inte"
+                }, 
+                {
+                    "word": "v\u00e4ntat"
+                }, 
+                {
+                    "word": "sig"
+                }, 
+                {
+                    "word": "."
+                }
+            ]
+        }, 
+        {
+            "corpus": "SALTNLD-SV", 
+            "match": {
+                "end": 6, 
+                "position": 2432, 
+                "start": 3
+            }, 
+            "tokens": [
+                {
+                    "word": "Han"
+                }, 
+                {
+                    "word": "hade"
+                }, 
+                {
+                    "word": "hj\u00e4lm"
+                }, 
+                {
+                    "word": "och"
+                }, 
+                {
+                    "word": "stora"
+                }, 
+                {
+                    "word": "h\u00f6rselskydd"
+                }, 
+                {
+                    "word": "."
+                }
+            ]
+        }
+    ], 
+    "querydata": "eJzTNTQyMTM3NTEwMrI2NTUytQ529Anx83HRDQ6zAvEBdFMHaQ==\n", 
+    "time": 0.6709389686584473
+}

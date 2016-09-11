@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>se.gu.spraakbanken.fcs.endpoint.korp</groupId>
+  <artifactId>fcs-korp-endpoint</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>A Korp CLARIN FCS 2.0 endpoint</name>
+  <description>
+    A Korp CLARIN FCS endpoint implementation as an example of a CLARIN FCS 2.0 endpoint.
+  </description>
+
+  <properties>
+    <!-- project settings -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- plug-in settings -->
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
+    <!-- versions of common dependencies -->
+    <slf4j.version>1.7.12</slf4j.version>
+  </properties>
+  <licenses>
+    <license>
+      <name>GNU General Public License</name>
+      <url>http://www.gnu.org/licenses/gpl.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:svn:https://svn.clarin.eu/browser/FCS-Korp-Endpoint</connection>
+    <developerConnection>scm:svn:https://svn.clarin.eu/FCS-Korp-Endpoint</developerConnection>
+    <url>https://svn.clarin.eu/FCS-Korp-Endpoint</url>
+  </scm>
+  <developers>
+    <developer>
+      <id>ljo</id>
+      <name>Leif-Jöran Olsson</name>
+      <organization>Språkbanken</organization>
+      <url>https://spraakbanken.gu.se/</url>
+    </developer>
+  </developers>
+  <dependencies>
+    <dependency>
+      <groupId>eu.clarin.sru.fcs</groupId>
+      <artifactId>fcs-simple-endpoint</artifactId>
+      <version>1.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.7.3</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>test-jetty-servlet</artifactId>
+      <version>8.1.19.v20160209</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+      <type>jar</type>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.plugin-testing</groupId>
+      <artifactId>maven-plugin-testing-harness</artifactId>
+      <version>3.3.0</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.1</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.8.1</version>
+        <executions>
+          <execution>
+            <id>attach-javadoc</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2</version>
+        <executions>
+          <execution>
+            <id>attach-source</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!--plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.6</version>
+	<configuration>
+	  <archive>
+	    <addMavenDescriptor>false</addMavenDescriptor>
+	  </archive>
+	</configuration>
+      </plugin-->
+    </plugins>
+  </build>
+
+  <repositories>
+    <repository>
+      <id>CLARIN</id>
+      <name>CLARIN Repository</name>
+      <url>https://nexus.clarin.eu/content/repositories/Clarin</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+
+    <repository>
+      <id>CLARIN-snapshot</id>
+      <name>CLARIN Snapshot Repository</name>
+      <url>https://nexus.clarin.eu/content/repositories/clarin-snapshot</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>CLARIN-snapshot</id>
+      <url>https://nexus.clarin.eu/content/repositories/clarin-snapshot</url>
+    </snapshotRepository>
+
+    <repository>
+      <id>CLARIN</id>
+      <url>https://nexus.clarin.eu/content/repositories/Clarin</url>
+    </repository>
+  </distributionManagement>
+</project>

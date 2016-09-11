@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns="http://java.sun.com/xml/ns/javaee"
+	 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	 id="SB_KORP_SRU_SERVER" version="2.5">
+  <display-name>Språkbankens Korp-SRU/CQL-tjänst</display-name>
+
+  <servlet>
+    <display-name>Språkbanken's SRU/CQL Service (HTTP Interface)</display-name>
+    <servlet-name>SBKorpSRUServlet</servlet-name>
+    <servlet-class>eu.clarin.sru.server.utils.SRUServerServlet</servlet-class>
+    <init-param>
+      <param-name>eu.clarin.sru.server.numberOfRecords</param-name>
+      <param-value>250</param-value>
+    </init-param>
+    <init-param>
+      <param-name>eu.clarin.sru.server.maximumRecords</param-name>
+      <param-value>1000</param-value>
+    </init-param>
+    <init-param>
+      <param-name>eu.clarin.sru.server.allowOverrideMaximumRecords</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>eu.clarin.sru.server.allowOverrideIndentResponse</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <!-- To enable SRU 2.0 for FCS 2.0 -->
+    <init-param>
+      <param-name>eu.clarin.sru.server.sruSupportedVersionMax</param-name>
+      <param-value>2.0</param-value>
+    </init-param>
+    <init-param>
+      <param-name>eu.clarin.sru.server.legacyNamespaceMode</param-name>
+      <param-value>loc</param-value>
+    </init-param>
+    <init-param>
+      <param-name>eu.clarin.sru.server.utils.sruServerSearchEngineClass</param-name>
+      <param-value>se.gu.spraakbanken.fcs.endpoint.korp.KorpEndpointSearchEngine</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SBKorpSRUServlet</servlet-name>
+    <url-pattern>/sru</url-pattern>
+  </servlet-mapping>
+</web-app>

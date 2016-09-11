@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EndpointDescription xmlns="http://clarin.eu/fcs/endpoint-description"
+		     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		     xsi:schemaLocation="http://clarin.eu/fcs/endpoint-description ../../schema/Core_2/Endpoint-Description.xsd"
+		     version="2">
+  <Capabilities>
+    <Capability>http://clarin.eu/fcs/capability/basic-search</Capability>
+    <Capability>http://clarin.eu/fcs/capability/advanced-search</Capability>
+  </Capabilities>
+  <SupportedDataViews>
+    <SupportedDataView id="hits" delivery-policy="send-by-default">application/x-clarin-fcs-hits+xml</SupportedDataView>
+    <SupportedDataView id="adv" delivery-policy="send-by-default">application/x-clarin-fcs-adv+xml</SupportedDataView>
+    <SupportedDataView id="cmdi" delivery-policy="need-to-request">application/x-cmdi+xml</SupportedDataView>
+  </SupportedDataViews>
+  <SupportedLayers>
+    <SupportedLayer id="word" result-id="http://spraakbanken.gu.se/ns/fcs/layer/word">text</SupportedLayer>
+    <SupportedLayer id="lemma" result-id="http://spraakbanken.gu.se/ns/fcs/layer/lemma">lemma</SupportedLayer>
+    <SupportedLayer id="pos" result-id="http://spraakbanken.gu.se/ns/fcs/layer/pos">pos</SupportedLayer>
+  </SupportedLayers>
+  <Resources>
+    <Resource pid="hdl:10794/sbkorpusar">
+      <Title xml:lang="sv">Språkbankens korpusar</Title>
+      <Title xml:lang="en">The Språkbanken corpora</Title>
+      <Description xml:lang="sv">Korpusarna hos Språkbanken.</Description>
+      <Description xml:lang="en">The corpora at Språkbanken.</Description>
+      <LandingPageURI>https://spraakbanken.gu.se/resurser/corpus</LandingPageURI>
+      <Languages>
+        <Language>swe</Language>
+	<!--Language>fao</Language>
+	<Language>nld</Language>
+	<Language>som</Language>
+	<Language>spa</Language-->
+      </Languages>
+      <AvailableDataViews ref="hits"/>
+      <AvailableDataViews ref="adv"/>
+      <AvailableLayers ref="word"/>
+      <AvailableLayers ref="lemma"/>
+      <AvailableLayers ref="pos"/>
+      <Resources>
+	<Resource pid="hdl:10794/sbmoderna">
+	  <Title xml:lang="sv">Språkbankens moderna korpusar</Title>
+	  <Title xml:lang="en">The Språkbanken modern corpora</Title>
+	  <Description xml:lang="sv">De moderna korpusarna hos Språkbanken.</Description>
+	  <Description xml:lang="en">The modern corpora at Språkbanken.</Description>
+	  <LandingPageURI>https://spraakbanken.gu.se/resurser/moderna</LandingPageURI>
+	  <Languages>
+            <Language>swe</Language>
+	  </Languages>
+	  <AvailableDataViews ref="hits"/>
+	  <AvailableDataViews ref="adv"/>
+	  <AvailableLayers ref="word"/>
+	  <AvailableLayers ref="lemma"/>
+	  <AvailableLayers ref="pos"/>
+	  <Resources>
+	    <Resource pid="hdl:10794/suc">
+	      <Title xml:lang="sv">SUC-korpusen</Title>
+	      <Title xml:lang="en">The SUC corpus</Title>
+	      <Description xml:lang="sv">Stockholm-Umeå-korpusen hos Språkbanken.</Description>
+	      <Description xml:lang="en">The Stockholm-Umeå corpus at Språkbanken.</Description>
+	      <LandingPageURI>https://spraakbanken.gu.se/resurser/suc</LandingPageURI>
+	      <Languages>
+		<Language>swe</Language>
+	      </Languages>
+	      <AvailableDataViews ref="hits"/>
+	      <AvailableDataViews ref="adv"/>
+	      <AvailableLayers ref="word"/>
+	      <AvailableLayers ref="lemma"/>
+	      <AvailableLayers ref="pos"/>
+	    </Resource>
+	  </Resources>
+	</Resource>
+      </Resources>
+    </Resource>
+  </Resources>
+</EndpointDescription>

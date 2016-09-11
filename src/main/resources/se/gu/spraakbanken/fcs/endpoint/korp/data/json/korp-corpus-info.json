@@ -1,0 +1,88 @@
+{
+    "corpora": {
+        "PAROLE": {
+            "attrs": {
+                "a": [], 
+                "p": [
+                    "word", 
+                    "pos", 
+                    "msd", 
+                    "lemma", 
+                    "lex", 
+                    "saldo", 
+                    "prefix", 
+                    "suffix", 
+                    "ref", 
+                    "dephead", 
+                    "deprel"
+                ], 
+                "s": [
+                    "sentence", 
+                    "sentence_id", 
+                    "text", 
+                    "text_id", 
+                    "text_date", 
+                    "text_title", 
+                    "text_publisher", 
+                    "text_datefrom", 
+                    "text_dateto", 
+                    "text_timefrom", 
+                    "text_timeto"
+                ]
+            }, 
+            "info": {
+                "Charset": "utf8", 
+                "FirstDate": "1976-01-01 00:00:00", 
+                "LastDate": "1997-06-16 23:59:59", 
+                "Saldo": "73089", 
+                "Sentences": "1646688", 
+                "Size": "24331936", 
+                "Updated": "2016-03-15"
+            }
+        }, 
+        "ROMI": {
+            "attrs": {
+                "a": [], 
+                "p": [
+                    "word", 
+                    "pos", 
+                    "msd", 
+                    "lemma", 
+                    "lex", 
+                    "saldo", 
+                    "prefix", 
+                    "suffix", 
+                    "ref", 
+                    "dephead", 
+                    "deprel"
+                ], 
+                "s": [
+                    "sentence", 
+                    "sentence_id", 
+                    "text", 
+                    "text_title", 
+                    "text_datefrom", 
+                    "text_dateto", 
+                    "text_timefrom", 
+                    "text_timeto", 
+                    "paragraph", 
+                    "paragraph_n", 
+                    "text_author", 
+                    "text_year"
+                ]
+            }, 
+            "info": {
+                "Charset": "utf8", 
+                "FirstDate": "1976-01-01 00:00:00", 
+                "LastDate": "1977-12-31 23:59:59", 
+                "Saldo": "73089", 
+                "Sentences": "499030", 
+                "Size": "6579220", 
+                "Updated": "2015-12-18"
+            }
+        }
+    }, 
+    "time": 0.0004410743713378906, 
+    "total_sentences": 2145718, 
+    "total_size": 30911156
+}
