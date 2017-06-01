@@ -32,7 +32,7 @@ public class SUCTranslator {
 	suc.put("PART", Arrays.asList("IE"));
 	suc.put("ADV", Arrays.asList("AB", "HA", "PL")); // No PL?
 	suc.put("ADP", Arrays.asList("PL", "PP")); // No PL?
-	suc.put("CONJ", Arrays.asList("KN"));
+	suc.put("CCONJ", Arrays.asList("KN"));
 	suc.put("SCONJ", Arrays.asList("SN"));
 	suc.put("INTJ", Arrays.asList("IN"));
 	suc.put("PUNCT", Arrays.asList("MAD", "MID", "PAD"));
@@ -58,7 +58,7 @@ public class SUCTranslator {
 	ud17.put("JJ", Arrays.asList("ADJ"));
 	ud17.put("AB", Arrays.asList("ADV"));
 	ud17.put("HA", Arrays.asList("ADV"));
-	ud17.put("KN", Arrays.asList("CONJ"));
+	ud17.put("KN", Arrays.asList("CCONJ"));
 	ud17.put("SN", Arrays.asList("SCONJ"));
 	ud17.put("PP", Arrays.asList("ADP"));
 	ud17.put("RG", Arrays.asList("NUM"));
