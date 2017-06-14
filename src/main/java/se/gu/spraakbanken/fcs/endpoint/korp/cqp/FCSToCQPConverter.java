@@ -263,11 +263,11 @@ public class FCSToCQPConverter {
 	buf.append(expression.getRegexValue());
 	buf.append("'");
 	if (expression.getRegexFlags() != null) {
-	    if (expression.getRegexFlags().contains(RegexFlag.CASE_INSENSITVE)) {
+	    if (expression.getRegexFlags().contains(RegexFlag.CASE_INSENSITIVE)) {
 		buf.append(" %c");
 		contRegexFlag = true;
 	    }
-	    if (expression.getRegexFlags().contains(RegexFlag.CASE_SENSITVE)) {
+	    if (expression.getRegexFlags().contains(RegexFlag.CASE_SENSITIVE)) {
 	    }
 	    if (expression.getRegexFlags().contains(RegexFlag.LITERAL_MATCHING)) {
 		if (!contRegexFlag) {
@@ -304,11 +304,11 @@ public class FCSToCQPConverter {
 	buf.append(expression.getRegexValue());
 	buf.append("'");
 	if (expression.getRegexFlags() != null) {
-	    if (expression.getRegexFlags().contains(RegexFlag.CASE_INSENSITVE)) {
+	    if (expression.getRegexFlags().contains(RegexFlag.CASE_INSENSITIVE)) {
 		buf.append(" %c");
 		contRegexFlag = true;
 	    }
-	    if (expression.getRegexFlags().contains(RegexFlag.CASE_SENSITVE)) {
+	    if (expression.getRegexFlags().contains(RegexFlag.CASE_SENSITIVE)) {
 	    }
 	    if (expression.getRegexFlags().contains(RegexFlag.LITERAL_MATCHING)) {
 		if (!contRegexFlag) {
