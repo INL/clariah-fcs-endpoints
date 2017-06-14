@@ -31,11 +31,8 @@
 	<Language>som</Language>
 	<Language>spa</Language-->
       </Languages>
-      <AvailableDataViews ref="hits"/>
-      <AvailableDataViews ref="adv"/>
-      <AvailableLayers ref="word"/>
-      <AvailableLayers ref="lemma"/>
-      <AvailableLayers ref="pos"/>
+      <AvailableDataViews ref="hits adv"/>
+      <AvailableLayers ref="word lemma pos"/>
       <Resources>
 	<Resource pid="hdl:10794/sbmoderna">
 	  <Title xml:lang="sv">Språkbankens moderna korpusar</Title>
@@ -46,11 +43,8 @@
 	  <Languages>
             <Language>swe</Language>
 	  </Languages>
-	  <AvailableDataViews ref="hits"/>
-	  <AvailableDataViews ref="adv"/>
-	  <AvailableLayers ref="word"/>
-	  <AvailableLayers ref="lemma"/>
-	  <AvailableLayers ref="pos"/>
+	  <AvailableDataViews ref="hits adv"/>
+	  <AvailableLayers ref="word lemma pos"/>
 	  <Resources>
 	    <Resource pid="hdl:10794/suc">
 	      <Title xml:lang="sv">SUC-korpusen</Title>
@@ -61,11 +55,8 @@
 	      <Languages>
 		<Language>swe</Language>
 	      </Languages>
-	      <AvailableDataViews ref="hits"/>
-	      <AvailableDataViews ref="adv"/>
-	      <AvailableLayers ref="word"/>
-	      <AvailableLayers ref="lemma"/>
-	      <AvailableLayers ref="pos"/>
+	      <AvailableDataViews ref="hits adv"/>
+	      <AvailableLayers ref="word lemma pos"/>
 	    </Resource>
 	  </Resources>
 	</Resource>
