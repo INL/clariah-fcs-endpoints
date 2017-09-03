@@ -46,7 +46,7 @@ public class Kwic
 	public URI layerURL(String pname)
 	{
 		try {
-			return new URI("http://www.ivdnt.org/" + pname);
+			return new URI("http://www.ivdnt.org/annotation-layers/" + pname);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
