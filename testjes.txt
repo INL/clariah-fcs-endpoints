@@ -1,0 +1,5 @@
+http://localhost:8080/sru-server/sru?operation=searchRetrieve&version=1.2&query=cat
+http://localhost:8080/sru-server/sru?operation=searchRetrieve&queryType=cql&query=ikke
+http://localhost:8080/sru-server/sru?operation=searchRetrieve&queryType=fcs&query=%5Bword%3D%27ikke%27%5D
+http://localhost:8080/sru-server/sru?operation=searchRetrieve&queryType=fcs&query=%5Bword%3D%22svarer%22%5D%5Bword%3D%22ikke%22%5D
+http://localhost:8080/blacklab-sru-server/sru?operation=searchRetrieve&queryType=fcs&query=%5Bword%3D%27ikke%27%5D

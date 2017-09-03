@@ -4,20 +4,20 @@
 	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>se.gu.spraakbanken.fcs.endpoint.korp</groupId>
-  <artifactId>fcs-korp-endpoint</artifactId>
+  <artifactId>fcs-blacklab-endpoint</artifactId>
   <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>A Korp CLARIN FCS 2.0 endpoint</name>
+  <name>A Blacklab Server CLARIN FCS 2.0 endpoint</name>
   <description>
-    A Korp CLARIN FCS endpoint implementation as an example of a CLARIN FCS 2.0 endpoint.
+    A Blacklab Server CLARIN FCS endpoint implementation as an example of a CLARIN FCS 2.0 endpoint.
   </description>
 
   <properties>
     <!-- project settings -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- plug-in settings -->
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
     <!-- versions of common dependencies -->
     <slf4j.version>1.7.12</slf4j.version>
   </properties>
@@ -77,6 +77,21 @@
       <version>3.3.0</version>
       <scope>test</scope>
     </dependency>
+<!-- https://mvnrepository.com/artifact/org.json/json -->
+<!--
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20170516</version>
+</dependency>
+-->
+<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+<dependency>
+    <groupId>com.googlecode.json-simple</groupId>
+    <artifactId>json-simple</artifactId>
+    <version>1.1.1</version>
+</dependency>
+
   </dependencies>
   <build>
     <plugins>

@@ -1,0 +1,61 @@
+package clariah.fcs;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.util.*;
+
+
+
+import java.util.*;
+
+public class Kwic 
+{
+	public int hitStart;
+	public int hitEnd;
+	
+	public String defaultProperty = "word";
+	
+	public List<String> tokenPropertyNames = new ArrayList<>();
+	public Map<String,List<String>> tokenProperties = new HashMap<>();
+	
+	public  List<String> getLayer(String propertyName)
+	{
+		return tokenProperties.get(propertyName);
+	}
+	
+	public String getWord(int i)
+	{
+	  return tokenProperties.get(defaultProperty).get(i);
+	}
+	
+	public List<String> words()
+	{
+		 return tokenProperties.get(defaultProperty);
+	}
+	
+	public int size()
+	{
+	    return words().size();
+	}
+	
+	public String get(String pname, int i)
+	{
+		return getLayer(pname).get(i);
+	}
+	
+	public URI layerURL(String pname)
+	{
+		try {
+			return new URI("http://www.ivdnt.org/" + pname);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public String toString()
+	{
+		return words().toString();
+	}
+}
