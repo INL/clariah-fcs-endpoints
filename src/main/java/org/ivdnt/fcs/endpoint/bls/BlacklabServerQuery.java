@@ -1,4 +1,4 @@
-package se.gu.spraakbanken.fcs.endpoint.korp;
+package org.ivdnt.fcs.endpoint.bls;
 
 import java.util.ArrayList;
 import java.util.List;

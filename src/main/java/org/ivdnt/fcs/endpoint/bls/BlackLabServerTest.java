@@ -1,4 +1,4 @@
-package se.gu.spraakbanken.fcs.endpoint.korp;
+package org.ivdnt.fcs.endpoint.bls;
 
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;

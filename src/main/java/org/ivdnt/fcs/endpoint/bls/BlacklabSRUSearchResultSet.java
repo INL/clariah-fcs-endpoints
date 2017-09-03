@@ -1,4 +1,4 @@
-package se.gu.spraakbanken.fcs.endpoint.korp;
+package org.ivdnt.fcs.endpoint.bls;
 
 import clariah.fcs.*;
 import java.util.*;
