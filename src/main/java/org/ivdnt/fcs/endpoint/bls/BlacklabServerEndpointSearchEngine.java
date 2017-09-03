@@ -26,9 +26,12 @@ import se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.query.Query;
 
 public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine 
 {
+	
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
-			throws SRUException {
+			throws SRUException 
+	{
 		String query;
+	
 		if (request.isQueryType(Constants.FCS_QUERY_TYPE_CQL)) {
 			/*
 			 * Got a CQL query (either SRU 1.1 or higher). Translate to a proper CQP query
@@ -51,7 +54,9 @@ public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine
 		}
 
 		boolean hasFcsContextCorpus = false;
+		
 		String fcsContextCorpus = "ezel";
+		
 		for (String erd : request.getExtraRequestDataNames()) {
 			if ("x-fcs-context".equals(erd)) {
 				hasFcsContextCorpus = true;
@@ -59,36 +64,35 @@ public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine
 				break;
 			}
 		}
+		
 		if (hasFcsContextCorpus && !"".equals(fcsContextCorpus)) {
 			if (!"hdl%3A10794%2Fsbmoderna".equals(fcsContextCorpus)) {
-				//LOG.info("Loading specific corpus data: '{}'", fcsContextCorpus);
+				// LOG.info("Loading specific corpus data: '{}'", fcsContextCorpus);
 				// getCorporaInfo();
 			}
 			// hdl%3A10794%2Fsbmoderna is the default
 		}
 
 		BlacklabServerQuery bq = new BlacklabServerQuery(BlacklabServerQuery.defaultServer, fcsContextCorpus, query);
-		
+
 		bq.startPosition = request.getStartRecord();
 		bq.maximumResults = request.getMaximumRecords();
-		
-		try
-		{
+
+		try {
 			BlacklabServerResultSet bsrs = bq.execute();
-			
+
 			return new BlacklabSRUSearchResultSet(config, request, diagnostics, bsrs);
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
 					"The query execution failed by this CLARIN-FCS (Blacklab Server) Endpoint." + bq);
 		}
 		/*
-		Query queryRes = makeAndExecuteQuery(query, fcsContextCorpus, request.getStartRecord(), request.getMaximumRecords());
-		if (queryRes == null) {
-			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
-					"The query execution failed by this CLARIN-FCS Endpoint.");
-		}
-		*/
-				
+		 * Query queryRes = makeAndExecuteQuery(query, fcsContextCorpus,
+		 * request.getStartRecord(), request.getMaximumRecords()); if (queryRes == null)
+		 * { throw new
+		 * SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
+		 * "The query execution failed by this CLARIN-FCS Endpoint."); }
+		 */
+
 	}
 }
