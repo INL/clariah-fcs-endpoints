@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 public class Error {
     @JsonProperty("ERROR")
-    private se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.ERROR ERROR;
+    private se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.ERROR_renamed ERROR;
     @JsonProperty("time")
     private Double time;
     @JsonIgnore
@@ -31,7 +31,7 @@ public class Error {
      * The ERROR
      */
     @JsonProperty("ERROR")
-    public se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.ERROR getERROR() {
+    public se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.ERROR_renamed getERROR() {
 	return ERROR;
     }
 
@@ -41,7 +41,7 @@ public class Error {
      * The ERROR
      */
     @JsonProperty("ERROR")
-    public void setERROR(se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.ERROR ERROR) {
+    public void setERROR(se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.ERROR_renamed ERROR) {
 	this.ERROR = ERROR;
     }
 

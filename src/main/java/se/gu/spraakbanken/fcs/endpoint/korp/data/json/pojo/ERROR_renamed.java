@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 "value"
 })
 
-public class ERROR {
+public class ERROR_renamed {
     @JsonProperty("type")
     private String type;
     @JsonProperty("value")
