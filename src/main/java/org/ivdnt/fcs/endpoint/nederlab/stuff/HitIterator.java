@@ -1,4 +1,4 @@
-package org.ivdnt.fcs.endpoint.nederlab;
+package org.ivdnt.fcs.endpoint.nederlab.stuff;
 import java.util.*;
 
 public class HitIterator implements Iterable<Hit>, Iterator<Hit> 

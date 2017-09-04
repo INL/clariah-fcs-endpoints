@@ -1,4 +1,4 @@
-package org.ivdnt.fcs.endpoint.nederlab;
+package org.ivdnt.fcs.endpoint.nederlab.stuff;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.*;

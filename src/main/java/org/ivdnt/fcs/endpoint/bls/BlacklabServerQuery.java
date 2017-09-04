@@ -24,8 +24,8 @@ public class BlacklabServerQuery
 	String cqp = "[word='paard']";
 	String corpus = "ezel";
 	
-	int startPosition;
-	int maximumResults;
+	public int startPosition;
+	public int maximumResults;
 	
 	public BlacklabServerQuery(String server, String corpus, String cqp)
 	{

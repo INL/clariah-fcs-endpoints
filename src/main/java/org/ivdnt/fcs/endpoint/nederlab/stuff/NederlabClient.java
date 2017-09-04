@@ -1,4 +1,4 @@
-package org.ivdnt.fcs.endpoint.nederlab;
+package org.ivdnt.fcs.endpoint.nederlab.stuff;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
