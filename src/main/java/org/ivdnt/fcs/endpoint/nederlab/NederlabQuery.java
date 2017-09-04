@@ -11,6 +11,9 @@ public class NederlabQuery extends clariah.fcs.Query
 	public NederlabQuery(String server, String corpus, String cqp)
 	{
 		super(server, corpus, cqp);
+		this.cqp = this.cqp.replaceAll("word *=", "t_lc="); // hm ugly hacks
+		this.cqp = this.cqp.replaceAll("'", "\"");
+		System.err.println("CQP to nederlab:" + this.cqp);
 	}
 	
 	public clariah.fcs.ResultSet execute()

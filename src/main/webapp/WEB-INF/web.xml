@@ -37,7 +37,7 @@
     </init-param>
     <init-param>
       <param-name>eu.clarin.sru.server.utils.sruServerSearchEngineClass</param-name>
-      <param-value>org.ivdnt.fcs.endpoint.bls.NederlabEndpointSearchEngine</param-value>
+      <param-value>org.ivdnt.fcs.endpoint.nederlab.NederlabEndpointSearchEngine</param-value>
 <!--
       <param-value>org.ivdnt.fcs.endpoint.bls.BlacklabServerEndpointSearchEngine</param-value>
       <param-value>se.gu.spraakbanken.fcs.endpoint.korp.KorpEndpointSearchEngine</param-value>
