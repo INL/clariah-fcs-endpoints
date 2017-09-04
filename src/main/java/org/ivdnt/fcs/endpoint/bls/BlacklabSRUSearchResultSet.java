@@ -102,6 +102,7 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 		
 		
 		writer.writeStartElement("fcs", "DataView", "http://clarin.eu/fcs/resource");
+		writer.writeAttribute(null, null, "type", "application/x-clariah-fcs-simple-metadata+xml");
 		 kwic.metadata.forEach(
 				  (k,v) -> {
 				   try { 

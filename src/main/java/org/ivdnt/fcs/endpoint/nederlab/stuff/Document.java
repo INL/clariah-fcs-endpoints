@@ -25,7 +25,7 @@ public class Document
 	public Map<String,String> getMetadata()
 	{
 		Map<String,String>  m = new HashMap<>();
-		m.put("aap", "aap");
+		
 		List<Field> publicFields = new ArrayList<>();
 		Field[] allFields = this.getClass().getDeclaredFields();
 		for (Field field : allFields) {
