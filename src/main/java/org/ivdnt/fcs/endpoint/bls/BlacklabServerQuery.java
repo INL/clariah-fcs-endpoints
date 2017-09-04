@@ -104,7 +104,11 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 			// Add the document title and the hit information
 
 			JSONObject doc = (JSONObject) docs.get((String) hit.get("docPid"));
-
+			Set<String> metadataProperties = doc.keySet();
+			
+			doc.forEach( (k,v) -> kwic.metadata.put(k.toString(), v.toString()) ); // or put this in separate document objects?
+			
+			
 			JSONObject leftContext = (JSONObject) hit.get("left");
 			JSONObject match = (JSONObject) hit.get("match");
 			JSONObject rightContext = (JSONObject) hit.get("right");

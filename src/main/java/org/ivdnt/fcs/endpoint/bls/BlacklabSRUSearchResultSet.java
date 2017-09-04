@@ -98,6 +98,28 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 
 		XMLStreamWriterHelper.writeStartResourceFragment(writer, null, null);
 
+        // TODO insert a metadata dataview here, CMDI and possibly dublin core as well (?)
+		
+		
+		writer.writeStartElement("fcs", "DataView", "http://clarin.eu/fcs/resource");
+		 kwic.metadata.forEach(
+				  (k,v) -> {
+				   try { 
+					  writer.writeStartElement(null, "keyval", null);
+					  writer.writeAttribute(null, null, "key", k);
+					  writer.writeAttribute(null, null, "value", v);
+					  writer.writeEndElement();
+				 } catch (Exception e) {}; }
+				 );
+		writer.writeEndElement();
+		/**
+		 * <fcs:DataView type="application/x-cmdi+xml">
+ <cmdi:CMD xmlns:cmdi="http://www.clarin.eu/cmd/" CMDVersion="1.1">
+ <!-- content omitted -->
+ </cmdi:CMD>
+</fcs:DataView>
+		 */
+		
 		try
 		{
 		for (int i = 0; i < kwic.hitStart; i++) 

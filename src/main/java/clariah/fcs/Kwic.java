@@ -15,6 +15,7 @@ public class Kwic
 	
 	public List<String> tokenPropertyNames = new ArrayList<>();
 	public Map<String,List<String>> tokenProperties = new HashMap<>();
+	public Map<String,String> metadata = new HashMap<>();
 	
 	public Kwic translatePrefixes(Map<String,String> map)
 	{
@@ -79,3 +80,21 @@ public class Kwic
 		return s + tokens.toString();
 	}
 }
+
+/**
+ * Wat gaan we met metadata doen? In een CMDI profiel stoppen?
+ * Hoe halen we dat op bij nederlab?
+ * Voor blacklab server zelf maken uit de aanwezige metadata.
+ * https://www.clarin.eu/sites/default/files/CE-2014-0317-CLARIN_FCS_Specification_DataViews_1_0.pdf: 
+ * 
+ * <!-- potential @pid and @ref attributes omitted -->
+<fcs:DataView type="application/x-cmdi+xml">
+ <cmdi:CMD xmlns:cmdi="http://www.clarin.eu/cmd/" CMDVersion="1.1">
+ <!-- content omitted -->
+ </cmdi:CMD>
+</fcs:DataView>
+<!-- potential @pid attribute omitted -->
+<fcs:DataView type="application/x-cmdi+xml"
+ ref="http://repos.example.org/resources/4711/0815.cmdi" />
+ */
+

@@ -61,8 +61,11 @@ public class Hit
 	public clariah.fcs.Kwic toKwic()
 	{
 		clariah.fcs.Kwic kwic = new clariah.fcs.Kwic();
-		kwic.tokenPropertyNames.addAll(this.knownPrefixes);
 		
+		
+		kwic.metadata = document.getMetadata();
+		
+		kwic.tokenPropertyNames.addAll(this.knownPrefixes);
 		kwic.hitStart = this.getHitStart()+1;
 		kwic.hitEnd = this.getHitEnd()+2; // HM nog even naar kijken, oogt niet helemaal lekker zo
 		
