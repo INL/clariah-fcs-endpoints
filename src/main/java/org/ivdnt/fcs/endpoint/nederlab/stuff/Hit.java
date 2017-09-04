@@ -63,8 +63,8 @@ public class Hit
 		clariah.fcs.Kwic kwic = new clariah.fcs.Kwic();
 		kwic.tokenPropertyNames.addAll(this.knownPrefixes);
 		
-		kwic.hitStart = this.getHitStart();
-		kwic.hitEnd = this.getHitEnd()+1; // HM nog even naar kijken, gaat niet helemaal lekker zo
+		kwic.hitStart = this.getHitStart()+1;
+		kwic.hitEnd = this.getHitEnd()+2; // HM nog even naar kijken, oogt niet helemaal lekker zo
 		
 		System.err.println("Current hit to Kwic: " + this.toString());
 		
