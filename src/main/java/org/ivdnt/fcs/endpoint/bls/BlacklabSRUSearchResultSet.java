@@ -24,7 +24,7 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 	int currentRecord = 0;
 	SRURequest request;
 	String corpus;
-	BlacklabServerResultSet bsrs;
+	ResultSet bsrs;
 	
 	/*
 	protected BlacklabSRUSearchResultSet(SRUServerConfig serverConfig, SRURequest request,
@@ -37,7 +37,7 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
   */
 	
 	public BlacklabSRUSearchResultSet(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics,
-			BlacklabServerResultSet bsrs) {
+			ResultSet bsrs) {
 		// TODO Auto-generated constructor stub
 		super(diagnostics);
 		this.request = request;

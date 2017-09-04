@@ -16,7 +16,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import clariah.fcs.*;
 
-public class BlacklabServerQuery 
+public class BlacklabServerQuery extends clariah.fcs.Query
 {
 	public static final String defaultServer = "http://localhost:8080/blacklab-server-1.6.0/";
 	String server = defaultServer;
@@ -29,6 +29,7 @@ public class BlacklabServerQuery
 	
 	public BlacklabServerQuery(String server, String corpus, String cqp)
 	{
+		super(server,corpus,cqp);
 		this.server = server;
 		this.corpus= corpus;
 		this.cqp = cqp;

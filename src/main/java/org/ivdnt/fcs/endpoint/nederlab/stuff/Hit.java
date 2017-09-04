@@ -1,6 +1,7 @@
 package org.ivdnt.fcs.endpoint.nederlab.stuff;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.ivdnt.util.StringUtils;
 
@@ -23,7 +24,7 @@ public class Hit
 	{
 		return endPosition;
 	}
-	
+
 	public Hit(List<TokenProperty> unordered)
 	{
 		Map<Integer,Token> m = new HashMap<>();
@@ -52,5 +53,21 @@ public class Hit
 		List<String> lines = tokens.stream().map(t -> t.toString()).collect(Collectors.toList());
 		return this.document.NLTitle_title + "\n"  
 				+ StringUtils.join(lines, "\n");
+	}
+	
+	public clariah.fcs.Kwic toKwic()
+	{
+		clariah.fcs.Kwic kwic = new clariah.fcs.Kwic();
+		kwic.tokenPropertyNames.addAll(this.knownPrefixes);
+		kwic.hitStart = this.getHitStart();
+		kwic.hitEnd = this.getHitEnd();
+		this.knownPrefixes.forEach(
+				pref -> {
+					List<String> content = this.tokens.stream().map(t -> t.getProperty(pref)).collect(Collectors.toList());
+					kwic.tokenProperties.put(pref,content);
+				 }
+				);
+		
+		return kwic;
 	}
 }

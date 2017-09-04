@@ -9,6 +9,17 @@ public class Token
 	boolean contentToken = false;
 	//Set<String> properties = new HashSet<String>();
 	
+	
+	public String getProperty(String propertyName)
+	{
+		for (TokenProperty tp: tokenProperties)
+		{
+			if (tp.prefix.equals(propertyName))
+				return tp.value;
+		}
+		return null;
+	}
+	
 	public String toString()
 	{
 		//List<String> l = new ArrayList();

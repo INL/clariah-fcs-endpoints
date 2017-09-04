@@ -6,6 +6,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import org.ivdnt.fcs.endpoint.bls.BlacklabSRUSearchResultSet;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -79,7 +81,7 @@ public class NederlabEndpointSearchEngine extends KorpEndpointSearchEngine
 		bq.maximumResults = request.getMaximumRecords();
 
 		try {
-			BlacklabServerResultSet bsrs = bq.execute();
+			clariah.fcs.ResultSet bsrs = bq.execute();
 
 			return new BlacklabSRUSearchResultSet(config, request, diagnostics, bsrs);
 		} catch (Exception e) {

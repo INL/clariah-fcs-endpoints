@@ -2,7 +2,7 @@ package org.ivdnt.fcs.endpoint.bls;
 import clariah.fcs.*;
 import java.util.*;
 
-public class BlacklabServerResultSet 
+public class BlacklabServerResultSet extends clariah.fcs.ResultSet
 {
 	BlacklabServerQuery query;
 	int startPosition;
