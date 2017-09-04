@@ -17,7 +17,7 @@ public class Token
 			if (tp.prefix.equals(propertyName))
 				return tp.value;
 		}
-		return null;
+		return "";
 	}
 	
 	public String toString()
