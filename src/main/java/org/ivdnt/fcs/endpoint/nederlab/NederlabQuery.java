@@ -37,6 +37,7 @@ public class NederlabQuery extends clariah.fcs.Query
 	    clariah.fcs.ResultSet bsrs = new clariah.fcs.ResultSet();
 		bsrs.hits = hits;
 		bsrs.query = this;
+		bsrs.totalNumberOfResults = Integer.MAX_VALUE; // oops, hoe doe je dit?
 		System.err.println("Result set determined " + bsrs.toString());
 		return bsrs;	
 	}

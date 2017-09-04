@@ -7,7 +7,7 @@ public class ResultSet
 	public Query query;
 	public int startPosition;
 	public int maximumRecords;
-	
+	public int totalNumberOfResults;
 	public List<Kwic> hits;
 
 	public String toString() 

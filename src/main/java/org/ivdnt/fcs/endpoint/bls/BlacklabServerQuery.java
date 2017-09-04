@@ -26,6 +26,7 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 	
 	public int startPosition;
 	public int maximumResults;
+	public int totalNumberOfResults;
 	
 	public BlacklabServerQuery(String server, String corpus, String cqp)
 	{
@@ -80,7 +81,7 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 		}
 	}
 	
-	public static List<Kwic> search(BlacklabServerQuery query) throws Exception
+	public  List<Kwic> search(BlacklabServerQuery query) throws Exception
 	{
 		List<Kwic> results = new ArrayList<Kwic>();
 		String url = query.url();
@@ -93,7 +94,12 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 		
 		JSONObject docs = (JSONObject) response.get("docInfos");
 
-		
+        JSONObject summary =  (JSONObject) response.get("summary");
+        
+        Integer numberOfHits = (Integer) summary.get("numberOfHits");
+        
+        this.totalNumberOfResults = numberOfHits;
+        
 		for (int i = 0; i < hits.size(); i++) 
 		{
 			try
@@ -153,7 +159,10 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 		BlacklabServerResultSet bsrs = new BlacklabServerResultSet();
 		bsrs.hits = kwics;
 		bsrs.query = this;
+		bsrs.totalNumberOfResults = this.totalNumberOfResults;
+		
 		//bsrs.startPosition = 
+		
 		return bsrs;
 	}
 	

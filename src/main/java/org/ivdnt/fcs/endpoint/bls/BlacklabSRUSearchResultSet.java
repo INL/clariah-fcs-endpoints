@@ -50,7 +50,7 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 	public int getTotalRecordCount() 
 	{
 		// TODO Auto-generated method stub
-		return hits.size(); // klopt niet - moet uit blacklab server response worden gepeuterd
+		return this.bsrs.totalNumberOfResults; // klopt niet - moet uit blacklab server response worden gepeuterd
 	}
 
 	@Override
