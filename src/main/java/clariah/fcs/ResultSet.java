@@ -10,4 +10,8 @@ public class ResultSet
 	
 	public List<Kwic> hits;
 
+	public String toString() 
+	{
+		return hits.toString();		
+	}
 }

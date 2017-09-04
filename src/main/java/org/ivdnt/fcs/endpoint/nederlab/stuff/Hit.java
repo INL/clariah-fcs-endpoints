@@ -61,7 +61,7 @@ public class Hit
 		kwic.tokenPropertyNames.addAll(this.knownPrefixes);
 		kwic.hitStart = this.getHitStart();
 		kwic.hitEnd = this.getHitEnd();
-		System.err.println("Current hit to Kwic: " + this.toString());
+		// System.err.println("Current hit to Kwic: " + this.toString());
 		this.knownPrefixes.forEach(
 				pref -> {
 					List<String> content = this.tokens.stream().map(t -> t.getProperty(pref)).collect(Collectors.toList());

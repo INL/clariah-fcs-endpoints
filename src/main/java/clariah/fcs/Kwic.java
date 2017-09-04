@@ -3,9 +3,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.*;
-
-
-
+import java.util.stream.Collectors;
 import java.util.*;
 
 public class Kwic 
@@ -17,6 +15,20 @@ public class Kwic
 	
 	public List<String> tokenPropertyNames = new ArrayList<>();
 	public Map<String,List<String>> tokenProperties = new HashMap<>();
+	
+	public Kwic translatePrefixes(Map<String,String> map)
+	{
+	  map.forEach(
+			  (k,v) -> 
+			  { 
+				  tokenProperties.put(v, tokenProperties.get(k));
+				  tokenProperties.remove(k);
+			  }
+			  );	
+	  tokenPropertyNames = tokenPropertyNames.stream().map(
+			  p -> map.containsKey(p)? map.get(p) : p).collect(Collectors.toList());
+	  return this;
+	}
 	
 	public  List<String> getLayer(String propertyName)
 	{
