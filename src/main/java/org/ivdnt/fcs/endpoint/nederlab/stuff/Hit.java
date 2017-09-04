@@ -14,6 +14,7 @@ public class Hit
 	public String documentKey = null;
 	public Document document ;
 	public Set<String> knownPrefixes = new HashSet<String>();
+	
 	public int getHitStart()
 	{
 		return startPosition;
@@ -51,17 +52,22 @@ public class Hit
 	public String toString()
 	{
 		List<String> lines = tokens.stream().map(t -> t.toString()).collect(Collectors.toList());
-		return this.document.NLTitle_title + "\n"  
-				+ StringUtils.join(lines, "\n");
+		return 
+				"(" + this.startPosition + "-" + this.endPosition + ") "
+				+ this.document.NLTitle_title + "\n"  
+				+ StringUtils.join(lines, "; ");
 	}
 	
 	public clariah.fcs.Kwic toKwic()
 	{
 		clariah.fcs.Kwic kwic = new clariah.fcs.Kwic();
 		kwic.tokenPropertyNames.addAll(this.knownPrefixes);
+		
 		kwic.hitStart = this.getHitStart();
-		kwic.hitEnd = this.getHitEnd();
-		// System.err.println("Current hit to Kwic: " + this.toString());
+		kwic.hitEnd = this.getHitEnd()+1; // HM nog even naar kijken, gaat niet helemaal lekker zo
+		
+		System.err.println("Current hit to Kwic: " + this.toString());
+		
 		this.knownPrefixes.forEach(
 				pref -> {
 					List<String> content = this.tokens.stream().map(t -> t.getProperty(pref)).collect(Collectors.toList());

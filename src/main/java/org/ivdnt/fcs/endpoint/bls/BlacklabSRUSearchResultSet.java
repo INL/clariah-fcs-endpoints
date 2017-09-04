@@ -92,7 +92,7 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 
 		long start = 1;
 		Kwic kwic = hits.get(this.currentRecord);
-		System.err.println("start writing kwic " + currentRecord + " : " + kwic);
+		if (false) System.err.println("start writing kwic " + currentRecord + " : " + kwic);
 
 		XMLStreamWriterHelper.writeStartResource(writer, corpus + "-" + kwic.hitStart, null);
 
@@ -106,7 +106,7 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 			for (int j=0; j < kwic.tokenPropertyNames.size(); j++)
 			{
 				String pname  = kwic.tokenPropertyNames.get(j);
-				System.err.println(String.format("add to layer: layer: %s, start: %d, end: %d, value: %s", 
+				if (false) System.err.println(String.format("add to layer: layer: %s, start: %d, end: %d, value: %s", 
 						kwic.layerURL(pname),
 						start,
 						end,

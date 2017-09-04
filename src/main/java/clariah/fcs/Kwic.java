@@ -68,6 +68,14 @@ public class Kwic
 	
 	public String toString()
 	{
-		return words().toString();
+		List<String> tokens = new ArrayList<String>();
+		List<String> words = words();
+		for (int i=0; i < words.size(); i++)
+		{
+			String p =  (hitStart <= i && i <= hitEnd)?">>":"";
+			tokens.add(p + words.get(i));
+		}
+		String s = String.format("Kwic(%d,%d):", hitStart, hitEnd);
+		return s + tokens.toString();
 	}
 }
