@@ -20,36 +20,40 @@
   <Resources>
     <Resource pid="hdl:10794/sbkorpusar">
       <Title xml:lang="sv">Språkbankens korpusar</Title>
-      <Title xml:lang="en">INT corpora</Title>
+      <Title xml:lang="en">The Språkbanken corpora</Title>
       <Description xml:lang="sv">Korpusarna hos Språkbanken.</Description>
       <Description xml:lang="en">The corpora at Språkbanken.</Description>
-      <LandingPageURI>http://www.ivdnt.org/taalmaterialen#corpora</LandingPageURI>
+      <LandingPageURI>https://spraakbanken.gu.se/resurser/corpus</LandingPageURI>
       <Languages>
+        <Language>swe</Language>
+	<!--Language>fao</Language>
 	<Language>nld</Language>
+	<Language>som</Language>
+	<Language>spa</Language-->
       </Languages>
       <AvailableDataViews ref="hits adv"/>
       <AvailableLayers ref="word lemma pos"/>
       <Resources>
-	<Resource pid="hdl:10794/INTModernCorpora">
+	<Resource pid="hdl:10794/sbmoderna">
 	  <Title xml:lang="sv">Språkbankens moderna korpusar</Title>
-	  <Title xml:lang="en">INT modern Dutch corpora</Title>
+	  <Title xml:lang="en">The Språkbanken modern corpora</Title>
 	  <Description xml:lang="sv">De moderna korpusarna hos Språkbanken.</Description>
 	  <Description xml:lang="en">The modern corpora at Språkbanken.</Description>
-	  <LandingPageURI>http://www.ivdnt.org/taalmaterialen#corpora</LandingPageURI>
+	  <LandingPageURI>https://spraakbanken.gu.se/resurser/moderna</LandingPageURI>
 	  <Languages>
-            <Language>nld</Language>
+            <Language>swe</Language>
 	  </Languages>
 	  <AvailableDataViews ref="hits adv"/>
 	  <AvailableLayers ref="word lemma pos"/>
 	  <Resources>
-	    <Resource pid="hdl:10794/opensonar">
+	    <Resource pid="hdl:10794/suc">
 	      <Title xml:lang="sv">SUC-korpusen</Title>
-	      <Title xml:lang="en">OpenSoNaR in blacklab server</Title>
+	      <Title xml:lang="en">The SUC corpus</Title>
 	      <Description xml:lang="sv">Stockholm-Umeå-korpusen hos Språkbanken.</Description>
 	      <Description xml:lang="en">The Stockholm-Umeå corpus at Språkbanken.</Description>
-	      <LandingPageURI>http://opensonar.ato.inl.nl/</LandingPageURI>
+	      <LandingPageURI>https://spraakbanken.gu.se/resurser/suc</LandingPageURI>
 	      <Languages>
-		<Language>nld</Language>
+		<Language>swe</Language>
 	      </Languages>
 	      <AvailableDataViews ref="hits adv"/>
 	      <AvailableLayers ref="word lemma pos"/>
