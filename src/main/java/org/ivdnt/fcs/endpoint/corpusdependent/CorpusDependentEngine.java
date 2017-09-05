@@ -43,7 +43,7 @@ public class CorpusDependentEngine extends se.gu.spraakbanken.fcs.endpoint.korp.
 			   return engineMap.get(k);
 		   }
 	   
-	   System.err.println("Could not find engine for" + corpusId + ", send to korp");
+	   System.err.println("Could not find engine for " + corpusId + ", send to korp");
 	   return new se.gu.spraakbanken.fcs.endpoint.korp.KorpEndpointSearchEngine();
    }
    
