@@ -98,7 +98,8 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 		
 		System.err.println("URL to blacklab server: " + url);
 		JSONObject response = fetch(url);
-		//System.err.println("Response: " + response);
+		
+		System.err.println("Response: " + response);
 	
 		JSONArray hits = (JSONArray) response.get("hits");
 		
