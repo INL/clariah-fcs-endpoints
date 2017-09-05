@@ -37,8 +37,13 @@ public class CorpusDependentEngine extends se.gu.spraakbanken.fcs.endpoint.korp.
    {
 	   final SimpleEndpointSearchEngineBase engine = null;
 	   for (String k: engineMap.keySet())
-		   if (corpusId.toLowerCase().contains(k.toLowerCase())) return engineMap.get(k);
+		   if (corpusId.toLowerCase().contains(k.toLowerCase())) 
+		   {
+			   System.err.printf("Choosing %s for %s\n", engineMap.get(k), corpusId);
+			   return engineMap.get(k);
+		   }
 	   
+	   System.err.println("Could not find engine for" + corpusId + ", send to korp");
 	   return new se.gu.spraakbanken.fcs.endpoint.korp.KorpEndpointSearchEngine();
    }
    
@@ -46,6 +51,7 @@ public class CorpusDependentEngine extends se.gu.spraakbanken.fcs.endpoint.korp.
 			SRUQueryParserRegistry.Builder queryParserBuilder, Map<String, String> params) throws SRUConfigException 
    {
 		super.doInit(context, config, queryParserBuilder, params);
+		// engineMap.forEach((k,e)->e.doInit(context, config, queryParserBuilder, params));
    }
    
    public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)

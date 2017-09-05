@@ -40,10 +40,13 @@
 <!--
       <param-value>org.ivdnt.fcs.endpoint.nederlab.NederlabEndpointSearchEngine</param-value>
 -->
+<!--
       <param-value>org.ivdnt.fcs.endpoint.bls.BlacklabServerEndpointSearchEngine</param-value>
+-->
 <!--
       <param-value>se.gu.spraakbanken.fcs.endpoint.korp.KorpEndpointSearchEngine</param-value>
 -->
+     <param-value>org.ivdnt.fcs.endpoint.corpusdependent.CorpusDependentEngine</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
