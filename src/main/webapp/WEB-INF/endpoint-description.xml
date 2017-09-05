@@ -18,11 +18,11 @@
     <SupportedLayer id="pos" result-id="http://spraakbanken.gu.se/ns/fcs/layer/pos">pos</SupportedLayer>
   </SupportedLayers>
   <Resources>
-    <Resource pid="hdl:10794/sbkorpusar">
-      <Title xml:lang="sv">Språkbankens korpusar</Title>
+    <Resource pid="hdl:10794/intkorpusar">
+      <Title xml:lang="sv">INTs korpusar</Title>
       <Title xml:lang="en">INT corpora</Title>
-      <Description xml:lang="sv">Korpusarna hos Språkbanken.</Description>
-      <Description xml:lang="en">The corpora at Språkbanken.</Description>
+      <Description xml:lang="sv">Korpusarna hos INT.</Description>
+      <Description xml:lang="en">The corpora at INT.</Description>
       <LandingPageURI>http://www.ivdnt.org/taalmaterialen#corpora</LandingPageURI>
       <Languages>
 	<Language>nld</Language>
@@ -30,11 +30,12 @@
       <AvailableDataViews ref="hits adv"/>
       <AvailableLayers ref="word lemma pos"/>
       <Resources>
+
 	<Resource pid="hdl:10794/INTModernCorpora">
-	  <Title xml:lang="sv">Språkbankens moderna korpusar</Title>
+	  <Title xml:lang="sv">INTs moderna korpusar</Title>
 	  <Title xml:lang="en">INT modern Dutch corpora</Title>
-	  <Description xml:lang="sv">De moderna korpusarna hos Språkbanken.</Description>
-	  <Description xml:lang="en">The modern corpora at Språkbanken.</Description>
+	  <Description xml:lang="sv">De moderna korpusarna hos INT.</Description>
+	  <Description xml:lang="en">The modern corpora at INT.</Description>
 	  <LandingPageURI>http://www.ivdnt.org/taalmaterialen#corpora</LandingPageURI>
 	  <Languages>
             <Language>nld</Language>
@@ -42,11 +43,12 @@
 	  <AvailableDataViews ref="hits adv"/>
 	  <AvailableLayers ref="word lemma pos"/>
 	  <Resources>
+
 	    <Resource pid="hdl:10794/opensonar">
-	      <Title xml:lang="sv">SUC-korpusen</Title>
+	      <Title xml:lang="sv">OpenSoNaR-korpusen</Title>
 	      <Title xml:lang="en">OpenSoNaR in blacklab server</Title>
-	      <Description xml:lang="sv">Stockholm-Umeå-korpusen hos Språkbanken.</Description>
-	      <Description xml:lang="en">The Stockholm-Umeå corpus at Språkbanken.</Description>
+	      <Description xml:lang="sv">OpenSoNaR hos INT.</Description>
+	      <Description xml:lang="en">The OpenSoNaR corpus at INT.</Description>
 	      <LandingPageURI>http://opensonar.ato.inl.nl/</LandingPageURI>
 	      <Languages>
 		<Language>nld</Language>
@@ -54,8 +56,66 @@
 	      <AvailableDataViews ref="hits adv"/>
 	      <AvailableLayers ref="word lemma pos"/>
 	    </Resource>
+
+            <Resource pid="hdl:10794/chn">
+              <Title xml:lang="sv">CHN-korpusen</Title>
+              <Title xml:lang="en">Corpus of Contemporary Dutch</Title>
+              <Description xml:lang="sv">CHN hos INT.</Description>
+              <Description xml:lang="en">The Corpus of Contemporary Dutch.</Description>
+              <LandingPageURI>http://corpushedendaagsnederlands.inl.nl/</LandingPageURI>
+              <Languages>
+                <Language>nld</Language>
+              </Languages>
+              <AvailableDataViews ref="hits adv"/>
+              <AvailableLayers ref="word lemma pos"/>
+            </Resource>
+
 	  </Resources>
 	</Resource>
+
+        <Resource pid="hdl:10794/INTHistoricalCorpora">
+          <Title xml:lang="sv">INTs moderna korpusar</Title>
+          <Title xml:lang="en">INT historical Dutch corpora</Title>
+          <Description xml:lang="sv">De moderna korpusarna hos INT.</Description>
+          <Description xml:lang="en">The historical corpora at INT.</Description>
+          <LandingPageURI>http://www.ivdnt.org/taalmaterialen#corpora</LandingPageURI>
+          <Languages>
+            <Language>nld</Language>
+          </Languages>
+          <AvailableDataViews ref="hits adv"/>
+          <AvailableLayers ref="word lemma pos"/>
+          <Resources>
+
+            <Resource pid="hdl:10794/brievenalsbuit">
+              <Title xml:lang="sv">LaL-korpusen</Title>
+              <Title xml:lang="en">Letters as Loot corpus</Title>
+              <Description xml:lang="sv">LettersAsLoot hos INT.</Description>
+              <Description xml:lang="en">The Letters as Loot corpus at INT. 17th and 18th century Dutch letters written by, or addressed to sailors</Description>
+              <LandingPageURI>http://brievenalsbuit.inl.nl/</LandingPageURI>
+              <Languages>
+                <Language>nld</Language>
+              </Languages>
+              <AvailableDataViews ref="hits adv"/>
+              <AvailableLayers ref="word lemma pos"/>
+            </Resource>
+
+            <Resource pid="hdl:10794/corpusgysseling">
+              <Title xml:lang="sv">Gysseling-korpusen</Title>
+              <Title xml:lang="en">The corpus Gysseling</Title>
+              <Description xml:lang="sv">Gysseling hos INT.</Description>
+              <Description xml:lang="en">The Corpus Gysseling at INT. 13th century Dutch documents</Description>
+              <LandingPageURI>http://gysseling.corpus.taalbanknederlands.inl.nl/</LandingPageURI>
+              <Languages>
+                <Language>nld</Language>
+              </Languages>
+              <AvailableDataViews ref="hits adv"/>
+              <AvailableLayers ref="word lemma pos"/>
+            </Resource>
+
+          </Resources>
+        </Resource>
+
+
       </Resources>
     </Resource>
   </Resources>
