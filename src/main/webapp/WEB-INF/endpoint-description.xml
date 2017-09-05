@@ -57,7 +57,7 @@
 	      <AvailableLayers ref="word lemma pos"/>
 	    </Resource>
 
-            <Resource pid="hdl:10794/chn">
+            <Resource pid="chn">
               <Title xml:lang="sv">CHN-korpusen</Title>
               <Title xml:lang="en">Corpus of Contemporary Dutch</Title>
               <Description xml:lang="sv">CHN hos INT.</Description>
@@ -73,7 +73,7 @@
 	  </Resources>
 	</Resource>
 
-        <Resource pid="hdl:10794/INTHistoricalCorpora">
+        <Resource pid="INTHistoricalCorpora">
           <Title xml:lang="sv">INTs moderna korpusar</Title>
           <Title xml:lang="en">INT historical Dutch corpora</Title>
           <Description xml:lang="sv">De moderna korpusarna hos INT.</Description>
@@ -86,7 +86,7 @@
           <AvailableLayers ref="word lemma pos"/>
           <Resources>
 
-            <Resource pid="hdl:10794/brievenalsbuit">
+            <Resource pid="brievenalsbuit">
               <Title xml:lang="sv">LaL-korpusen</Title>
               <Title xml:lang="en">Letters as Loot corpus</Title>
               <Description xml:lang="sv">LettersAsLoot hos INT.</Description>
@@ -99,7 +99,7 @@
               <AvailableLayers ref="word lemma pos"/>
             </Resource>
 
-            <Resource pid="hdl:10794/corpusgysseling">
+            <Resource pid="corpusgysseling">
               <Title xml:lang="sv">Gysseling-korpusen</Title>
               <Title xml:lang="en">The corpus Gysseling</Title>
               <Description xml:lang="sv">Gysseling hos INT.</Description>
@@ -112,6 +112,18 @@
               <AvailableLayers ref="word lemma pos"/>
             </Resource>
 
+            <Resource pid="nederlab">
+              <Title xml:lang="sv">Nederlab</Title>
+              <Title xml:lang="en">Nederlab</Title>
+              <Description xml:lang="sv">Nederlab.</Description>
+              <Description xml:lang="en">Nederlab portal endpoint for Clariah (Diachronic corpus)</Description>
+              <LandingPageURI>http://www.nederlab.nl/onderzoeksportaal/</LandingPageURI>
+              <Languages>
+                <Language>nld</Language>
+              </Languages>
+              <AvailableDataViews ref="hits adv"/>
+              <AvailableLayers ref="word lemma pos"/>
+            </Resource>
           </Resources>
         </Resource>
 
