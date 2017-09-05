@@ -60,7 +60,7 @@ public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine
 		for (String erd : request.getExtraRequestDataNames()) {
 			if ("x-fcs-context".equals(erd)) {
 				hasFcsContextCorpus = true;
-				fcsContextCorpus = request.getExtraRequestData("x-fcs-context");
+				// fcsContextCorpus = request.getExtraRequestData("x-fcs-context"); // TODO fix this in corpusinfo implementation
 				break;
 			}
 		}

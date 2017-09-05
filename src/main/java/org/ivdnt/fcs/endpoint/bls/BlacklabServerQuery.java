@@ -20,24 +20,24 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 {
 	public static final String atHome = "http://localhost:8080/blacklab-server-1.6.0/";
 	public static final String corpusAtHome="ezel";
-	
-	
+
+
 	public static final String openSonarServer =  "http://opensonar.ato.inl.nl/blacklab-server/";
 	public static final String openSonarCorpus="opensonar";
-	
+
 	public static final String defaultServer = openSonarServer;
 	public static final String defaultCorpus = openSonarCorpus;
-	
+
 	String server = defaultServer;
 	String corpus = defaultCorpus;
-	
+
 	String cqp = "[word='paard']";
-	
-	
+
+
 	public int startPosition;
 	public int maximumResults;
 	public int totalNumberOfResults;
-	
+
 	public BlacklabServerQuery(String server, String corpus, String cqp)
 	{
 		super(server,corpus,cqp);
@@ -45,13 +45,13 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 		this.corpus= corpus;
 		this.cqp = cqp;
 	}
-	
+
 	public String url()
 	{
 		try {
 			String url = server  +  "/" + corpus + "/"  + "hits?patt=" + URLEncoder.encode(cqp, "utf-8") + "&outputformat=json" +
-		"&first=" + startPosition
-		+ "&number=" + (maximumResults);
+					"&first=" + startPosition
+					+ "&number=" + (maximumResults);
 			return url;
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -59,7 +59,7 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 		}
 		return null;
 	}
-	
+
 	static List<String> tokenProperty(JSONObject context, String pname)
 	{
 		List<String> l = new ArrayList<String>();
@@ -70,7 +70,7 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 		}
 		return  l;
 	}
-	
+
 	public static JSONObject fetch(String url) throws Exception 
 	{
 		// Read from the specified URL.
@@ -90,91 +90,101 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 			is.close();
 		}
 	}
-	
-	public  List<Kwic> search(BlacklabServerQuery query) throws Exception
+
+	public  List<Kwic> search() throws Exception
 	{
 		List<Kwic> results = new ArrayList<Kwic>();
-		String url = query.url();
-		
+		String url = this.url();
+
 		System.err.println("URL to blacklab server: " + url);
 		JSONObject response = fetch(url);
-		
+
 		System.err.println("Response: " + response);
-	
+
 		JSONArray hits = (JSONArray) response.get("hits");
-		
+
 		JSONObject docs = (JSONObject) response.get("docInfos");
 
-        JSONObject summary =  (JSONObject) response.get("summary");
-        
-        Integer numberOfHits = (Integer) summary.get("numberOfHits");
-        
-        this.totalNumberOfResults = numberOfHits;
-        
+		JSONObject summary =  (JSONObject) response.get("summary");
+
+		Object nof = summary.get("numberOfHits");
+
+		if (nof instanceof Integer)
+		{
+			this.totalNumberOfResults = (Integer) nof;
+		} else if (nof instanceof Long)
+		{ 
+			this.totalNumberOfResults = ((Long) nof).intValue();
+		}
+
+
 		for (int i = 0; i < hits.size(); i++) 
 		{
 			try
 			{
-			Kwic kwic = new Kwic(); results.add(kwic);
-			JSONObject hit = (JSONObject) hits.get(i);
-			// System.err.println("hit " + i + "=" + hit);
-			// Add the document title and the hit information
+				Kwic kwic = new Kwic(); results.add(kwic);
+				JSONObject hit = (JSONObject) hits.get(i);
+				
+				System.err.println("hit " + i + "=" + hit);
+				// Add the document title and the hit information
 
-			JSONObject doc = (JSONObject) docs.get((String) hit.get("docPid"));
-			Set<String> metadataProperties = doc.keySet();
-			
-			doc.forEach( (k,v) -> kwic.metadata.put(k.toString(), v.toString()) ); // or put this in separate document objects?
-			
-			
-			JSONObject leftContext = (JSONObject) hit.get("left");
-			JSONObject match = (JSONObject) hit.get("match");
-			JSONObject rightContext = (JSONObject) hit.get("right");
+				JSONObject doc = (JSONObject) docs.get((String) hit.get("docPid"));
+				Set<String> metadataProperties = doc.keySet();
 
-			Set<String> tokenProperties =  match.keySet();
+				doc.forEach( (k,v) -> kwic.metadata.put(k.toString(), v.toString()) ); // or put this in separate document objects?
 
-			int hitStart = 0;
-			int hitEnd=0;
 
-			for (String pname: tokenProperties)
-			{
-				kwic.tokenPropertyNames.add(pname);
-				List<String> list = tokenProperty(leftContext, pname);
+				JSONObject leftContext = (JSONObject) hit.get("left");
+				JSONObject match = (JSONObject) hit.get("match");
+				JSONObject rightContext = (JSONObject) hit.get("right");
 
-				if (pname.equals("word")) hitStart = list.size();
-				List<String> matches = tokenProperty(match, pname);
-				list.addAll(matches);
-				if (pname.equals("word")) hitEnd = list.size();
-				list.addAll(tokenProperty(rightContext, pname));
-				kwic.tokenProperties.put(pname, list);
-			}
+				Set<String> tokenProperties =  match.keySet();
 
-			kwic.hitStart = hitStart;
-			kwic.hitEnd = hitEnd;
+				int hitStart = 0;
+				int hitEnd=0;
 
-			System.err.println("Kwic: "  + i + ":" + kwic);
-			// Context of the hit is passed in arrays, per property
-			// (word/lemma/PoS). Right now we only want to display the 
-			// words. This is how we join the word array to a string.    
+				for (String pname: tokenProperties)
+				{
+					kwic.tokenPropertyNames.add(pname);
+					List<String> list = tokenProperty(leftContext, pname);
+
+					if (pname.equals("word")) hitStart = list.size();
+					List<String> matches = tokenProperty(match, pname);
+					list.addAll(matches);
+					if (pname.equals("word")) hitEnd = list.size();
+					list.addAll(tokenProperty(rightContext, pname));
+					kwic.tokenProperties.put(pname, list);
+				}
+
+				kwic.hitStart = hitStart;
+				kwic.hitEnd = hitEnd;
+
+				System.err.println("Kwic: "  + i + ":" + kwic);
+				// Context of the hit is passed in arrays, per property
+				// (word/lemma/PoS). Right now we only want to display the 
+				// words. This is how we join the word array to a string.    
 			} catch (Exception e)
 			{
 				e.printStackTrace();
+				throw e;
 			}
 		}
 
+		System.err.printf("Loop completed, %d hits !\n", results.size());
 		return results;
 	}
 
 	public BlacklabServerResultSet execute() throws Exception
 	{
-		List<Kwic> kwics = search(this);
+		List<Kwic> kwics = search();
 		BlacklabServerResultSet bsrs = new BlacklabServerResultSet();
 		bsrs.hits = kwics;
 		bsrs.query = this;
 		bsrs.totalNumberOfResults = this.totalNumberOfResults;
-		
+
 		//bsrs.startPosition = 
-		
+		System.err.println("execute OK: result set " + bsrs);
 		return bsrs;
 	}
-	
+
 }

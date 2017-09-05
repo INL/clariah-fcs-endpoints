@@ -18,6 +18,10 @@ public abstract class Query
 		this.cqp = cqp;
 	}
 	
+	public String toString() 
+	{
+		return String.format("Query(cqp=%s,server=%s,corpus=%s)",cqp,server,corpus);
+	}
 	
 	public abstract  ResultSet execute() throws Exception;
 }
