@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Centers>
-    
+
+<!--    
         <CenterProfile>
             <Centername>ASV Leipzig</Centername>
             <Center_id>4</Center_id>
@@ -150,13 +151,13 @@
             <Center_id>10</Center_id>
             <Center_id_link>https://centres.clarin.eu/restxml/10</Center_id_link>
         </CenterProfile>
-    
+ --> 
         <CenterProfile>
             <Centername>Instituut voor de Nederlandse Taal</Centername>
             <Center_id>22</Center_id>
             <Center_id_link>http://localhost:8080/blacklab-sru-server/registry/clarin_center_ivdnt.xml</Center_id_link>
         </CenterProfile>
-    
+<!--  
         <CenterProfile>
             <Centername>LINDAT/CLARIN</Centername>
             <Center_id>3</Center_id>
@@ -258,5 +259,5 @@
             <Center_id>42</Center_id>
             <Center_id_link>https://centres.clarin.eu/restxml/42</Center_id_link>
         </CenterProfile>
-    
+-->    
 </Centers>

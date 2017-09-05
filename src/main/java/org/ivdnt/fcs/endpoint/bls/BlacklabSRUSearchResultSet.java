@@ -6,6 +6,7 @@ import java.util.*;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import eu.clarin.sru.server.SRUConstants;
 import eu.clarin.sru.server.SRUDiagnosticList;
 import eu.clarin.sru.server.SRUException;
 import eu.clarin.sru.server.SRURequest;
@@ -25,6 +26,8 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 	SRURequest request;
 	String corpus;
 	ResultSet bsrs;
+	
+	public static final String CLARIN_FCS_RECORD_SCHEMA = "http://clarin.eu/fcs/resource";
 	
 	/*
 	protected BlacklabSRUSearchResultSet(SRUServerConfig serverConfig, SRURequest request,
@@ -62,7 +65,7 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 	@Override
 	public String getRecordSchemaIdentifier() {
 		// TODO Auto-generated method stub
-		return "http://hap.flap.se";
+		return request.getRecordSchemaIdentifier() != null ? request.getRecordSchemaIdentifier() : CLARIN_FCS_RECORD_SCHEMA;
 	}
 
 	@Override
@@ -75,10 +78,17 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 		return false;
 	}
 
+	/**
+	 * Let op: als er een recordIdentifier in de XML komt geeft de aggregator een error,
+	 * want hij zit niet in sruResponse.xsd
+	 * zie https://lists.oasis-open.org/archives/search-ws-comment/201404/msg00000.html 
+	 * @see eu.clarin.sru.server.SRUSearchResultSet#getRecordIdentifier()
+	 */
 	@Override
 	public String getRecordIdentifier() {
 		// TODO Auto-generated method stub
-		return "rid:" + currentRecord;
+		return null;
+		// return "rid:" + currentRecord;
 	}
 
 	@Override
