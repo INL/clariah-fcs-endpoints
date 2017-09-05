@@ -7,6 +7,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 import org.ivdnt.fcs.endpoint.bls.BlacklabSRUSearchResultSet;
+import org.ivdnt.fcs.endpoint.bls.BlacklabServerEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.bls.BlacklabServerQuery;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -33,28 +34,7 @@ public class NederlabEndpointSearchEngine extends KorpEndpointSearchEngine
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException 
 	{
-		String query;
-	
-		if (request.isQueryType(Constants.FCS_QUERY_TYPE_CQL)) {
-			/*
-			 * Got a CQL query (either SRU 1.1 or higher). Translate to a proper CQP query
-			 * ...
-			 */
-			final CQLQueryParser.CQLQuery q = request.getQuery(CQLQueryParser.CQLQuery.class);
-			query = FCSToCQPConverter.makeCQPFromCQL(q);
-		} else if (request.isQueryType(Constants.FCS_QUERY_TYPE_FCS)) {
-			/*
-			 * Got a FCS query (SRU 2.0). Translate to a proper CQP query
-			 */
-			final FCSQueryParser.FCSQuery q = request.getQuery(FCSQueryParser.FCSQuery.class);
-			query = FCSToCQPConverter.makeCQPFromFCS(q);
-		} else {
-			/*
-			 * Got something else we don't support. Send error ...
-			 */
-			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN, "Queries with queryType '"
-					+ request.getQueryType() + "' are not supported by this CLARIN-FCS Endpoint.");
-		}
+		String query = BlacklabServerEndpointSearchEngine.translateQuery(request);
 
 		boolean hasFcsContextCorpus = false;
 		
@@ -97,5 +77,5 @@ public class NederlabEndpointSearchEngine extends KorpEndpointSearchEngine
 		 * "The query execution failed by this CLARIN-FCS Endpoint."); }
 		 */
 
-	}
+	}	
 }
