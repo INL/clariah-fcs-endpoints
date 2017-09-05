@@ -7,6 +7,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 import org.ivdnt.fcs.endpoint.bls.BlacklabSRUSearchResultSet;
+import org.ivdnt.fcs.endpoint.bls.BlacklabServerQuery;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -57,7 +58,7 @@ public class NederlabEndpointSearchEngine extends KorpEndpointSearchEngine
 
 		boolean hasFcsContextCorpus = false;
 		
-		String fcsContextCorpus = "ezel";
+		String fcsContextCorpus = BlacklabServerQuery.defaultCorpus;
 		
 		for (String erd : request.getExtraRequestDataNames()) {
 			if ("x-fcs-context".equals(erd)) {

@@ -55,7 +55,7 @@ public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine
 
 		boolean hasFcsContextCorpus = false;
 		
-		String fcsContextCorpus = "ezel";
+		String fcsContextCorpus = BlacklabServerQuery.defaultCorpus;
 		
 		for (String erd : request.getExtraRequestDataNames()) {
 			if ("x-fcs-context".equals(erd)) {

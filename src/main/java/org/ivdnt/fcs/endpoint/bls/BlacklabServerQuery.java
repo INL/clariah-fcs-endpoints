@@ -18,11 +18,21 @@ import clariah.fcs.*;
 
 public class BlacklabServerQuery extends clariah.fcs.Query
 {
-	public static final String defaultServer = "http://localhost:8080/blacklab-server-1.6.0/";
+	public static final String atHome = "http://localhost:8080/blacklab-server-1.6.0/";
+	public static final String corpusAtHome="ezel";
+	
+	
+	public static final String openSonarServer =  "http://opensonar.ato.inl.nl/blacklab-server/";
+	public static final String openSonarCorpus="opensonar";
+	
+	public static final String defaultServer = openSonarServer;
+	public static final String defaultCorpus = openSonarCorpus;
+	
 	String server = defaultServer;
+	String corpus = defaultCorpus;
 	
 	String cqp = "[word='paard']";
-	String corpus = "ezel";
+	
 	
 	public int startPosition;
 	public int maximumResults;
