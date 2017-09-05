@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Centers>
+    
+        <CenterProfile>
+            <Centername>ASV Leipzig</Centername>
+            <Center_id>4</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/4</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Bayerisches Archiv für Sprachsignale</Centername>
+            <Center_id>5</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/5</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Berlin-Brandenburg Academy of Sciences and Humanities</Centername>
+            <Center_id>6</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/6</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Beeld en Geluid</Centername>
+            <Center_id>39</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/39</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>CLARIN Centre Vienna</Centername>
+            <Center_id>2</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/2</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Centre for the Digital Foundation of Research in the Humanities, Social, and Educational Sciences</Centername>
+            <Center_id>35</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/35</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Center of Estonian Language Resources</Centername>
+            <Center_id>15</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/15</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>The CLARIN Centre at University of Copenhagen</Centername>
+            <Center_id>14</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/14</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>CLARIN-LT</Centername>
+            <Center_id>36</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/36</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>CLARIN-PL Language Technology Centre</Centername>
+            <Center_id>25</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/25</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>CLARINO Bergen Center</Centername>
+            <Center_id>29</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/29</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>CLARIN.SI Language Technology Centre</Centername>
+            <Center_id>30</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/30</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Centre for Language and Speech Technology</Centername>
+            <Center_id>40</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/40</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>CMU-TalkBank</Centername>
+            <Center_id>18</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/18</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Collections de corpus oraux numeriques </Centername>
+            <Center_id>33</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/33</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Data Archiving and Networked Services</Centername>
+            <Center_id>20</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/20</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Eberhard Karls Universität Tübingen</Centername>
+            <Center_id>1</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/1</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>The Language Bank of Finland</Centername>
+            <Center_id>17</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/17</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Forschungzentrum Jülich</Centername>
+            <Center_id>7</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/7</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Gesellschaft für wissenschaftliche Datenverarbeitung Göttingen</Centername>
+            <Center_id>8</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/8</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Hamburger Zentrum für Sprachkorpora</Centername>
+            <Center_id>9</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/9</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Huygens ING</Centername>
+            <Center_id>21</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/21</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Institut für Deutsche Sprache</Centername>
+            <Center_id>11</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/11</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>The ILC4CLARIN Centre at the Institute for Computational Linguistics </Centername>
+            <Center_id>34</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/34</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Institut für Maschinelle Sprachverarbeitung</Centername>
+            <Center_id>10</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/10</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Instituut voor de Nederlandse Taal</Centername>
+            <Center_id>22</Center_id>
+            <Center_id_link>http://localhost:8080/blacklab-sru-server/registry/clarin_center_ivdnt.xml</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>LINDAT/CLARIN</Centername>
+            <Center_id>3</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/3</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Meertens Instituut/HuC</Centername>
+            <Center_id>23</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/23</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Mediterranean Research Centre for the Humanities&#39; Phonothèque</Centername>
+            <Center_id>44</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/44</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Max Planck Computing and Data Facility</Centername>
+            <Center_id>12</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/12</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>MPI for Psycholinguistics</Centername>
+            <Center_id>24</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/24</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>National Library of Norway</Centername>
+            <Center_id>31</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/31</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Oxford Text Archive</Centername>
+            <Center_id>26</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/26</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Phonogrammarchiv Institute for audiovisual Research and Documentation</Centername>
+            <Center_id>41</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/41</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>PolMine Project</Centername>
+            <Center_id>38</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/38</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Speech &amp; Language Data Repository</Centername>
+            <Center_id>28</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/28</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Spanish CLARIN K-Centre</Centername>
+            <Center_id>32</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/32</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Språkbanken, The Swedish language bank</Centername>
+            <Center_id>37</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/37</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>CLARINO Text Laboratory Centre</Centername>
+            <Center_id>43</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/43</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Utrecht Institute of Linguistics OTS</Centername>
+            <Center_id>27</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/27</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>IULA-UPF-CC-CLARIN</Centername>
+            <Center_id>16</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/16</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Universität des Saarlandes </Centername>
+            <Center_id>13</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/13</Center_id_link>
+        </CenterProfile>
+    
+        <CenterProfile>
+            <Centername>Lund University Humanities Lab</Centername>
+            <Center_id>42</Center_id>
+            <Center_id_link>https://centres.clarin.eu/restxml/42</Center_id_link>
+        </CenterProfile>
+    
+</Centers>
