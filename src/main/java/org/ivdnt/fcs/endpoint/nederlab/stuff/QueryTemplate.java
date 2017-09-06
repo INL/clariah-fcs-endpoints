@@ -70,6 +70,8 @@ public class QueryTemplate
 		}
 		*/
 	}
+	// s removed from output. offsets??
+	
 	static String tpl ="{"+
 			"  \"condition\": {"+
 			"    \"type\": \"cql\","+
@@ -102,7 +104,7 @@ public class QueryTemplate
 			"          \"output\": \"token\","+
 			"          \"number\": 50, "+
 			"          \"start\": 0,"+
-			"          \"prefix\": \"t,pos,s,lemma\","+
+			"          \"prefix\": \"t,pos,lemma\","+
 			"          \"left\": _CONTEXT_,"+
 			"          \"right\": _CONTEXT_ "+
 			"        }"+

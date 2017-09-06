@@ -25,6 +25,8 @@ public class CorpusDependentEngine extends se.gu.spraakbanken.fcs.endpoint.korp.
 {
    SimpleEndpointSearchEngineBase engine;
    
+   // TODO: server may also depend on corpus identifier
+   
    Map<String, SimpleEndpointSearchEngineBase> engineMap = new HashMap<String, SimpleEndpointSearchEngineBase>() 
    { 
 	   {
@@ -43,7 +45,7 @@ public class CorpusDependentEngine extends se.gu.spraakbanken.fcs.endpoint.korp.
 			   return engineMap.get(k);
 		   }
 	   
-	   System.err.println("Could not find engine for " + corpusId + ", send to korp");
+	   System.err.println("Could not find engine for corpus: " + corpusId + ", send to korp");
 	   return new se.gu.spraakbanken.fcs.endpoint.korp.KorpEndpointSearchEngine();
    }
    

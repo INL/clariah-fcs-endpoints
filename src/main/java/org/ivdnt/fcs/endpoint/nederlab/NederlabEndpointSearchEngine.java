@@ -67,7 +67,7 @@ public class NederlabEndpointSearchEngine extends KorpEndpointSearchEngine
 			return new BlacklabSRUSearchResultSet(config, request, diagnostics, bsrs);
 		} catch (Exception e) {
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
-					"The query execution failed by this CLARIN-FCS (Blacklab Server) Endpoint." + bq);
+					"The query execution failed by this CLARIN-FCS (nederlab) endpoint. " + bq);
 		}
 		/*
 		 * Query queryRes = makeAndExecuteQuery(query, fcsContextCorpus,
