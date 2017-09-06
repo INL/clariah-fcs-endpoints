@@ -22,11 +22,17 @@ start conf/start_aggregator.sh and browse to http://localhost:4019/Aggregator
 
 ### Blacklab Server
 
+No problems expected here 
+
 ### Nederlab portal
+
+Issues:
+* JSON response difficult to understand
+* JSON query options also not so obvious
 
 ### Corpusdependent
 
-Chooses one of the above dependent on the corpus
+Chooses one of the above dependent on the corpus.
 
 ## Configuration
 
