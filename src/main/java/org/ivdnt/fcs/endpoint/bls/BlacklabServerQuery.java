@@ -31,7 +31,7 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 	String server = defaultServer;
 	String corpus = defaultCorpus;
 
-	String cqp = "[word='paard']";
+	String cqp = "[word='hadjememaar']";
 
 
 	public int startPosition;
@@ -99,7 +99,7 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 		System.err.println("URL to blacklab server: " + url);
 		JSONObject response = fetch(url);
 
-		System.err.println("Response: " + response);
+		// System.err.println("Response: " + response);
 
 		JSONArray hits = (JSONArray) response.get("hits");
 
@@ -125,13 +125,13 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 				Kwic kwic = new Kwic(); results.add(kwic);
 				JSONObject hit = (JSONObject) hits.get(i);
 				
-				System.err.println("hit " + i + "=" + hit);
-				// Add the document title and the hit information
+				// System.err.println("hit " + i + "=" + hit);
+				
 
 				JSONObject doc = (JSONObject) docs.get((String) hit.get("docPid"));
 				Set<String> metadataProperties = doc.keySet();
 
-				doc.forEach( (k,v) -> kwic.metadata.put(k.toString(), v.toString()) ); // or put this in separate document objects?
+				doc.forEach( (k,v) -> kwic.metadata.put(k.toString(), v.toString()) ); // or put this in separate document info objects?
 
 
 				JSONObject leftContext = (JSONObject) hit.get("left");
@@ -159,10 +159,8 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 				kwic.hitStart = hitStart;
 				kwic.hitEnd = hitEnd;
 
-				System.err.println("Kwic: "  + i + ":" + kwic);
-				// Context of the hit is passed in arrays, per property
-				// (word/lemma/PoS). Right now we only want to display the 
-				// words. This is how we join the word array to a string.    
+				// System.err.println("Kwic: "  + i + ":" + kwic);
+			 
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -182,7 +180,6 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 		bsrs.query = this;
 		bsrs.totalNumberOfResults = this.totalNumberOfResults;
 
-		//bsrs.startPosition = 
 		System.err.println("execute OK: result set " + bsrs);
 		return bsrs;
 	}

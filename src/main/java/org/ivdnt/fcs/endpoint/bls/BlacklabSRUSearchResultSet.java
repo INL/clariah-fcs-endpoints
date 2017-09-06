@@ -29,19 +29,11 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 	
 	public static final String CLARIN_FCS_RECORD_SCHEMA = "http://clarin.eu/fcs/resource";
 	
-	/*
-	protected BlacklabSRUSearchResultSet(SRUServerConfig serverConfig, SRURequest request,
-			SRUDiagnosticList diagnostics, BlacklabServerQuery resultSet, String query, CorporaInfo corporaInfo) {
-		// super(serverConfig, request, diagnostics, resultSet, query, corporaInfo);
-		// TODO Auto-generated constructor stub
-		super(diagnostics);
-		this.request = request;
-	}
-  */
+	
 	
 	public BlacklabSRUSearchResultSet(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics,
 			ResultSet bsrs) {
-		// TODO Auto-generated constructor stub
+		
 		super(diagnostics);
 		this.request = request;
 		this.bsrs = bsrs;
@@ -52,8 +44,7 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 	@Override
 	public int getTotalRecordCount() 
 	{
-		// TODO Auto-generated method stub
-		return this.bsrs.totalNumberOfResults; // klopt niet - moet uit blacklab server response worden gepeuterd
+		return this.bsrs.totalNumberOfResults; 
 	}
 
 	@Override
@@ -64,13 +55,13 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 
 	@Override
 	public String getRecordSchemaIdentifier() {
-		// TODO Auto-generated method stub
+		
 		return request.getRecordSchemaIdentifier() != null ? request.getRecordSchemaIdentifier() : CLARIN_FCS_RECORD_SCHEMA;
 	}
 
 	@Override
 	public boolean nextRecord() throws SRUException {
-		// TODO Auto-generated method stub
+		
 		if (currentRecord + 1 < hits.size()) {
 			currentRecord++;
 			return true;
@@ -94,7 +85,7 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 	@Override
 	public void writeRecord(XMLStreamWriter writer) throws XMLStreamException 
 	{
-		// TODO Auto-generated method stub
+		
 		AdvancedDataViewWriter helper =
 				new AdvancedDataViewWriter(AdvancedDataViewWriter.Unit.ITEM);
 
@@ -109,7 +100,6 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 		XMLStreamWriterHelper.writeStartResourceFragment(writer, null, null);
 
         // TODO insert a metadata dataview here, CMDI and possibly dublin core as well (?)
-		
 		
 		writer.writeStartElement("fcs", "DataView", "http://clarin.eu/fcs/resource");
 		writer.writeAttribute(null, null, "type", "application/x-clariah-fcs-simple-metadata+xml");
@@ -184,7 +174,7 @@ public class BlacklabSRUSearchResultSet extends SRUSearchResultSet
 			throw new XMLStreamException(e.getMessage());
 		}
 		
-		System.err.println("end writing kwic " + currentRecord + " : " + kwic);
+		// System.err.println("end writing kwic " + currentRecord + " : " + kwic);
 	}
 
 }

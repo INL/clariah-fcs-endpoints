@@ -48,13 +48,7 @@ public class NederlabEndpointSearchEngine extends KorpEndpointSearchEngine
 			}
 		}
 		
-		if (hasFcsContextCorpus && !"".equals(fcsContextCorpus)) {
-			if (!"hdl%3A10794%2Fsbmoderna".equals(fcsContextCorpus)) {
-				// LOG.info("Loading specific corpus data: '{}'", fcsContextCorpus);
-				// getCorporaInfo();
-			}
-			// hdl%3A10794%2Fsbmoderna is the default
-		}
+		
 
 		NederlabQuery bq = new NederlabQuery(NederlabQuery.defaultServer, fcsContextCorpus, query);
 
@@ -69,13 +63,6 @@ public class NederlabEndpointSearchEngine extends KorpEndpointSearchEngine
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
 					"The query execution failed by this CLARIN-FCS (nederlab) endpoint. " + bq);
 		}
-		/*
-		 * Query queryRes = makeAndExecuteQuery(query, fcsContextCorpus,
-		 * request.getStartRecord(), request.getMaximumRecords()); if (queryRes == null)
-		 * { throw new
-		 * SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
-		 * "The query execution failed by this CLARIN-FCS Endpoint."); }
-		 */
 
 	}	
 }
