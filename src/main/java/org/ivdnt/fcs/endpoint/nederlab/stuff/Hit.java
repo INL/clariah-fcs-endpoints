@@ -5,6 +5,11 @@ import java.util.stream.Stream;
 
 import org.ivdnt.util.StringUtils;
 
+/**
+ * 
+ * @author jesse
+ *TODO: als s bij de output zit, gaan de offsets fout
+ */
 public class Hit 
 {
 	public int startPosition;
@@ -66,8 +71,8 @@ public class Hit
 		kwic.metadata = document.getMetadata();
 		
 		kwic.tokenPropertyNames.addAll(this.knownPrefixes);
-		kwic.hitStart = this.getHitStart()+1;
-		kwic.hitEnd = this.getHitEnd()+2; // HM nog even naar kijken, oogt niet helemaal lekker zo
+		kwic.hitStart = this.getHitStart();
+		kwic.hitEnd = this.getHitEnd()+1; // HM nog even naar kijken, oogt niet helemaal lekker zo
 		
 		System.err.println("Current hit to Kwic: " + this.toString());
 		
