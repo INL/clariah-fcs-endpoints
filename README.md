@@ -8,6 +8,10 @@ Based on the fhe Korp fcs 2.0 reference endpoint implementation (https://github.
 
 We test by running the clarin fcs aggregator, https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/# for a running version; source at https://svn.clarin.eu/SRUAggregator/
 
+## Clarin FCS
+
+Cf also https://svn.clarin.eu/FCS-QL/; https://www.clarin.eu/sites/default/files/CE-2015-0629-FCS-2-workplan.pdf; published specification at https://office.clarin.eu/v/CE-2017-1046-FCS-Specification.pdf; voor dataviews zie o.m. https://www.clarin.eu/sites/default/files/CE-2014-0317-CLARIN_FCS_Specification_DataViews_1_0.pdf, met name CMDI data view. Zie ook https://office.clarin.eu/v/CE-2017-1035-CLARINPLUS-D2_9.pdf voor aggregator. Aggregator code: https://svn.clarin.eu/SRUAggregator; zie ook https://www.clarin.eu/content/clarin-plus-supplemental-material. O
+
 ## Quick start
 
 Call 'mvn package' and 'mvn war:war' to create a war file; deploy it, and start the aggregator to test. 
