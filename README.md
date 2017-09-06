@@ -132,4 +132,6 @@ This should contain something like
 
 
 
+![alt text](https://github.com/INL/clariah-fcs-endpoints/doc/aggregator-collections.png "Logo Title Text 1")
 
+![alt text](https://github.com/INL/clariah-fcs-endpoints/doc/aggregator-results.png "Logo Title Text 1")

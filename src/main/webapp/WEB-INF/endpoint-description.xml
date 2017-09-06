@@ -114,8 +114,8 @@
 
 			 <Resource pid="StatenGeneraal">
               <Title xml:lang="sv">Staten Generaal</Title>
-              <Title xml:lang="en">The corpus Gysseling</Title>
-              <Description xml:lang="sv">Staten Generaalhos INT.</Description>
+              <Title xml:lang="en">Staten Generaal in Blacklab</Title>
+              <Description xml:lang="sv">Staten Generaal hos INT.</Description>
               <Description xml:lang="en">The Staten Generaal corpus at INT. 13th century Dutch documents</Description>
               <LandingPageURI>http://gysseling.corpus.taalbanknederlands.inl.nl/</LandingPageURI>
               <Languages>

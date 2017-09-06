@@ -51,7 +51,7 @@ public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine
 		for (String erd : request.getExtraRequestDataNames()) {
 			if ("x-fcs-context".equals(erd)) {
 				hasFcsContextCorpus = true;
-				// fcsContextCorpus = request.getExtraRequestData("x-fcs-context"); // TODO fix this in corpusinfo implementation
+				fcsContextCorpus = request.getExtraRequestData("x-fcs-context"); // TODO fix this in corpusinfo implementation
 				break;
 			}
 		}
@@ -64,7 +64,7 @@ public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine
 			// hdl%3A10794%2Fsbmoderna is the default
 		}
 
-		BlacklabServerQuery bq = new BlacklabServerQuery(BlacklabServerQuery.defaultServer, fcsContextCorpus, query);
+		BlacklabServerQuery bq = new BlacklabServerQuery(this.server, fcsContextCorpus, query);
 
 		bq.startPosition = request.getStartRecord();
 		bq.maximumResults = request.getMaximumRecords();
