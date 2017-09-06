@@ -89,8 +89,12 @@ public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine
 			/*
 			 * Got a FCS query (SRU 2.0). Translate to a proper CQP query
 			 */
+			
 			final FCSQueryParser.FCSQuery q = request.getQuery(FCSQueryParser.FCSQuery.class);
-			query = FCSToCQPConverter.makeCQPFromFCS(q);
+			System.err.println(String.format("FCSQuery %s: raw %s", q, q.getRawQuery()));
+			query = q.getRawQuery();
+			        // do not parse the query. TODO real mapping component!
+					// FCSToCQPConverter.makeCQPFromFCS(q);
 		} else {
 			/*
 			 * Got something else we don't support. Send error ...
