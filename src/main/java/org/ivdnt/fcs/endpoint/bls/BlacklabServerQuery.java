@@ -48,13 +48,14 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 
 	public String url()
 	{
-		try {
+		try 
+		{
 			String url = server  +  "/" + corpus + "/"  + "hits?patt=" + URLEncoder.encode(cqp, "utf-8") + "&outputformat=json" +
 					"&first=" + startPosition
 					+ "&number=" + (maximumResults);
 			return url;
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+		} catch (UnsupportedEncodingException e) 
+		{
 			e.printStackTrace();
 		}
 		return null;
