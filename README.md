@@ -10,13 +10,14 @@ We test by running the clarin fcs aggregator.
 
 ## Quick start
 
-Call 'mvn war:war' to create a war file. 
 
-There are lots configurations to change if you want to use it with your own service.
+Call 'mvn package' and 'mvn war:war' to create a war file; deploy it, and start the aggregator to test. 
+
+Configuration is described below.
 
 ### Running with the aggregator (rekenserver only)
 
-start conf/start_aggregator.sh and browse to http://localhost:4019/aggregator.sh
+start conf/start_aggregator.sh and browse to http://localhost:4019/Aggregator
 
 ## Endpoint implementations
 
@@ -74,5 +75,10 @@ This should contain something like
 This lists the corpora the endpoint gives access to
 
 Source file is src/main/webapp/WEB-INF/endpoint-description.xml
+
+### Configuration in the source
+
+* Some defaults 
+* The Corpus dependent endpoint contains a mapping from corpus names to Engine class. This should move to a file.
 
 
