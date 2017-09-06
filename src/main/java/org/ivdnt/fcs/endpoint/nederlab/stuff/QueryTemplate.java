@@ -102,7 +102,7 @@ public class QueryTemplate
 			"          \"output\": \"token\","+
 			"          \"number\": 50, "+
 			"          \"start\": 0,"+
-			"          \"prefix\": \"t,pos,s\","+
+			"          \"prefix\": \"t,pos,s,lemma\","+
 			"          \"left\": _CONTEXT_,"+
 			"          \"right\": _CONTEXT_ "+
 			"        }"+
