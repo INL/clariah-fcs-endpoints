@@ -60,7 +60,7 @@ We are number 22:
 
 ### The center profile 
 
-Official location:  https://centres.clarin.eu/restxml/22
+Official location for INT:  https://centres.clarin.eu/restxml/22
 
 Testing location: http://localhost:8080/blacklab-sru-server/registry/clarin_center_ivdnt.xml
 
