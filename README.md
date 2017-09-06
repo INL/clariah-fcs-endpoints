@@ -2,6 +2,8 @@
 
 Endpoints for fcs 2.0 federated corpus search in CLARIAH.
 
+Currently has initial basic support for blacklab server and the Nederlab portal.
+
 Based on the fhe Korp fcs 2.0 reference endpoint implementation (https://github.com/clarin-eric/fcs-korp-endpoint).
 
 We test by running the clarin fcs aggregator.
@@ -10,7 +12,7 @@ We test by running the clarin fcs aggregator.
 
 Call 'mvn war:war' to create a war file. 
 
-There are though some configurations to change if you want to use it with your own Korp service.
+There are lots configurations to change if you want to use it with your own service.
 
 ### Running with the aggregator (rekenserver only)
 
