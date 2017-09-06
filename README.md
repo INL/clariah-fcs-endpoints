@@ -46,9 +46,9 @@ A testing version is at src/main/webapp/registry/clarin_center_list.xml
 We are number 22:
 <pre>
 &lt;CenterProfile>
-&lt;Centername>Instituut voor de Nederlandse Taal&lt;/Centername>
-&lt;Center_id>22&lt;/Center_id>
-&lt;Center_id_link>https://centres.clarin.eu/restxml/22&lt;/Center_id_link>
+	&lt;Centername>Instituut voor de Nederlandse Taal&lt;/Centername>
+	&lt;Center_id>22&lt;/Center_id>
+	&lt;Center_id_link>https://centres.clarin.eu/restxml/22&lt;/Center_id_link>
 &lt;/CenterProfile>
 </pre>
 
@@ -63,10 +63,10 @@ Testing location: http://localhost:8080/blacklab-sru-server/registry/clarin_cent
 This should contain something like
 
 <pre>
-                    &lt;WebReference>
-                        &lt;Website>http://localhost:8080/blacklab-sru-server/sru&lt;/Website>
-                        &lt;Description>CQL&lt;/Description>
-                    &lt;/WebReference>
+&lt;WebReference>
+  &lt;Website>http://localhost:8080/blacklab-sru-server/sru&lt;/Website>
+  &lt;Description>CQL&lt;/Description>
+&lt;/WebReference>
 </pre>
 
 ### The resource description
