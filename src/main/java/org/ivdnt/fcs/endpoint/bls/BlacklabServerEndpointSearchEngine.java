@@ -26,6 +26,18 @@ import se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.query.Query;
 
 public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine 
 {
+	String server = BlacklabServerQuery.defaultServer;
+	
+	public BlacklabServerEndpointSearchEngine()
+	{
+		super();
+	}
+	
+	public BlacklabServerEndpointSearchEngine(String server)
+	{
+		super();
+		this.server = server;
+	}
 	
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException 

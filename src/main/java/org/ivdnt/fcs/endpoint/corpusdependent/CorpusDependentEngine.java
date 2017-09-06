@@ -26,12 +26,16 @@ public class CorpusDependentEngine extends se.gu.spraakbanken.fcs.endpoint.korp.
    SimpleEndpointSearchEngineBase engine;
    
    // TODO: server may also depend on corpus identifier
+   // The corpus id also may need to be mapped
    
    Map<String, SimpleEndpointSearchEngineBase> engineMap = new HashMap<String, SimpleEndpointSearchEngineBase>() 
    { 
 	   {
 		   this.put("nederlab",  new NederlabEndpointSearchEngine());
 		   this.put("opensonar",  new BlacklabServerEndpointSearchEngine());
+		   this.put("chn",  new BlacklabServerEndpointSearchEngine("http://chn-i.inl.nl/blacklab-server/"));
+		   this.put("zeebrieven", new BlacklabServerEndpointSearchEngine("http://svprre02.inl.loc:8080/blacklab-server/")); 
+		   this.put("StatenGeneraal", new BlacklabServerEndpointSearchEngine("http://svprre02.inl.loc:8080/blacklab-server/")); 
 	   }
    };
    

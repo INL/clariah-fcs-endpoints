@@ -44,7 +44,7 @@
 	  <AvailableLayers ref="word lemma pos"/>
 	  <Resources>
 
-	    <Resource pid="hdl:10794/opensonar">
+	    <Resource pid="opensonar">
 	      <Title xml:lang="sv">OpenSoNaR-korpusen</Title>
 	      <Title xml:lang="en">OpenSoNaR in blacklab server</Title>
 	      <Description xml:lang="sv">OpenSoNaR hos INT.</Description>
@@ -86,7 +86,7 @@
           <AvailableLayers ref="word lemma pos"/>
           <Resources>
 
-            <Resource pid="brievenalsbuit">
+            <Resource pid="zeebrieven">
               <Title xml:lang="sv">LaL-korpusen</Title>
               <Title xml:lang="en">Letters as Loot corpus</Title>
               <Description xml:lang="sv">LettersAsLoot hos INT.</Description>
@@ -112,6 +112,19 @@
               <AvailableLayers ref="word lemma pos"/>
             </Resource>
 
+			 <Resource pid="StatenGeneraal">
+              <Title xml:lang="sv">Staten Generaal</Title>
+              <Title xml:lang="en">The corpus Gysseling</Title>
+              <Description xml:lang="sv">Staten Generaalhos INT.</Description>
+              <Description xml:lang="en">The Staten Generaal corpus at INT. 13th century Dutch documents</Description>
+              <LandingPageURI>http://gysseling.corpus.taalbanknederlands.inl.nl/</LandingPageURI>
+              <Languages>
+                <Language>nld</Language>
+              </Languages>
+              <AvailableDataViews ref="hits adv"/>
+              <AvailableLayers ref="word lemma pos"/>
+            </Resource>
+			
             <Resource pid="nederlab">
               <Title xml:lang="sv">Nederlab</Title>
               <Title xml:lang="en">Nederlab</Title>
