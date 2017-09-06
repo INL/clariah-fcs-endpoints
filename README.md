@@ -43,7 +43,10 @@ start conf/start_aggregator.sh and browse to http://localhost:4019/Aggregator
 
 ### Blacklab Server
 
-No problems expected here 
+Documentation at http://inl.github.io/BlackLab/blacklab-server-overview.html.
+
+Is the response format described?
+ 
 
 ### Nederlab portal
 
