@@ -32,9 +32,13 @@ Chooses one of the above dependent on the corpus
 
 The aggregator depends on the following resources
 
-### yaml file (for us, conf/aggregator_devel.yml)
+### yaml file 
 
-### The Clarin eu center list (for testing, http://localhost:8080/blacklab-sru-server/registry/clarin_center_list.xml)
+(for us, conf/aggregator_devel.yml)
+
+### The Clarin eu center list 
+
+(for testing, http://localhost:8080/blacklab-sru-server/registry/clarin_center_list.xml)
 
 The official location for this is https://centres.clarin.eu/restxml/ 
 A testing version is at src/main/webapp/registry/clarin_center_list.xml
@@ -64,4 +68,11 @@ This should contain something like
                         &lt;Description>CQL&lt;/Description>
                     &lt;/WebReference>
 </pre>
+
+### The resource description
+
+This lists the corpora the endpoint gives access to
+
+Source file is src/main/webapp/WEB-INF/endpoint-description.xml
+
 
