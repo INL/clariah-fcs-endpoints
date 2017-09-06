@@ -132,6 +132,8 @@ This should contain something like
 
 
 
+Als alles meezit krijg je er zoiets uit:
+
 ![alt text](https://github.com/INL/clariah-fcs-endpoints/raw/master/doc/aggregator-collections.png "Collection dialog")
 
 ![alt text](https://github.com/INL/clariah-fcs-endpoints/raw/master/doc/aggregator-results.png "Search results")
