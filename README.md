@@ -6,12 +6,20 @@ Currently has initial basic support for blacklab server and the Nederlab portal.
 
 Based on the fhe Korp fcs 2.0 reference endpoint implementation (https://github.com/clarin-eric/fcs-korp-endpoint).
 
-We test by running the clarin fcs aggregator, https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/# for a running version; source at https://svn.clarin.eu/SRUAggregator/
+We test by running the 'clarin fcs aggregator' (cf below) locally.
 
-## Clarin FCS
+
+
+## Clarin Federated Content Search
 
 Cf also https://svn.clarin.eu/FCS-QL/; https://www.clarin.eu/sites/default/files/CE-2015-0629-FCS-2-workplan.pdf; published specification at https://office.clarin.eu/v/CE-2017-1046-FCS-Specification.pdf; voor dataviews zie o.m. https://www.clarin.eu/sites/default/files/CE-2014-0317-CLARIN_FCS_Specification_DataViews_1_0.pdf, met name CMDI data view. Zie ook https://office.clarin.eu/v/CE-2017-1035-CLARINPLUS-D2_9.pdf voor aggregator. Aggregator code: https://svn.clarin.eu/SRUAggregator; zie ook https://www.clarin.eu/content/clarin-plus-supplemental-material. O
 
+### The aggregator
+
+Is a simple portal for federated search. It is still alpha software.
+
+https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/# for a running version; source at https://svn.clarin.eu/SRUAggregator/
+ 
 ## Quick start
 
 Call 'mvn package' and 'mvn war:war' to create a war file; deploy it, and start the aggregator to test. 
