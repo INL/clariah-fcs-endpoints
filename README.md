@@ -50,9 +50,14 @@ Is the response format described?
 
 ### Nederlab portal
 
+Cf https://github.com/meertensinstituut/mtas and https://meertensinstituut.github.io/mtas/
+
+We use the Nederlab test broker, http://www.nederlab.nl/testbroker/search/#examples
+
 Issues:
 * JSON response difficult to understand
 * JSON query options also not so obvious
+* Cannot get kwics for PoS queries
 
 ### Corpusdependent
 
