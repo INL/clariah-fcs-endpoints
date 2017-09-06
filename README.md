@@ -4,10 +4,9 @@ Endpoints for fcs 2.0 federated corpus search in CLARIAH.
 
 Currently has initial basic support for blacklab server and the Nederlab portal.
 
-Based on the fhe Korp fcs 2.0 reference endpoint implementation (https://github.com/clarin-eric/fcs-korp-endpoint).
+Based on the fhe Korp fcs 2.0 reference endpoint implementation (https://github.com/clarin-eric/fcs-korp-endpoint), which in turn builds on https://svn.clarin.eu/FCSSimpleEndpoint/
 
 We test by running the 'clarin fcs aggregator' (cf below) locally.
-
 
 
 ## Clarin Federated Content Search
@@ -58,13 +57,39 @@ Chooses one of the above dependent on the corpus.
 
 ## Configuration
 
+### web.xml
+
+The servlet WEB-INF/web.xml should specify which engine class (extending extends SimpleEndpointSearchEngineBase from the FCSSimpleEndpoint implementation) handles the search requests.
+
+Currently
+
+<pre>
+&lt;init-param>
+	&lt;param-name>eu.clarin.sru.server.utils.sruServerSearchEngineClass&lt;/param-name>
+	&lt;param-value>org.ivdnt.fcs.endpoint.corpusdependent.CorpusDependentEngine&lt;/param-value>
+&lt;/init-param>
+</pre>
+
+### The resource description
+
+This lists the corpora the endpoint gives access to
+
+Source file is src/main/webapp/WEB-INF/endpoint-description.xml
+
+### Configuration in the source
+
+* Some defaults 
+* The Corpus dependent endpoint contains a mapping from corpus names to Engine class. This should move to a file.
+
+
+### Aggregator configuration
 The aggregator depends on the following resources
 
-### yaml file 
+#### yaml file 
 
 (for us, conf/aggregator_devel.yml)
 
-### The Clarin eu center list 
+#### The Clarin eu center list 
 
 (for testing, http://localhost:8080/blacklab-sru-server/registry/clarin_center_list.xml)
 
@@ -80,7 +105,7 @@ We are number 22:
 &lt;/CenterProfile>
 </pre>
 
-### The center profile 
+#### The center profile 
 
 Official location for INT:  https://centres.clarin.eu/restxml/22
 
@@ -97,15 +122,6 @@ This should contain something like
 &lt;/WebReference>
 </pre>
 
-### The resource description
 
-This lists the corpora the endpoint gives access to
-
-Source file is src/main/webapp/WEB-INF/endpoint-description.xml
-
-### Configuration in the source
-
-* Some defaults 
-* The Corpus dependent endpoint contains a mapping from corpus names to Engine class. This should move to a file.
 
 
