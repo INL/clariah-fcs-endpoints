@@ -107,7 +107,7 @@ We are number 22:
 
 #### The center profile 
 
-Official location for INT:  https://centres.clarin.eu/restxml/22
+Official location for INT:  https://centres.clarin.eu/restxml/22 (We need to update this if we want to make resources visible for the aggregator running at Språkbanken)
 
 Testing location: http://localhost:8080/blacklab-sru-server/registry/clarin_center_ivdnt.xml
 
