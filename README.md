@@ -18,7 +18,7 @@ There are lots configurations to change if you want to use it with your own serv
 
 start conf/start_aggregator.sh and browse to http://localhost:4019/aggregator.sh
 
-## Endpoints 
+## Endpoint implementations
 
 ### Blacklab Server
 
@@ -28,7 +28,7 @@ start conf/start_aggregator.sh and browse to http://localhost:4019/aggregator.sh
 
 Chooses one of the above dependent on the corpus
 
-### Configuration
+## Configuration
 
 The aggregator depends on the following resources
 
