@@ -6,10 +6,9 @@ Currently has initial basic support for blacklab server and the Nederlab portal.
 
 Based on the fhe Korp fcs 2.0 reference endpoint implementation (https://github.com/clarin-eric/fcs-korp-endpoint).
 
-We test by running the clarin fcs aggregator.
+We test by running the clarin fcs aggregator, https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/# for a running version; source at https://svn.clarin.eu/SRUAggregator/
 
 ## Quick start
-
 
 Call 'mvn package' and 'mvn war:war' to create a war file; deploy it, and start the aggregator to test. 
 
