@@ -52,7 +52,7 @@ public class NederlabEndpointSearchEngine extends KorpEndpointSearchEngine
 
 		NederlabQuery bq = new NederlabQuery(NederlabQuery.defaultServer, fcsContextCorpus, query);
 
-		bq.startPosition = request.getStartRecord();
+		bq.startPosition = request.getStartRecord()-1; // fcs begint bij 1 te tellen, nederlab bij 0 (?)
 		bq.maximumResults = request.getMaximumRecords();
 
 		try {

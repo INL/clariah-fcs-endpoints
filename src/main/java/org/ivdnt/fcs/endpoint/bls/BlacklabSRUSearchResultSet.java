@@ -22,7 +22,7 @@ import se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.query.Query;
 public class BlacklabSRUSearchResultSet extends SRUSearchResultSet 
 {
 	List<Kwic> hits;
-	int currentRecord = 0;
+	int currentRecord = -1;
 	SRURequest request;
 	String corpus;
 	ResultSet bsrs;

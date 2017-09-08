@@ -59,7 +59,7 @@ public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine
 		
 		BlacklabServerQuery bq = new BlacklabServerQuery(this.server, fcsContextCorpus, query);
 
-		bq.startPosition = request.getStartRecord();
+		bq.startPosition = request.getStartRecord()-1; // bij fcs beginnen ze bij 1 te tellen ?
 		bq.maximumResults = request.getMaximumRecords();
 
 		try {
