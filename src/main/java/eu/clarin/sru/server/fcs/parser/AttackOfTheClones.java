@@ -27,25 +27,9 @@ import eu.clarin.sru.server.fcs.parser.SimpleWithin;
  */
 public class AttackOfTheClones
 {
-    static class MyNode
-    {
-    	QueryNode original;
-    	List<MyNode> children;
-    	QueryNodeType type;
-    	boolean changed = false;
-    }
-    
-    public MyNode clone(QueryNode node)
-    {
-    	MyNode n1 = new MyNode();
-        n1.original = node;
-        n1.type = node.getNodeType();
-        n1.children = node.getChildren().stream().map(n -> clone(n)).collect(Collectors.toList());
-        return n1;
-    }
     
     
-	public QueryNode cloneX(QueryNode node)
+	public QueryNode clone(QueryNode node)
 	{
 		QueryNode n1;
 		if (node instanceof QueryDisjunction) {
@@ -71,9 +55,7 @@ public class AttackOfTheClones
 		} else if (node instanceof SimpleWithin) {
 			n1=cloneSimpleWithin((SimpleWithin) node);
 		} else {
-			throw new RuntimeException("unexpected node type: "  +
-					node.getNodeType());
-
+			throw new RuntimeException("unexpected node type: "  + node.getNodeType());
 		}
 		n1=cloneExpressionOr((ExpressionOr) node);
 		
@@ -137,5 +119,24 @@ public class AttackOfTheClones
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/**
+	static class MyNode
+    {
+    	QueryNode original;
+    	List<MyNode> children;
+    	QueryNodeType type;
+    	boolean changed = false;
+    }
+    
+    public MyNode clone(QueryNode node)
+    {
+    	MyNode n1 = new MyNode();
+        n1.original = node;
+        n1.type = node.getNodeType();
+        n1.children = node.getChildren().stream().map(n -> clone(n)).collect(Collectors.toList());
+        return n1;
+    }
+    */
 }
 
