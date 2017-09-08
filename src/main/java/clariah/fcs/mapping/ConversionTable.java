@@ -4,6 +4,8 @@ import java.util.*;
 
 import eu.clarin.sru.server.fcs.FCSQueryParser;
 import eu.clarin.sru.server.fcs.parser.AttackOfTheClones;
+import eu.clarin.sru.server.fcs.parser.QueryNode;
+import eu.clarin.sru.server.fcs.parser.WriteAsCQP;
 
 public class ConversionTable extends Conversion
 {
@@ -82,7 +84,9 @@ public class ConversionTable extends Conversion
 		//q = "[pos='AUX|SCONJ']";
 		//Conversion.bla(q);
 		AttackOfTheClones x = new AttackOfTheClones(ct);
-		String rw = x.rewrite(q).toString();
-		System.out.println(rw);
+		QueryNode rw = x.rewrite(q);
+		String rws = rw.toString();
+		System.out.println(rws);
+		System.out.println(WriteAsCQP.writeAsCQP(rw));
 	}
 }
