@@ -15,6 +15,14 @@ public class Feature
 		this.values = values;
 	}
 
+	public Feature(String name, String values)
+	{
+		this.name = name;
+		Set<String> v = new HashSet<>();
+		for (String s: values.split(multiValueSeparator)) v.add(s);
+		this.values = v;
+	}
+	
 	public String asCQL()
 	{
 		String vals = StringUtils.join(values, "|");
