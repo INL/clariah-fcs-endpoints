@@ -21,8 +21,8 @@ public class ExpressionConverter implements ExpressionRewriter
 		this.conversion = conversion;
 	}
 	
-
-	//Expression e = new Expression(node.getLayerQualifier(), node.getLayerIdentifier(), node.getOperator(), node.getRegexValue(), node.getRegexFlags());
+	// Expression e = new Expression(node.getLayerQualifier(), node.getLayerIdentifier(), node.getOperator(), node.getRegexValue(), node.getRegexFlags());
+	
 	public QueryNode featureNode(Feature f)
 	{
 		List<QueryNode> orz = f.values.stream().map(v -> new Expression(null, f.name, Operator.EQUALS, v, null)).collect(Collectors.toList());
@@ -43,10 +43,11 @@ public class ExpressionConverter implements ExpressionRewriter
 	    
 	    for (FeatureConjunction fc: fcs)
 	    {
-	    	List<QueryNode> andz = fc.features().map(f -> featureNode(f)).collect(Collectors.toList());
+	    	List<QueryNode> andz = fc.features().map(feat -> featureNode(feat)).collect(Collectors.toList());
 	    	ExpressionAnd ea = new ExpressionAnd(andz);
 	    	orz.add(ea);
 	    }
+	    
 		return new ExpressionOr(orz);
 	}
 }

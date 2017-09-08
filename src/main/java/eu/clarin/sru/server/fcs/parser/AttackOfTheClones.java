@@ -3,6 +3,7 @@ package eu.clarin.sru.server.fcs.parser;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import clariah.fcs.mapping.Conversion;
 import eu.clarin.sru.server.fcs.parser.Expression;
 import eu.clarin.sru.server.fcs.parser.ExpressionAnd;
 import eu.clarin.sru.server.fcs.parser.ExpressionGroup;
@@ -27,8 +28,43 @@ import eu.clarin.sru.server.fcs.parser.SimpleWithin;
  */
 public class AttackOfTheClones
 {
-    
-    
+	ExpressionRewriter erw;
+	
+	public AttackOfTheClones(ExpressionRewriter erw)
+	{
+		this.erw = erw;
+	}
+	
+	public AttackOfTheClones(Conversion  c)
+	{
+		this.erw = new ExpressionConverter(c);
+	}
+	
+	public List<QueryNode> mapClone(List<QueryNode> l)
+	{
+		return l.stream().map(n -> clone(n)).collect(Collectors.toList());
+	}
+	
+	public QueryNode rewrite (QueryNode node)
+	{
+		return clone(node);
+	}
+	
+	public QueryNode rewrite(String cqp)
+	{
+		QueryParser parser = new QueryParser();
+		try
+		{
+			QueryNode qn = parser.parse(cqp);
+			System.out.println(qn.toString());
+			return rewrite(qn);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public QueryNode clone(QueryNode node)
 	{
 		QueryNode n1;
@@ -43,7 +79,7 @@ public class AttackOfTheClones
 		} else if (node instanceof ExpressionAnd) {
 			n1=cloneExpressionAnd((ExpressionAnd) node);
 		} else if (node instanceof Expression) {
-			n1=cloneExpression((Expression) node);
+			n1=erw.rewriteExpression( (Expression) node );
 		} else if (node instanceof ExpressionGroup) {
 			n1=cloneExpressionGroup((ExpressionGroup) node);
 		} else if (node instanceof ExpressionNot) {
@@ -64,29 +100,31 @@ public class AttackOfTheClones
 
 	private QueryNode cloneSimpleWithin(SimpleWithin node) {
 		// TODO Auto-generated method stub
-		return null;
+		SimpleWithin sw =  new SimpleWithin(node.getScope());
+		return sw; // children ???? TODO dit kan niet kloppen!!!
+		//sw.children = node.children;
 	}
 
 	private QueryNode cloneExpressionWildcard(ExpressionWildcard node) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ExpressionWildcard(); // snap ik dit?
 	}
 
 	private QueryNode cloneExpressionOr(ExpressionOr node) {
 		// TODO Auto-generated method stub
 		//List<>
 		//ExpressionOr n1 = new ExpressionOr(null)
-		return null;
+		return new ExpressionOr(mapClone(node.getOperands()));
 	}
 
 	private QueryNode cloneExpressionNot(ExpressionNot node) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ExpressionNot(clone(node.getFirstChild()));
 	}
 
 	private QueryNode cloneExpressionGroup(ExpressionGroup node) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ExpressionGroup(clone(node.getFirstChild()));
 	}
 
 	private QueryNode cloneExpression(Expression node) {
@@ -97,27 +135,27 @@ public class AttackOfTheClones
 
 	private QueryNode cloneExpressionAnd(ExpressionAnd node) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ExpressionAnd(mapClone(node.getChildren()));
 	}
 
 	private QueryNode cloneQuerySequence(QuerySequence node) {
 		// TODO Auto-generated method stub
-		return null;
+		return new QuerySequence(mapClone(node.getChildren()));
 	}
 
 	private QueryNode cloneQuerySegment(QuerySegment node) {
 		// TODO Auto-generated method stub
-		return null;
+		return new QuerySegment(clone(node.getExpression()), node.getMinOccurs(), node.getMaxOccurs());
 	}
 
 	private QueryNode cloneQueryGroup(QueryGroup node) {
 		// TODO Auto-generated method stub
-		return null;
+		return new QueryGroup(clone(node.getContent()), node.getMinOccurs(), node.getMaxOccurs());
 	}
 
 	private QueryNode cloneQueryDisjunction(QueryDisjunction node) {
 		// TODO Auto-generated method stub
-		return null;
+		return new QueryDisjunction(mapClone(node.getChildren()));
 	}
 	
 	/**
