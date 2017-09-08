@@ -1,6 +1,7 @@
 package clariah.fcs.mapping;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import eu.clarin.sru.server.fcs.parser.Expression;
 import eu.clarin.sru.server.fcs.parser.ExpressionAnd;
@@ -11,6 +12,7 @@ import eu.clarin.sru.server.fcs.parser.ExpressionWildcard;
 import eu.clarin.sru.server.fcs.parser.QueryDisjunction;
 import eu.clarin.sru.server.fcs.parser.QueryGroup;
 import eu.clarin.sru.server.fcs.parser.QueryNode;
+import eu.clarin.sru.server.fcs.parser.QueryNodeType;
 import eu.clarin.sru.server.fcs.parser.QueryParser;
 import eu.clarin.sru.server.fcs.parser.QuerySegment;
 import eu.clarin.sru.server.fcs.parser.QuerySequence;
@@ -25,8 +27,25 @@ import eu.clarin.sru.server.fcs.parser.SimpleWithin;
  */
 public class AttackOfTheClones
 {
-
-	public QueryNode clone(QueryNode node)
+    static class MyNode
+    {
+    	QueryNode original;
+    	List<MyNode> children;
+    	QueryNodeType type;
+    	boolean changed = false;
+    }
+    
+    public MyNode clone(QueryNode node)
+    {
+    	MyNode n1 = new MyNode();
+        n1.original = node;
+        n1.type = node.getNodeType();
+        n1.children = node.getChildren().stream().map(n -> clone(n)).collect(Collectors.toList());
+        return n1;
+    }
+    
+    
+	public QueryNode cloneX(QueryNode node)
 	{
 		QueryNode n1;
 		if (node instanceof QueryDisjunction) {
