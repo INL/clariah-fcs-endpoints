@@ -3,6 +3,7 @@ package clariah.fcs.mapping;
 import java.util.*;
 
 import eu.clarin.sru.server.fcs.FCSQueryParser;
+import eu.clarin.sru.server.fcs.parser.AttackOfTheClones;
 
 public class ConversionTable extends Conversion
 {
@@ -26,6 +27,31 @@ public class ConversionTable extends Conversion
 		for (String[] x : featureMapping) {
 			featureMap.put(new Feature(x[0], x[1]), new Feature(x[2], x[3]));
 		}
+	}
+	
+
+
+	@Override
+	public Set<String> translatePoS(String PoS) {
+		Feature f = new Feature("pos",PoS);
+		Feature v = this.featureMap.get(f);
+		if (v == null)
+			v = f;
+		return v.values;
+	}
+
+	@Override
+	public Set<FeatureConjunction> translateFeature(String feature, String value) {
+		// TODO Auto-generated method stub
+		Feature f = new Feature(feature,value);
+		Feature v = this.featureMap.get(f);
+		if (v == null)
+			v = f;
+		Set<FeatureConjunction> s = new HashSet<>();
+		FeatureConjunction fc = new FeatureConjunction();
+		fc.put(v.name, v.values);
+		s.add(fc);
+		return s;
 	}
 	
 	public static void main(String[] args)
@@ -52,29 +78,11 @@ public class ConversionTable extends Conversion
 					{"pos", "X", "pos", "RES"}
 			};
 		ConversionTable ct = new ConversionTable(fieldMapping, featureMapping);
-		Conversion.bla("([word='aap' & pos='VERB'] [lemma='niet.*']){3}");
-	}
-
-	@Override
-	public Set<String> translatePoS(String PoS) {
-		Feature f = new Feature("pos",PoS);
-		Feature v = this.featureMap.get(f);
-		if (v == null)
-			v = f;
-		return v.values;
-	}
-
-	@Override
-	public Set<FeatureConjunction> translateFeature(String feature, String value) {
-		// TODO Auto-generated method stub
-		Feature f = new Feature(feature,value);
-		Feature v = this.featureMap.get(f);
-		if (v == null)
-			v = f;
-		Set<FeatureConjunction> s = new HashSet<>();
-		FeatureConjunction fc = new FeatureConjunction();
-		fc.put(v.name, v.values);
-		s.add(fc);
-		return s;
+		String q = "([word='aap' & pos='VERB'] [lemma='niet.*']){3}";
+		q = "[pos='AUX']";
+		//Conversion.bla(q);
+		AttackOfTheClones x = new AttackOfTheClones(ct);
+		String rw = x.rewrite(q).toString();
+		System.out.println(rw);
 	}
 }
