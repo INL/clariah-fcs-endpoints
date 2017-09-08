@@ -9,7 +9,7 @@ import eu.clarin.sru.server.fcs.parser.WriteAsCQP;
 
 public class ConversionTable extends Conversion
 {
-	
+
 	String[][] fieldMapping;
 	String[][] featureMapping;
 
@@ -30,8 +30,6 @@ public class ConversionTable extends Conversion
 			featureMap.put(new Feature(x[0], x[1]), new Feature(x[2], x[3]));
 		}
 	}
-	
-
 
 	@Override
 	public Set<String> translatePoS(String PoS) {
@@ -55,7 +53,7 @@ public class ConversionTable extends Conversion
 		s.add(fc);
 		return s;
 	}
-	
+
 	public static void main(String[] args)
 	{
 		String[][] fieldMapping  = {{"t", "word"}};
@@ -79,13 +77,13 @@ public class ConversionTable extends Conversion
 					{"pos", "SYM", "pos", "RES"},
 					{"pos", "X", "pos", "RES"}
 			};
-		
+
 		ConversionTable ct = new ConversionTable(fieldMapping, featureMapping);
 		String q = "([word='aap{3}' & pos='VERB'] [lemma='niet.*']){3}";
-		q = "[pos='AUX' | pos =  'SCONJ'][pos='DET'][pos='INTJ']";
+		q = "[pos='AUX' | pos =  'SCONJ'][pos='DET'][]{0,7}[pos='INTJ']";
 		// Conversion.bla(q);
-		
-		
+
+
 		AttackOfTheClones x = new AttackOfTheClones(ct);
 		QueryNode rw = x.rewrite(q);
 		String rws = rw.toString();

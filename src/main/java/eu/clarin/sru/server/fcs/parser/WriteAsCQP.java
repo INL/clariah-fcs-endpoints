@@ -49,7 +49,7 @@ public class WriteAsCQP
 	}
 
 	private  static String cloneExpressionWildcard(ExpressionWildcard node) {
-		return "[]" ; // TODO snap ik dit??
+		return "" ; // TODO snap ik dit?? De parser maakt een QuerySegment (Wildcard) aan
 	}
 
 	private  static String cloneExpressionOr(ExpressionOr node) {

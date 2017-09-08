@@ -15,13 +15,13 @@ import eu.clarin.sru.server.fcs.parser.ExpressionOr;
 
 public class ExpressionConverter implements ExpressionRewriter
 {
-	Conversion conversion;
+	private Conversion conversion;
+	
 	public ExpressionConverter(Conversion conversion)
 	{
 		this.conversion = conversion;
 	}
 	
-	// Expression e = new Expression(node.getLayerQualifier(), node.getLayerIdentifier(), node.getOperator(), node.getRegexValue(), node.getRegexFlags());
 	
 	public QueryNode featureNode(Feature f)
 	{
@@ -35,12 +35,12 @@ public class ExpressionConverter implements ExpressionRewriter
 	@Override
 	public QueryNode rewriteExpression(Expression e) 
 	{
-		// TODO Auto-generated method stub
+	
 		String f = e.getLayerIdentifier();
 		String v = e.getRegexValue();
 		System.err.println("Expression: "  + f + "=" + v);
 	    Set<FeatureConjunction> fcs = conversion.translateFeature(f, v);
-	    // now create an or node of and nodes
+	  
 	    
 	    List<QueryNode> orz = new ArrayList<>();
 	    

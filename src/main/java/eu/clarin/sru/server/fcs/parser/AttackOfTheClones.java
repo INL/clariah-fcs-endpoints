@@ -28,7 +28,7 @@ import eu.clarin.sru.server.fcs.parser.SimpleWithin;
  */
 public class AttackOfTheClones
 {
-	ExpressionRewriter erw;
+	private ExpressionRewriter erw;
 	
 	public AttackOfTheClones(ExpressionRewriter erw)
 	{
@@ -40,14 +40,14 @@ public class AttackOfTheClones
 		this.erw = new ExpressionConverter(c);
 	}
 	
-	public List<QueryNode> mapClone(List<QueryNode> l)
+	private List<QueryNode> mapRewrite(List<QueryNode> l)
 	{
-		return l.stream().map(n -> clone(n)).collect(Collectors.toList());
+		return l.stream().map(n -> rewriteNode(n)).collect(Collectors.toList());
 	}
 	
 	public QueryNode rewrite (QueryNode node)
 	{
-		return clone(node);
+		return rewriteNode(node);
 	}
 	
 	public QueryNode rewrite(String cqp)
@@ -65,31 +65,31 @@ public class AttackOfTheClones
 		return null;
 	}
 	
-	public QueryNode clone(QueryNode node)
+	private QueryNode rewriteNode(QueryNode node)
 	{
 		QueryNode n1;
 		if (node instanceof QueryDisjunction) {
-			n1=cloneQueryDisjunction((QueryDisjunction) node);
+			n1=rewriteQueryDisjunction((QueryDisjunction) node);
 		} else if (node instanceof QueryGroup) {
-			n1=cloneQueryGroup((QueryGroup) node);
+			n1=rewriteQueryGroup((QueryGroup) node);
 		} else if (node instanceof QuerySegment) {
-			n1=cloneQuerySegment((QuerySegment) node);
+			n1=rewriteQuerySegment((QuerySegment) node);
 		} else if (node instanceof QuerySequence) {
-			n1=cloneQuerySequence((QuerySequence) node);
+			n1=rewriteQuerySequence((QuerySequence) node);
 		} else if (node instanceof ExpressionAnd) {
-			n1=cloneExpressionAnd((ExpressionAnd) node);
+			n1=rewriteExpressionAnd((ExpressionAnd) node);
 		} else if (node instanceof Expression) {
 			n1=erw.rewriteExpression( (Expression) node ); // hier gebeurt iets
 		} else if (node instanceof ExpressionGroup) {
-			n1=cloneExpressionGroup((ExpressionGroup) node);
+			n1=rewriteExpressionGroup((ExpressionGroup) node);
 		} else if (node instanceof ExpressionNot) {
-			n1=cloneExpressionNot((ExpressionNot) node);
+			n1=rewriteExpressionNot((ExpressionNot) node);
 		} else if (node instanceof ExpressionOr) {
-			n1=cloneExpressionOr((ExpressionOr) node);
+			n1=rewriteExpressionOr((ExpressionOr) node);
 		} else if (node instanceof ExpressionWildcard) {
-			n1=cloneExpressionWildcard((ExpressionWildcard) node);
+			n1=rewriteExpressionWildcard((ExpressionWildcard) node);
 		} else if (node instanceof SimpleWithin) {
-			n1=cloneSimpleWithin((SimpleWithin) node);
+			n1=rewriteSimpleWithin((SimpleWithin) node);
 		} else {
 			throw new RuntimeException("unexpected node type: "  + node.getNodeType());
 		}
@@ -98,51 +98,51 @@ public class AttackOfTheClones
 		return n1;
 	}
 
-	private QueryNode cloneSimpleWithin(SimpleWithin node) {
+	private QueryNode rewriteSimpleWithin(SimpleWithin node) {
 		SimpleWithin sw =  new SimpleWithin(node.getScope());
 		return sw; // children ???? TODO dit kan niet kloppen!!!
 	}
 
-	private QueryNode cloneExpressionWildcard(ExpressionWildcard node) {
+	private QueryNode rewriteExpressionWildcard(ExpressionWildcard node) {
 		return new ExpressionWildcard(); // TODO snap ik dit??
 	}
 
-	private QueryNode cloneExpressionOr(ExpressionOr node) {
+	private QueryNode rewriteExpressionOr(ExpressionOr node) {
 		
-		return new ExpressionOr(mapClone(node.getOperands()));
+		return new ExpressionOr(mapRewrite(node.getOperands()));
 	}
 
-	private QueryNode cloneExpressionNot(ExpressionNot node) {
-		return new ExpressionNot(clone(node.getFirstChild()));
+	private QueryNode rewriteExpressionNot(ExpressionNot node) {
+		return new ExpressionNot(rewriteNode(node.getFirstChild()));
 	}
 
-	private QueryNode cloneExpressionGroup(ExpressionGroup node) {
-		return new ExpressionGroup(clone(node.getFirstChild()));
+	private QueryNode rewriteExpressionGroup(ExpressionGroup node) {
+		return new ExpressionGroup(rewriteNode(node.getFirstChild()));
 	}
 
-	private QueryNode cloneExpression(Expression node) {
+	private QueryNode rewriteExpression(Expression node) {
 		Expression e = new Expression(node.getLayerQualifier(), node.getLayerIdentifier(), node.getOperator(), node.getRegexValue(), node.getRegexFlags());
 		return e;
 	}
 
-	private QueryNode cloneExpressionAnd(ExpressionAnd node) {
-		return new ExpressionAnd(mapClone(node.getChildren()));
+	private QueryNode rewriteExpressionAnd(ExpressionAnd node) {
+		return new ExpressionAnd(mapRewrite(node.getChildren()));
 	}
 
-	private QueryNode cloneQuerySequence(QuerySequence node) {
-		return new QuerySequence(mapClone(node.getChildren()));
+	private QueryNode rewriteQuerySequence(QuerySequence node) {
+		return new QuerySequence(mapRewrite(node.getChildren()));
 	}
 
-	private QueryNode cloneQuerySegment(QuerySegment node) {
-		return new QuerySegment(clone(node.getExpression()), node.getMinOccurs(), node.getMaxOccurs());
+	private QueryNode rewriteQuerySegment(QuerySegment node) {
+		return new QuerySegment(rewriteNode(node.getExpression()), node.getMinOccurs(), node.getMaxOccurs());
 	}
 
-	private QueryNode cloneQueryGroup(QueryGroup node) {
-		return new QueryGroup(clone(node.getContent()), node.getMinOccurs(), node.getMaxOccurs());
+	private QueryNode rewriteQueryGroup(QueryGroup node) {
+		return new QueryGroup(rewriteNode(node.getContent()), node.getMinOccurs(), node.getMaxOccurs());
 	}
 
-	private QueryNode cloneQueryDisjunction(QueryDisjunction node) {
-		return new QueryDisjunction(mapClone(node.getChildren()));
+	private QueryNode rewriteQueryDisjunction(QueryDisjunction node) {
+		return new QueryDisjunction(mapRewrite(node.getChildren()));
 	}
 }
 
