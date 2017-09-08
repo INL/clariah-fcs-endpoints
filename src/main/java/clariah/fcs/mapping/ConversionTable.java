@@ -9,14 +9,17 @@ import eu.clarin.sru.server.fcs.parser.WriteAsCQP;
 
 public class ConversionTable extends Conversion
 {
-
 	String[][] fieldMapping;
 	String[][] featureMapping;
-
+    boolean useFeatureRegex = false;
+    String posTagField = null;
+    String[] grammaticalFeatures = {};
+    
 	private Map<String, String> fieldMap = new HashMap<>();
 	private Map<Feature, Feature> featureMap = new HashMap<>(); // te simpel, moet naar featureConjunction of disjunction kunnen mappen
 
-	public ConversionTable(String[][] fieldMapping, String[][] featureMapping) {
+	public ConversionTable(String[][] fieldMapping, String[][] featureMapping) 
+	{
 		this.fieldMapping = fieldMapping;
 		this.featureMapping = featureMapping;
 		init();
@@ -26,7 +29,8 @@ public class ConversionTable extends Conversion
 		for (String[] x : fieldMapping) {
 			fieldMap.put(x[0], x[1]);
 		}
-		for (String[] x : featureMapping) {
+		for (String[] x : featureMapping) 
+		{
 			featureMap.put(new Feature(x[0], x[1]), new Feature(x[2], x[3]));
 		}
 	}
@@ -77,10 +81,19 @@ public class ConversionTable extends Conversion
 					{"pos", "SYM", "pos", "RES"},
 					{"pos", "X", "pos", "RES"}
 			};
-
+		
+		String[] grammarFeats = {"number", "tense", "mood", "type"};
+		
 		ConversionTable ct = new ConversionTable(fieldMapping, featureMapping);
-		String q = "([word='aap{3}' & pos='VERB'] [lemma='niet.*']){3}";
-		q = "[pos='AUX' | pos =  'SCONJ'][pos='DET'][]{0,7}[pos='INTJ']";
+		
+		
+		ct.useFeatureRegex = true;
+		ct.posTagField = "pos";
+		ct.grammaticalFeatures = grammarFeats;
+		
+		
+		String q = "([word='aap{3}' & pos='VERB' & number='pl'] [lemma='niet.*']){3}";
+		//q = "[pos='AUX' | pos =  'SCONJ'][pos='DET'][]{0,7}[pos='INTJ']";
 		// Conversion.bla(q);
 
 
@@ -88,6 +101,9 @@ public class ConversionTable extends Conversion
 		QueryNode rw = x.rewrite(q);
 		String rws = rw.toString();
 		System.out.println(rws);
-		System.out.println(WriteAsCQP.writeAsCQP(rw));
+		WriteAsCQP wasqp = new WriteAsCQP();
+		wasqp.setQuote("\"");
+		wasqp.setRegexHack(ct.posTagField, ct.grammaticalFeatures);
+		System.out.println(wasqp.writeAsCQP(rw));
 	}
 }

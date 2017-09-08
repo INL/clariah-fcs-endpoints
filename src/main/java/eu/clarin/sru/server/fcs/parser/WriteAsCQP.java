@@ -1,84 +1,113 @@
 package eu.clarin.sru.server.fcs.parser;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.ivdnt.util.StringUtils;
 
 public class WriteAsCQP 
 {
-	static public List<String> mapClone(List<QueryNode> l)
+	boolean useRegex = false;
+	
+	String posTagFeature;
+	Set<String> grammaticalFeatures;
+	String valueQuote = "'";
+	
+	public void setRegexHack(String posTagFeature, String[] grammaticalFeatures)
+	{
+		this.posTagFeature = posTagFeature;
+		this.grammaticalFeatures = new HashSet<>();
+		for (String s: grammaticalFeatures)
+			this.grammaticalFeatures.add(s);
+		this.useRegex = true;
+	}
+	
+	public void setQuote(String s)
+	{
+		this.valueQuote = s;
+	}
+	
+	public List<String> writeList(List<QueryNode> l)
 	{
 		return l.stream().map(n -> writeAsCQP(n)).collect(Collectors.toList());
 	}
 	
-	public static String writeAsCQP(QueryNode node)
+	public  String writeAsCQP(QueryNode node)
 	{
 		String n1;
 		if (node instanceof QueryDisjunction) {
-			n1=cloneQueryDisjunction((QueryDisjunction) node);
+			n1=writeQueryDisjunction((QueryDisjunction) node);
 		} else if (node instanceof QueryGroup) {
-			n1=cloneQueryGroup((QueryGroup) node);
+			n1=writeQueryGroup((QueryGroup) node);
 		} else if (node instanceof QuerySegment) {
-			n1=cloneQuerySegment((QuerySegment) node);
+			n1=writeQuerySegment((QuerySegment) node);
 		} else if (node instanceof QuerySequence) {
-			n1=cloneQuerySequence((QuerySequence) node);
+			n1=writeQuerySequence((QuerySequence) node);
 		} else if (node instanceof ExpressionAnd) {
-			n1=cloneExpressionAnd((ExpressionAnd) node);
+			n1=writeExpressionAnd((ExpressionAnd) node);
 		} else if (node instanceof Expression) {
-			n1=cloneExpression( (Expression) node );
+			n1=writeExpression( (Expression) node );
 		} else if (node instanceof ExpressionGroup) {
-			n1=cloneExpressionGroup((ExpressionGroup) node);
+			n1=writeExpressionGroup((ExpressionGroup) node);
 		} else if (node instanceof ExpressionNot) {
-			n1=cloneExpressionNot((ExpressionNot) node);
+			n1=writeExpressionNot((ExpressionNot) node);
 		} else if (node instanceof ExpressionOr) {
-			n1=cloneExpressionOr((ExpressionOr) node);
+			n1=writeExpressionOr((ExpressionOr) node);
 		} else if (node instanceof ExpressionWildcard) {
-			n1=cloneExpressionWildcard((ExpressionWildcard) node);
+			n1=writeExpressionWildcard((ExpressionWildcard) node);
 		} else if (node instanceof SimpleWithin) {
-			n1=cloneSimpleWithin((SimpleWithin) node);
+			n1=writeSimpleWithin((SimpleWithin) node);
 		} else {
 			throw new RuntimeException("unexpected node type: "  + node.getNodeType());
 		}
 		return n1;
 	}
 	
-	private static  String cloneSimpleWithin(SimpleWithin node) {
+	private   String writeSimpleWithin(SimpleWithin node) {
 		SimpleWithin sw =  new SimpleWithin(node.getScope());
 		return " within <snapikniet/>" ; // children ???? TODO dit kan niet kloppen!!!
 	}
 
-	private  static String cloneExpressionWildcard(ExpressionWildcard node) {
+	private   String writeExpressionWildcard(ExpressionWildcard node) {
 		return "" ; // TODO snap ik dit?? De parser maakt een QuerySegment (Wildcard) aan
 	}
 
-	private  static String cloneExpressionOr(ExpressionOr node) {
+	private   String writeExpressionOr(ExpressionOr node) {
 		
-		return StringUtils.join(mapClone(node.getChildren()), " | ");
+		return StringUtils.join(writeList(node.getChildren()), " | ");
 	}
 
-	private  static String cloneExpressionNot(ExpressionNot node) {
+	private   String writeExpressionNot(ExpressionNot node) {
 		return "!" + writeAsCQP(node.getFirstChild());
 	}
 
-	private  static String cloneExpressionGroup(ExpressionGroup node) {
+	private   String writeExpressionGroup(ExpressionGroup node) {
 		return "("  + writeAsCQP(node.getFirstChild()) + ")";
 	}
 
-	private  static String cloneExpression(Expression node) {
+	private String writeExpression(Expression node) 
+	{
 		Expression e = new Expression(node.getLayerQualifier(), node.getLayerIdentifier(), node.getOperator(), node.getRegexValue(), node.getRegexFlags());
-		return e.getLayerIdentifier() +  '='  + "'" + e.getRegexValue() + "'";
+		String n = e.getLayerIdentifier();
+		String v = e.getRegexValue();
+		
+		if (this.useRegex && n.equals(posTagFeature))
+			return  String.format("%s=%s^(%s).*%s",n,valueQuote,v, valueQuote);
+		if (this.useRegex && this.grammaticalFeatures.contains(n))
+			 return String.format("%s=%s.*%s=(%s).*%s", posTagFeature, valueQuote, n, v, valueQuote);
+	
+		return n +  '='  + valueQuote + v+ valueQuote;
 	}
 
-	private  static String cloneExpressionAnd(ExpressionAnd node) {
-		return StringUtils.join(mapClone(node.getChildren()), " & ");
+	private   String writeExpressionAnd(ExpressionAnd node) {
+		return StringUtils.join(writeList(node.getChildren()), " & ");
 	}
 
-	private  static String cloneQuerySequence(QuerySequence node) {
-		return StringUtils.join(mapClone(node.getChildren()), " ");
+	private   String writeQuerySequence(QuerySequence node) {
+		return StringUtils.join(writeList(node.getChildren()), " ");
 	}
 
-	private  static String cloneQuerySegment(QuerySegment node) {
+	private   String writeQuerySegment(QuerySegment node) {
 		String arg0 = "[" + writeAsCQP(node.getExpression()) + "]";
 		int min = node.getMinOccurs();
 		int max = node.getMaxOccurs();
@@ -87,7 +116,7 @@ public class WriteAsCQP
 		return String.format("%s{%d, %d}", arg0, min, max);
 	}
 
-	private  static String cloneQueryGroup(QueryGroup node) 
+	private   String writeQueryGroup(QueryGroup node) 
 	{
 		String arg0 = "(" + writeAsCQP(node.getFirstChild()) + ")";
 		int min = node.getMinOccurs();
@@ -97,8 +126,8 @@ public class WriteAsCQP
 		return String.format("%s{%d, %d}", arg0, min, max);
 	}
 
-	private  static String cloneQueryDisjunction(QueryDisjunction node) 
+	private   String writeQueryDisjunction(QueryDisjunction node) 
 	{
-		return StringUtils.join(mapClone(node.getChildren()), " | ");
+		return StringUtils.join(writeList(node.getChildren()), " | ");
 	}
 }
