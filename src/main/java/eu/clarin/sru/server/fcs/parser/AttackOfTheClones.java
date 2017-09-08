@@ -79,7 +79,7 @@ public class AttackOfTheClones
 		} else if (node instanceof ExpressionAnd) {
 			n1=cloneExpressionAnd((ExpressionAnd) node);
 		} else if (node instanceof Expression) {
-			n1=erw.rewriteExpression( (Expression) node );
+			n1=erw.rewriteExpression( (Expression) node ); // hier gebeurt iets
 		} else if (node instanceof ExpressionGroup) {
 			n1=cloneExpressionGroup((ExpressionGroup) node);
 		} else if (node instanceof ExpressionNot) {
