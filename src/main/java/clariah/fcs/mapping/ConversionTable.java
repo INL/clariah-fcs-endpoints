@@ -14,7 +14,7 @@ public class ConversionTable extends Conversion
 	String[][] featureMapping;
 
 	private Map<String, String> fieldMap = new HashMap<>();
-	private Map<Feature, Feature> featureMap = new HashMap<>();
+	private Map<Feature, Feature> featureMap = new HashMap<>(); // te simpel, moet naar featureConjunction of disjunction kunnen mappen
 
 	public ConversionTable(String[][] fieldMapping, String[][] featureMapping) {
 		this.fieldMapping = fieldMapping;
@@ -58,7 +58,7 @@ public class ConversionTable extends Conversion
 	
 	public static void main(String[] args)
 	{
-		String[][] fieldMapping  = {{"word", "word"}};
+		String[][] fieldMapping  = {{"t", "word"}};
 		String[][] featureMapping = 
 			{
 					{"pos","ADJ", "pos", "ADJ"},
@@ -79,10 +79,13 @@ public class ConversionTable extends Conversion
 					{"pos", "SYM", "pos", "RES"},
 					{"pos", "X", "pos", "RES"}
 			};
+		
 		ConversionTable ct = new ConversionTable(fieldMapping, featureMapping);
 		String q = "([word='aap{3}' & pos='VERB'] [lemma='niet.*']){3}";
-		//q = "[pos='AUX|SCONJ']";
-		//Conversion.bla(q);
+		q = "[pos='AUX' | pos =  'SCONJ'][pos='DET'][pos='INTJ']";
+		// Conversion.bla(q);
+		
+		
 		AttackOfTheClones x = new AttackOfTheClones(ct);
 		QueryNode rw = x.rewrite(q);
 		String rws = rw.toString();
