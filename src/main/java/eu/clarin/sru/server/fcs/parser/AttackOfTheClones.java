@@ -99,62 +99,49 @@ public class AttackOfTheClones
 	}
 
 	private QueryNode cloneSimpleWithin(SimpleWithin node) {
-		// TODO Auto-generated method stub
 		SimpleWithin sw =  new SimpleWithin(node.getScope());
 		return sw; // children ???? TODO dit kan niet kloppen!!!
-		//sw.children = node.children;
 	}
 
 	private QueryNode cloneExpressionWildcard(ExpressionWildcard node) {
-		// TODO Auto-generated method stub
-		return new ExpressionWildcard(); // snap ik dit?
+		return new ExpressionWildcard(); // TODO snap ik dit??
 	}
 
 	private QueryNode cloneExpressionOr(ExpressionOr node) {
-		// TODO Auto-generated method stub
-		//List<>
-		//ExpressionOr n1 = new ExpressionOr(null)
+		
 		return new ExpressionOr(mapClone(node.getOperands()));
 	}
 
 	private QueryNode cloneExpressionNot(ExpressionNot node) {
-		// TODO Auto-generated method stub
 		return new ExpressionNot(clone(node.getFirstChild()));
 	}
 
 	private QueryNode cloneExpressionGroup(ExpressionGroup node) {
-		// TODO Auto-generated method stub
 		return new ExpressionGroup(clone(node.getFirstChild()));
 	}
 
 	private QueryNode cloneExpression(Expression node) {
-		// TODO Auto-generated method stub
 		Expression e = new Expression(node.getLayerQualifier(), node.getLayerIdentifier(), node.getOperator(), node.getRegexValue(), node.getRegexFlags());
 		return e;
 	}
 
 	private QueryNode cloneExpressionAnd(ExpressionAnd node) {
-		// TODO Auto-generated method stub
 		return new ExpressionAnd(mapClone(node.getChildren()));
 	}
 
 	private QueryNode cloneQuerySequence(QuerySequence node) {
-		// TODO Auto-generated method stub
 		return new QuerySequence(mapClone(node.getChildren()));
 	}
 
 	private QueryNode cloneQuerySegment(QuerySegment node) {
-		// TODO Auto-generated method stub
 		return new QuerySegment(clone(node.getExpression()), node.getMinOccurs(), node.getMaxOccurs());
 	}
 
 	private QueryNode cloneQueryGroup(QueryGroup node) {
-		// TODO Auto-generated method stub
 		return new QueryGroup(clone(node.getContent()), node.getMinOccurs(), node.getMaxOccurs());
 	}
 
 	private QueryNode cloneQueryDisjunction(QueryDisjunction node) {
-		// TODO Auto-generated method stub
 		return new QueryDisjunction(mapClone(node.getChildren()));
 	}
 }
