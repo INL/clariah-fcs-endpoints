@@ -3,12 +3,10 @@ package clariah.fcs.mapping;
 import java.util.*;
 
 import eu.clarin.sru.server.fcs.FCSQueryParser;
-import eu.clarin.sru.server.fcs.parser.QueryNode;
-import eu.clarin.sru.server.fcs.parser.QueryParser;
 
 public class ConversionTable 
 {
-	QueryParser parser = new QueryParser();
+	
 	String[][] fieldMapping;
 	String[][] featureMapping;
 
@@ -30,18 +28,6 @@ public class ConversionTable
 		}
 	}
 	
-	public  void bla(String q)
-	{
-		try
-		{
-			QueryNode qn = parser.parse(q);
-			System.out.println(qn.toString());
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
 	public static void main(String[] args)
 	{
 		String[][] fieldMapping  = {{"word", "word"}};
@@ -66,6 +52,6 @@ public class ConversionTable
 					{"pos", "X", "pos", "RES"}
 			};
 		ConversionTable ct = new ConversionTable(fieldMapping, featureMapping);
-		ct.bla("([word='aap' & pos='VERB'] [lemma='niet.*']){3}");
+		Conversion.bla("([word='aap' & pos='VERB'] [lemma='niet.*']){3}");
 	}
 }
