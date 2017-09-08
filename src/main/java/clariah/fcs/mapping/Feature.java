@@ -3,10 +3,10 @@ import java.util.*;
 
 import org.ivdnt.util.StringUtils;
 
-public class Feature
+public class Feature 
 {
 	public String name;
-	public Set<String> values;
+	public Set<String> values = new HashSet<String>();
 	public static String multiValueSeparator="|";
 
 	public Feature(String name, Set<String> values)
@@ -36,5 +36,21 @@ public class Feature
 			return String.format("%s='^(%s).*'",name,vals);
 		else
 			return String.format("%s='.*%s\\s*=(%s).*'", CQLTagField, name, vals);
+	}
+	
+	public boolean equals(Object other)
+	{
+		try
+		{
+			Feature f = (Feature) other;
+			return f.name.equals(this.name) && f.values.equals(this.values);
+		} catch (Exception e)
+		{
+			return false;
+		}
+	}
+	public int hashCode()
+	{
+		return name.hashCode() + values.hashCode();
 	}
 }

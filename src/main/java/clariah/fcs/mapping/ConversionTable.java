@@ -4,7 +4,7 @@ import java.util.*;
 
 import eu.clarin.sru.server.fcs.FCSQueryParser;
 
-public class ConversionTable 
+public class ConversionTable extends Conversion
 {
 	
 	String[][] fieldMapping;
@@ -53,5 +53,28 @@ public class ConversionTable
 			};
 		ConversionTable ct = new ConversionTable(fieldMapping, featureMapping);
 		Conversion.bla("([word='aap' & pos='VERB'] [lemma='niet.*']){3}");
+	}
+
+	@Override
+	public Set<String> translatePoS(String PoS) {
+		Feature f = new Feature("pos",PoS);
+		Feature v = this.featureMap.get(f);
+		if (v == null)
+			v = f;
+		return v.values;
+	}
+
+	@Override
+	public Set<FeatureConjunction> translateFeature(String feature, String value) {
+		// TODO Auto-generated method stub
+		Feature f = new Feature(feature,value);
+		Feature v = this.featureMap.get(f);
+		if (v == null)
+			v = f;
+		Set<FeatureConjunction> s = new HashSet<>();
+		FeatureConjunction fc = new FeatureConjunction();
+		fc.put(v.name, v.values);
+		s.add(fc);
+		return s;
 	}
 }
