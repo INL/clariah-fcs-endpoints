@@ -1,6 +1,7 @@
 package clariah.fcs.mapping;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.ivdnt.util.StringUtils;
 
@@ -63,5 +64,10 @@ public class FeatureConjunction extends HashMap<String, Set<String>>
 	{
 		Set<String> clauses = this.keySet().stream().map(k -> new Feature(k, get(k)).asRegexInTag("pos")).collect(Collectors.toSet());
 		return "[" + StringUtils.join(clauses, " & ") + "]";
+	}
+	
+	public Stream<Feature> features() 
+	{
+		return this.keySet().stream().map(k -> new Feature(k, get(k)));
 	}
 }
