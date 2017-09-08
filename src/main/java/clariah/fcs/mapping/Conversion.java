@@ -33,13 +33,7 @@ public abstract class Conversion
 	public abstract Set<FeatureConjunction> translateFeature(String feature, String value);
 	
 	
-	public QueryNode translateNode(QueryNode n) // dit liever in apart package ergens anders
-	{
-		//  QueryNode n1 = // gessie dit wordt niet zo leuk new QueryNode();
-		//n1.
-		
-		return null;
-	}
+	
 	
 	public  static void bla(String q)
 	{
