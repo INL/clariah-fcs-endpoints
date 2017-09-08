@@ -60,37 +60,9 @@ public class ConversionTable extends Conversion
 
 	public static void main(String[] args)
 	{
-		String[][] fieldMapping  = {{"t", "word"}};
-		String[][] featureMapping = 
-			{
-					{"pos","ADJ", "pos", "ADJ"},
-					{"pos","ADV", "pos", "ADV"},
-					{"pos", "INTJ", "pos", "INT"},
-					{"pos", "NOUN", "pos", "NOU-C"},
-					{"pos", "VERB", "pos", "VRB"},
 
-					{"pos", "ADP",  "pos", "ADP"},
-					{"pos", "AUX", "pos", "VRB"},  // HM
-					{"pos", "CCONJ", "pos", "CONJ"}, // HM
-					{"pos", "DET", "pos", "ART|PRN"}, // HM
-					{"pos", "NUM", "pos", "NUM"},
-					{"pos", "PART", "pos", "VRB"}, // HM
-					{"pos", "PRON", "pos", "PRN"}, // HM
-					{"pos", "SCONJ", "pos", "CONJ"}, // HM
-					{"pos", "PUNCT", "pos", "RES"}, // HM hebben we niet
-					{"pos", "SYM", "pos", "RES"},
-					{"pos", "X", "pos", "RES"}
-			};
 		
-		String[] grammarFeats = {"number", "tense", "mood", "type"};
-		
-		ConversionTable ct = new ConversionTable(fieldMapping, featureMapping);
-		
-		
-		ct.useFeatureRegex = true;
-		ct.posTagField = "pos";
-		ct.grammaticalFeatures = grammarFeats;
-		
+		ConversionTable ct = Conversions.UD2CGNSonar;
 		
 		String q = "([word='aap{3}' & pos='VERB' & number='pl'] [lemma='niet.*']){3}";
 		//q = "[pos='AUX' | pos =  'SCONJ'][pos='DET'][]{0,7}[pos='INTJ']";
