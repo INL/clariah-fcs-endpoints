@@ -1,4 +1,4 @@
-package clariah.fcs.mapping;
+package eu.clarin.sru.server.fcs.parser;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -109,7 +109,8 @@ public class AttackOfTheClones
 
 	private QueryNode cloneExpression(Expression node) {
 		// TODO Auto-generated method stub
-		return null;
+		Expression e = new Expression(node.getLayerQualifier(), node.getLayerIdentifier(), node.getOperator(), node.getRegexValue(), node.getRegexFlags());
+		return e;
 	}
 
 	private QueryNode cloneExpressionAnd(ExpressionAnd node) {
