@@ -33,7 +33,7 @@ public class Conversions
 					{"pos", "SCONJ", "pos", "CONJ"}, // HM
 					{"pos", "PUNCT", "pos", "RES"}, // HM hebben we niet
 					{"pos", "SYM", "pos", "RES"},
-					{"pos", "X", "pos", "RES"}
+					{"pos", "X", "pos", "RES"},
 
 					{"number", "Plur", "number", "pl"},
 					{"number", "Sing", "number", "sg"},
@@ -62,9 +62,9 @@ public class Conversions
 
 	static
 	{
-		String[][] fieldMapping  = {{"xxword", "t"}};
+		String[][] fieldMapping1  = {{"xxword", "t"}};
 
-		String[][] featureMapping = 
+		String[][] featureMapping1 = 
 			{
 					{"pos","ADJ", "pos", "ADJ"},
 					{"pos","ADV", "pos", "BW"},
@@ -85,16 +85,16 @@ public class Conversions
 					{"pos", "X", "pos", "SPEC"}
 			};
 
-		String[] grammarFeats = {"number", "tense", "mood", "type"};
+		String[] grammarFeats1 = {"number", "tense", "mood", "type"};
 
-		ConversionTable ct = new ConversionTable(fieldMapping, featureMapping);
+		ConversionTable ct1 = new ConversionTable(fieldMapping1, featureMapping1);
 
 
-		ct.useFeatureRegex = true;
-		ct.posTagField = "pos";
-		ct.grammaticalFeatures = grammarFeats;
+		ct1.useFeatureRegex = true;
+		ct1.posTagField = "pos";
+		ct1.grammaticalFeatures = grammarFeats1;
 
-		UD2CGNSonar = ct;
+		UD2CGNSonar = ct1;
 	}
 }
 
