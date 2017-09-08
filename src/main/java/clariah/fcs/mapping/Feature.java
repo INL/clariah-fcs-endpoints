@@ -7,8 +7,9 @@ public class Feature
 {
 	public String name;
 	public Set<String> values = new HashSet<String>();
-	public static String multiValueSeparator="|";
-
+	public static String multiValueSeparator="\\|";
+	public static String multiValueJoiner="|";
+	
 	public Feature(String name, Set<String> values)
 	{
 		this.name = name;
@@ -20,6 +21,7 @@ public class Feature
 		this.name = name;
 		Set<String> v = new HashSet<>();
 		for (String s: values.split(multiValueSeparator)) v.add(s);
+		//System.err.println(v);
 		this.values = v;
 	}
 	

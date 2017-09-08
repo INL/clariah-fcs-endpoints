@@ -26,6 +26,8 @@ public class ExpressionConverter implements ExpressionRewriter
 	public QueryNode featureNode(Feature f)
 	{
 		List<QueryNode> orz = f.values.stream().map(v -> new Expression(null, f.name, Operator.EQUALS, v, null)).collect(Collectors.toList());
+		if (orz.size() == 1)
+			return orz.get(0);
 		ExpressionOr eo = new ExpressionOr(orz);
 		return eo;
 	}
@@ -36,6 +38,7 @@ public class ExpressionConverter implements ExpressionRewriter
 		// TODO Auto-generated method stub
 		String f = e.getLayerIdentifier();
 		String v = e.getRegexValue();
+		System.err.println("Expression: "  + f + "=" + v);
 	    Set<FeatureConjunction> fcs = conversion.translateFeature(f, v);
 	    // now create an or node of and nodes
 	    
@@ -44,10 +47,16 @@ public class ExpressionConverter implements ExpressionRewriter
 	    for (FeatureConjunction fc: fcs)
 	    {
 	    	List<QueryNode> andz = fc.features().map(feat -> featureNode(feat)).collect(Collectors.toList());
-	    	ExpressionAnd ea = new ExpressionAnd(andz);
-	    	orz.add(ea);
+	    	if (andz.size() == 1)
+	    		orz.add(andz.get(0));
+	    	else
+	    	{
+	    		ExpressionAnd ea = new ExpressionAnd(andz);
+	    		orz.add(ea);
+	    	}
 	    }
-	    
+	    if (orz.size() == 1)
+	    	return orz.get(0);
 		return new ExpressionOr(orz);
 	}
 }

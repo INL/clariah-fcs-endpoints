@@ -10,7 +10,7 @@ public class FeatureConjunction extends HashMap<String, Set<String>>
 
 	public String getValues(String name)
 	{
-		return StringUtils.join(get(name), Feature.multiValueSeparator+"");
+		return StringUtils.join(get(name), Feature.multiValueJoiner+"");
 	}
 	
 	public void put(String name, String value)

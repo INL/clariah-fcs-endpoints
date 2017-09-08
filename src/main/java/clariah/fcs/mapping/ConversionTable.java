@@ -66,11 +66,11 @@ public class ConversionTable extends Conversion
 					{"pos", "VERB", "pos", "VRB"},
 
 					{"pos", "ADP",  "pos", "ADP"},
-					{"pos", "AUX", "pos", "VERB"},  // HM
+					{"pos", "AUX", "pos", "VRB"},  // HM
 					{"pos", "CCONJ", "pos", "CONJ"}, // HM
 					{"pos", "DET", "pos", "ART|PRN"}, // HM
 					{"pos", "NUM", "pos", "NUM"},
-					{"pos", "PART", "pos", "VERB"}, // HM
+					{"pos", "PART", "pos", "VRB"}, // HM
 					{"pos", "PRON", "pos", "PRN"}, // HM
 					{"pos", "SCONJ", "pos", "CONJ"}, // HM
 					{"pos", "PUNCT", "pos", "RES"}, // HM hebben we niet
@@ -78,8 +78,8 @@ public class ConversionTable extends Conversion
 					{"pos", "X", "pos", "RES"}
 			};
 		ConversionTable ct = new ConversionTable(fieldMapping, featureMapping);
-		String q = "([word='aap' & pos='VERB'] [lemma='niet.*']){3}";
-		q = "[pos='AUX']";
+		String q = "([word='aap{3}' & pos='VERB'] [lemma='niet.*']){3}";
+		//q = "[pos='AUX|SCONJ']";
 		//Conversion.bla(q);
 		AttackOfTheClones x = new AttackOfTheClones(ct);
 		String rw = x.rewrite(q).toString();

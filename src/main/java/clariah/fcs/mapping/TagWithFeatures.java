@@ -52,7 +52,7 @@ public class TagWithFeatures extends FeatureConjunction
 				{
 					String name= fv[0];
 					String values = fv[1];
-					for (String value: values.split("\\" + Feature.multiValueSeparator+""))
+					for (String value: values.split(Feature.multiValueSeparator))
 					{
 						t.put(name, value);
 					}
