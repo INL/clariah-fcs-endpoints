@@ -15,7 +15,7 @@ public class ConversionTable extends Conversion
 	boolean useFeatureRegex = false;
 	String posTagField = null;
 	String[] grammaticalFeatures = {};
-
+    String quote = "'";
 	boolean includeFeatureNameInRegex = true;
 
 	private Map<String, String> fieldMap = new HashMap<>();
@@ -28,6 +28,11 @@ public class ConversionTable extends Conversion
 		init();
 	}
 
+	public String getQuote()
+	{
+		return quote;
+	}
+	
 	private void init() {
 		for (String[] x : fieldMapping) {
 			fieldMap.put(x[0], x[1]);
@@ -71,17 +76,31 @@ public class ConversionTable extends Conversion
 		return s;
 	}
 
+	@Override
+	public String translateQuery(String query)
+	{
+		AttackOfTheClones x = new AttackOfTheClones(this);
+		QueryNode rw = x.rewrite(query);
+		String rws = rw.toString();
+		WriteAsCQP wasqp = new WriteAsCQP();
+		wasqp.setQuote(this.getQuote());
+		if (this.useFeatureRegex)
+		 wasqp.setRegexHack(this.posTagField, this.grammaticalFeatures, this.includeFeatureNameInRegex);
+		return wasqp.writeAsCQP(rw);
+	}
+	
 	public static void main(String[] args)
 	{
 
 
 		ConversionTable ct = Conversions.UD2CGNSonar;
 
-		String q = "([lemma='aap' & pos='NOUN' & Number='Plur'] [pos='DET'][pos='CCONJ'][lemma='niet.*']){3}";
+		String q = "[pos='PROPN'][lemma='aap' & pos='NOUN' & Number='Plur'] [pos='DET'][pos='CCONJ'][lemma='niet.*']";
+		
 		//q = "[pos='AUX' | pos =  'SCONJ'][pos='DET'][]{0,7}[pos='INTJ']";
 		// Conversion.bla(q);
 
-
+        /*
 		AttackOfTheClones x = new AttackOfTheClones(ct);
 
 		QueryNode rw = x.rewrite(q);
@@ -90,6 +109,8 @@ public class ConversionTable extends Conversion
 		WriteAsCQP wasqp = new WriteAsCQP();
 		wasqp.setQuote("\"");
 		wasqp.setRegexHack(ct.posTagField, ct.grammaticalFeatures, ct.includeFeatureNameInRegex);
-		System.out.println(wasqp.writeAsCQP(rw));
+		*/
+		
+		System.out.println(ct.translateQuery(q));
 	}
 }

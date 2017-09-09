@@ -31,9 +31,12 @@ public abstract class Conversion
 	
 	public abstract Set<String> translatePoS(String PoS);
 	public abstract Set<FeatureConjunction> translateFeature(String feature, String value);
+	public abstract String translateQuery(String query);
 	
-	
-	
+	public String getQuote()
+	{
+		return "'";
+	}
 	
 	public  static void bla(String q)
 	{

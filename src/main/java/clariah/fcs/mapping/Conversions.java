@@ -106,10 +106,12 @@ public class Conversions
 					{"PronType", "Rel", "type", "w-p"}, // is dat zo?
 					{"PronType", "Rel", "type", "d-p"},
 					{"PronType", "Rcp", "type", "recip"},
-					
+					{"PronType", "Ind", "type", "indef"},
+					{"PronType", "Int", "type", "w-p"},
+					{"PronType", "Tot", "type", "indef", "lemma", "iedereen|ieder|al|alles"},
 					{"Poss", "Yes", "type", "poss"},
 					{"Reflex", "Yes", "type", "refl"},
-					{"PronType", "Int", "type", "w-p"}, // hoe zit het nou ook alweer precies met de w-p's en d-p's. Bleuh... 
+					 // hoe zit het nou ook alweer precies met de w-p's en d-p's. Bleuh... 
 					
 			};
 
@@ -209,12 +211,33 @@ public class Conversions
 					{"Tense", "Pres", "feat", "tgw"},
 					{"Tense", "Past", "feat", "vd"},  // eigenlijk niet goed? in UD geen past maar perf?
 					{"Tense", "Pres", "feat", "od"},
+					
+					// pronoun / determiner / article
+					// UD heeft: Art (ldiwoord)	Dem	(aanwijzend) Emp (nadruk)	Exc (uitroepend)	Ind	(onbepaald) Int	Neg	Prs (persoonlijk)	Rcp (reciprocal)	Rel (betrekkelijk)	Tot (collectief: iedereen enzo)
+
+					{"PronType", "Art", "subtype", "art-def"},
+					{"PronType", "Art", "subtype", "art-indef"},
+					
+					{"PronType", "Exc", "feat", "excl"},
+					{"PronType", "Dem", "feat", "aanw"},
+					{"PronType", "Prs", "feat", "pers"},
+					{"PronType", "Rel", "feat", "betr"},
+					{"PronType", "Int", "feat", "vb"}, // wanneer precies vb? Alleen bij wie/wat enz?
+					{"PronType", "Rel", "feat", "betr"},
+					
+					{"PronType", "Rcp", "type", "recip"},
+					{"PronType", "Ind", "type", "onbep"},
+				
+					{"PronType", "Tot", "type", "indef", "lemma", "iedereen|ieder|al|alles"},
+					{"Poss", "Yes", "feat", "bez"},
+					{"Reflex", "Yes", "feat", "refl"},
 			};
 
 		String[] grammarFeats1 = {"number", "tense", "mood", "type", "feat"};
 
 		ConversionTable ct1 = new ConversionTable(fieldMapping1, featureMapping1);
-
+		
+		ct1.quote = "\"";
 		ct1.useFeatureRegex = true;
 		ct1.includeFeatureNameInRegex = false;
 		ct1.posTagField = "pos";
