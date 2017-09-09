@@ -1,5 +1,10 @@
 package clariah.fcs.mapping;
 
+/**
+ * 
+ * @author jesse
+ * Even houtjetouwtje in code. TODO zet in XML bestandje (Wat eigenlijk weer minder leesbaar is :))
+ */
 public class Conversions 
 {
 	static  ConversionTable UD2CHN;
@@ -48,16 +53,23 @@ public class Conversions
 					{"Gender", "Neut", "gender", "n"},
 					{"Gender",  "Com", "gender", "f", "gender", "m"},  // HM, not implemented
 
-					// adjective
+					// adjective (infl-e? Hoe doe je dat in UD??)
 					
 					{"Degree", "Pos", "degree", "pos"},
 					{"Degree", "Cmp", "degree", "comp"},
 					{"Degree", "Sup", "degree", "sup"},
 					
-					// {"form"                "formal", "infl-e"}, Niet in universal dependencies: domdomdom!
-					// {"Case", "Gen", NIET in CHN: domdomdom
-					// verb
-					// {"pos", "PART", "", ""}, // HM, particle hebben we niet
+					{"Position", "Postnom", "position", "postnom"},
+					{"Position", "Prenom", "position", "prenom"},
+					{"Position", "Free", "position", "oth|pred"},
+					{"Position", "Nom", "position", "oth|pred"},
+					
+					// numeral 
+					
+					{"NumType", "Card", "type", "card"},
+					{"NumType", "Ord", "type", "ord"},
+					
+					// verbal features
 					
 					{"Mood", "Ind", "finiteness", "fin"},
 					{"Mood", "Imp", "finiteness", "fin"},
@@ -73,6 +85,7 @@ public class Conversions
 					
 					{"Tense", "Past", "tense", "past"},
 					{"Tense", "Pres", "tense", "pres"},
+					
 					//{''tense", "pres", "tense", "pres"}
 			};
 
@@ -132,7 +145,7 @@ public class Conversions
 					{"Gender", "Neut", "gender", "onz"},
 					{"Gender",  "Com", "feat", "zijd"},  // HM, not implemented
 					
-				// adjective
+				   // adjective
 					
 					{"Degree", "Pos", "feat", "basis"},
 					{"Degree", "Cmp", "feat", "comp"},
@@ -142,13 +155,32 @@ public class Conversions
 					{"Position", "Prenom", "feat", "prenom"},
 					{"Position", "Free", "feat", "vrij"},
 				
+					// numeral 
 					
+					{"NumType", "Card", "feat", "card"},
+					{"NumType", "Ord", "feat", "ord"},
+					
+					// verbal features
+					
+					{"Mood", "Ind", "feat", "pv"},
+					{"Mood", "Imp", "feat", "pv"},
+					{"Mood", "Sub", "feat", "pv", "feat", "conj"},
+					
+					{"VerbForm", "Fin", "feat", "pv"},
+					{"VerbForm", "Inf", "feat", "inf"},
+					{"VerbForm", "Part", "feat", "vd|od"},
+					
+					//{"Person", "1", "person", "1"},
+					//{"Person", "2", "person", "2"},
+					{"Person", "3", "feat", "met-t"},
+					
+					{"Tense", "Past", "feat", "verl"}, // Maar: NIET als het een deelwoord is Dus deze manier van converteren werkt niet; je hebt ook nog condities nodig
+					{"Tense", "Pres", "feat", "tgw"},
 			};
 
 		String[] grammarFeats1 = {"number", "tense", "mood", "type", "feat"};
 
 		ConversionTable ct1 = new ConversionTable(fieldMapping1, featureMapping1);
-
 
 		ct1.useFeatureRegex = true;
 		ct1.includeFeatureNameInRegex = false;
