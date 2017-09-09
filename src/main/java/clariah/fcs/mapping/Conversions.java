@@ -144,7 +144,7 @@ public class Conversions
 					
 					{"Gender", "Fem", "feat", "zijd"},
 					{"Gender", "Masc", "feat", "zijd"},
-					{"Gender", "Neut", "gender", "onz"},
+					{"Gender", "Neut", "feat", "onz"},
 					{"Gender",  "Com", "feat", "zijd"},  // HM, not implemented
 					
 				   // adjective
@@ -171,7 +171,8 @@ public class Conversions
 					
 					{"VerbForm", "Fin", "feat", "pv"},
 					{"VerbForm", "Inf", "feat", "inf"},
-					{"VerbForm", "Part", "feat", "vd|od"},
+					{"VerbForm", "Part", "feat", "od"},
+					{"VerbForm", "Part", "feat", "vd"},
 					
 					//{"Person", "1", "person", "1"},
 					//{"Person", "2", "person", "2"},
