@@ -115,6 +115,7 @@ public class Conversions
 					
 					{"pos", "NOUN", "pos", "N", "feat", "soort"},
 					{"pos", "PROPN", "pos", "N", "feat", "eigen"}, // spec(deeleigen nooit te vinden zo....
+					{"pos", "PROPN", "pos", "SPEC", "feat", "deeleigen"},
 					
 					{"pos", "VERB", "pos", "WW"},
 
