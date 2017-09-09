@@ -50,7 +50,7 @@ public class NederlabEndpointSearchEngine extends KorpEndpointSearchEngine
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException 
 	{
-		String query = BlacklabServerEndpointSearchEngine.translateQuery(request);
+		String query = BlacklabServerEndpointSearchEngine.translateQuery(request,conversion);
 
 		boolean hasFcsContextCorpus = false;
 		
