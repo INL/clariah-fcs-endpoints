@@ -179,6 +179,8 @@ public class Conversions
 					
 					{"Tense", "Past", "feat", "verl"}, // Maar: NIET als het een deelwoord is Dus deze manier van converteren werkt niet; je hebt ook nog condities nodig
 					{"Tense", "Pres", "feat", "tgw"},
+					{"Tense", "Past", "feat", "vd"},  // eigenlijk niet goed? in UD geen past maar perf?
+					{"Tense", "Pres", "feat", "od"},
 			};
 
 		String[] grammarFeats1 = {"number", "tense", "mood", "type", "feat"};
