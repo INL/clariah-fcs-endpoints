@@ -100,8 +100,11 @@ public class Conversions
 					{"PronType", "Art", "subtype", "art-indef"},
 					
 					{"PronType", "Dem", "type", "dem"},
+					{"PronType", "Dem", "type", "d-p"},
 					{"PronType", "Prs", "type", "pers"},
 					{"PronType", "Rel", "type", "rel"},
+					{"PronType", "Rel", "type", "w-p"}, // is dat zo?
+					{"PronType", "Rel", "type", "d-p"},
 					{"PronType", "Rcp", "type", "recip"},
 					
 					{"Poss", "Yes", "type", "poss"},
