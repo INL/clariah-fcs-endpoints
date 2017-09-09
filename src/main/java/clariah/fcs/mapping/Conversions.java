@@ -119,9 +119,20 @@ public class Conversions
 					{"pos", "PUNCT", "pos", "LET"}, // HM 
 					{"pos", "SYM", "pos", "SPEC"}, // opzoeken
 					{"pos", "X", "pos", "SPEC"}
+					
+					// nominal features
+					
+					{"Number", "Plur", "feat", "mv"},
+					{"Number", "Sing", "number", "ev"},
+					
+					{"Gender", "Fem", "gender", "f"},
+					{"Gender", "Masc", "gender", "m"},
+					{"Gender", "Neut", "gender", "n"},
+					{"Gender",  "Com", "gender", "f", "gender", "m"},  // HM, not implemented
+					
 			};
 
-		String[] grammarFeats1 = {"number", "tense", "mood", "type"};
+		String[] grammarFeats1 = {"number", "tense", "mood", "type", "feat"};
 
 		ConversionTable ct1 = new ConversionTable(fieldMapping1, featureMapping1);
 

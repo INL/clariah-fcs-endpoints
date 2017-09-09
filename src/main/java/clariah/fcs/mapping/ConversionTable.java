@@ -70,14 +70,15 @@ public class ConversionTable extends Conversion
 	{
 
 		
-		ConversionTable ct = Conversions.UD2CHN;
+		ConversionTable ct = Conversions.UD2CGNSonar;
 		
-		String q = "([word='aap{3}' & pos='NOUN' & Number='Plur'] [lemma='niet.*']){3}";
+		String q = "([word='aap{3}' & pos='NOUN' & Number='Plur'] [pos='CCONJ'][lemma='niet.*']){3}";
 		//q = "[pos='AUX' | pos =  'SCONJ'][pos='DET'][]{0,7}[pos='INTJ']";
 		// Conversion.bla(q);
 
 
 		AttackOfTheClones x = new AttackOfTheClones(ct);
+		
 		QueryNode rw = x.rewrite(q);
 		String rws = rw.toString();
 		System.out.println(rws);
