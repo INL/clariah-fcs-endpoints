@@ -139,9 +139,9 @@ public class Conversions
 					{"pos","ADV", "pos", "BW"},
 					{"pos", "INTJ", "pos", "TSW"},
 					
-					{"pos", "NOUN", "pos", "N", "feat", "soort"},
-					{"pos", "PROPN", "pos", "N", "feat", "eigen"}, // spec(deeleigen nooit te vinden zo....
-					{"pos", "PROPN", "pos", "SPEC", "feat", "deeleigen"},
+					{"pos", "NOUN", "pos", "N", "feat.ntype", "soort"},
+					{"pos", "PROPN", "pos", "N", "feat.ntype", "eigen"}, // spec(deeleigen nooit te vinden zo....
+					{"pos", "PROPN", "pos", "SPEC", "feat.spectype", "deeleigen"},
 					
 					{"pos", "VERB", "pos", "WW"},
 
@@ -150,8 +150,8 @@ public class Conversions
 					
 					{"pos", "DET", "pos", "LID"}, // HM
 					
-					{"pos", "DET", "pos", "VNW", "feat", "det"}, // HM
-					{"pos", "PRON", "pos", "VNW", "feat", "pron"}, // HM
+					{"pos", "DET", "pos", "VNW", "feat.pdtype", "det"}, // HM
+					{"pos", "PRON", "pos", "VNW", "feat.pdtype", "pron"}, // HM
 					
 					
 					{"pos", "NUM", "pos", "TW"},
@@ -159,8 +159,8 @@ public class Conversions
 					
 					
 					
-					{"pos", "CCONJ", "pos", "VG", "feat", "neven"}, // HM
-					{"pos", "SCONJ", "pos", "VG", "feat", "onder"}, // HM
+					{"pos", "CCONJ", "pos", "VG", "feat.conjtype", "neven"}, // HM
+					{"pos", "SCONJ", "pos", "VG", "feat.conjtype", "onder"}, // HM
 					
 					{"pos", "PUNCT", "pos", "LET"}, // HM 
 					{"pos", "SYM", "pos", "SPEC"}, // opzoeken
@@ -168,72 +168,96 @@ public class Conversions
 					
 					// nominal features
 					
-					{"Number", "Plur", "feat", "mv"},
-					{"Number", "Sing", "feat", "ev"},
+					{"Number", "Plur", "feat.getal", "mv"},
+					{"Number", "Sing", "feat.getal", "ev"},
 					
-					{"Gender", "Fem", "feat", "zijd"},
-					{"Gender", "Masc", "feat", "zijd"},
-					{"Gender", "Neut", "feat", "onz"},
-					{"Gender",  "Com", "feat", "zijd"},  // HM, not implemented
+					{"Gender", "Fem", "feat.genus", "zijd"},
+					{"Gender", "Masc", "feat.genus", "zijd"},
+					{"Gender", "Neut", "feat.genus", "onz"},
+					{"Gender",  "Com", "feat.genus", "zijd"},  // HM, not implemented
 					
 				   // adjective
 					
-					{"Degree", "Pos", "feat", "basis"},
-					{"Degree", "Cmp", "feat", "comp"},
-					{"Degree", "Sup", "feat", "sup"},
+					{"Degree", "Pos", "feat.graad", "basis"},
+					{"Degree", "Cmp", "feat.graad", "comp"},
+					{"Degree", "Sup", "feat.graad", "sup"},
 					
-					{"Position", "Nom", "feat", "nom"},
-					{"Position", "Postnom", "feat", "postnom"},
-					{"Position", "Prenom", "feat", "prenom"},
-					{"Position", "Free", "feat", "vrij"},
+					{"Position", "Nom", "feat.positie", "nom"},
+					{"Position", "Postnom", "feat.positie", "postnom"},
+					{"Position", "Prenom", "feat.positie", "prenom"},
+					{"Position", "Free", "feat.positie", "vrij"},
 				
 					// numeral 
 					
-					{"NumType", "Card", "feat", "card"},
-					{"NumType", "Ord", "feat", "ord"},
+					{"NumType", "Card", "feat.numtype", "card"},
+					{"NumType", "Ord", "feat.numtype", "ord"},
 					
 					// verbal features
 					
-					{"Mood", "Ind", "feat", "pv"},
-					{"Mood", "Imp", "feat", "pv"},
-					{"Mood", "Sub", "feat", "pv", "feat", "conj"},
+					{"Mood", "Ind", "feat.wvorm", "pv"},
+					{"Mood", "Imp", "feat.wvorm", "pv"},
+					{"Mood", "Sub", "feat.wvorm", "pv", "feat", "conj"},
 					
-					{"VerbForm", "Fin", "feat", "pv"},
-					{"VerbForm", "Inf", "feat", "inf"},
-					{"VerbForm", "Part", "feat", "od"},
-					{"VerbForm", "Part", "feat", "vd"},
+					{"VerbForm", "Fin", "feat.wvorm", "pv"},
+					{"VerbForm", "Inf", "feat.wvorm", "inf"},
+					{"VerbForm", "Part", "feat.wvorm", "od"},
+					{"VerbForm", "Part", "feat.wvorm", "vd"},
 					
 					//{"Person", "1", "person", "1"},
 					//{"Person", "2", "person", "2"},
 					{"Person", "3", "feat", "met-t"},
 					
-					{"Tense", "Past", "feat", "verl"}, // Maar: NIET als het een deelwoord is Dus deze manier van converteren werkt niet; je hebt ook nog condities nodig
-					{"Tense", "Pres", "feat", "tgw"},
-					{"Tense", "Past", "feat", "vd"},  // eigenlijk niet goed? in UD geen past maar perf?
-					{"Tense", "Pres", "feat", "od"},
+					{"Tense", "Past", "feat.pvtijd", "verl"}, // Maar: NIET als het een deelwoord is Dus deze manier van converteren werkt niet; je hebt ook nog condities nodig
+					{"Tense", "Pres", "feat.pvtijd", "tgw"},
+					{"Tense", "Past", "feat.wvorm", "vd"},  // eigenlijk niet goed? in UD geen past maar perf?
+					{"Tense", "Pres", "feat.wvorm", "od"},
 					
 					// pronoun / determiner / article
 					// UD heeft: Art (ldiwoord)	Dem	(aanwijzend) Emp (nadruk)	Exc (uitroepend)	Ind	(onbepaald) Int	Neg	Prs (persoonlijk)	Rcp (reciprocal)	Rel (betrekkelijk)	Tot (collectief: iedereen enzo)
 
-					{"PronType", "Art", "subtype", "art-def"},
-					{"PronType", "Art", "subtype", "art-indef"},
+					{"PronType", "Art", "pos", "LID"},
+				
 					
-					{"PronType", "Exc", "feat", "excl"},
-					{"PronType", "Dem", "feat", "aanw"},
-					{"PronType", "Prs", "feat", "pers"},
-					{"PronType", "Rel", "feat", "betr"},
-					{"PronType", "Int", "feat", "vb"}, // wanneer precies vb? Alleen bij wie/wat enz?
-					{"PronType", "Rel", "feat", "betr"},
+					{"PronType", "Exc", "feat.vwtype", "excl"}, // misnomer: zou vnwtype moeten zijn?
+					{"PronType", "Dem", "feat.vwtype", "aanw"}, // in welk feat zit PronType????
+					{"PronType", "Prs", "feat.vwtype", "pers"},
+					{"PronType", "Rel", "feat.vwtype", "betr"},
+					{"PronType", "Int", "feat.vwtype", "vrag"}, // wanneer precies vb? Alleen bij wie/wat enz?
+					{"PronType", "Rel", "feat.vwtype", "betr"},
 					
-					{"PronType", "Rcp", "type", "recip"},
-					{"PronType", "Ind", "type", "onbep"},
+					{"PronType", "Rcp", "feat.vwtype", "recip"},
+					{"PronType", "Ind", "feat.lwtype", "onbep"},
 				
 					{"PronType", "Tot", "type", "indef", "lemma", "iedereen|ieder|al|alles"},
-					{"Poss", "Yes", "feat", "bez"},
-					{"Reflex", "Yes", "feat", "refl"},
+					{"Poss", "Yes", "feat.vwtype", "bez"},
+					{"Reflex", "Yes", "feat.vwtype", "refl"},
 			};
 
-		String[] grammarFeats1 = {"feat"};
+		String[] grammarFeats1 = {
+				  "feat",
+				  "feat.buiging",
+		          "feat.conjtype",
+		          "feat.dial",
+		          "feat.genus",
+		          "feat.getal",
+		          "feat.getal-n",
+		          "feat.graad",
+		          "feat.lwtype",
+		          "feat.naamval",
+		          "feat.npagr",
+		          "feat.ntype",
+		          "feat.numtype",
+		          "feat.pdtype",
+		          "feat.persoon",
+		          "feat.positie",
+		          "feat.pvagr",
+		          "feat.pvtijd",
+		          "feat.spectype",
+		          "feat.status",
+		          "feat.vwtype",
+		          "feat.vztype",
+		          "feat.wvorm",
+		};
 
 		ConversionTable ct1 = new ConversionTable(fieldMapping1, featureMapping1);
 		
