@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import clariah.fcs.mapping.Conversion;
 import eu.clarin.sru.server.CQLQueryParser;
 import eu.clarin.sru.server.SRUConstants;
 import eu.clarin.sru.server.SRUDiagnosticList;
@@ -31,6 +32,21 @@ import se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.query.Query;
 public class NederlabEndpointSearchEngine extends KorpEndpointSearchEngine 
 {
 	
+	String server = NederlabQuery.defaultServer;
+	clariah.fcs.mapping.Conversion conversion = null;
+	
+	public NederlabEndpointSearchEngine(String server, Conversion conversion)
+	{
+		super();
+		this.server = server;
+		this.conversion = conversion;
+	}
+	
+	public NederlabEndpointSearchEngine() {
+		// TODO Auto-generated constructor stub
+		super();
+	}
+
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException 
 	{
@@ -48,9 +64,7 @@ public class NederlabEndpointSearchEngine extends KorpEndpointSearchEngine
 			}
 		}
 		
-		
-
-		NederlabQuery bq = new NederlabQuery(NederlabQuery.defaultServer, fcsContextCorpus, query);
+		NederlabQuery bq = new NederlabQuery(server, fcsContextCorpus, query);
 
 		bq.startPosition = request.getStartRecord()-1; // fcs begint bij 1 te tellen, nederlab bij 0 (?)
 		bq.maximumResults = request.getMaximumRecords();
@@ -63,6 +77,5 @@ public class NederlabEndpointSearchEngine extends KorpEndpointSearchEngine
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
 					"The query execution failed by this CLARIN-FCS (nederlab) endpoint. " + bq);
 		}
-
 	}	
 }

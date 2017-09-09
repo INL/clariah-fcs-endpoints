@@ -7,13 +7,13 @@ package clariah.fcs.mapping;
  */
 public class Conversions 
 {
-	static  ConversionTable UD2CHN;
+	public static  ConversionTable UD2CHN;
 
-	static ConversionTable UD2BaB;
+	public static ConversionTable UD2BaB;
 
-	static ConversionTable UD2CGNSonar; 
+	public static ConversionTable UD2CGNSonar; 
  
-	static ConversionTable UD2CGNNederlab;
+	public static ConversionTable UD2CGNNederlab;
 	
 	static
 	{
@@ -233,7 +233,7 @@ public class Conversions
 					{"Reflex", "Yes", "feat", "refl"},
 			};
 
-		String[] grammarFeats1 = {"number", "tense", "mood", "type", "feat"};
+		String[] grammarFeats1 = {"feat"};
 
 		ConversionTable ct1 = new ConversionTable(fieldMapping1, featureMapping1);
 		

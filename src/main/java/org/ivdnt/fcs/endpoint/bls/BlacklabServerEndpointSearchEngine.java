@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import clariah.fcs.mapping.Conversion;
 import eu.clarin.sru.server.CQLQueryParser;
 import eu.clarin.sru.server.SRUConstants;
 import eu.clarin.sru.server.SRUDiagnosticList;
@@ -27,6 +28,7 @@ import se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.query.Query;
 public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine 
 {
 	String server = BlacklabServerQuery.defaultServer;
+	clariah.fcs.mapping.Conversion conversion = null;
 	
 	public BlacklabServerEndpointSearchEngine()
 	{
@@ -39,10 +41,17 @@ public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine
 		this.server = server;
 	}
 	
+	public BlacklabServerEndpointSearchEngine(String server, Conversion conversion)
+	{
+		super();
+		this.server = server;
+		this.conversion = conversion;
+	}
+	
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException 
 	{
-		String query = translateQuery(request);
+		String query = translateQuery(request, conversion);
 
 		boolean hasFcsContextCorpus = false;
 		
@@ -74,7 +83,12 @@ public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine
 
 	}
 
-	public static String translateQuery(SRURequest request) throws SRUException {
+	public static String translateQuery(SRURequest request) throws SRUException 
+	{
+		return translateQuery(request,null);
+	}
+	
+	public static String translateQuery(SRURequest request, Conversion conversion) throws SRUException {
 		String query;
 	
 		if (request.isQueryType(Constants.FCS_QUERY_TYPE_CQL)) {
@@ -92,6 +106,9 @@ public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine
 			final FCSQueryParser.FCSQuery q = request.getQuery(FCSQueryParser.FCSQuery.class);
 			System.err.println(String.format("FCSQuery %s: raw %s", q, q.getRawQuery()));
 			query = q.getRawQuery();
+			
+			if (conversion != null)
+			    query = conversion.translateQuery(query);
 			        // do not parse the query. TODO real mapping component!
 					// FCSToCQPConverter.makeCQPFromFCS(q);
 		} else {

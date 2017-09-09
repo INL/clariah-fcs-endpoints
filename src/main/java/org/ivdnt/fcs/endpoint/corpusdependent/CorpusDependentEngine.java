@@ -19,7 +19,11 @@ import java.util.*;
 import javax.servlet.ServletContext;
 
 import org.ivdnt.fcs.endpoint.bls.BlacklabServerEndpointSearchEngine;
+import org.ivdnt.fcs.endpoint.bls.BlacklabServerQuery;
 import org.ivdnt.fcs.endpoint.nederlab.NederlabEndpointSearchEngine;
+import org.ivdnt.fcs.endpoint.nederlab.NederlabQuery;
+
+import clariah.fcs.mapping.Conversions;
 
 public class CorpusDependentEngine extends se.gu.spraakbanken.fcs.endpoint.korp.KorpEndpointSearchEngine 
 {
@@ -31,8 +35,9 @@ public class CorpusDependentEngine extends se.gu.spraakbanken.fcs.endpoint.korp.
    Map<String, SimpleEndpointSearchEngineBase> engineMap = new HashMap<String, SimpleEndpointSearchEngineBase>() 
    { 
 	   {
-		   this.put("nederlab",  new NederlabEndpointSearchEngine());
-		   this.put("opensonar",  new BlacklabServerEndpointSearchEngine());
+		   this.put("nederlab",  new NederlabEndpointSearchEngine(NederlabQuery.defaultServer, Conversions.UD2CGNNederlab));
+		   this.put("opensonar",  new BlacklabServerEndpointSearchEngine(BlacklabServerQuery.defaultServer, Conversions.UD2CGNSonar));
+		   
 		   this.put("chn",  new BlacklabServerEndpointSearchEngine("http://chn-i.inl.nl/blacklab-server/"));
 		   this.put("zeebrieven", new BlacklabServerEndpointSearchEngine("http://svprre02.inl.loc:8080/blacklab-server/")); 
 		   this.put("StatenGeneraal", new BlacklabServerEndpointSearchEngine("http://svprre02.inl.loc:8080/blacklab-server/")); 
