@@ -38,7 +38,7 @@ public class ExpressionConverter implements ExpressionRewriter
 	
 		String f = e.getLayerIdentifier();
 		String v = e.getRegexValue();
-		System.err.println("Expression: "  + f + "=" + v);
+		// System.err.println("Expression: "  + f + "=" + v);
 	    Set<FeatureConjunction> fcs = conversion.translateFeature(f, v);
 	  
 	    

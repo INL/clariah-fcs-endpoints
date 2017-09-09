@@ -76,7 +76,7 @@ public class WriteAsCQP
 
 	private   String writeExpressionOr(ExpressionOr node) {
 		
-		return StringUtils.join(writeList(node.getChildren()), " | ");
+		return "(" + StringUtils.join(writeList(node.getChildren()), " | ") + ")"; // brackets needed only if also other clauses
 	}
 
 	private   String writeExpressionNot(ExpressionNot node) {
