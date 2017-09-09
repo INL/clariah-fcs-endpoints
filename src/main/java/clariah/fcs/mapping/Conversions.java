@@ -22,7 +22,11 @@ public class Conversions
 		String[][] featureMapping = 
 			{
 					{"pos","ADJ", "pos", "AA"},
-					{"pos","ADV", "pos", "ADV|AA"},
+					{"pos","ADJ", "pos", "ADJ"},
+					
+					{"pos","ADV", "pos", "ADV"},
+					{"pos","ADV", "pos", "AA", "position", "oth|pred"},
+					
 					{"pos", "INTJ", "pos", "INT"},
 
 					{"pos", "NOUN", "pos", "NOU-C"},
@@ -33,10 +37,13 @@ public class Conversions
 					{"pos", "ADP",  "pos", "ADP"},
 					{"pos", "AUX", "pos", "VRB"},  // HM
 				
-					{"pos", "DET", "pos", "ART|PRN"}, // HM
+					{"pos", "DET", "pos", "ART"}, // HM; alleen bij historische corpora
+					{"pos", "DET", "pos", "PD", "position", "prenom"}, //
+					{"pos", "PRON", "pos", "PD", "position", "pron"}, // HM, zo krijg je ook de determiners
+					
+					
 					{"pos", "NUM", "pos", "NUM"},
 					
-					{"pos", "PRON", "pos", "PRN"}, // HM
 					{"pos", "CCONJ", "pos", "CONJ", "type", "coor"}, // HM
 					{"pos", "SCONJ", "pos", "CONJ", "type", "sub"}, // HM
 					{"pos", "PUNCT", "pos", "RES"}, // HM hebben we niet
@@ -63,7 +70,7 @@ public class Conversions
 					{"Position", "Prenom", "position", "prenom"},
 					{"Position", "Free", "position", "oth|pred"},
 					{"Position", "Nom", "position", "oth|pred"},
-					
+					{"Position", "Nom", "position", "pron"},
 					// numeral 
 					
 					{"NumType", "Card", "type", "card"},
@@ -86,7 +93,21 @@ public class Conversions
 					{"Tense", "Past", "tense", "past"},
 					{"Tense", "Pres", "tense", "pres"},
 					
-					//{''tense", "pres", "tense", "pres"}
+					// pronoun / determiner / article
+					// UD heeft: Art (ldiwoord)	Dem	(aanwijzend) Emp (nadruk)	Exc (uitroepend)	Ind	(onbepaald) Int	Neg	Prs (persoonlijk)	Rcp (reciprocal)	Rel (betrekkelijk)	Tot (collectief: iedereen enzo)
+
+					{"PronType", "Art", "subtype", "art-def"},
+					{"PronType", "Art", "subtype", "art-indef"},
+					
+					{"PronType", "Dem", "type", "dem"},
+					{"PronType", "Prs", "type", "pers"},
+					{"PronType", "Rel", "type", "rel"},
+					{"PronType", "Rcp", "type", "recip"},
+					
+					{"Poss", "Yes", "type", "poss"},
+					{"Reflex", "Yes", "type", "refl"},
+					{"PronType", "Int", "type", "w-p"}, // hoe zit het nou ook alweer precies met de w-p's en d-p's. Bleuh... 
+					
 			};
 
 		String[] grammarFeats = {"number", "tense", "mood", "type", "person", "gender"};
@@ -123,12 +144,15 @@ public class Conversions
 					{"pos", "AUX", "pos", "WW"},  // HM
 					
 					{"pos", "DET", "pos", "LID"}, // HM
+					
 					{"pos", "DET", "pos", "VNW", "feat", "det"}, // HM
+					{"pos", "PRON", "pos", "VNW", "feat", "pron"}, // HM
+					
 					
 					{"pos", "NUM", "pos", "TW"},
 					// {"pos", "PART", "", ""}, // HM
 					
-					{"pos", "PRON", "pos", "VNW", "feat", "pron"}, // HM
+					
 					
 					{"pos", "CCONJ", "pos", "VG", "feat", "neven"}, // HM
 					{"pos", "SCONJ", "pos", "VG", "feat", "onder"}, // HM
