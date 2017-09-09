@@ -255,3 +255,71 @@ public class Conversions
 	}
 }
 
+/*
+{
+	  "status": "ok",
+	  "mtas": {
+	    "prefix": [
+	      {
+	        "key": "list of prefixes NLContent_mtasSource",
+	        "singlePosition": [
+	          "t",
+	          "t.original",
+	          "t.suggestion",
+	          "t_lc",
+	          "t_lc.original",
+	          "t_lc.suggestion"
+	        ],
+	        "multiplePosition": [
+	          "p"
+	        ],
+	        "setPosition": [],
+	        "intersecting": [
+	          "t.suggestion",
+	          "t_lc.suggestion"
+	        ]
+	      },
+	      {
+	        "key": "list of prefixes NLContent_mtas",
+	        "singlePosition": [
+	          "feat.buiging",
+	          "feat.conjtype",
+	          "feat.dial",
+	          "feat.genus",
+	          "feat.getal",
+	          "feat.getal-n",
+	          "feat.graad",
+	          "feat.lwtype",
+	          "feat.naamval",
+	          "feat.npagr",
+	          "feat.ntype",
+	          "feat.numtype",
+	          "feat.pdtype",
+	          "feat.persoon",
+	          "feat.positie",
+	          "feat.pvagr",
+	          "feat.pvtijd",
+	          "feat.spectype",
+	          "feat.status",
+	          "feat.vwtype",
+	          "feat.vztype",
+	          "feat.wvorm",
+	          "lemma",
+	          "pos",
+	          "t",
+	          "t_lc",
+	          "w"
+	        ],
+	        "multiplePosition": [
+	          "entity",
+	          "p",
+	          "s"
+	        ],
+	        "setPosition": [],
+	        "intersecting": []
+	      }
+	    ]
+	  }
+	}
+
+*/
