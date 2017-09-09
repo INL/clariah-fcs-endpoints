@@ -7,7 +7,9 @@ public class Conversions
 	static ConversionTable UD2BaB;
 
 	static ConversionTable UD2CGNSonar; 
-
+ 
+	static ConversionTable UD2CGNNederlab;
+	
 	static
 	{
 		String[][] fieldMapping  = {{"xxword", "t"}};
@@ -74,7 +76,7 @@ public class Conversions
 					//{''tense", "pres", "tense", "pres"}
 			};
 
-		String[] grammarFeats = {"number", "tense", "mood", "type"};
+		String[] grammarFeats = {"number", "tense", "mood", "type", "person", "gender"};
 
 		ConversionTable ct = new ConversionTable(fieldMapping, featureMapping);
 
@@ -109,7 +111,7 @@ public class Conversions
 					{"pos", "DET", "pos", "LID|VNW"}, // HM
 					
 					{"pos", "NUM", "pos", "TW"},
-					//{"pos", "PART", "", ""}, // HM
+					// {"pos", "PART", "", ""}, // HM
 					
 					{"pos", "PRON", "pos", "VNW", "feat", "pron"}, // HM
 					
@@ -118,17 +120,28 @@ public class Conversions
 					
 					{"pos", "PUNCT", "pos", "LET"}, // HM 
 					{"pos", "SYM", "pos", "SPEC"}, // opzoeken
-					{"pos", "X", "pos", "SPEC"}
+					{"pos", "X", "pos", "SPEC"},
 					
 					// nominal features
 					
 					{"Number", "Plur", "feat", "mv"},
-					{"Number", "Sing", "number", "ev"},
+					{"Number", "Sing", "feat", "ev"},
 					
-					{"Gender", "Fem", "gender", "f"},
-					{"Gender", "Masc", "gender", "m"},
-					{"Gender", "Neut", "gender", "n"},
-					{"Gender",  "Com", "gender", "f", "gender", "m"},  // HM, not implemented
+					{"Gender", "Fem", "feat", "zijd"},
+					{"Gender", "Masc", "feat", "zijd"},
+					{"Gender", "Neut", "gender", "onz"},
+					{"Gender",  "Com", "feat", "zijd"},  // HM, not implemented
+					
+				// adjective
+					
+					{"Degree", "Pos", "feat", "basis"},
+					{"Degree", "Cmp", "feat", "comp"},
+					{"Degree", "Sup", "feat", "sup"},
+					
+					{"Position", "Postnom", "feat", "postnom"},
+					{"Position", "Prenom", "feat", "prenom"},
+					{"Position", "Free", "feat", "vrij"},
+				
 					
 			};
 
