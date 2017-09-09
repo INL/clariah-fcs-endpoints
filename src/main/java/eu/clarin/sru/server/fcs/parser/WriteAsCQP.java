@@ -108,7 +108,7 @@ public class WriteAsCQP
 	}
 
 	private   String writeExpressionAnd(ExpressionAnd node) {
-		return StringUtils.join(writeList(node.getChildren()), " & ");
+		return "(" + StringUtils.join(writeList(node.getChildren()), " & ")  + ")"; // nederlab needs the extra bracket 
 	}
 
 	private   String writeQuerySequence(QuerySequence node) {
