@@ -8,18 +8,20 @@ import org.ivdnt.util.StringUtils;
 public class WriteAsCQP 
 {
 	boolean useRegex = false;
+	boolean includeFeatureNameInRegex = true;
 	
 	String posTagFeature;
 	Set<String> grammaticalFeatures;
 	String valueQuote = "'";
 	
-	public void setRegexHack(String posTagFeature, String[] grammaticalFeatures)
+	public void setRegexHack(String posTagFeature, String[] grammaticalFeatures, boolean includeFeatureNameInRegex)
 	{
 		this.posTagFeature = posTagFeature;
 		this.grammaticalFeatures = new HashSet<>();
 		for (String s: grammaticalFeatures)
 			this.grammaticalFeatures.add(s);
 		this.useRegex = true;
+		this.includeFeatureNameInRegex = includeFeatureNameInRegex;
 	}
 	
 	public void setQuote(String s)
@@ -93,9 +95,15 @@ public class WriteAsCQP
 		
 		if (this.useRegex && n.equals(posTagFeature))
 			return  String.format("%s=%s^(%s).*%s",n,valueQuote,v, valueQuote);
+		
 		if (this.useRegex && this.grammaticalFeatures.contains(n))
-			 return String.format("%s=%s.*%s=(%s).*%s", posTagFeature, valueQuote, n, v, valueQuote);
-	
+		{
+			if (this.includeFeatureNameInRegex)
+			  return String.format("%s=%s.*%s=(%s).*%s", posTagFeature, valueQuote, n, v, valueQuote);
+			else
+			return String.format("%s=%s.*(%s).*%s", posTagFeature, valueQuote, v, valueQuote);
+		}
+		
 		return n +  '='  + valueQuote + v+ valueQuote;
 	}
 

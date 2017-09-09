@@ -11,12 +11,15 @@ public class ConversionTable extends Conversion
 {
 	String[][] fieldMapping;
 	String[][] featureMapping;
-    boolean useFeatureRegex = false;
+    
+	boolean useFeatureRegex = false;
     String posTagField = null;
     String[] grammaticalFeatures = {};
     
+    boolean includeFeatureNameInRegex = true;
+    
 	private Map<String, String> fieldMap = new HashMap<>();
-	private Map<Feature, Feature> featureMap = new HashMap<>(); // te simpel, moet naar featureConjunction of disjunction kunnen mappen
+	private Map<Feature, FeatureConjunction> featureMap = new HashMap<>(); // te simpel, moet naar featureConjunction of disjunction kunnen mappen
 
 	public ConversionTable(String[][] fieldMapping, String[][] featureMapping) 
 	{
@@ -31,14 +34,18 @@ public class ConversionTable extends Conversion
 		}
 		for (String[] x : featureMapping) 
 		{
-			featureMap.put(new Feature(x[0], x[1]), new Feature(x[2], x[3]));
+			Feature original = new Feature(x[0], x[1]);
+			FeatureConjunction fc = new FeatureConjunction();
+			for (int i=2; i < x.length; i+=2)
+			fc.put(x[i], x[i+1]);
+			featureMap.put(original, fc);
 		}
 	}
 
 	@Override
 	public Set<String> translatePoS(String PoS) {
 		Feature f = new Feature("pos",PoS);
-		Feature v = this.featureMap.get(f);
+		Feature v = this.featureMap.get(f).features().findFirst().get();
 		if (v == null)
 			v = f;
 		return v.values;
@@ -48,12 +55,13 @@ public class ConversionTable extends Conversion
 	public Set<FeatureConjunction> translateFeature(String feature, String value) {
 		// TODO Auto-generated method stub
 		Feature f = new Feature(feature,value);
-		Feature v = this.featureMap.get(f);
-		if (v == null)
-			v = f;
-		Set<FeatureConjunction> s = new HashSet<>();
-		FeatureConjunction fc = new FeatureConjunction();
-		fc.put(v.name, v.values);
+		FeatureConjunction fc = this.featureMap.get(f);
+		if (fc == null)
+		{
+			 fc = new FeatureConjunction();
+			fc.put(f.name, f.values); // TODO geen pass-through meer als niet gemapt
+		}
+		Set<FeatureConjunction> s = new HashSet<>();		
 		s.add(fc);
 		return s;
 	}
@@ -62,9 +70,9 @@ public class ConversionTable extends Conversion
 	{
 
 		
-		ConversionTable ct = Conversions.UD2CGNSonar;
+		ConversionTable ct = Conversions.UD2CHN;
 		
-		String q = "([word='aap{3}' & pos='VERB' & number='pl'] [lemma='niet.*']){3}";
+		String q = "([word='aap{3}' & pos='NOUN' & Number='Plur'] [lemma='niet.*']){3}";
 		//q = "[pos='AUX' | pos =  'SCONJ'][pos='DET'][]{0,7}[pos='INTJ']";
 		// Conversion.bla(q);
 
@@ -75,7 +83,7 @@ public class ConversionTable extends Conversion
 		System.out.println(rws);
 		WriteAsCQP wasqp = new WriteAsCQP();
 		wasqp.setQuote("\"");
-		wasqp.setRegexHack(ct.posTagField, ct.grammaticalFeatures);
+		wasqp.setRegexHack(ct.posTagField, ct.grammaticalFeatures, ct.includeFeatureNameInRegex);
 		System.out.println(wasqp.writeAsCQP(rw));
 	}
 }
