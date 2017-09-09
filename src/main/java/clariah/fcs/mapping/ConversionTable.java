@@ -11,15 +11,15 @@ public class ConversionTable extends Conversion
 {
 	String[][] fieldMapping;
 	String[][] featureMapping;
-    
+
 	boolean useFeatureRegex = false;
-    String posTagField = null;
-    String[] grammaticalFeatures = {};
-    
-    boolean includeFeatureNameInRegex = true;
-    
+	String posTagField = null;
+	String[] grammaticalFeatures = {};
+
+	boolean includeFeatureNameInRegex = true;
+
 	private Map<String, String> fieldMap = new HashMap<>();
-	private Map<Feature, FeatureConjunction> featureMap = new HashMap<>(); // te simpel, moet naar featureConjunction of disjunction kunnen mappen
+	private Map<Feature, Set<FeatureConjunction>> featureMap = new HashMap<>(); // te simpel, moet naar featureConjunction of disjunction kunnen mappen
 
 	public ConversionTable(String[][] fieldMapping, String[][] featureMapping) 
 	{
@@ -37,15 +37,18 @@ public class ConversionTable extends Conversion
 			Feature original = new Feature(x[0], x[1]);
 			FeatureConjunction fc = new FeatureConjunction();
 			for (int i=2; i < x.length; i+=2)
-			fc.put(x[i], x[i+1]);
-			featureMap.put(original, fc);
+				fc.put(x[i], x[i+1]);
+			Set<FeatureConjunction> s = featureMap.get(original);
+			if (s== null) s = new HashSet<FeatureConjunction>();
+			s.add(fc);
+			featureMap.put(original, s);
 		}
 	}
 
 	@Override
-	public Set<String> translatePoS(String PoS) {
+	public Set<String> translatePoS(String PoS) { // TODO dit werkt niet en is eigenlijk helemaal niet nodig ....
 		Feature f = new Feature("pos",PoS);
-		Feature v = this.featureMap.get(f).features().findFirst().get();
+		Feature v = this.featureMap.get(f).stream().findFirst().get().features().findFirst().get();
 		if (v == null)
 			v = f;
 		return v.values;
@@ -55,30 +58,32 @@ public class ConversionTable extends Conversion
 	public Set<FeatureConjunction> translateFeature(String feature, String value) {
 		// TODO Auto-generated method stub
 		Feature f = new Feature(feature,value);
-		FeatureConjunction fc = this.featureMap.get(f);
-		if (fc == null)
+		Set<FeatureConjunction> s = this.featureMap.get(f); 
+
+		if (s == null)
 		{
-			 fc = new FeatureConjunction();
+			FeatureConjunction fc = new FeatureConjunction();
 			fc.put(f.name, f.values); // TODO geen pass-through meer als niet gemapt
+			s = new HashSet<>();		
+			s.add(fc);
 		}
-		Set<FeatureConjunction> s = new HashSet<>();		
-		s.add(fc);
+
 		return s;
 	}
 
 	public static void main(String[] args)
 	{
 
-		
+
 		ConversionTable ct = Conversions.UD2CGNSonar;
-		
+
 		String q = "([word='aap{3}' & pos='NOUN' & Number='Plur'] [pos='CCONJ'][lemma='niet.*']){3}";
 		//q = "[pos='AUX' | pos =  'SCONJ'][pos='DET'][]{0,7}[pos='INTJ']";
 		// Conversion.bla(q);
 
 
 		AttackOfTheClones x = new AttackOfTheClones(ct);
-		
+
 		QueryNode rw = x.rewrite(q);
 		String rws = rw.toString();
 		System.out.println(rws);

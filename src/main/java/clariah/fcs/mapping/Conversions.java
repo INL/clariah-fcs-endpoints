@@ -121,7 +121,8 @@ public class Conversions
 					{"pos", "ADP",  "pos", "VZ"},
 					{"pos", "AUX", "pos", "WW"},  // HM
 					
-					{"pos", "DET", "pos", "LID|VNW"}, // HM
+					{"pos", "DET", "pos", "LID"}, // HM
+					{"pos", "DET", "pos", "VNW", "feat", "det"}, // HM
 					
 					{"pos", "NUM", "pos", "TW"},
 					// {"pos", "PART", "", ""}, // HM
@@ -151,6 +152,7 @@ public class Conversions
 					{"Degree", "Cmp", "feat", "comp"},
 					{"Degree", "Sup", "feat", "sup"},
 					
+					{"Position", "Nom", "feat", "nom"},
 					{"Position", "Postnom", "feat", "postnom"},
 					{"Position", "Prenom", "feat", "prenom"},
 					{"Position", "Free", "feat", "vrij"},
