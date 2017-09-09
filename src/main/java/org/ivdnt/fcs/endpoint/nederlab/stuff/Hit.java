@@ -74,7 +74,7 @@ public class Hit
 		kwic.hitStart = this.getHitStart();
 		kwic.hitEnd = this.getHitEnd()+1; // HM nog even naar kijken, oogt niet helemaal lekker zo
 		
-		System.err.println("Current hit to Kwic: " + this.toString());
+		// System.err.println("Current hit to Kwic: " + this.toString());
 		
 		this.knownPrefixes.forEach(
 				pref -> {
