@@ -245,5 +245,13 @@ public class Conversions
 
 		UD2CGNSonar = ct1;
 	}
+	
+	static
+	{
+		ConversionTable ct2 = new ConversionTable(UD2CGNSonar.fieldMapping, UD2CGNSonar.featureMapping);
+		ct2.useFeatureRegex = false;
+		ct2.posTagField = "pos";
+		UD2CGNNederlab = ct2;
+	}
 }
 
