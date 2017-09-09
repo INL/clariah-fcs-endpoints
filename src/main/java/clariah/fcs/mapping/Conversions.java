@@ -228,7 +228,7 @@ public class Conversions
 					{"PronType", "Rcp", "feat.vwtype", "recip"},
 					{"PronType", "Ind", "feat.lwtype", "onbep"},
 				
-					{"PronType", "Tot", "type", "indef", "lemma", "iedereen|ieder|al|alles"},
+					{"PronType", "Tot", "feat.lwtype", "onbep", "lemma", "iedereen|ieder|al|alles|elk|elke"},
 					{"Poss", "Yes", "feat.vwtype", "bez"},
 					{"Reflex", "Yes", "feat.vwtype", "refl"},
 			};
