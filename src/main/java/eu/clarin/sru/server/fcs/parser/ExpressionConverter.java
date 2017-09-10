@@ -23,7 +23,7 @@ public class ExpressionConverter implements ExpressionRewriter
 	}
 	
 	
-	public QueryNode featureNode(Feature f)
+	private QueryNode featureNode(Feature f)
 	{
 		List<QueryNode> orz = f.values.stream().map(v -> new Expression(null, f.name, Operator.EQUALS, v, null)).collect(Collectors.toList());
 		if (orz.size() == 1)
