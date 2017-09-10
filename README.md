@@ -131,6 +131,17 @@ This should contain something like
 </pre>
 
 
+## Mapping
+
+The federated queries are supposed to be in Universal Dependencies.
+
+There is a simple mapping mechanism from UD to
+
+* CGN tagset, with variant dialects for Nederlab and Opensonar (Nederlab has feature names, Opensonar uses regexes to search for features)
+* CHN tagset
+* Letters as Loot tagset
+
+##
 
 Als alles meezit krijg je er zoiets uit:
 
