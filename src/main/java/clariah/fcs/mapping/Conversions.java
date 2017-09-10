@@ -21,6 +21,54 @@ public class Conversions
 	
 	static
 	{
+		String[][] fieldMapping0  = {{"xxword", "t_lc"}}; // not implemented yet
+
+		String[][] featureMapping0 = 
+			{
+					{"pos","ADJ", "pos", "AA"},
+					{"pos","ADJ", "pos", "ADJ"},
+					
+					{"pos","ADV", "pos", "ADV"},
+					// {"pos","ADV", "pos", "AA", "position", "oth|pred"},
+					
+					{"pos", "INTJ", "pos", "INT"},
+
+					{"pos", "NOUN", "pos", "NOU"},
+					{"pos", "PROPN", "pos", "NEPER|NELOC|NEOTHER|NEORG"},
+					
+					{"pos", "VERB", "pos", "VRB"},
+
+					{"pos", "ADP",  "pos", "ADP"},
+					{"pos", "AUX", "pos", "VRB", "lemma", "zijn|hebben|willen|kunnen|mogen"},  // HM
+				
+					{"pos", "DET", "pos", "ART"}, // HM; alleen bij historische corpora
+					{"pos", "DET", "pos", "PRN"}, //
+					
+					{"pos", "PRON", "pos", "PRN"} , // HM, zo krijg je ook de determiners
+					
+					
+					{"pos", "NUM", "pos", "NUM"},
+					
+					{"pos", "CCONJ", "pos", "CON"}, // HM
+					{"pos", "SCONJ", "pos", "CON"}, // HM
+					{"pos", "PUNCT", "pos", "RES"}, // HM hebben we niet
+					{"pos", "SYM", "pos", "RES"},
+					{"pos", "X", "pos", "RES"},
+			};
+		
+		String[] grammarFeats = {"number", "tense", "mood", "type", "person", "gender", "subtype", "finiteness", "position", "degree", "case"};
+
+		ConversionTable ct0 = new ConversionTable(fieldMapping0, featureMapping0);
+
+
+		ct0.useFeatureRegex = true;
+		ct0.posTagField = "pos";
+		ct0.grammaticalFeatures = grammarFeats;
+		ct0.name = "UD2BaB";
+		UD2BaB = ct0;
+	}
+	static
+	{
 		String[][] fieldMapping  = {{"xxword", "t_lc"}}; // not implemented yet
 
 		String[][] featureMapping = 

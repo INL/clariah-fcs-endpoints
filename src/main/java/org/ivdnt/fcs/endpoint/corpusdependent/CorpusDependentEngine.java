@@ -39,7 +39,7 @@ public class CorpusDependentEngine extends se.gu.spraakbanken.fcs.endpoint.korp.
 		   this.put("opensonar",  new BlacklabServerEndpointSearchEngine(BlacklabServerQuery.defaultServer, Conversions.UD2CGNSonar));
 		   
 		   this.put("chn",  new BlacklabServerEndpointSearchEngine("http://chn-i.inl.nl/blacklab-server/"));
-		   this.put("zeebrieven", new BlacklabServerEndpointSearchEngine("http://svprre02.inl.loc:8080/blacklab-server/")); 
+		   this.put("zeebrieven", new BlacklabServerEndpointSearchEngine("http://svprre02.inl.loc:8080/blacklab-server/", Conversions.UD2BaB)); 
 		   this.put("StatenGeneraal", new BlacklabServerEndpointSearchEngine("http://svprre02.inl.loc:8080/blacklab-server/", Conversions.UD2CHN)); 
 	   }
    };
