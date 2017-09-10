@@ -33,7 +33,7 @@ public class ExpressionConverter implements ExpressionRewriter
 	}
 	
 	@Override
-	public QueryNode rewriteExpression(Expression e) 
+	public QueryNode rewriteExpression(Expression e) // TODO: if the operator is a NOT_EQUALS, this is too simple
 	{
 	
 		String f = e.getLayerIdentifier();
@@ -57,6 +57,6 @@ public class ExpressionConverter implements ExpressionRewriter
 	    }
 	    if (orz.size() == 1)
 	    	return orz.get(0);
-		return new ExpressionOr(orz);
+		return new ExpressionOr(orz); // TODO: wrap in NOT if nonatomic translation and operator = NOT_EQUALS
 	}
 }

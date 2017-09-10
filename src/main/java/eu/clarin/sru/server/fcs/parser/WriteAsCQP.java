@@ -89,6 +89,16 @@ public class WriteAsCQP
 		return "("  + writeAsCQP(node.getFirstChild()) + ")";
 	}
 
+	private String writeOperator(Operator o)
+	{
+		switch (o)
+		{
+		case EQUALS: return "=";
+		case NOT_EQUALS: return "!=";
+		default: return "WADDE?";
+		}
+	}
+	
 	private String writeExpression(Expression node) 
 	{
 		Expression e = new Expression(node.getLayerQualifier(), node.getLayerIdentifier(), node.getOperator(), node.getRegexValue(), node.getRegexFlags());
@@ -105,7 +115,7 @@ public class WriteAsCQP
 			else
 			return String.format("%s=%s.*(%s).*%s", posTagFeature, valueQuote, v, valueQuote);
 		} else
-			return n +  '='  + valueQuote + v+ valueQuote;
+			return n +  writeOperator(node.getOperator())  + valueQuote + v+ valueQuote;
 	}
 
 	private   String writeExpressionAnd(ExpressionAnd node) {
