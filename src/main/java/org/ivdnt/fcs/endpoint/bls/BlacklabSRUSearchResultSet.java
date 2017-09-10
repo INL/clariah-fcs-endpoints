@@ -15,9 +15,7 @@ import eu.clarin.sru.server.SRUServerConfig;
 import eu.clarin.sru.server.fcs.AdvancedDataViewWriter;
 import eu.clarin.sru.server.fcs.Constants;
 import eu.clarin.sru.server.fcs.XMLStreamWriterHelper;
-import se.gu.spraakbanken.fcs.endpoint.korp.cqp.SUCTranslator;
-import se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.info.CorporaInfo;
-import se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.query.Query;
+
 
 public class BlacklabSRUSearchResultSet extends SRUSearchResultSet 
 {
