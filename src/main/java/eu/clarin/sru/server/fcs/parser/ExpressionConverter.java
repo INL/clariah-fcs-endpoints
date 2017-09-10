@@ -32,16 +32,30 @@ public class ExpressionConverter implements ExpressionRewriter
 		return eo;
 	}
 	
+	private QueryNode negation(QueryNode n)
+	{
+		if (n instanceof Expression) // flip if simple expression
+    	{
+		
+    		Expression e1 = (Expression) n;
+    		Operator flip = (e1.getOperator() == Operator.NOT_EQUALS)? Operator.EQUALS: Operator.NOT_EQUALS;
+    		
+    		Expression e2 = new Expression(e1.getLayerQualifier(), e1.getLayerIdentifier(), flip, e1.getRegexValue(), e1.getRegexFlags());
+    		// clone e and make negative
+    		return e2;
+    	}
+		return new ExpressionNot(n); // kan je natuurlijk naar binnen proberen te duwen, etc, maar laat maar
+	}
+	
 	@Override
 	public QueryNode rewriteExpression(Expression e) // TODO: if the operator is a NOT_EQUALS, this is too simple
 	{
-	
+	    final boolean negative = e.getOperator() == Operator.NOT_EQUALS;
 		String f = e.getLayerIdentifier();
 		String v = e.getRegexValue();
 		// System.err.println("Expression: "  + f + "=" + v);
 	    Set<FeatureConjunction> fcs = conversion.translateFeature(f, v);
 	  
-	    
 	    List<QueryNode> orz = new ArrayList<>();
 	    
 	    for (FeatureConjunction fc: fcs)
@@ -58,13 +72,9 @@ public class ExpressionConverter implements ExpressionRewriter
 	    if (orz.size() == 1)
 	    {
 	    	QueryNode o1 =  orz.get(0);
-	    	if (o1 instanceof Expression && e.getOperator() == Operator.NOT_EQUALS)
-	    	{
-	    		Expression e1 = (Expression) o1;
-	    		// clone e and make negative
-	    	}
-	    	return orz.get(0);
+	    	return negative?negation(o1): o1;
 	    }
-		return new ExpressionOr(orz); // TODO: wrap in NOT if nonatomic translation and operator = NOT_EQUALS
+	    ExpressionOr orrie = new ExpressionOr(orz);
+		return negative?negation(orrie):orrie; // TODO: wrap in NOT if nonatomic translation and operator = NOT_EQUALS
 	}
 }
