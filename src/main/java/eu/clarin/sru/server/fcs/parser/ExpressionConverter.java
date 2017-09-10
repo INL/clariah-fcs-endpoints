@@ -56,7 +56,15 @@ public class ExpressionConverter implements ExpressionRewriter
 	    	}
 	    }
 	    if (orz.size() == 1)
+	    {
+	    	QueryNode o1 =  orz.get(0);
+	    	if (o1 instanceof Expression && e.getOperator() == Operator.NOT_EQUALS)
+	    	{
+	    		Expression e1 = (Expression) o1;
+	    		// clone e and make negative
+	    	}
 	    	return orz.get(0);
+	    }
 		return new ExpressionOr(orz); // TODO: wrap in NOT if nonatomic translation and operator = NOT_EQUALS
 	}
 }
