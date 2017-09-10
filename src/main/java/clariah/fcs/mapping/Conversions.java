@@ -124,7 +124,7 @@ public class Conversions
 					
 			};
 
-		String[] grammarFeats = {"number", "tense", "mood", "type", "person", "gender", "subtype"};
+		String[] grammarFeats = {"number", "tense", "mood", "type", "person", "gender", "subtype", "finiteness", "position", "degree", "case"};
 
 		ConversionTable ct = new ConversionTable(fieldMapping, featureMapping);
 
