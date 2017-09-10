@@ -93,6 +93,7 @@ public class Conversions
 					
 					{"VerbForm", "Fin", "finiteness", "fin"},
 					{"VerbForm", "Inf", "finiteness", "inf"},
+					{"VerbForm", "Inf", "finiteness", "ger|inf"},
 					{"VerbForm", "Part", "finiteness", "part"},
 					
 					{"Person", "1", "person", "1"},
