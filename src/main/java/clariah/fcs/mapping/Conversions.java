@@ -4,7 +4,11 @@ package clariah.fcs.mapping;
  * 
  * @author jesse
  * Even houtjetouwtje in code. TODO zet in XML bestandje (Wat eigenlijk weer minder leesbaar is :))
+ * 
+ * 
+ * Kijk ook naar https://raw.githubusercontent.com/proycon/folia/master/setdefinitions/frog-mbpos-cgn voor de feature namen in cgn tags
  */
+
 public class Conversions 
 {
 	public static  ConversionTable UD2CHN;
@@ -17,7 +21,7 @@ public class Conversions
 	
 	static
 	{
-		String[][] fieldMapping  = {{"xxword", "t"}};
+		String[][] fieldMapping  = {{"xxword", "t_lc"}}; // not implemented yet
 
 		String[][] featureMapping = 
 			{
@@ -58,9 +62,9 @@ public class Conversions
 					{"Gender", "Fem", "gender", "f"},
 					{"Gender", "Masc", "gender", "m"},
 					{"Gender", "Neut", "gender", "n"},
-					{"Gender",  "Com", "gender", "f", "gender", "m"},  // HM, not implemented
+					{"Gender",  "Com", "gender", "f", "gender", "m"},  // HM, not implemented in regex or otherwise
 
-					// adjective (infl-e? Hoe doe je dat in UD??)
+					// adjective (formal=infl-e)? Hoe doe je dat in UD??)
 					
 					{"Degree", "Pos", "degree", "pos"},
 					{"Degree", "Cmp", "degree", "comp"},
@@ -71,8 +75,13 @@ public class Conversions
 					{"Position", "Free", "position", "oth|pred"},
 					{"Position", "Nom", "position", "oth|pred"},
 					{"Position", "Nom", "position", "pron"},
+					
+					{"Case", "Gen", "case", "gen"}, 
+					
+					// {"Definiteness", "Def", "formal", "infl-e"}, ?? For instance german adjectives in UD?
 					// numeral 
 					
+			
 					{"NumType", "Card", "type", "card"},
 					{"NumType", "Ord", "type", "ord"},
 					
@@ -186,7 +195,9 @@ public class Conversions
 					{"Position", "Postnom", "feat.positie", "postnom"},
 					{"Position", "Prenom", "feat.positie", "prenom"},
 					{"Position", "Free", "feat.positie", "vrij"},
-				
+				    // 
+					{"??", "??", "buiging", "met-e"}, // en wat doen we het de -s? (Ook in CHN tagging een probleem)
+					{"Case", "Gen", "buiging", "met-s"}, 
 					// numeral 
 					
 					{"NumType", "Card", "feat.numtype", "card"},
@@ -205,7 +216,7 @@ public class Conversions
 					
 					//{"Person", "1", "person", "1"},
 					//{"Person", "2", "person", "2"},
-					{"Person", "3", "feat", "met-t"},
+					{"Person", "3", "feat.pvagr", "met-t"},
 					
 					{"Tense", "Past", "feat.pvtijd", "verl"}, // Maar: NIET als het een deelwoord is Dus deze manier van converteren werkt niet; je hebt ook nog condities nodig
 					{"Tense", "Pres", "feat.pvtijd", "tgw"},
