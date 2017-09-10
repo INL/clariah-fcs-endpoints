@@ -104,21 +104,28 @@ public class WriteAsCQP
 		}
 	}
 	
+	/**
+	 * TODO feature regexes are too simple
+	 * @param node
+	 * @return
+	 */
 	private String writeExpression(Expression node) 
 	{
 		Expression e = new Expression(node.getLayerQualifier(), node.getLayerIdentifier(), node.getOperator(), node.getRegexValue(), node.getRegexFlags());
 		String n = e.getLayerIdentifier();
 		String v = e.getRegexValue();
 		
+		String op = writeOperator(node.getOperator());
 		if (this.useRegex && n.equals(posTagFeature))
-			return  String.format("%s=%s^(%s).*%s",n,valueQuote,v, valueQuote);
+			return  String.format("%s%s%s^(%s).*%s",n,op, valueQuote,v, valueQuote);
+		
 		
 		if (this.useRegex && this.grammaticalFeatures.contains(n))
 		{
 			if (this.includeFeatureNameInRegex)
-			  return String.format("%s=%s.*%s=(%s).*%s", posTagFeature, valueQuote, n, v, valueQuote);
+			  return String.format("%s%s%s.*%s=(%s).*%s", posTagFeature, op, valueQuote, n, v, valueQuote);
 			else
-			return String.format("%s=%s.*(%s).*%s", posTagFeature, valueQuote, v, valueQuote);
+			return String.format("%s%s%s.*(%s).*%s", posTagFeature, op, valueQuote, v, valueQuote);
 		} else
 			return n +  writeOperator(node.getOperator())  + valueQuote + v+ valueQuote;
 	}

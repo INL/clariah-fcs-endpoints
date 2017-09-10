@@ -56,6 +56,7 @@ public class ExpressionConverter implements ExpressionRewriter
     		
     		Expression e2 = new Expression(e1.getLayerQualifier(), e1.getLayerIdentifier(), flip, e1.getRegexValue(), e1.getRegexFlags());
     		// clone e and make negative
+    		System.err.println("Simple negation, flip="  + flip + " input operator = " + e1.getOperator());
     		return e2;
     	}
 		return new ExpressionNot(n); // kan je natuurlijk naar binnen proberen te duwen, etc, maar laat maar
