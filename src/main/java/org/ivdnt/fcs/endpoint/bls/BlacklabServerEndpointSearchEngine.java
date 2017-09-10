@@ -108,7 +108,11 @@ public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine
 			query = q.getRawQuery();
 			
 			if (conversion != null)
+			{
+				System.err.println(String.format("Before conversion with %s: %s",  conversion, query));
 			    query = conversion.translateQuery(query);
+			    System.err.println(String.format("After conversion with %s: %s",  conversion, query));
+			}
 			        // do not parse the query. TODO real mapping component!
 					// FCSToCQPConverter.makeCQPFromFCS(q);
 		} else {

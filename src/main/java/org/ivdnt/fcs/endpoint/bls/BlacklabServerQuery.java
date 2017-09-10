@@ -18,7 +18,7 @@ import clariah.fcs.*;
 
 public class BlacklabServerQuery extends clariah.fcs.Query
 {
-	public static final String atHome = "http://localhost:8080/blacklab-server-1.6.0/";
+	public static final String atHome = "http://localhost:8080/blacklab-server/";
 	public static final String corpusAtHome="ezel";
 
 
@@ -108,6 +108,7 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 		{
 			System.err.println("!Error: no summary in response " + response);
 		}
+		
 		JSONArray hits = (JSONArray) response.get("hits");
 
 		JSONObject docs = (JSONObject) response.get("docInfos");

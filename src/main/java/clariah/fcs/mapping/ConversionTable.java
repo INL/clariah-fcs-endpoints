@@ -12,6 +12,13 @@ public class ConversionTable extends Conversion
 	String[][] fieldMapping;
 	String[][] featureMapping;
 
+	public String name = this.getClass().getName();
+	
+	public String toString()
+	{
+		return "Conversion(" + name + ")";
+	}
+	
 	boolean useFeatureRegex = false;
 	String posTagField = null;
 	String[] grammaticalFeatures = {};
@@ -93,11 +100,11 @@ public class ConversionTable extends Conversion
 	{
 
 
-		ConversionTable ct = Conversions.UD2CGNSonar;
+		ConversionTable ct = Conversions.UD2CHN;
 
 		String q = "[pos='PROPN'][lemma='aap' & pos='NOUN' & Number='Plur'] [pos='DET'][pos='CCONJ'][lemma='niet.*']";
 		q = "[pos=\"NOUN\" & Number=\"Plur\"][pos=\"VERB\"]";
-		q = "[pos=\"VERB\" & Tense=\"Past\" & VerbForm=\"Fin\"]";
+		q = "[pos=\"VERB\" & Tense=\"Past\" & VerbForm=\"Fin\"][pos=\"PROPN\"]";
 		//q = "[pos='AUX' | pos =  'SCONJ'][pos='DET'][]{0,7}[pos='INTJ']";
 		// Conversion.bla(q);
 

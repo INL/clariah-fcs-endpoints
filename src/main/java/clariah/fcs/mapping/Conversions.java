@@ -132,7 +132,7 @@ public class Conversions
 		ct.useFeatureRegex = true;
 		ct.posTagField = "pos";
 		ct.grammaticalFeatures = grammarFeats;
-
+		ct.name = "UD2CHN";
 		UD2CHN = ct;
 	}
 
@@ -277,7 +277,7 @@ public class Conversions
 		ct1.includeFeatureNameInRegex = false;
 		ct1.posTagField = "pos";
 		ct1.grammaticalFeatures = grammarFeats1;
-
+		ct1.name = "UD2CGNSonar";
 		UD2CGNSonar = ct1;
 	}
 	
@@ -286,6 +286,7 @@ public class Conversions
 		ConversionTable ct2 = new ConversionTable(UD2CGNSonar.fieldMapping, UD2CGNSonar.featureMapping);
 		ct2.useFeatureRegex = false;
 		ct2.posTagField = "pos";
+		ct2.name = "UD2CGNNederlab";
 		UD2CGNNederlab = ct2;
 	}
 }
