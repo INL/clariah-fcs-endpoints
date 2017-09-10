@@ -115,17 +115,17 @@ public class WriteAsCQP
 		String n = e.getLayerIdentifier();
 		String v = e.getRegexValue();
 		
-		String op = writeOperator(node.getOperator());
+		String operator = writeOperator(node.getOperator());
 		if (this.useRegex && n.equals(posTagFeature))
-			return  String.format("%s%s%s^(%s).*%s",n,op, valueQuote,v, valueQuote);
+			return  String.format("%s%s%s^(%s).*%s",n,operator, valueQuote,v, valueQuote);
 		
 		
 		if (this.useRegex && this.grammaticalFeatures.contains(n))
 		{
 			if (this.includeFeatureNameInRegex)
-			  return String.format("%s%s%s.*%s=(%s).*%s", posTagFeature, op, valueQuote, n, v, valueQuote);
+			  return String.format("%s%s%s.*%s=(%s).*%s", posTagFeature, operator, valueQuote, n, v, valueQuote);
 			else
-			return String.format("%s%s%s.*(%s).*%s", posTagFeature, op, valueQuote, v, valueQuote);
+			return String.format("%s%s%s.*(%s).*%s", posTagFeature, operator, valueQuote, v, valueQuote);
 		} else
 			return n +  writeOperator(node.getOperator())  + valueQuote + v+ valueQuote;
 	}
