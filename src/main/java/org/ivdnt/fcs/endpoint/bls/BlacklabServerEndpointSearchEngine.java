@@ -70,14 +70,14 @@ public class BlacklabServerEndpointSearchEngine extends KorpEndpointSearchEngine
 
 		bq.startPosition = request.getStartRecord()-1; // bij fcs beginnen ze bij 1 te tellen ?
 		bq.maximumResults = request.getMaximumRecords();
-
+		System.err.println("Query to blacklab server: " + bq);
 		try {
 			BlacklabServerResultSet bsrs = bq.execute();
 
 			return new BlacklabSRUSearchResultSet(config, request, diagnostics, bsrs);
 		} catch (Exception e) {
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
-					"The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage() +  "; Query URL: " + bq.url());
+					"The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage() +  "; Query: " + bq.toString());
 		}
 		
 

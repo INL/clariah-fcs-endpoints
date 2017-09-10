@@ -75,8 +75,10 @@ public class WriteAsCQP
 	}
 
 	private   String writeExpressionOr(ExpressionOr node) {
-		
-		return "(" + StringUtils.join(writeList(node.getChildren()), " | ") + ")"; // brackets needed only if also other clauses
+		if (node.parent.children.size() > 1)
+			return "(" + StringUtils.join(writeList(node.getChildren()), " | ") + ")"; // brackets needed only if also other clauses
+		else
+			return StringUtils.join(writeList(node.getChildren()), " | ");
 	}
 
 	private   String writeExpressionNot(ExpressionNot node) {
@@ -102,13 +104,15 @@ public class WriteAsCQP
 			  return String.format("%s=%s.*%s=(%s).*%s", posTagFeature, valueQuote, n, v, valueQuote);
 			else
 			return String.format("%s=%s.*(%s).*%s", posTagFeature, valueQuote, v, valueQuote);
-		}
-		
-		return n +  '='  + valueQuote + v+ valueQuote;
+		} else
+			return n +  '='  + valueQuote + v+ valueQuote;
 	}
 
 	private   String writeExpressionAnd(ExpressionAnd node) {
-		return "(" + StringUtils.join(writeList(node.getChildren()), " & ")  + ")"; // nederlab needs the extra bracket 
+		if (node.parent.children.size() > 1)
+			return "(" + StringUtils.join(writeList(node.getChildren()), " & ") + ")"; // brackets needed only if also other clauses
+		else
+			return StringUtils.join(writeList(node.getChildren()), " & ");
 	}
 
 	private   String writeQuerySequence(QuerySequence node) {

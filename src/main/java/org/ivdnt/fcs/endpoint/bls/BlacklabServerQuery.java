@@ -102,11 +102,17 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 
 		// System.err.println("Response: " + response);
 
+		JSONObject summary =  (JSONObject) response.get("summary");
+		
+		if (summary == null)
+		{
+			System.err.println("!Error: no summary in response " + response);
+		}
 		JSONArray hits = (JSONArray) response.get("hits");
 
 		JSONObject docs = (JSONObject) response.get("docInfos");
 
-		JSONObject summary =  (JSONObject) response.get("summary");
+		
 
 		Object nof = summary.get("numberOfHits");
 
