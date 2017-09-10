@@ -82,7 +82,12 @@ public class WriteAsCQP
 	}
 
 	private   String writeExpressionNot(ExpressionNot node) {
-		return "!" + writeAsCQP(node.getFirstChild());
+		if (node.getFirstChild() != null && 
+				node.getFirstChild().getChildren() != null && 
+				node.getFirstChild().getChildren().size() == 1)
+		return "!" + writeAsCQP(node.getFirstChild()); // if child has only one child, there is no need for the extra bracketing
+		else 
+			return "!("  + writeAsCQP(node.getFirstChild()) + ")";
 	}
 
 	private   String writeExpressionGroup(ExpressionGroup node) {
