@@ -117,7 +117,7 @@ public class Conversions
 					{"Degree", "Pos", "degree", "pos"},
 					{"Degree", "Cmp", "degree", "comp"},
 					{"Degree", "Sup", "degree", "sup"},
-					
+					//{"Degree", "Dim"
 					{"Position", "Postnom", "position", "postnom"},
 					{"Position", "Prenom", "position", "prenom"},
 					{"Position", "Free", "position", "oth|pred"},
@@ -154,6 +154,9 @@ public class Conversions
 					// pronoun / determiner / article
 					// UD heeft: Art (ldiwoord)	Dem	(aanwijzend) Emp (nadruk)	Exc (uitroepend)	Ind	(onbepaald) Int	Neg	Prs (persoonlijk)	Rcp (reciprocal)	Rel (betrekkelijk)	Tot (collectief: iedereen enzo)
 
+					{"Definite", "Def", "lwtype", "bep"},
+					{"Definite", "Ind", "lwtype", "onbep"},
+					
 					{"PronType", "Art", "subtype", "art-def"},
 					{"PronType", "Art", "subtype", "art-indef"},
 					
@@ -224,21 +227,40 @@ public class Conversions
 					{"pos", "SYM", "pos", "SPEC"}, // opzoeken
 					{"pos", "X", "pos", "SPEC"},
 					
+					// AdpType
+					{"AdpType", "Comprep", "feat.vztype", "versm"},
+					{"AdpType", "Prep", "feat.vztype", "init"},
+					{"AdpType", "Post", "feat.vztype", "fin"},
+					
 					// nominal features
 					
 					{"Number", "Plur", "feat.getal", "mv"},
 					{"Number", "Sing", "feat.getal", "ev"},
 					
-					{"Gender", "Fem", "feat.genus", "zijd"},
-					{"Gender", "Masc", "feat.genus", "zijd"},
+					{"Gender", "Fem", "feat.genus", "fem"},
+					{"Gender", "Fem", "feat.npagr", "evf"},
+					{"Gender", "Fem", "feat.persoon", "2v|3v"},
+					
+					
+					{"Gender", "Masc", "feat.genus", "masc"},
+					{"Gender", "Masc", "feat.persoon", "3m"},
+					
+					// ? evmo, wel of niet doen?
+					
 					{"Gender", "Neut", "feat.genus", "onz"},
-					{"Gender",  "Com", "feat.genus", "zijd"},  // HM, not implemented
+					{"Gender", "Neut", "feat.npagr", "evon"},
+					{"Gender", "Neut", "feat.graad", "dim", "pos", "N"},
+					
+					
+					{"Gender",  "Com", "feat.genus", "zijd"},  
 					
 				   // adjective
 					
 					{"Degree", "Pos", "feat.graad", "basis"},
 					{"Degree", "Cmp", "feat.graad", "comp"},
 					{"Degree", "Sup", "feat.graad", "sup"},
+					{"Degree", "Dim", "feat.graad", "dim"},
+
 					
 					{"Position", "Nom", "feat.positie", "nom"},
 					{"Position", "Postnom", "feat.positie", "postnom"},
@@ -259,9 +281,16 @@ public class Conversions
 					
 					// verbal features
 					
-					{"Mood", "Ind", "feat.wvorm", "pv"},
-					{"Mood", "Imp", "feat.wvorm", "pv"},
-					{"Mood", "Sub", "feat.wvorm", "pv", "feat", "conj"},
+					{"Aspect", "Imp", "feat.wvorm", "od"},
+					{"Aspect", "Perf", "feat.wvorm", "vd"},
+					
+					{"Mood", "Ind", "feat.wvorm", "pv", "feat.pvtijd", "verl"},
+					{"Mood", "Ind", "feat.wvorm", "pv", "feat.pvtijd", "tgw", "feat.persoon", "1|3|3p|3v|3m|3o"},
+					
+					{"Mood", "Imp,Ind", "feat.wvorm", "pv", "feat.pvtijd", "tgw"},
+					
+					//{"Mood", "Imp", "feat.wvorm", "pv"},
+					{"Mood", "Sub", "feat.wvorm", "pv", "feat.pvtijd", "conj"},
 					
 					{"VerbForm", "Fin", "feat.wvorm", "pv"},
 					{"VerbForm", "Inf", "feat.wvorm", "inf"},
