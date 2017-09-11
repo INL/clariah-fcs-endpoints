@@ -154,8 +154,7 @@ public class Conversions
 					// pronoun / determiner / article
 					// UD heeft: Art (ldiwoord)	Dem	(aanwijzend) Emp (nadruk)	Exc (uitroepend)	Ind	(onbepaald) Int	Neg	Prs (persoonlijk)	Rcp (reciprocal)	Rel (betrekkelijk)	Tot (collectief: iedereen enzo)
 
-					{"Definite", "Def", "lwtype", "bep"},
-					{"Definite", "Ind", "lwtype", "onbep"},
+				
 					
 					{"PronType", "Art", "subtype", "art-def"},
 					{"PronType", "Art", "subtype", "art-indef"},
@@ -269,7 +268,7 @@ public class Conversions
 				    // 
 					{"??", "??", "feat.buiging", "met-e"}, // en wat doen we het de -s? (Ook in CHN tagging een probleem)
 					
-					{"Case", "Gen", "feat.naamval", "gen"}, 
+					{"Case", "Gen", "feat.naamval", "gen", "pos", "ADJ|N|VNW"}, 
 					{"Case", "Acc", "feat.naamval", "obl"},
 					{"Case", "Dat", "feat.naamval", "dat"},
 					{"Case", "Nom", "feat.naamval", "nomin"},
@@ -310,12 +309,21 @@ public class Conversions
 					{"Tense", "Past", "feat.wvorm", "vd"},  // eigenlijk niet goed? in UD geen past maar perf?
 					{"Tense", "Pres", "feat.wvorm", "od"},
 					
-					//{"Polite", "Pol", "?", "?"},
+					{"Polite", "Inf", "feat.persoon", "2v"},
+					{"Polite", "Pol", "lemma", "u"},
+					
 					// pronoun / determiner / article
 					// UD heeft: Art (ldiwoord)	Dem	(aanwijzend) Emp (nadruk)	Exc (uitroepend)	Ind	(onbepaald) Int	Neg	Prs (persoonlijk)	Rcp (reciprocal)	Rel (betrekkelijk)	Tot (collectief: iedereen enzo)
 
+					
+					{"Definite", "Def", "feat.lwtype", "bep"},
+					{"Definite", "Ind", "feat.lwtype", "onbep"},
+					{"Definite", "Def", "feat.vwtype", "bep"},
+					{"Definite", "Ind", "feat.vwtype", "onbep"},
+					
 					{"PronType", "Art", "pos", "LID"},
 				
+					
 					
 					{"PronType", "Exc", "feat.vwtype", "excl"}, // misnomer: zou vnwtype moeten zijn?
 					{"PronType", "Dem", "feat.vwtype", "aanw"}, // in welk feat zit PronType????
@@ -326,7 +334,8 @@ public class Conversions
 					
 					{"PronType", "Rcp", "feat.vwtype", "recip"},
 					{"PronType", "Ind", "feat.lwtype", "onbep"},
-				
+					{"PronType", "Ind", "feat.vwtype", "onbep"},
+					
 					{"PronType", "Tot", "feat.lwtype", "onbep", "lemma", "iedereen|ieder|al|alles|elk|elke"},
 					{"PronType", "Neg,Tot", "feat.lwtype", "onbep", "lemma", "geen"}, // ?
 					{"Poss", "Yes", "feat.vwtype", "bez"},

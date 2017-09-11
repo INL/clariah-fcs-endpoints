@@ -125,7 +125,7 @@ public class WriteAsCQP
 			if (this.includeFeatureNameInRegex)
 			  return String.format("%s%s%s.*%s=(%s).*%s", posTagFeature, operator, valueQuote, n, v, valueQuote);
 			else
-			return String.format("%s%s%s.*(%s).*%s", posTagFeature, operator, valueQuote, v, valueQuote);
+			return String.format("%s%s%s.*[(,|](%s)[,)|].*%s", posTagFeature, operator, valueQuote, v, valueQuote);
 		} else
 			return n +  writeOperator(node.getOperator())  + valueQuote + v+ valueQuote;
 	}
