@@ -22,10 +22,9 @@ import eu.clarin.sru.server.SRUSearchResultSet;
 import eu.clarin.sru.server.SRUServerConfig;
 import eu.clarin.sru.server.fcs.Constants;
 import eu.clarin.sru.server.fcs.FCSQueryParser;
-import se.gu.spraakbanken.fcs.endpoint.korp.KorpEndpointSearchEngine;
-import se.gu.spraakbanken.fcs.endpoint.korp.cqp.FCSToCQPConverter;
-import se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.info.CorporaInfo;
-import se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.query.Query;
+
+import org.ivdnt.fcs.endpoint.base.FCSToCQPConverter;
+
 
 public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngine
 {

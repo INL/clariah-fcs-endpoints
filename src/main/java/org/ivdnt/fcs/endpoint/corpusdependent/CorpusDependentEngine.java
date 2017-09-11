@@ -10,14 +10,12 @@ import eu.clarin.sru.server.SRURequest;
 import eu.clarin.sru.server.SRUSearchResultSet;
 import eu.clarin.sru.server.SRUServerConfig;
 import eu.clarin.sru.server.fcs.*;
-import se.gu.spraakbanken.fcs.endpoint.korp.KorpEndpointSearchEngine;
-import se.gu.spraakbanken.fcs.endpoint.korp.KorpSRUSearchResultSet;
-import se.gu.spraakbanken.fcs.endpoint.korp.cqp.FCSToCQPConverter;
-import se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.query.Query;
+
 import java.util.*;
 
 import javax.servlet.ServletContext;
 
+import org.ivdnt.fcs.endpoint.base.BasicEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.bls.BlacklabServerEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.bls.BlacklabServerQuery;
 import org.ivdnt.fcs.endpoint.nederlab.NederlabEndpointSearchEngine;
@@ -54,8 +52,8 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
 			   return engineMap.get(k);
 		   }
 	   
-	   System.err.println("Could not find engine for corpus: " + corpusId + ", send to korp");
-	   return new se.gu.spraakbanken.fcs.endpoint.korp.KorpEndpointSearchEngine();
+	   System.err.println("Could not find engine for corpus: " + corpusId);
+	   return null;
    }
    
    protected void doInit(ServletContext context, SRUServerConfig config,
