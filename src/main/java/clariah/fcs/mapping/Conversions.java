@@ -245,8 +245,13 @@ public class Conversions
 					{"Position", "Prenom", "feat.positie", "prenom"},
 					{"Position", "Free", "feat.positie", "vrij"},
 				    // 
-					{"??", "??", "buiging", "met-e"}, // en wat doen we het de -s? (Ook in CHN tagging een probleem)
-					{"Case", "Gen", "buiging", "met-s"}, 
+					{"??", "??", "feat.buiging", "met-e"}, // en wat doen we het de -s? (Ook in CHN tagging een probleem)
+					
+					{"Case", "Gen", "feat.naamval", "gen"}, 
+					{"Case", "Acc", "feat.naamval", "obl"},
+					{"Case", "Dat", "feat.naamval", "dat"},
+					{"Case", "Nom", "feat.naamval", "nomin"},
+					
 					// numeral 
 					
 					{"NumType", "Card", "feat.numtype", "card"},
@@ -264,6 +269,9 @@ public class Conversions
 					{"VerbForm", "Part", "feat.wvorm", "vd"},
 					
 					{"Person", "1", "feat.persoon", "1"},
+					{"Person", "2", "feat.persoon", "2|2v|2b"},
+					{"Person", "3", "feat.persoon", "3|3p|3v|3m|3o"},
+					
 					//{"Person", "1", "person", "1"},
 					//{"Person", "2", "person", "2"},
 					//{"Person", "3", "feat.pvagr", "met-t"},
