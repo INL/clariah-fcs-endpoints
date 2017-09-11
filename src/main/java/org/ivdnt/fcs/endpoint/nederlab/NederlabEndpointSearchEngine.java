@@ -6,6 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import org.ivdnt.fcs.endpoint.base.BasicEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.bls.BlacklabSRUSearchResultSet;
 import org.ivdnt.fcs.endpoint.bls.BlacklabServerEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.bls.BlacklabServerQuery;
@@ -29,7 +30,7 @@ import se.gu.spraakbanken.fcs.endpoint.korp.cqp.FCSToCQPConverter;
 import se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.info.CorporaInfo;
 import se.gu.spraakbanken.fcs.endpoint.korp.data.json.pojo.query.Query;
 
-public class NederlabEndpointSearchEngine extends KorpEndpointSearchEngine 
+public class NederlabEndpointSearchEngine  extends BasicEndpointSearchEngine
 {
 	
 	String server = NederlabQuery.defaultServer;

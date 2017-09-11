@@ -25,7 +25,7 @@ import org.ivdnt.fcs.endpoint.nederlab.NederlabQuery;
 
 import clariah.fcs.mapping.Conversions;
 
-public class CorpusDependentEngine extends se.gu.spraakbanken.fcs.endpoint.korp.KorpEndpointSearchEngine 
+public class CorpusDependentEngine extends BasicEndpointSearchEngine
 {
    SimpleEndpointSearchEngineBase engine;
    
