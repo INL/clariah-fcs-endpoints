@@ -263,9 +263,10 @@ public class Conversions
 					{"VerbForm", "Part", "feat.wvorm", "od"},
 					{"VerbForm", "Part", "feat.wvorm", "vd"},
 					
+					{"Person", "1", "feat.persoon", "1"},
 					//{"Person", "1", "person", "1"},
 					//{"Person", "2", "person", "2"},
-					{"Person", "3", "feat.pvagr", "met-t"},
+					//{"Person", "3", "feat.pvagr", "met-t"},
 					
 					{"Tense", "Past", "feat.pvtijd", "verl"}, // Maar: NIET als het een deelwoord is Dus deze manier van converteren werkt niet; je hebt ook nog condities nodig
 					{"Tense", "Pres", "feat.pvtijd", "tgw"},
