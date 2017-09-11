@@ -310,6 +310,7 @@ public class Conversions
 					{"Tense", "Past", "feat.wvorm", "vd"},  // eigenlijk niet goed? in UD geen past maar perf?
 					{"Tense", "Pres", "feat.wvorm", "od"},
 					
+					//{"Polite", "Pol", "?", "?"},
 					// pronoun / determiner / article
 					// UD heeft: Art (ldiwoord)	Dem	(aanwijzend) Emp (nadruk)	Exc (uitroepend)	Ind	(onbepaald) Int	Neg	Prs (persoonlijk)	Rcp (reciprocal)	Rel (betrekkelijk)	Tot (collectief: iedereen enzo)
 
@@ -327,8 +328,13 @@ public class Conversions
 					{"PronType", "Ind", "feat.lwtype", "onbep"},
 				
 					{"PronType", "Tot", "feat.lwtype", "onbep", "lemma", "iedereen|ieder|al|alles|elk|elke"},
+					{"PronType", "Neg,Tot", "feat.lwtype", "onbep", "lemma", "geen"}, // ?
 					{"Poss", "Yes", "feat.vwtype", "bez"},
 					{"Reflex", "Yes", "feat.vwtype", "refl"},
+					{"Reflex", "Yes", "feat.vwtype", "pr"}, // ??
+					
+					{"Variant", "Long", "feat.status", "vol"},
+					{"Variant", "Short", "feat.status", "red"},
 			};
 
 		String[] grammarFeats1 = {
