@@ -66,15 +66,30 @@ public class WriteAsCQP
 			n1=writeExpressionWildcard((ExpressionWildcard) node);
 		} else if (node instanceof SimpleWithin) {
 			n1=writeSimpleWithin((SimpleWithin) node);
-		} else {
+		} else if (node instanceof QueryWithWithin) {
+			n1=writeQueryWithWithin((QueryWithWithin) node);
+		}else {
 			throw new RuntimeException("unexpected node type: "  + node.getNodeType());
 		}
 		return n1;
 	}
 	
+	// TODO: dit moet ook in de mapping....
+	
+	private String writeQueryWithWithin(QueryWithWithin node) {
+
+		return writeAsCQP(node.getFirstChild())  + "  within " + writeAsCQP(node.getWithin());
+
+	}
+
 	private   String writeSimpleWithin(SimpleWithin node) {
 		SimpleWithin sw =  new SimpleWithin(node.getScope());
-		return " within <snapikniet/>" ; // children ???? TODO dit kan niet kloppen!!!
+		switch (sw.getScope())
+		{
+		case SENTENCE: return "<s/>"; // HM
+		case UTTERANCE: case TEXT: case PARAGRAPH: case TURN: case SESSION: 
+			default: return "<kweenie/>";
+		}
 	}
 
 	private   String writeExpressionWildcard(ExpressionWildcard node) {
