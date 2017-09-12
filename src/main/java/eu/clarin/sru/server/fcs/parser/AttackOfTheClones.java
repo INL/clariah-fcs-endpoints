@@ -24,6 +24,8 @@ import eu.clarin.sru.server.fcs.parser.SimpleWithin;
  * Bleuh dit moet je in package eu.clarin.sru.server.fcs.parser zetten, anders 
  * kan je niks clonen. Bleurp.
  * @author does
+ * 
+ * TODO QueryWithWithin
  *
  */
 public class AttackOfTheClones

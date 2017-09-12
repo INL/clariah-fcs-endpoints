@@ -104,7 +104,7 @@ public class ConversionTable extends Conversion
 
 		String q = "[pos='PROPN'][lemma='aap' & pos='NOUN' & Number='Plur'] [pos='DET'][pos='CCONJ'][lemma='niet.*']";
 		q = "[pos=\"NOUN\" & Number=\"Plur\"][pos=\"VERB\"]";
-		q = "[pos=\"VERB\" & Tense=\"Past\" & VerbForm=\"Fin\"][pos=\"PROPN\"]";
+		q = "[pos=\"VERB\" & Tense=\"Past\" & VerbForm=\"Fin\"][pos=\"PROPN\"] within sentence";
 		//q = "[pos='AUX' | pos =  'SCONJ'][pos='DET'][]{0,7}[pos='INTJ']";
 		// Conversion.bla(q);
 
