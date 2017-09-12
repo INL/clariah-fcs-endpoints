@@ -92,12 +92,19 @@ public class AttackOfTheClones
 			n1=rewriteExpressionWildcard((ExpressionWildcard) node);
 		} else if (node instanceof SimpleWithin) {
 			n1=rewriteSimpleWithin((SimpleWithin) node);
+		} else if (node instanceof QueryWithWithin) {
+			n1=rewriteQueryWithWithin((QueryWithWithin) node);
 		} else {
 			throw new RuntimeException("unexpected node type: "  + node.getNodeType());
 		}
 		
 		
 		return n1;
+	}
+
+	private QueryNode rewriteQueryWithWithin(QueryWithWithin node) {
+		// TODO Auto-generated method stub
+		return new QueryWithWithin(rewriteNode(node.getFirstChild()), rewriteNode(  node.getChildren().get(1) ));
 	}
 
 	private QueryNode rewriteSimpleWithin(SimpleWithin node) {
