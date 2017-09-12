@@ -11,9 +11,11 @@ object FCSTest
     val doc = XML.load(url)
     println(doc)
     (doc \\ "Advanced").toList.foreach (
-      a => 
+      a =>
       {
+        val segmentIds = ((a \\ "Segment") \ "@id").toList
         val layers = a \\ "Layer"
+        
         // en daarin weel de spans ...
       }
     )
