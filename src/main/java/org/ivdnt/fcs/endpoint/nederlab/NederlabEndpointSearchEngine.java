@@ -6,10 +6,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-import org.ivdnt.fcs.endpoint.base.BasicEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.bls.BlacklabSRUSearchResultSet;
-import org.ivdnt.fcs.endpoint.bls.BlacklabServerEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.bls.BlacklabServerQuery;
+import org.ivdnt.fcs.endpoint.common.BasicEndpointSearchEngine;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -48,7 +47,7 @@ public class NederlabEndpointSearchEngine  extends BasicEndpointSearchEngine
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException 
 	{
-		String query = BlacklabServerEndpointSearchEngine.translateQuery(request,conversion);
+		String query = BasicEndpointSearchEngine.translateQuery(request,conversion);
 
 		boolean hasFcsContextCorpus = false;
 		

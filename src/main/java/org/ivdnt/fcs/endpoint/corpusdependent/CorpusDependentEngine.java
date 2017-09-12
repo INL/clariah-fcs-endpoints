@@ -15,9 +15,9 @@ import java.util.*;
 
 import javax.servlet.ServletContext;
 
-import org.ivdnt.fcs.endpoint.base.BasicEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.bls.BlacklabServerEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.bls.BlacklabServerQuery;
+import org.ivdnt.fcs.endpoint.common.BasicEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.nederlab.NederlabEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.nederlab.NederlabQuery;
 

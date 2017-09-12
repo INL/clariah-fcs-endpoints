@@ -3,7 +3,7 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.txt
  *  GNU General Public License v3
  */
-package org.ivdnt.fcs.endpoint.base;
+package org.ivdnt.fcs.endpoint.common;
 
 import java.util.ArrayList;
 import java.util.Arrays;

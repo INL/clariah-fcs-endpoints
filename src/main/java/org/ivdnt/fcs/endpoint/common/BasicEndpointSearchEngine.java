@@ -3,7 +3,7 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.txt
  *  GNU General Public License v3
  */
-package org.ivdnt.fcs.endpoint.base;
+package org.ivdnt.fcs.endpoint.common;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +33,7 @@ import org.z3950.zing.cql.CQLOrNode;
 import org.z3950.zing.cql.CQLTermNode;
 
 import eu.clarin.sru.server.CQLQueryParser;
+import eu.clarin.sru.server.CQLQueryParser.CQLQuery;
 import eu.clarin.sru.server.SRUConfigException;
 import eu.clarin.sru.server.SRUConstants;
 import eu.clarin.sru.server.SRUDiagnosticList;
@@ -46,6 +47,7 @@ import eu.clarin.sru.server.fcs.Constants;
 import eu.clarin.sru.server.fcs.DataView;
 import eu.clarin.sru.server.fcs.EndpointDescription;
 import eu.clarin.sru.server.fcs.FCSQueryParser;
+import eu.clarin.sru.server.fcs.FCSQueryParser.FCSQuery;
 import eu.clarin.sru.server.fcs.Layer;
 import eu.clarin.sru.server.fcs.ResourceInfo;
 import eu.clarin.sru.server.fcs.SimpleEndpointSearchEngineBase;
@@ -62,10 +64,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import clariah.fcs.mapping.Conversion;
+
 
 
 /**
- * A Korp CLARIN FCS 2.0 endpoint example search engine.
+ * Base class for  endpoint search engines, based on the Korp reference example
  *
  */
 public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
@@ -353,5 +357,47 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException {
 		return null;
+	}
+
+	public static String translateQuery(SRURequest request) throws SRUException 
+	{
+		return translateQuery(request,null);
+	}
+
+	public static String translateQuery(SRURequest request, Conversion conversion) throws SRUException {
+		String query;
+	
+		if (request.isQueryType(Constants.FCS_QUERY_TYPE_CQL)) {
+			/*
+			 * Got a CQL query (either SRU 1.1 or higher). Translate to a proper CQP query
+			 * ...
+			 */
+			final CQLQueryParser.CQLQuery q = request.getQuery(CQLQueryParser.CQLQuery.class);
+			query = FCSToCQPConverter.makeCQPFromCQL(q);
+		} else if (request.isQueryType(Constants.FCS_QUERY_TYPE_FCS)) {
+			/*
+			 * Got a FCS query (SRU 2.0). Translate to a proper CQP query
+			 */
+			
+			final FCSQueryParser.FCSQuery q = request.getQuery(FCSQueryParser.FCSQuery.class);
+			System.err.println(String.format("FCSQuery %s: raw %s", q, q.getRawQuery()));
+			query = q.getRawQuery();
+			
+			if (conversion != null)
+			{
+				System.err.println(String.format("Before conversion with %s: %s",  conversion, query));
+			    query = conversion.translateQuery(query);
+			    System.err.println(String.format("After conversion with %s: %s",  conversion, query));
+			}
+			        // do not parse the query. TODO real mapping component!
+					// FCSToCQPConverter.makeCQPFromFCS(q);
+		} else {
+			/*
+			 * Got something else we don't support. Send error ...
+			 */
+			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN, "Queries with queryType '"
+					+ request.getQueryType() + "' are not supported by this CLARIN-FCS Endpoint.");
+		}
+		return query;
 	}
 }
