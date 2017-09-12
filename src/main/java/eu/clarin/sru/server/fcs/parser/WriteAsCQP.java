@@ -16,11 +16,11 @@ public class WriteAsCQP
 {
 	boolean useRegex = false;
 	boolean includeFeatureNameInRegex = true;
-	
+
 	String posTagFeature;
 	Set<String> grammaticalFeatures;
 	String valueQuote = "'";
-	
+
 	public void setRegexHack(String posTagFeature, String[] grammaticalFeatures, boolean includeFeatureNameInRegex)
 	{
 		this.posTagFeature = posTagFeature;
@@ -30,17 +30,17 @@ public class WriteAsCQP
 		this.useRegex = true;
 		this.includeFeatureNameInRegex = includeFeatureNameInRegex;
 	}
-	
+
 	public void setQuote(String s)
 	{
 		this.valueQuote = s;
 	}
-	
+
 	public List<String> writeList(List<QueryNode> l)
 	{
 		return l.stream().map(n -> writeAsCQP(n)).collect(Collectors.toList());
 	}
-	
+
 	public  String writeAsCQP(QueryNode node)
 	{
 		String n1;
@@ -73,9 +73,9 @@ public class WriteAsCQP
 		}
 		return n1;
 	}
-	
+
 	// TODO: dit moet ook in de mapping....
-	
+
 	private String writeQueryWithWithin(QueryWithWithin node) {
 
 		return writeAsCQP(node.getFirstChild())  + "  within " + writeAsCQP(node.getWithin());
@@ -88,7 +88,7 @@ public class WriteAsCQP
 		{
 		case SENTENCE: return "<s/>"; // HM
 		case UTTERANCE: case TEXT: case PARAGRAPH: case TURN: case SESSION: 
-			default: return "<kweenie/>";
+		default: return "<kweenie/>";
 		}
 	}
 
@@ -107,7 +107,7 @@ public class WriteAsCQP
 		if (node.getFirstChild() != null && 
 				node.getFirstChild().getChildren() != null && 
 				node.getFirstChild().getChildren().size() == 1)
-		return "!" + writeAsCQP(node.getFirstChild()); // if child has only one child, there is no need for the extra bracketing
+			return "!" + writeAsCQP(node.getFirstChild()); // if child has only one child, there is no need for the extra bracketing
 		else 
 			return "!("  + writeAsCQP(node.getFirstChild()) + ")";
 	}
@@ -125,7 +125,7 @@ public class WriteAsCQP
 		default: return "WADDE?";
 		}
 	}
-	
+
 	/**
 	 * TODO feature regexes are too simple
 	 * @param node (expression node)
@@ -136,18 +136,18 @@ public class WriteAsCQP
 		Expression e = new Expression(node.getLayerQualifier(), node.getLayerIdentifier(), node.getOperator(), node.getRegexValue(), node.getRegexFlags());
 		String n = e.getLayerIdentifier();
 		String v = e.getRegexValue();
-		
+
 		String operator = writeOperator(node.getOperator());
 		if (this.useRegex && n.equals(posTagFeature))
 			return  String.format("%s%s%s^(%s).*%s",n,operator, valueQuote,v, valueQuote);
-		
-		
+
+
 		if (this.useRegex && this.grammaticalFeatures.contains(n))
 		{
 			if (this.includeFeatureNameInRegex)
-			  return String.format("%s%s%s.*%s=(%s).*%s", posTagFeature, operator, valueQuote, n, v, valueQuote);
+				return String.format("%s%s%s.*%s=(%s).*%s", posTagFeature, operator, valueQuote, n, v, valueQuote);
 			else
-			return String.format("%s%s%s.*[(,|](%s)[,)|].*%s", posTagFeature, operator, valueQuote, v, valueQuote);
+				return String.format("%s%s%s.*[(,|](%s)[,)|].*%s", posTagFeature, operator, valueQuote, v, valueQuote);
 		} else
 			return n +  writeOperator(node.getOperator())  + valueQuote + v+ valueQuote;
 	}

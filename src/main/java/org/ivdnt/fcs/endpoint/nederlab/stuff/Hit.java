@@ -68,7 +68,7 @@ public class Hit
 		clariah.fcs.Kwic kwic = new clariah.fcs.Kwic();
 		
 		
-		kwic.metadata = document.getMetadata();
+		kwic.setMetadata(document.getMetadata());
 		
 		kwic.tokenPropertyNames.addAll(this.knownPrefixes);
 		kwic.hitStart = this.getHitStart();

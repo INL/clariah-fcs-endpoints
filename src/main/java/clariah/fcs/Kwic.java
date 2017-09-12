@@ -15,7 +15,7 @@ public class Kwic
 	
 	public List<String> tokenPropertyNames = new ArrayList<>();
 	public Map<String,List<String>> tokenProperties = new HashMap<>();
-	public Map<String,String> metadata = new HashMap<>(); // considering the size of opensonar metadata, probably better to introduce separate document objects
+	private Map<String,String> metadata = new HashMap<>(); // considering the size of opensonar metadata, probably better to introduce separate document objects
 	Document document = null;
 	
 	public Kwic translatePrefixes(Map<String,String> map)
@@ -79,6 +79,15 @@ public class Kwic
 		}
 		String s = String.format("Kwic(%d,%d):", hitStart, hitEnd);
 		return s + tokens.toString();
+	}
+
+	public Map<String,String> getMetadata() 
+	{
+		return metadata;
+	}
+
+	public void setMetadata(Map<String,String> metadata) {
+		this.metadata = metadata;
 	}
 }
 

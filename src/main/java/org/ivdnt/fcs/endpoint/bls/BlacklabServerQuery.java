@@ -163,7 +163,7 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 				JSONObject doc = (JSONObject) docs.get((String) hit.get("docPid"));
 				Set<String> metadataProperties = doc.keySet();
 
-				doc.forEach( (k,v) -> kwic.metadata.put(k.toString(), v.toString()) ); // or put this in separate document info objects?
+				doc.forEach( (k,v) -> kwic.getMetadata().put(k.toString(), v.toString()) ); // or put this in separate document info objects?
 
 
 				JSONObject leftContext = (JSONObject) hit.get("left");
