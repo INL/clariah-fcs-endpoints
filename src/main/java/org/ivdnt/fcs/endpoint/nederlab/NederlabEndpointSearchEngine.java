@@ -51,15 +51,7 @@ public class NederlabEndpointSearchEngine  extends BasicEndpointSearchEngine
 
 		boolean hasFcsContextCorpus = false;
 		
-		String fcsContextCorpus = BlacklabServerQuery.defaultCorpus;
-		
-		for (String erd : request.getExtraRequestDataNames()) {
-			if ("x-fcs-context".equals(erd)) {
-				hasFcsContextCorpus = true;
-				fcsContextCorpus = request.getExtraRequestData("x-fcs-context");
-				break;
-			}
-		}
+		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request, "nederlab");
 		
 		NederlabQuery bq = new NederlabQuery(server, fcsContextCorpus, query);
 

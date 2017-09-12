@@ -71,16 +71,7 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
    
    public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException {
-		
-		boolean hasFcsContextCorpus = false;
-		String fcsContextCorpus = "opensonar";
-		for (String erd : request.getExtraRequestDataNames()) {
-			if ("x-fcs-context".equals(erd)) {
-				hasFcsContextCorpus = true;
-				fcsContextCorpus = request.getExtraRequestData("x-fcs-context");
-				break;
-			}
-		}
+		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request, "opensonar");
 		SimpleEndpointSearchEngineBase engine = chooseEngine(fcsContextCorpus);
 		return engine.search(config,request,diagnostics);
 	}

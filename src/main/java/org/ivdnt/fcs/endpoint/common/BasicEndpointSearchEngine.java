@@ -359,6 +359,22 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 		return null;
 	}
 
+	public static String getCorpusNameFromRequest(SRURequest request, String defaultCorpus) 
+	{
+		boolean hasFcsContextCorpus = false;
+		
+		String fcsContextCorpus = defaultCorpus;
+		
+		for (String erd : request.getExtraRequestDataNames()) {
+			if ("x-fcs-context".equals(erd)) {
+				hasFcsContextCorpus = true;
+				fcsContextCorpus = request.getExtraRequestData("x-fcs-context"); // TODO fix this in corpusinfo implementation
+				break;
+			}
+		}
+		return fcsContextCorpus;
+	}
+
 	public static String translateQuery(SRURequest request) throws SRUException 
 	{
 		return translateQuery(request,null);

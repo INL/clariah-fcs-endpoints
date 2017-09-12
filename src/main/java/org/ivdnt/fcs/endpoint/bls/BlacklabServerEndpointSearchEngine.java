@@ -49,23 +49,14 @@ public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngi
 	{
 		String query = BasicEndpointSearchEngine.translateQuery(request, conversion);
 
-		boolean hasFcsContextCorpus = false;
-		
-		String fcsContextCorpus = BlacklabServerQuery.defaultCorpus;
-		
-		for (String erd : request.getExtraRequestDataNames()) {
-			if ("x-fcs-context".equals(erd)) {
-				hasFcsContextCorpus = true;
-				fcsContextCorpus = request.getExtraRequestData("x-fcs-context"); // TODO fix this in corpusinfo implementation
-				break;
-			}
-		}
+		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request, BlacklabServerQuery.defaultCorpus);
 		
 		
 		BlacklabServerQuery bq = new BlacklabServerQuery(this.server, fcsContextCorpus, query);
 
 		bq.startPosition = request.getStartRecord()-1; // bij fcs beginnen ze bij 1 te tellen ?
 		bq.maximumResults = request.getMaximumRecords();
+		
 		System.err.println("Query to blacklab server: " + bq);
 		try {
 			BlacklabServerResultSet bsrs = bq.execute();
@@ -73,11 +64,8 @@ public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngi
 			return new BlacklabSRUSearchResultSet(config, request, diagnostics, bsrs);
 		} catch (Exception e) {
 			System.err.println("Rethrowing as SRU exception:" + e);
-			e.printStackTrace();
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
 					"The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage() +  "; Query: " + bq.toString());
 		}
-		
-
 	}
 }
