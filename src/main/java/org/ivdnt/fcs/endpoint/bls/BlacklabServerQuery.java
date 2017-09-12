@@ -7,14 +7,19 @@ import java.util.Set;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.net.HttpURLConnection;
 import clariah.fcs.*;
+import eu.clarin.sru.server.SRUException;
 
 public class BlacklabServerQuery extends clariah.fcs.Query
 {
@@ -74,22 +79,43 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 
 	public static JSONObject fetch(String url) throws Exception 
 	{
-		// Read from the specified URL.
-		InputStream is = new URL(url).openStream();
-		JSONParser parser = new JSONParser();
+
+		URLConnection connection =  new URL(url).openConnection();
+		
+		InputStream input = null;
+		
 		try {
 			String line;
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			StringBuilder b = new StringBuilder();
-			while ((line = br.readLine()) != null) {
-				b.append(line);
+			input = connection.getInputStream();	
+			return  jsonFromStream(input);
+		} catch (IOException e)
+		{
+			HttpURLConnection huc  = (HttpURLConnection) connection;
+			input = huc.getErrorStream();
+			
+			try
+			{
+				JSONObject errorObject =   jsonFromStream(input);
+				System.err.println("Error: " + errorObject.toJSONString());
+				throw new SRUException(errorObject.toJSONString());
+			} catch (Exception e1)
+			{
+				throw e1;
 			}
-			JSONObject x = new JSONObject();
-			Object o =  parser.parse(b.toString());
-			return  (JSONObject) o;
-		} finally {
-			is.close();
+		}	finally { if (input != null) input.close();}	
+	}
+
+	private static JSONObject jsonFromStream(InputStream is) throws IOException, ParseException {
+		String line;
+		JSONParser parser = new JSONParser();
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		StringBuilder b = new StringBuilder();
+		while ((line = br.readLine()) != null) {
+			b.append(line);
 		}
+	
+		Object o =  parser.parse(b.toString());
+		return (JSONObject) o;
 	}
 
 	public  List<Kwic> search() throws Exception
