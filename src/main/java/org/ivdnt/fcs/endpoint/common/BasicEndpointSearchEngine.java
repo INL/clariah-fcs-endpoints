@@ -69,7 +69,7 @@ import clariah.fcs.mapping.Conversion;
 
 
 /**
- * Base class for  endpoint search engines, based on the Korp reference example
+ * Base class for  endpoint search engines, mainly copies from the Korp reference example
  *
  */
 public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {

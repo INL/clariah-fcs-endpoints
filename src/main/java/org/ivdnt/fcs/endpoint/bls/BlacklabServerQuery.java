@@ -113,8 +113,6 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 
 		JSONObject docs = (JSONObject) response.get("docInfos");
 
-		
-
 		Object nof = summary.get("numberOfHits");
 
 		if (nof instanceof Integer)
