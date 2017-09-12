@@ -72,6 +72,8 @@ public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngi
 
 			return new BlacklabSRUSearchResultSet(config, request, diagnostics, bsrs);
 		} catch (Exception e) {
+			System.err.println("Rethrowing as SRU exception:" + e);
+			e.printStackTrace();
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
 					"The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage() +  "; Query: " + bq.toString());
 		}

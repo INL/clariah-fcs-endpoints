@@ -97,7 +97,7 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 			{
 				JSONObject errorObject =   jsonFromStream(input);
 				System.err.println("Error: " + errorObject.toJSONString());
-				throw new SRUException(errorObject.toJSONString());
+				throw new Exception(errorObject.toJSONString());
 			} catch (Exception e1)
 			{
 				throw e1;

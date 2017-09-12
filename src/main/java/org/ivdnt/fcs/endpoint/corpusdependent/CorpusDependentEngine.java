@@ -22,7 +22,13 @@ import org.ivdnt.fcs.endpoint.nederlab.NederlabEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.nederlab.NederlabQuery;
 
 import clariah.fcs.mapping.Conversions;
-
+/**
+ * 
+ * @author jesse
+ *
+ *Choose implementation, determined by corpus
+ *TODO: move configuration to a resource description file
+ */
 public class CorpusDependentEngine extends BasicEndpointSearchEngine
 {
    SimpleEndpointSearchEngineBase engine;
