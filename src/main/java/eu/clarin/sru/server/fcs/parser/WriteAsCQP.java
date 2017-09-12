@@ -5,6 +5,13 @@ import java.util.stream.Collectors;
 
 import org.ivdnt.util.StringUtils;
 
+/**
+ * 
+ * @author jesse
+ *<p>
+ *Reserialize parsed query to CQP.<br>
+ *The clarin fcs Parser classes did not have this.
+ */
 public class WriteAsCQP 
 {
 	boolean useRegex = false;
@@ -106,8 +113,8 @@ public class WriteAsCQP
 	
 	/**
 	 * TODO feature regexes are too simple
-	 * @param node
-	 * @return
+	 * @param node (expression node)
+	 * @return expression as CQL (<i>name='value'</i> if grammatical features are indexed separately, or else <i>pos=some regex</i>)
 	 */
 	private String writeExpression(Expression node) 
 	{

@@ -16,8 +16,9 @@ import eu.clarin.sru.server.fcs.parser.ExpressionOr;
 /**
  
  Simple-minded atomic expression rewriter.<br>
- 
- negation stuff and amount of brackets still feel fragile<br>
+ An atomic expression is rewritten to disjunction of conjunctions
+ <p>
+ Issues: negation stuff and amount of brackets still feel fragile<br>
 
  this works now:<br>
  UD: [word="taalman"][pos!="PROPN" & word="kip"]<br>
@@ -56,10 +57,10 @@ public class ExpressionConverter implements ExpressionRewriter
     		
     		Expression e2 = new Expression(e1.getLayerQualifier(), e1.getLayerIdentifier(), flip, e1.getRegexValue(), e1.getRegexFlags());
     		// clone e and make negative
-    		System.err.println("Simple negation, flip="  + flip + " input operator = " + e1.getOperator());
+    		//System.err.println("Simple negation, flip="  + flip + " input operator = " + e1.getOperator());
     		return e2;
     	}
-		return new ExpressionNot(n); // kan je natuurlijk naar binnen proberen te duwen, etc, maar laat maar
+		return new ExpressionNot(n); // kan je natuurlijk naar binnen proberen te duwen, etc, maar laat maar even
 	}
 	
 	@Override
@@ -90,6 +91,6 @@ public class ExpressionConverter implements ExpressionRewriter
 	    	return negative?negation(o1): o1;
 	    }
 	    ExpressionOr orrie = new ExpressionOr(orz);
-		return negative?negation(orrie):orrie; // TODO: wrap in NOT if nonatomic translation and operator = NOT_EQUALS
+		return negative?negation(orrie):orrie; 
 	}
 }
