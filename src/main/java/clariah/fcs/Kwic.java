@@ -15,7 +15,8 @@ public class Kwic
 	
 	public List<String> tokenPropertyNames = new ArrayList<>();
 	public Map<String,List<String>> tokenProperties = new HashMap<>();
-	public Map<String,String> metadata = new HashMap<>();
+	public Map<String,String> metadata = new HashMap<>(); // considering the size of opensonar metadata, probably better to introduce separate document objects
+	Document document = null;
 	
 	public Kwic translatePrefixes(Map<String,String> map)
 	{
