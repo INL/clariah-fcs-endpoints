@@ -9,7 +9,7 @@ public class ResultSet
 	public int maximumRecords;
 	public int totalNumberOfResults;
 	public List<Kwic> hits = new ArrayList<>();
-    public List<Document> documents = new ArrayList<>();
+    public Map<String, Document> documents = new HashMap<>();
 	
     public String toString() 
 	{

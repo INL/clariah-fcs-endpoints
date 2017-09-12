@@ -118,7 +118,7 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 		return (JSONObject) o;
 	}
 
-	public  List<Kwic> search() throws Exception
+	public  List<Kwic> search(BlacklabServerResultSet bsrs) throws Exception
 	{
 		List<Kwic> results = new ArrayList<Kwic>();
 		String url = this.url();
@@ -138,7 +138,17 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 		JSONArray hits = (JSONArray) response.get("hits");
 
 		JSONObject docs = (JSONObject) response.get("docInfos");
-
+		
+		docs.keySet().forEach(
+				docId ->
+				{
+					Document d = new Document();
+					JSONObject doc = (JSONObject) docs.get(docId);
+					doc.forEach( (k,v) -> d.metadata.put(k.toString(), v.toString()) );
+					bsrs.documents.put(docId.toString(),d);
+				}
+				);
+	
 		Object nof = summary.get("numberOfHits");
 
 		if (nof instanceof Integer)
@@ -206,8 +216,10 @@ public class BlacklabServerQuery extends clariah.fcs.Query
 
 	public BlacklabServerResultSet execute() throws Exception
 	{
-		List<Kwic> kwics = search();
 		BlacklabServerResultSet bsrs = new BlacklabServerResultSet();
+		
+		List<Kwic> kwics = search(bsrs);
+		
 		bsrs.hits = kwics;
 		bsrs.query = this;
 		bsrs.totalNumberOfResults = this.totalNumberOfResults;
