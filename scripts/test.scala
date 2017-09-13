@@ -3,7 +3,7 @@ import java.net.URLEncoder._
 
 object FCSTest
 {
-  val server = "http://localhost:8080/blacklab-sru-server/sru?operation=searchRetrieve&queryType=fcs&maximumRecords=100&query="
+  val server = "http://localhost:8080/blacklab-sru-server/sru?operation=searchRetrieve&queryType=fcs&maximumRecords=5000&query="
   
   case class Feature(name: String, value: String)
   {
@@ -20,6 +20,8 @@ object FCSTest
 
   def testAll(corpus:String) = allFeatures.foreach(f => test(corpus, f.cqp))
 
+  def tel(layer: String, l: List[Map[String,String]]) = l.map(m => s"""${m(layer)}""").groupBy(x=>x).mapValues(l=>l.size).toList.sortBy(-1 * _._2).take(20)
+
   def possen(l: List[Map[String,String]]) = l.map(m => s"""${m("pos")}""").toSet
   def words(l: List[Map[String,String]]) = l.map(m => s"""${m("word")}""").toSet
 
@@ -27,8 +29,8 @@ object FCSTest
   {
     // Thread.sleep(3000)
     val l = hits(corpus,query)
-    val p = possen(l)
-    val w = words(l)
+    val p = tel("pos", l)
+    val w = tel("word", l)
     println(s"$query $p $w")
   }
 
@@ -71,8 +73,8 @@ object FCSTest
   
   def main(args: Array[String]) = 
   {
-    test(args(0),args(1))
-    //testAll(args(0))
+    //test(args(0),args(1))
+    testAll(args(0))
   }
 }
 

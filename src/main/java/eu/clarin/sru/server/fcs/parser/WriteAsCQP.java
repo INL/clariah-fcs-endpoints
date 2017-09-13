@@ -146,11 +146,11 @@ public class WriteAsCQP
 		{
 			if (this.includeFeatureNameInRegex)
 			{
-				String valueMatch = String.format("([^|,()]*\\|)*(%s)[,|()]", v);
+				String valueMatch = String.format("([^\\|,\\(\\)]*\\|)*(%s)[,\\|\\(\\)]", v);
 				return String.format("%s%s%s.*%s=(%s).*%s", posTagFeature, operator, valueQuote, n, valueMatch, valueQuote);
 			}
 			else
-				return String.format("%s%s%s.*[(,|](%s)[,)|].*%s", posTagFeature, operator, valueQuote, v, valueQuote);
+				return String.format("%s%s%s.*[\\(,\\|](%s)[,\\)\\|].*%s", posTagFeature, operator, valueQuote, v, valueQuote);
 		} else
 			return n +  writeOperator(node.getOperator())  + valueQuote + v+ valueQuote;
 	}

@@ -279,8 +279,8 @@ public class Conversions
 					
 					// numeral 
 					
-					{"NumType", "Card", "feat.numtype", "card"},
-					{"NumType", "Ord", "feat.numtype", "ord"},
+					{"NumType", "Card", "feat.numtype", "hoofd"},
+					{"NumType", "Ord", "feat.numtype", "rang"},
 					
 					// verbal features
 					
