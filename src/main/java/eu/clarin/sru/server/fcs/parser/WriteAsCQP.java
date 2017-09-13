@@ -145,7 +145,10 @@ public class WriteAsCQP
 		if (this.useRegex && this.grammaticalFeatures.contains(n))
 		{
 			if (this.includeFeatureNameInRegex)
-				return String.format("%s%s%s.*%s=(%s).*%s", posTagFeature, operator, valueQuote, n, v, valueQuote);
+			{
+				String valueMatch = String.format("([^|,()]*\\|)*(%s)[,|()]", v);
+				return String.format("%s%s%s.*%s=(%s).*%s", posTagFeature, operator, valueQuote, n, valueMatch, valueQuote);
+			}
 			else
 				return String.format("%s%s%s.*[(,|](%s)[,)|].*%s", posTagFeature, operator, valueQuote, v, valueQuote);
 		} else

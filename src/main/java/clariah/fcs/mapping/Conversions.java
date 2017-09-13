@@ -102,6 +102,10 @@ public class Conversions
 					{"pos", "SYM", "pos", "RES"},
 					{"pos", "X", "pos", "RES"},
 
+					// adp features
+					
+					{"AdpType", "Prep", "type", "pre"},
+					{"AdpType", "Post", "type", "post"},
 					
 					// nominal features
 					
