@@ -13,10 +13,25 @@ object FCSTest
     (doc \\ "Advanced").toList.foreach (
       a =>
       {
-        val segmentIds = ((a \\ "Segment") \ "@id").toList
-        val layers = (a \\ "Layer").map(l => (l \ "@id", (l \\ "Span").map(s => (s \ "@ref" -> s.text))))
-        println(layers) 
+        val segmentIds:List[String] = ((a \\ "Segment") \\ "@id").toList.map(_.toString)
+        val highlightSegments =  ((a \\ "Span").filter(s => (s \\ "@highlight").nonEmpty) \\ "@ref").toSet.map((x:Node) => x.toString).map(sid => segmentIds.indexOf(sid))
+        //println(highlightSegments)
+        //println(segmentIds)
+
+        val layers = (a \\ "Layer").map(l => ((l \ "@id").text, (l \\ "Span").map(s => ((s \ "@ref").text -> s.text)).toMap))
+
+        //layers.foreach(println)
+        val layerMap = layers.map (
+          {
+            case (id,m) =>
+              (id.replaceAll(".*/","") -> segmentIds.map(m))
+          } 
+        ).toMap
         
+        val index = highlightSegments.toStream.head
+        //println(layerMap)
+        val hToken = layerMap.mapValues(l => l(index))
+        println(hToken)
         // en daarin weel de spans ...
       }
     )
