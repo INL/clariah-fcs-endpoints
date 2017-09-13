@@ -148,7 +148,7 @@ public class Conversions
 					{"VerbForm", "Inf", "finiteness", "ger|inf"},
 					{"VerbForm", "Part", "finiteness", "part"},
 					
-					{"Person", "1", "person", "1"},
+					{"Person", "1", "person", "1"}, // TODO dit zit niet in CHN. Waarom niet?? te behoudend. Aanpassen na taggeroptimalisatie
 					{"Person", "2", "person", "2"},
 					{"Person", "3", "person", "3"},
 					

@@ -10,11 +10,12 @@ object FCSTest
     val url = s"$server${encode(query)}&x-fcs-context=$corpus" 
     val doc = XML.load(url)
     //println(doc)
-    (doc \\ "Advanced").toList.foreach (
+    val hits = (doc \\ "Advanced").toList.map (
       a =>
       {
         val segmentIds:List[String] = ((a \\ "Segment") \\ "@id").toList.map(_.toString)
         val highlightSegments =  ((a \\ "Span").filter(s => (s \\ "@highlight").nonEmpty) \\ "@ref").toSet.map((x:Node) => x.toString).map(sid => segmentIds.indexOf(sid))
+
         //println(highlightSegments)
         //println(segmentIds)
 
@@ -31,10 +32,12 @@ object FCSTest
         val index = highlightSegments.toStream.head
         //println(layerMap)
         val hToken = layerMap.mapValues(l => l(index))
-        println(hToken)
+        // println(hToken)
+        hToken
         // en daarin weel de spans ...
       }
     )
+    hits.foreach(println)
   }
   
   def main(args: Array[String]) = 
