@@ -60,7 +60,7 @@ VerbForm	Part
 pos	ADJ
 pos	ADP
 pos	ADV
-pos	CONJ
+pos	CCONJ
 pos	DET
 pos	INTJ
 pos	NOUN

@@ -43,7 +43,9 @@ public class Conversions
 				
 					{"pos", "DET", "pos", "ART"}, // HM; alleen bij historische corpora
 					{"pos", "DET", "pos", "PRN"}, //
-					
+
+				        {"PronType", "Art", "pos", "ART"},
+
 					{"pos", "PRON", "pos", "PRN"} , // HM, zo krijg je ook de determiners
 					
 					
