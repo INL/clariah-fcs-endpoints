@@ -4,8 +4,32 @@ import java.net.URLEncoder._
 object FCSTest
 {
   val server = "http://localhost:8080/blacklab-sru-server/sru?operation=searchRetrieve&queryType=fcs&query="
+  
+  case class Feature(name: String, value: String)
+  {
+    lazy val cqp = s"[$name='$value']"
+  }
 
-  def test(corpus: String, query: String)
+  lazy val allFeatures = scala.io.Source.fromFile("doc/ud_features.txt").getLines.map(
+    l => 
+    {
+      val c = l.split("\\t")
+      Feature(c(0),c(1)) 
+    }
+  )
+
+  def testAll(corpus:String) = allFeatures.foreach(f => test(corpus, f.cqp))
+
+  def possen(l: List[Map[String,String]]) = l.map(m => s"""${m("pos")}""").toSet
+
+  def test(corpus: String, query: String) 
+  {
+    val l = hits(corpus,query)
+    val p = possen(l)
+    println(s"$query $p")
+  }
+
+  def hits(corpus: String, query: String) =
   {
     val url = s"$server${encode(query)}&x-fcs-context=$corpus" 
     val doc = XML.load(url)
@@ -32,17 +56,19 @@ object FCSTest
         val index = highlightSegments.toStream.head
         //println(layerMap)
         val hToken = layerMap.mapValues(l => l(index))
-        // println(hToken)
+        println(hToken)
         hToken
         // en daarin weel de spans ...
       }
     )
-    hits.foreach(println)
+    // hits.foreach(println)
+    hits
   }
   
   def main(args: Array[String]) = 
   {
-    test(args(0),args(1))
+    //test(args(0),args(1))
+    testAll(args(0))
   }
 }
 
