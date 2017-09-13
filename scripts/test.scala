@@ -3,7 +3,7 @@ import java.net.URLEncoder._
 
 object FCSTest
 {
-  val server = "http://localhost:8080/blacklab-sru-server/sru?operation=searchRetrieve&queryType=fcs&query="
+  val server = "http://localhost:8080/blacklab-sru-server/sru?operation=searchRetrieve&queryType=fcs&maximumRecords=100&query="
   
   case class Feature(name: String, value: String)
   {
@@ -16,23 +16,27 @@ object FCSTest
       val c = l.split("\\t")
       Feature(c(0),c(1)) 
     }
-  )
+  ).toList
 
   def testAll(corpus:String) = allFeatures.foreach(f => test(corpus, f.cqp))
 
   def possen(l: List[Map[String,String]]) = l.map(m => s"""${m("pos")}""").toSet
+  def words(l: List[Map[String,String]]) = l.map(m => s"""${m("word")}""").toSet
 
   def test(corpus: String, query: String) 
   {
+    // Thread.sleep(3000)
     val l = hits(corpus,query)
     val p = possen(l)
-    println(s"$query $p")
+    val w = words(l)
+    println(s"$query $p $w")
   }
 
   def hits(corpus: String, query: String) =
   {
     val url = s"$server${encode(query)}&x-fcs-context=$corpus" 
     val doc = XML.load(url)
+
     //println(doc)
     val hits = (doc \\ "Advanced").toList.map (
       a =>
@@ -56,7 +60,7 @@ object FCSTest
         val index = highlightSegments.toStream.head
         //println(layerMap)
         val hToken = layerMap.mapValues(l => l(index))
-        println(hToken)
+        //println(hToken)
         hToken
         // en daarin weel de spans ...
       }
@@ -67,8 +71,8 @@ object FCSTest
   
   def main(args: Array[String]) = 
   {
-    //test(args(0),args(1))
-    testAll(args(0))
+    test(args(0),args(1))
+    //testAll(args(0))
   }
 }
 
