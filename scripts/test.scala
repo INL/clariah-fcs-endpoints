@@ -3,7 +3,7 @@ import java.net.URLEncoder._
 
 object FCSTest
 {
-  val server = "http://localhost:8080/blacklab-sru-server/sru?operation=searchRetrieve&queryType=fcs&maximumRecords=5000&query="
+  val server = "http://localhost:8080/blacklab-sru-server/sru?operation=searchRetrieve&queryType=fcs&maximumRecords=50&query="
   
   case class Feature(name: String, value: String)
   {
