@@ -45,6 +45,7 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
 		   this.put("chn",  new BlacklabServerEndpointSearchEngine("http://chn-i.inl.nl/blacklab-server/", Conversions.UD2CHN));
 		   this.put("zeebrieven", new BlacklabServerEndpointSearchEngine("http://svprre02.inl.loc:8080/blacklab-server/", Conversions.UD2BaB)); 
 		   this.put("StatenGeneraal", new BlacklabServerEndpointSearchEngine("http://svprre02.inl.loc:8080/blacklab-server/", Conversions.UD2CHN)); 
+		   this.put("corpusgysseling", new BlacklabServerEndpointSearchEngine("http://svprre02.inl.loc:8080/blacklab-server/", Conversions.UD2GYS)); 
 	   }
    };
    

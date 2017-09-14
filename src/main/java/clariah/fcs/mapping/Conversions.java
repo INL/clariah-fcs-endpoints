@@ -13,6 +13,7 @@ public class Conversions
 {
 	public static  ConversionTable UD2CHN;
 
+	public static  ConversionTable UD2GYS;
 	public static ConversionTable UD2BaB;
 
 	public static ConversionTable UD2CGNSonar; 
@@ -191,6 +192,127 @@ public class Conversions
 		ct.grammaticalFeatures = grammarFeats;
 		ct.name = "UD2CHN";
 		UD2CHN = ct;
+	}
+
+	static
+	{
+		String[][] fieldMappingGys  = {{"xxword", "t_lc"}}; // not implemented yet
+
+		String[][] featureMappingGys = 
+			{
+					{"pos","ADJ", "pos", "AA"},
+					{"pos","ADJ", "pos", "ADJ"},
+					
+					{"pos","ADV", "pos", "ADV"},
+					{"pos","ADV", "pos", "AA", "position", "oth|pred"},
+					
+					{"pos", "INTJ", "pos", "INT"},
+
+					{"pos", "NOUN", "pos", "NOU", "type", "common"},
+					{"pos", "PROPN", "pos", "NOU", "type", "proper"},
+					
+					{"pos", "VERB", "pos", "VRB"},
+
+					{"pos", "ADP",  "pos", "ADP"},
+					{"pos", "AUX", "pos", "VRB", "type", "auxiliary"},  // HM
+				
+					{"pos", "DET", "type", "art"}, // HM; alleen bij historische corpora
+					{"pos", "DET", "pos", "PD", "position", "prenom"}, //
+					{"pos", "PRON", "pos", "PD"}, // , "position", "pron"}, // HM, zo krijg je ook de determiners
+					
+					
+					{"pos", "NUM", "pos", "NUM"},
+					
+					{"pos", "CCONJ", "pos", "CON", "type", "coordinating"}, // HM
+					{"pos", "SCONJ", "pos", "CON", "type", "subordinating"}, // HM
+					{"pos", "PUNCT", "pos", "RES"}, // HM hebben we niet
+					{"pos", "SYM", "pos", "RES"},
+					{"pos", "X", "pos", "RES"},
+
+					// adp features
+					
+					{"AdpType", "Prep", "type", "pre"},
+					{"AdpType", "Post", "type", "post"},
+					
+					// nominal features
+					
+					{"Number", "Plur", "number", "pl"},
+					{"Number", "Sing", "number", "sg"},
+
+					{"Gender", "Fem", "gender", "f"}, // Gys does not support gender
+					{"Gender", "Masc", "gender", "m"},
+					{"Gender", "Neut", "gender", "n"},
+					{"Gender",  "Com", "gender", "f", "gender", "m"},  // HM, not implemented in regex or otherwise
+
+					// adjective (formal=infl-e)? Hoe doe je dat in UD??)
+					
+					{"Degree", "Pos", "degree", "pos"}, // Gys does not support degree
+					{"Degree", "Cmp", "degree", "comp"},
+					{"Degree", "Sup", "degree", "sup"},
+					//{"Degree", "Dim"
+					{"Position", "Postnom", "position", "postnom"}, // Gys does not support position
+					{"Position", "Prenom", "position", "prenom"},
+					{"Position", "Free", "position", "oth|pred"},
+					{"Position", "Nom", "position", "oth|pred"},
+					{"Position", "Nom", "position", "pron"},
+					
+					{"Case", "Gen", "case", "gen"}, // Gys does not support case
+					
+					// {"Definiteness", "Def", "formal", "infl-e"}, ?? For instance german adjectives in UD?
+					// numeral 
+					
+			
+					{"NumType", "Card", "type", "cardinal"},
+					{"NumType", "Ord", "type", "ordinal"},
+					
+					// verbal features
+					
+					{"Mood", "Ind", "finiteness", "finite"},
+					{"Mood", "Imp", "finiteness", "finite"},
+					{"Mood", "Sub", "finiteness", "finite"},
+					
+					{"VerbForm", "Fin", "finiteness", "finite"},
+					{"VerbForm", "Inf", "finiteness", "inf/ger"},
+					{"VerbForm", "Part", "finiteness", "part"},
+					
+					{"Person", "1", "person", "1"}, // TODO dit zit niet in CHN. Waarom niet?? te behoudend. Aanpassen na taggeroptimalisatie
+					{"Person", "2", "person", "2"},
+					{"Person", "3", "person", "3"},
+					
+					{"Tense", "Past", "tense", "past"},
+					{"Tense", "Pres", "tense", "present"},
+					
+					// pronoun / determiner / article
+					// UD heeft: Art (ldiwoord)	Dem	(aanwijzend) Emp (nadruk)	Exc (uitroepend)	Ind	(onbepaald) Int	Neg	Prs (persoonlijk)	Rcp (reciprocal)	Rel (betrekkelijk)	Tot (collectief: iedereen enzo)
+
+				
+					
+					{"PronType", "Art", "type", "art"},
+					{"PronType", "Art", "type", "art"},
+					
+					{"PronType", "Dem", "type", "dem"},
+					{"PronType", "Prs", "type", "pers"},
+					{"PronType", "Rel", "type", "rel"},
+					{"PronType", "Rcp", "type", "refl/recp"},
+					{"PronType", "Ind", "type", "indef"},
+					{"PronType", "Int", "type", "int"},
+					{"PronType", "Tot", "type", "indef", "lemma", "iedereen|ieder|al|alles"},
+					{"Poss", "Yes", "type", "poss"},
+					{"Reflex", "Yes", "type", "refl/recp"},
+					 // hoe zit het nou ook alweer precies met de w-p's en d-p's. Bleuh... 
+					
+			};
+
+		String[] grammarFeatsGys = {"number", "tense", "mood", "type", "person", "gender", "subtype", "finiteness", "position", "degree", "case"};
+
+		ConversionTable ctGys = new ConversionTable(fieldMappingGys, featureMappingGys);
+
+
+		ctGys.useFeatureRegex = true;
+		ctGys.posTagField = "pos";
+		ctGys.grammaticalFeatures = grammarFeatsGys;
+		ctGys.name = "UD2GYS";
+		UD2GYS = ctGys;
 	}
 
 

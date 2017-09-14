@@ -70,3 +70,4 @@ pos	PROPN
 pos	PUNCT
 pos	SCONJ
 pos	VERB
+pos	AUX
