@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-
+import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -137,11 +137,11 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
  */
    private void fillTagSetsConversionMap() {
 	   
-	   String endTagSetConversionsListFileName = "/WEB-INF/tagsets-conversions-list.xml";
+	   String enginesListFileName = "/WEB-INF/endpoint-engines-list.xml";
 	   
 	   URL url = null;
 		try {
-			url = contextCache.getResource(endTagSetConversionsListFileName);
+			url = contextCache.getResource(enginesListFileName);
 		} catch (MalformedURLException e1) {
 			e1.printStackTrace();
 		}
@@ -168,25 +168,36 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
 		    
 		    // parse
 		    
-		    XPathExpression conversionsExpr;
-		    NodeList conversionsList;
+		    XPathExpression enginesExpr;
+		    NodeList enginesList;
 		    
 			try {				
-				conversionsExpr = xpath.compile("/Conversions/Conversion");
-				conversionsList = (NodeList) conversionsExpr.evaluate(doc, XPathConstants.NODESET);				
+				enginesExpr = xpath.compile("/Engines/Engine");
+				enginesList = (NodeList) enginesExpr.evaluate(doc, XPathConstants.NODESET);				
 				
 				// process each engine
 				
-				for (int conversionNr = 0; conversionNr< conversionsList.getLength(); conversionNr++)
+				HashSet<String> listOfLoadedConversions = new HashSet<String>();
+				
+				for (int engineNr = 0; engineNr < enginesList.getLength(); engineNr++)
 				{
-					Node oneEngine = conversionsList.item(conversionNr);	
+					Node oneEngine = enginesList.item(engineNr);	
 					
-					XPathExpression conversionNameExpr = xpath.compile(".//name");							
+					XPathExpression conversionNameExpr = xpath.compile(".//tagset-conversion-table");							
 					String conversionName = conversionNameExpr.evaluate(oneEngine);					
 					
 					// load the tag set conversion into memory
+					// 
+					// NB: since a tagset conversion table might be in use by several engines
+					//     it is necessary to check if the conversion table hasn't been loaded
+					//     already!
 					
-					readConversionMap(conversionName);					
+					if ( !listOfLoadedConversions.contains(conversionName) )
+					{
+						listOfLoadedConversions.add(conversionName);
+						readConversionMap(conversionName);
+					}
+										
 				}
 				
 				
@@ -196,7 +207,7 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
 							    
 			
 		} catch (ParserConfigurationException | SAXException | IOException e) {				
-			throw new RuntimeException("Error while reading and parsing "+endTagSetConversionsListFileName, e);
+			throw new RuntimeException("Error while reading and parsing "+enginesListFileName, e);
 		}
 	  
    }
