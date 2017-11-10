@@ -17,7 +17,9 @@
     <SupportedLayer id="lemma" result-id="http://spraakbanken.gu.se/ns/fcs/layer/lemma">lemma</SupportedLayer>
     <SupportedLayer id="pos" result-id="http://spraakbanken.gu.se/ns/fcs/layer/pos">pos</SupportedLayer>
   </SupportedLayers>
+  
   <Resources>
+  
     <Resource pid="hdl:10794/intkorpusar">
       <Title xml:lang="sv">INTs korpusar</Title>
       <Title xml:lang="en">INT corpora</Title>
@@ -25,123 +27,131 @@
       <Description xml:lang="en">The corpora at INT.</Description>
       <LandingPageURI>http://www.ivdnt.org/taalmaterialen#corpora</LandingPageURI>
       <Languages>
-	<Language>nld</Language>
+        <Language>nld</Language>
       </Languages>
       <AvailableDataViews ref="hits adv"/>
-      <AvailableLayers ref="word lemma pos"/>
-      <Resources>
+      <AvailableLayers ref="word lemma pos"/>      
+      
+        <Resources>
+    
+            <Resource pid="hdl:10794/INTModernCorpora">
+              <Title xml:lang="sv">INTs moderna korpusar</Title>
+              <Title xml:lang="en">INT modern Dutch corpora</Title>
+              <Description xml:lang="sv">De moderna korpusarna hos INT.</Description>
+              <Description xml:lang="en">The modern corpora at INT.</Description>
+              <LandingPageURI>http://www.ivdnt.org/taalmaterialen#corpora</LandingPageURI>
+              <Languages>
+                    <Language>nld</Language>
+              </Languages>
+              <AvailableDataViews ref="hits adv"/>
+              <AvailableLayers ref="word lemma pos"/>
+              
+                <Resources>
 
-	<Resource pid="hdl:10794/INTModernCorpora">
-	  <Title xml:lang="sv">INTs moderna korpusar</Title>
-	  <Title xml:lang="en">INT modern Dutch corpora</Title>
-	  <Description xml:lang="sv">De moderna korpusarna hos INT.</Description>
-	  <Description xml:lang="en">The modern corpora at INT.</Description>
-	  <LandingPageURI>http://www.ivdnt.org/taalmaterialen#corpora</LandingPageURI>
-	  <Languages>
-            <Language>nld</Language>
-	  </Languages>
-	  <AvailableDataViews ref="hits adv"/>
-	  <AvailableLayers ref="word lemma pos"/>
-	  <Resources>
+                    <Resource pid="opensonar">
+                      <Title xml:lang="sv">OpenSoNaR-korpusen</Title>
+                      <Title xml:lang="en">OpenSoNaR in blacklab server</Title>
+                      <Description xml:lang="sv">OpenSoNaR hos INT.</Description>
+                      <Description xml:lang="en">The OpenSoNaR corpus at INT.</Description>
+                      <LandingPageURI>http://opensonar.ato.inl.nl/</LandingPageURI>
+                      <Languages>
+                        <Language>nld</Language>
+                      </Languages>
+                      <AvailableDataViews ref="hits adv"/>
+                      <AvailableLayers ref="word lemma pos"/>
+                    </Resource>
 
-	    <Resource pid="opensonar">
-	      <Title xml:lang="sv">OpenSoNaR-korpusen</Title>
-	      <Title xml:lang="en">OpenSoNaR in blacklab server</Title>
-	      <Description xml:lang="sv">OpenSoNaR hos INT.</Description>
-	      <Description xml:lang="en">The OpenSoNaR corpus at INT.</Description>
-	      <LandingPageURI>http://opensonar.ato.inl.nl/</LandingPageURI>
-	      <Languages>
-		<Language>nld</Language>
-	      </Languages>
-	      <AvailableDataViews ref="hits adv"/>
-	      <AvailableLayers ref="word lemma pos"/>
-	    </Resource>
+                    <Resource pid="chn">
+                      <Title xml:lang="sv">CHN-korpusen</Title>
+                      <Title xml:lang="en">Corpus of Contemporary Dutch</Title>
+                      <Description xml:lang="sv">CHN hos INT.</Description>
+                      <Description xml:lang="en">The Corpus of Contemporary Dutch.</Description>
+                      <LandingPageURI>http://corpushedendaagsnederlands.inl.nl/</LandingPageURI>
+                      <Languages>
+                        <Language>nld</Language>
+                      </Languages>
+                      <AvailableDataViews ref="hits adv"/>
+                      <AvailableLayers ref="word lemma pos"/>
+                    </Resource>
+                    
+                </Resources>
+              
+            </Resource>
 
-            <Resource pid="chn">
-              <Title xml:lang="sv">CHN-korpusen</Title>
-              <Title xml:lang="en">Corpus of Contemporary Dutch</Title>
-              <Description xml:lang="sv">CHN hos INT.</Description>
-              <Description xml:lang="en">The Corpus of Contemporary Dutch.</Description>
-              <LandingPageURI>http://corpushedendaagsnederlands.inl.nl/</LandingPageURI>
+            <Resource pid="INTHistoricalCorpora">
+              <Title xml:lang="sv">INTs moderna korpusar</Title>
+              <Title xml:lang="en">INT historical Dutch corpora</Title>
+              <Description xml:lang="sv">De moderna korpusarna hos INT.</Description>
+              <Description xml:lang="en">The historical corpora at INT.</Description>
+              <LandingPageURI>http://www.ivdnt.org/taalmaterialen#corpora</LandingPageURI>
               <Languages>
                 <Language>nld</Language>
               </Languages>
               <AvailableDataViews ref="hits adv"/>
               <AvailableLayers ref="word lemma pos"/>
-            </Resource>
+              <Resources>
 
-	  </Resources>
-	</Resource>
+                <Resource pid="zeebrieven">
+                  <Title xml:lang="sv">LaL-korpusen</Title>
+                  <Title xml:lang="en">Letters as Loot corpus</Title>
+                  <Description xml:lang="sv">LettersAsLoot hos INT.</Description>
+                  <Description xml:lang="en">The Letters as Loot corpus at INT. 17th and 18th century Dutch letters written by, or addressed to sailors</Description>
+                  <LandingPageURI>http://brievenalsbuit.inl.nl/</LandingPageURI>
+                  <Languages>
+                    <Language>nld</Language>
+                  </Languages>
+                  <AvailableDataViews ref="hits adv"/>
+                  <AvailableLayers ref="word lemma pos"/>
+                </Resource>
 
-        <Resource pid="INTHistoricalCorpora">
-          <Title xml:lang="sv">INTs moderna korpusar</Title>
-          <Title xml:lang="en">INT historical Dutch corpora</Title>
-          <Description xml:lang="sv">De moderna korpusarna hos INT.</Description>
-          <Description xml:lang="en">The historical corpora at INT.</Description>
-          <LandingPageURI>http://www.ivdnt.org/taalmaterialen#corpora</LandingPageURI>
-          <Languages>
-            <Language>nld</Language>
-          </Languages>
-          <AvailableDataViews ref="hits adv"/>
-          <AvailableLayers ref="word lemma pos"/>
-          <Resources>
+                <Resource pid="corpusgysseling">
+                  <Title xml:lang="sv">Gysseling-korpusen</Title>
+                  <Title xml:lang="en">The corpus Gysseling</Title>
+                  <Description xml:lang="sv">Gysseling hos INT.</Description>
+                  <Description xml:lang="en">The Corpus Gysseling at INT. 13th century Dutch documents</Description>
+                  <LandingPageURI>http://gysseling.corpus.taalbanknederlands.inl.nl/</LandingPageURI>
+                  <Languages>
+                    <Language>nld</Language>
+                  </Languages>
+                  <AvailableDataViews ref="hits adv"/>
+                  <AvailableLayers ref="word lemma pos"/>
+                </Resource>
 
-            <Resource pid="zeebrieven">
-              <Title xml:lang="sv">LaL-korpusen</Title>
-              <Title xml:lang="en">Letters as Loot corpus</Title>
-              <Description xml:lang="sv">LettersAsLoot hos INT.</Description>
-              <Description xml:lang="en">The Letters as Loot corpus at INT. 17th and 18th century Dutch letters written by, or addressed to sailors</Description>
-              <LandingPageURI>http://brievenalsbuit.inl.nl/</LandingPageURI>
-              <Languages>
-                <Language>nld</Language>
-              </Languages>
-              <AvailableDataViews ref="hits adv"/>
-              <AvailableLayers ref="word lemma pos"/>
+                 <Resource pid="StatenGeneraal">
+                  <Title xml:lang="sv">Staten Generaal</Title>
+                  <Title xml:lang="en">Staten Generaal in Blacklab</Title>
+                  <Description xml:lang="sv">Staten Generaal hos INT.</Description>
+                  <Description xml:lang="en">The Staten Generaal corpus at INT. 13th century Dutch documents</Description>
+                  <LandingPageURI>http://gysseling.corpus.taalbanknederlands.inl.nl/</LandingPageURI>
+                  <Languages>
+                    <Language>nld</Language>
+                  </Languages>
+                  <AvailableDataViews ref="hits adv"/>
+                  <AvailableLayers ref="word lemma pos"/>
+                </Resource>
+                
+                <Resource pid="nederlab">
+                  <Title xml:lang="sv">Nederlab</Title>
+                  <Title xml:lang="en">Nederlab</Title>
+                  <Description xml:lang="sv">Nederlab.</Description>
+                  <Description xml:lang="en">Nederlab portal endpoint for Clariah (Diachronic corpus)</Description>
+                  <LandingPageURI>http://www.nederlab.nl/onderzoeksportaal/</LandingPageURI>
+                  <Languages>
+                    <Language>nld</Language>
+                  </Languages>
+                  <AvailableDataViews ref="hits adv"/>
+                  <AvailableLayers ref="word lemma pos"/>
+                </Resource>
+                
+              </Resources>
+              
             </Resource>
-
-            <Resource pid="corpusgysseling">
-              <Title xml:lang="sv">Gysseling-korpusen</Title>
-              <Title xml:lang="en">The corpus Gysseling</Title>
-              <Description xml:lang="sv">Gysseling hos INT.</Description>
-              <Description xml:lang="en">The Corpus Gysseling at INT. 13th century Dutch documents</Description>
-              <LandingPageURI>http://gysseling.corpus.taalbanknederlands.inl.nl/</LandingPageURI>
-              <Languages>
-                <Language>nld</Language>
-              </Languages>
-              <AvailableDataViews ref="hits adv"/>
-              <AvailableLayers ref="word lemma pos"/>
-            </Resource>
-
-			 <Resource pid="StatenGeneraal">
-              <Title xml:lang="sv">Staten Generaal</Title>
-              <Title xml:lang="en">Staten Generaal in Blacklab</Title>
-              <Description xml:lang="sv">Staten Generaal hos INT.</Description>
-              <Description xml:lang="en">The Staten Generaal corpus at INT. 13th century Dutch documents</Description>
-              <LandingPageURI>http://gysseling.corpus.taalbanknederlands.inl.nl/</LandingPageURI>
-              <Languages>
-                <Language>nld</Language>
-              </Languages>
-              <AvailableDataViews ref="hits adv"/>
-              <AvailableLayers ref="word lemma pos"/>
-            </Resource>
-			
-            <Resource pid="nederlab">
-              <Title xml:lang="sv">Nederlab</Title>
-              <Title xml:lang="en">Nederlab</Title>
-              <Description xml:lang="sv">Nederlab.</Description>
-              <Description xml:lang="en">Nederlab portal endpoint for Clariah (Diachronic corpus)</Description>
-              <LandingPageURI>http://www.nederlab.nl/onderzoeksportaal/</LandingPageURI>
-              <Languages>
-                <Language>nld</Language>
-              </Languages>
-              <AvailableDataViews ref="hits adv"/>
-              <AvailableLayers ref="word lemma pos"/>
-            </Resource>
-          </Resources>
-        </Resource>
 
 
       </Resources>
+      
     </Resource>
+    
   </Resources>
+  
 </EndpointDescription>

@@ -8,9 +8,10 @@ package org.ivdnt.fcs.endpoint.common;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import eu.clarin.sru.server.SRUConstants;
 import eu.clarin.sru.server.SRUException;
@@ -20,7 +21,7 @@ public class SUCTranslator {
     private static final Map<String, List<String>> TO_UD17 = createToUd17();
 
     private static Map<String, List<String>> createToSuc() {
-	Map<String, List<String>> suc = new HashMap<String, List<String>>();
+	Map<String, List<String>> suc = new ConcurrentHashMap<String, List<String>>();
 	suc.put("NOUN", Arrays.asList("NN"));
 	suc.put("PROPN", Arrays.asList("PM"));
 	suc.put("ADJ", Arrays.asList("JJ", "PC", "RO"));
@@ -41,7 +42,7 @@ public class SUCTranslator {
     }
 
     private static Map<String, List<String>> createToUd17() {
-	Map<String, List<String>> ud17 = new HashMap<String, List<String>>();
+	Map<String, List<String>> ud17 = new ConcurrentHashMap<String, List<String>>();
 	// fixme! - check lemma/msd for toUd17
 	ud17.put("NN", Arrays.asList("NOUN"));
 	ud17.put("PM", Arrays.asList("PROPN"));

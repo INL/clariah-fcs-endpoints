@@ -1,6 +1,7 @@
 package org.ivdnt.fcs.endpoint.nederlab.stuff;
-import java.util.HashMap;
+
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.*;
 import java.lang.reflect.*;
 
@@ -24,7 +25,7 @@ public class Document
 	
 	public Map<String,String> getMetadata()
 	{
-		Map<String,String>  m = new HashMap<>();
+		Map<String,String>  m = new ConcurrentHashMap<>();
 		
 		List<Field> publicFields = new ArrayList<>();
 		Field[] allFields = this.getClass().getDeclaredFields();

@@ -3,6 +3,7 @@ package clariah.fcs;
 import java.net.URI;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 
@@ -14,8 +15,8 @@ public class Kwic
 	public String defaultProperty = "word";
 	
 	public List<String> tokenPropertyNames = new ArrayList<>();
-	public Map<String,List<String>> tokenProperties = new HashMap<>();
-	private Map<String,String> metadata = new HashMap<>(); // considering the size of opensonar metadata, probably better to introduce separate document objects
+	public Map<String,List<String>> tokenProperties = new ConcurrentHashMap<>();
+	private Map<String,String> metadata = new ConcurrentHashMap<>(); // considering the size of opensonar metadata, probably better to introduce separate document objects
 	Document document = null;
 	
 	public Kwic translatePrefixes(Map<String,String> map)

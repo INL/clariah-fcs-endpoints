@@ -47,7 +47,7 @@ public class NederlabEndpointSearchEngine  extends BasicEndpointSearchEngine
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException 
 	{
-		String query = BasicEndpointSearchEngine.translateQuery(request,conversion);
+		String query = BasicEndpointSearchEngine.translateQuery(request, conversion);
 
 		boolean hasFcsContextCorpus = false;
 		

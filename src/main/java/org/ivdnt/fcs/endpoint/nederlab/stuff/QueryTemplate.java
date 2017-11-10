@@ -72,17 +72,25 @@ public class QueryTemplate
 	}
 	// s removed from output. offsets??
 	
-	static String tpl ="{"+
-			"  \"condition\": {"+
-			"    \"type\": \"cql\","+
-			"    \"field\": \"NLContent_mtas\","+
-			"    \"value\": \"_QUERY_\""+
+	static String tpl =
+			"{"+
+			"  \"filter\": {"+
+			"    \"list\": ["+
+			"      {"+
+			"        \"condition\": {"+
+			"          \"type\": \"cql\","+
+			"          \"field\": \"NLContent_mtas\","+
+			"          \"value\": \"_QUERY_\""+
+			"        }"+
+			"      }"+
+			"    ]"+
 			"  },"+
 			"  \"response\": {"+
 			"    \"stats\": true,"+
 			"    \"documents\": {"+
 			"      \"number\": _NUMBER_,"+
 			"      \"start\": _START_,"+
+			"      \"translate\": true,"+
 			"      \"fields\": ["+
 			"        \"NLCore_NLIdentification_nederlabID\","+
 			"        \"NLProfile_name\","+
@@ -100,7 +108,7 @@ public class QueryTemplate
 			"            \"type\": \"cql\","+
 			"            \"value\": \"_QUERY_\""+
 			"          },"+
-			"          \"key\": \"just_a_cow\","+
+			"          \"key\": \"_QUERY_0\","+    // beware: the 0 belongs here!
 			"          \"output\": \"token\","+
 			"          \"number\": 50, "+
 			"          \"start\": 0,"+
@@ -110,7 +118,13 @@ public class QueryTemplate
 			"        }"+
 			"      ]"+
 			"    }"+
-			"  }"+
+			"  },"+
+			// sorting gives a 400 BAD REQUEST error
+//			"  \"sort\": ["+
+//			"    \"field\": \"NLContent_mtas\","+
+//			"    \"direction\": \"asc\""+
+//			"  ],"+
+			"  \"cache\": true"+
 			"}";
 
 }

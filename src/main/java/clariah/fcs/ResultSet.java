@@ -1,6 +1,7 @@
 package clariah.fcs;
 import clariah.fcs.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ResultSet 
 {
@@ -9,7 +10,7 @@ public class ResultSet
 	public int maximumRecords;
 	public int totalNumberOfResults;
 	public List<Kwic> hits = new ArrayList<>();
-    public Map<String, Document> documents = new HashMap<>();
+    public Map<String, Document> documents = new ConcurrentHashMap<>();
 	
     public String toString() 
 	{

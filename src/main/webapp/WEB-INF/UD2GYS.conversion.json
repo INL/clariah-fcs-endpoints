@@ -1,0 +1,260 @@
+{
+    "ConversionTable": "UD2GYS",
+    
+    "UseFeatureRegex": true,
+    
+    "GrammaticalFeatures": ["number", "tense", "mood", "type", "person", "gender", "subtype", "finiteness", "position", "degree", "case"],
+    
+    "FieldMapping": [
+        {
+            "from": "xxword", 
+            "to":   "t_lc"
+        }
+    ],
+
+    "PosTagField": "pos",
+
+    "FeatureMapping": [
+        {
+            "from": {"pos": "ADJ"},
+            "to":   {"pos": "AA"}
+        },
+        {
+            "from": {"pos": "ADJ"},
+            "to":   {"pos": "ADJ"}
+        },
+        {
+            "from": {"pos": "ADV"},
+            "to":   {"pos": "ADV"}
+        },
+        {
+            "from": {"pos": "ADV"},
+            "to":   {"pos": "AA", "position": "oth|pred"}
+        },
+        {
+            "from": {"pos": "INTJ"},
+            "to":   {"pos": "INT"}
+        },
+        {
+            "from": {"pos": "NOUN"},
+            "to":   {"pos": "NOU", "type": "common"}
+        },
+        {
+            "from": {"pos": "PROPN"},
+            "to":   {"pos": "NOU", "type": "proper"}
+        },
+        {
+            "from": {"pos": "VERB"},
+            "to":   {"pos": "VRB"}
+        },
+        {
+            "from": {"pos": "ADP"},
+            "to":   {"pos": "ADP"}
+        },
+        {
+            "from": {"pos": "AUX"},
+            "to":   {"pos": "VRB", "type": "auxiliary", "comment": "HM"}
+        },
+        {
+            "from": {"pos": "DET"},
+            "to":   {"type": "ART", "comment": "HM; alleen bij historische corpora"}
+        },
+        {
+            "from": {"pos": "DET"},
+            "to":   {"pos": "PD", "position": "prenom"}
+        },
+        {
+            "from": {"pos": "PRON"},
+            "to":   {"pos": "PD", "comment": "HM, zo krijg je ook de determiners"}
+        },
+        {
+            "from": {"pos": "NUM"},
+            "to":   {"pos": "NUM"}
+        },
+        {
+            "from": {"pos": "CCONJ"},
+            "to":   {"pos": "CON", "type": "coordinating", "comment": "HM"}
+        },
+        {
+            "from": {"pos": "SCONJ"},
+            "to":   {"pos": "CON", "type": "subordinating", "comment": "HM"}
+        },
+        {
+            "from": {"pos": "PUNCT"},
+            "to":   {"pos": "RES", "comment": "HM hebben we niet"}
+        },
+        {
+            "from": {"pos": "SYM"},
+            "to":   {"pos": "RES"}
+        },
+        {
+            "from": {"pos": "X"},
+            "to":   {"pos": "RES"}
+        },
+        {
+            "from": {"AdpType": "Prep"},
+            "to":   {"type": "pre"}
+        },
+        {
+            "from": {"AdpType": "Post"},
+            "to":   {"type": "post"}
+        },
+        {
+            "from": {"Number": "Plur"},
+            "to":   {"number": "pl"}
+        },
+        {
+            "from": {"Number": "Sing"},
+            "to":   {"number": "sg"}
+        },
+        {
+            "from": {"Gender": "Fem"},
+            "to":   {"gender": "f"}
+        },
+        {
+            "from": {"Gender": "Masc"},
+            "to":   {"gender": "m"}
+        },
+        {
+            "from": {"Gender": "Neut"},
+            "to":   {"gender": "n"}
+        },
+        {
+            "from": {"Gender": "Com"},
+            "to":   {"gender": "f", "gender": "m", "comment": "HM, not implemented in regex or otherwise"}
+        },
+        {
+            "from": {"Degree": "Pos"},
+            "to":   {"degree": "pos", "comment": "Gys does not support degree"}
+        },
+        {
+            "from": {"Degree": "Cmp"},
+            "to":   {"degree": "comp"}
+        },
+        {
+            "from": {"Degree": "Sup"},
+            "to":   {"degree": "sup"}
+        },
+        {
+            "from": {"Position": "Postnom"},
+            "to":   {"position": "postnom", "comment": "Gys does not support position"}
+        },
+        {
+            "from": {"Position": "Prenom"},
+            "to":   {"position": "prenom"}
+        },
+        {
+            "from": {"Position": "Free"},
+            "to":   {"position": "oth|pred"}
+        },
+        {
+            "from": {"Position": "Nom"},
+            "to":   {"position": "oth|pred"}
+        },
+        {
+            "from": {"Position": "Nom"},
+            "to":   {"position": "pron"}
+        },
+        {
+            "from": {"Case": "Gen"},
+            "to":   {"case": "gen", "comment": "Gys does not support case"}
+        },
+        {
+            "from": {"NumType": "Card"},
+            "to":   {"type": "cardinal"}
+        },
+        {
+            "from": {"NumType": "Ord"},
+            "to":   {"type": "ordinal"}
+        },
+        {
+            "from": {"Mood": "Ind"},
+            "to":   {"finiteness": "finite"}
+        },
+        {
+            "from": {"Mood": "Imp"},
+            "to":   {"finiteness": "finite"}
+        },
+        {
+            "from": {"Mood": "Sub"},
+            "to":   {"finiteness": "finite"}
+        },
+        {
+            "from": {"VerbForm": "Fin"},
+            "to":   {"finiteness": "finite"}
+        },
+        {
+            "from": {"VerbForm": "Inf"},
+            "to":   {"finiteness": "inf/ger"}
+        },
+        {
+            "from": {"VerbForm": "Part"},
+            "to":   {"finiteness": "part"}
+        },
+        {
+            "from": {"Person": "1"},
+            "to":   {"person": "1", "comment": "TODO dit zit niet in CHN. Waarom niet?? te behoudend. Aanpassen na taggeroptimalisatie"}
+        },
+        {
+            "from": {"Person": "2"},
+            "to":   {"person": "2"}
+        },
+        {
+            "from": {"Person": "3"},
+            "to":   {"person": "3"}
+        },
+        {
+            "from": {"Tense": "Past"},
+            "to":   {"tense": "past"}
+        },
+        {
+            "from": {"Tense": "Pres"},
+            "to":   {"tense": "present"}
+        },
+        {
+            "from": {"PronType": "Art"},
+            "to":   {"type": "art"}
+        },
+        {
+            "from": {"PronType": "Art"},
+            "to":   {"type": "art"}
+        },
+        {
+            "from": {"PronType": "Dem"},
+            "to":   {"type": "dem"}
+        },
+        {
+            "from": {"PronType": "Prs"},
+            "to":   {"type": "pers"}
+        },
+        {
+            "from": {"PronType": "Rel"},
+            "to":   {"type": "rel"}
+        },
+        {
+            "from": {"PronType": "Rcp"},
+            "to":   {"type": "refl/recp"}
+        },
+        {
+            "from": {"PronType": "Ind"},
+            "to":   {"type": "indef"}
+        },
+        {
+            "from": {"PronType": "Int"},
+            "to":   {"type": "int"}
+        },
+        {
+            "from": {"PronType": "Tot"},
+            "to":   {"type": "indef", "lemma": "iedereen|ieder|al|alles"}
+        },
+        {
+            "from": {"Poss": "Yes"},
+            "to":   {"type": "poss"}
+        },
+        {
+            "from": {"Reflex": "Yes"},
+            "to":   {"type": "refl/recp", "comment": "hoe zit het nou ook alweer precies met de w-p's en d-p's. Bleuh..."}
+        } 
+    ]
+
+}

@@ -9,6 +9,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -77,7 +78,7 @@ public class NederlabClient
 
 	public List<Hit> getResults(String CQL, int start, int number)
 	{
-		Map<String, String> r = new HashMap<>();
+		Map<String, String> r = new ConcurrentHashMap<>();
 		r.put("_START_", new Integer(start).toString());
 		r.put("_NUMBER_", new Integer(number).toString());
 		r.put("_CONTEXT_", new Integer(contextSize).toString());
@@ -85,13 +86,17 @@ public class NederlabClient
 		//System.err.println(cx);
 		r.put("_QUERY_", cx);
 		String q = (new QueryTemplate()).expandTemplate(r); // silly to reInit
+		
+		//System.err.println(q);
+		
 		String results = queryNederlab(q);
 		return parseResults(results);
 	}
 
 	public List<Hit> parseResults(String result)
 	{
-		//System.out.println(result);
+		//System.err.println(result);
+		
 		DocumentContext context = JsonPath.parse(result);
 		List<Hit> results = new ArrayList<>();
 		try
@@ -102,7 +107,7 @@ public class NederlabClient
 			JSONArray documents = (JSONArray) context.read("$['documents']");
 
 			List<Document> docs = new ArrayList<Document>();
-			Map<String,Document> docMap = new HashMap<>();
+			Map<String,Document> docMap = new ConcurrentHashMap<>();
 			for (Object d: documents)
 			{
 				String docJ = mapper.writeValueAsString(d); // ugly reserialization!!!
@@ -204,7 +209,7 @@ public class NederlabClient
 			// Send post request
 			con.setDoOutput(true);
 			OutputStream os = con.getOutputStream();
-			OutputStreamWriter osw = new OutputStreamWriter(os,"UTF-8");
+			OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
 			osw.write(query);
 
 			osw.flush();

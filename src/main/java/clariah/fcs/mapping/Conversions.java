@@ -1,591 +1,164 @@
 package clariah.fcs.mapping;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * 
  * @author jesse
  * Even houtjetouwtje in code. TODO zet in XML bestandje (Wat eigenlijk weer minder leesbaar is :))
  * 
+ * @author Mathieu
+ * 3 nov 2017 in JSON gegoten
  * 
  * Kijk ook naar https://raw.githubusercontent.com/proycon/folia/master/setdefinitions/frog-mbpos-cgn voor de feature namen in cgn tags
  */
 
 public class Conversions 
 {
-	public static  ConversionTable UD2CHN;
-
-	public static  ConversionTable UD2GYS;
-	public static ConversionTable UD2BaB;
-
-	public static ConversionTable UD2CGNSonar; 
- 
-	public static ConversionTable UD2CGNNederlab;
 	
-	static
-	{
-		String[][] fieldMapping0  = {{"xxword", "t_lc"}}; // not implemented yet
-
-		String[][] featureMapping0 = 
-			{
-					{"pos","ADJ", "pos", "AA"},
-					{"pos","ADJ", "pos", "ADJ"},
-					
-					{"pos","ADV", "pos", "ADV"},
-					// {"pos","ADV", "pos", "AA", "position", "oth|pred"},
-					
-					{"pos", "INTJ", "pos", "INT"},
-
-					{"pos", "NOUN", "pos", "NOU"},
-					{"pos", "PROPN", "pos", "NEPER|NELOC|NEOTHER|NEORG"},
-					
-					{"pos", "VERB", "pos", "VRB"},
-
-					{"pos", "ADP",  "pos", "ADP"},
-					{"pos", "AUX", "pos", "VRB", "lemma", "zijn|hebben|willen|kunnen|mogen"},  // HM
-				
-					{"pos", "DET", "pos", "ART"}, // HM; alleen bij historische corpora
-					{"pos", "DET", "pos", "PRN"}, //
-
-				        {"PronType", "Art", "pos", "ART"},
-
-					{"pos", "PRON", "pos", "PRN"} , // HM, zo krijg je ook de determiners
-					
-					
-					{"pos", "NUM", "pos", "NUM"},
-					
-					{"pos", "CCONJ", "pos", "CON"}, // HM
-					{"pos", "SCONJ", "pos", "CON"}, // HM
-					{"pos", "PUNCT", "pos", "RES"}, // HM hebben we niet
-					{"pos", "SYM", "pos", "RES"},
-					{"pos", "X", "pos", "RES"},
-			};
+	private static ConcurrentHashMap<String, Conversion> conversionsMap = new ConcurrentHashMap<String, Conversion>();
+	
+	
+	// setters
+	
+	public static void processConversionTable(String conversionName, JsonConversionObject jsonMappingObject ) {
 		
-		String[] grammarFeats = {"number", "tense", "mood", "type", "person", "gender", "subtype", "finiteness", "position", "degree", "case"};
-
-		ConversionTable ct0 = new ConversionTable(fieldMapping0, featureMapping0);
-
-
-		ct0.useFeatureRegex = true;
-		ct0.posTagField = "pos";
-		ct0.grammaticalFeatures = grammarFeats;
-		ct0.name = "UD2BaB";
-		UD2BaB = ct0;
-	}
-	static
-	{
-		String[][] fieldMapping  = {{"xxword", "t_lc"}}; // not implemented yet
-
-		String[][] featureMapping = 
-			{
-					{"pos","ADJ", "pos", "AA"},
-					{"pos","ADJ", "pos", "ADJ"},
-					
-					{"pos","ADV", "pos", "ADV"},
-					{"pos","ADV", "pos", "AA", "position", "oth|pred"},
-					
-					{"pos", "INTJ", "pos", "INT"},
-
-					{"pos", "NOUN", "pos", "NOU-C"},
-					{"pos", "PROPN", "pos", "NOU-P"},
-					
-					{"pos", "VERB", "pos", "VRB"},
-
-					{"pos", "ADP",  "pos", "ADP"},
-					{"pos", "AUX", "pos", "VRB"},  // HM
 				
-					{"pos", "DET", "pos", "ART"}, // HM; alleen bij historische corpora
-					{"pos", "DET", "pos", "PD", "position", "prenom"}, //
-					{"pos", "PRON", "pos", "PD", "position", "pron"}, // HM, zo krijg je ook de determiners
-					
-					
-					{"pos", "NUM", "pos", "NUM"},
-					
-					{"pos", "CCONJ", "pos", "CONJ", "type", "coor"}, // HM
-					{"pos", "SCONJ", "pos", "CONJ", "type", "sub"}, // HM
-					{"pos", "PUNCT", "pos", "RES"}, // HM hebben we niet
-					{"pos", "SYM", "pos", "RES"},
-					{"pos", "X", "pos", "RES"},
-
-					// adp features
-					
-					{"AdpType", "Prep", "type", "pre"},
-					{"AdpType", "Post", "type", "post"},
-					
-					// nominal features
-					
-					{"Number", "Plur", "number", "pl"},
-					{"Number", "Sing", "number", "sg"},
-					{"Gender", "Fem", "gender", "f"},
-					{"Gender", "Masc", "gender", "m"},
-					{"Gender", "Neut", "gender", "n"},
-					{"Gender",  "Com", "gender", "f", "gender", "m"},  // HM, not implemented in regex or otherwise
-
-					// adjective (formal=infl-e)? Hoe doe je dat in UD??)
-					
-					{"Degree", "Pos", "degree", "pos"},
-					{"Degree", "Cmp", "degree", "comp"},
-					{"Degree", "Sup", "degree", "sup"},
-					//{"Degree", "Dim"
-					{"Position", "Postnom", "position", "postnom"},
-					{"Position", "Prenom", "position", "prenom"},
-					{"Position", "Free", "position", "oth|pred"},
-					{"Position", "Nom", "position", "oth|pred"},
-					{"Position", "Nom", "position", "pron"},
-					
-					{"Case", "Gen", "case", "gen"}, 
-					
-					// {"Definiteness", "Def", "formal", "infl-e"}, ?? For instance german adjectives in UD?
-					// numeral 
-					
-			
-					{"NumType", "Card", "type", "card"},
-					{"NumType", "Ord", "type", "ord"},
-					
-					// verbal features
-					
-					{"Mood", "Ind", "finiteness", "fin"},
-					{"Mood", "Imp", "finiteness", "fin"},
-					{"Mood", "Sub", "finiteness", "fin"},
-					
-					{"VerbForm", "Fin", "finiteness", "fin"},
-					{"VerbForm", "Inf", "finiteness", "inf"},
-					{"VerbForm", "Inf", "finiteness", "ger|inf"},
-					{"VerbForm", "Part", "finiteness", "part"},
-					
-					{"Person", "1", "person", "1"}, // TODO dit zit niet in CHN. Waarom niet?? te behoudend. Aanpassen na taggeroptimalisatie
-					{"Person", "2", "person", "2"},
-					{"Person", "3", "person", "3"},
-					
-					{"Tense", "Past", "tense", "past"},
-					{"Tense", "Pres", "tense", "pres"},
-					
-					// pronoun / determiner / article
-					// UD heeft: Art (ldiwoord)	Dem	(aanwijzend) Emp (nadruk)	Exc (uitroepend)	Ind	(onbepaald) Int	Neg	Prs (persoonlijk)	Rcp (reciprocal)	Rel (betrekkelijk)	Tot (collectief: iedereen enzo)
-
-				
-					
-					{"PronType", "Art", "subtype", "art-def"},
-					{"PronType", "Art", "subtype", "art-indef"},
-					
-					{"PronType", "Dem", "type", "dem"},
-					{"PronType", "Dem", "type", "d-p"},
-					{"PronType", "Prs", "type", "pers"},
-					{"PronType", "Rel", "type", "rel"},
-					{"PronType", "Rel", "type", "w-p"}, // is dat zo?
-					{"PronType", "Rel", "type", "d-p"},
-					{"PronType", "Rcp", "type", "recip"},
-					{"PronType", "Ind", "type", "indef"},
-					{"PronType", "Int", "type", "w-p"},
-					{"PronType", "Tot", "type", "indef", "lemma", "iedereen|ieder|al|alles"},
-					{"Poss", "Yes", "type", "poss"},
-					{"Reflex", "Yes", "type", "refl"},
-					 // hoe zit het nou ook alweer precies met de w-p's en d-p's. Bleuh... 
-					
-			};
-
-		String[] grammarFeats = {"number", "tense", "mood", "type", "person", "gender", "subtype", "finiteness", "position", "degree", "case"};
-
-		ConversionTable ct = new ConversionTable(fieldMapping, featureMapping);
-
-
-		ct.useFeatureRegex = true;
-		ct.posTagField = "pos";
-		ct.grammaticalFeatures = grammarFeats;
-		ct.name = "UD2CHN";
-		UD2CHN = ct;
-	}
-
-	static
-	{
-		String[][] fieldMappingGys  = {{"xxword", "t_lc"}}; // not implemented yet
-
-		String[][] featureMappingGys = 
-			{
-					{"pos","ADJ", "pos", "AA"},
-					{"pos","ADJ", "pos", "ADJ"},
-					
-					{"pos","ADV", "pos", "ADV"},
-					{"pos","ADV", "pos", "AA", "position", "oth|pred"},
-					
-					{"pos", "INTJ", "pos", "INT"},
-
-					{"pos", "NOUN", "pos", "NOU", "type", "common"},
-					{"pos", "PROPN", "pos", "NOU", "type", "proper"},
-					
-					{"pos", "VERB", "pos", "VRB"},
-
-					{"pos", "ADP",  "pos", "ADP"},
-					{"pos", "AUX", "pos", "VRB", "type", "auxiliary"},  // HM
-				
-					{"pos", "DET", "type", "art"}, // HM; alleen bij historische corpora
-					{"pos", "DET", "pos", "PD", "position", "prenom"}, //
-					{"pos", "PRON", "pos", "PD"}, // , "position", "pron"}, // HM, zo krijg je ook de determiners
-					
-					
-					{"pos", "NUM", "pos", "NUM"},
-					
-					{"pos", "CCONJ", "pos", "CON", "type", "coordinating"}, // HM
-					{"pos", "SCONJ", "pos", "CON", "type", "subordinating"}, // HM
-					{"pos", "PUNCT", "pos", "RES"}, // HM hebben we niet
-					{"pos", "SYM", "pos", "RES"},
-					{"pos", "X", "pos", "RES"},
-
-					// adp features
-					
-					{"AdpType", "Prep", "type", "pre"},
-					{"AdpType", "Post", "type", "post"},
-					
-					// nominal features
-					
-					{"Number", "Plur", "number", "pl"},
-					{"Number", "Sing", "number", "sg"},
-
-					{"Gender", "Fem", "gender", "f"}, // Gys does not support gender
-					{"Gender", "Masc", "gender", "m"},
-					{"Gender", "Neut", "gender", "n"},
-					{"Gender",  "Com", "gender", "f", "gender", "m"},  // HM, not implemented in regex or otherwise
-
-					// adjective (formal=infl-e)? Hoe doe je dat in UD??)
-					
-					{"Degree", "Pos", "degree", "pos"}, // Gys does not support degree
-					{"Degree", "Cmp", "degree", "comp"},
-					{"Degree", "Sup", "degree", "sup"},
-					//{"Degree", "Dim"
-					{"Position", "Postnom", "position", "postnom"}, // Gys does not support position
-					{"Position", "Prenom", "position", "prenom"},
-					{"Position", "Free", "position", "oth|pred"},
-					{"Position", "Nom", "position", "oth|pred"},
-					{"Position", "Nom", "position", "pron"},
-					
-					{"Case", "Gen", "case", "gen"}, // Gys does not support case
-					
-					// {"Definiteness", "Def", "formal", "infl-e"}, ?? For instance german adjectives in UD?
-					// numeral 
-					
-			
-					{"NumType", "Card", "type", "cardinal"},
-					{"NumType", "Ord", "type", "ordinal"},
-					
-					// verbal features
-					
-					{"Mood", "Ind", "finiteness", "finite"},
-					{"Mood", "Imp", "finiteness", "finite"},
-					{"Mood", "Sub", "finiteness", "finite"},
-					
-					{"VerbForm", "Fin", "finiteness", "finite"},
-					{"VerbForm", "Inf", "finiteness", "inf/ger"},
-					{"VerbForm", "Part", "finiteness", "part"},
-					
-					{"Person", "1", "person", "1"}, // TODO dit zit niet in CHN. Waarom niet?? te behoudend. Aanpassen na taggeroptimalisatie
-					{"Person", "2", "person", "2"},
-					{"Person", "3", "person", "3"},
-					
-					{"Tense", "Past", "tense", "past"},
-					{"Tense", "Pres", "tense", "present"},
-					
-					// pronoun / determiner / article
-					// UD heeft: Art (ldiwoord)	Dem	(aanwijzend) Emp (nadruk)	Exc (uitroepend)	Ind	(onbepaald) Int	Neg	Prs (persoonlijk)	Rcp (reciprocal)	Rel (betrekkelijk)	Tot (collectief: iedereen enzo)
-
-				
-					
-					{"PronType", "Art", "type", "art"},
-					{"PronType", "Art", "type", "art"},
-					
-					{"PronType", "Dem", "type", "dem"},
-					{"PronType", "Prs", "type", "pers"},
-					{"PronType", "Rel", "type", "rel"},
-					{"PronType", "Rcp", "type", "refl/recp"},
-					{"PronType", "Ind", "type", "indef"},
-					{"PronType", "Int", "type", "int"},
-					{"PronType", "Tot", "type", "indef", "lemma", "iedereen|ieder|al|alles"},
-					{"Poss", "Yes", "type", "poss"},
-					{"Reflex", "Yes", "type", "refl/recp"},
-					 // hoe zit het nou ook alweer precies met de w-p's en d-p's. Bleuh... 
-					
-			};
-
-		String[] grammarFeatsGys = {"number", "tense", "mood", "type", "person", "gender", "subtype", "finiteness", "position", "degree", "case"};
-
-		ConversionTable ctGys = new ConversionTable(fieldMappingGys, featureMappingGys);
-
-
-		ctGys.useFeatureRegex = true;
-		ctGys.posTagField = "pos";
-		ctGys.grammaticalFeatures = grammarFeatsGys;
-		ctGys.name = "UD2GYS";
-		UD2GYS = ctGys;
-	}
-
-
-
-	static
-	{
-		String[][] fieldMapping1  = {{"xxword", "t"}};
-
-		String[][] featureMapping1 = 
-			{
-					{"pos","ADJ", "pos", "ADJ"},
-					{"pos","ADV", "pos", "BW"},
-					{"pos", "INTJ", "pos", "TSW"},
-					
-					{"pos", "NOUN", "pos", "N", "feat.ntype", "soort"},
-					{"pos", "PROPN", "pos", "N", "feat.ntype", "eigen"}, // spec(deeleigen nooit te vinden zo....
-					{"pos", "PROPN", "pos", "SPEC", "feat.spectype", "deeleigen"},
-					
-					{"pos", "VERB", "pos", "WW"},
-
-					{"pos", "ADP",  "pos", "VZ"},
-					{"pos", "AUX", "pos", "WW"},  // HM
-					
-					{"pos", "DET", "pos", "LID"}, // HM
-					
-					{"pos", "DET", "pos", "VNW", "feat.pdtype", "det"}, // HM
-					{"pos", "PRON", "pos", "VNW", "feat.pdtype", "pron"}, // HM
-					
-					
-					{"pos", "NUM", "pos", "TW"},
-					// {"pos", "PART", "", ""}, // HM
-					
-					
-					
-					{"pos", "CCONJ", "pos", "VG", "feat.conjtype", "neven"}, // HM
-					{"pos", "SCONJ", "pos", "VG", "feat.conjtype", "onder"}, // HM
-					
-					{"pos", "PUNCT", "pos", "LET"}, // HM 
-					{"pos", "SYM", "pos", "SPEC"}, // opzoeken
-					{"pos", "X", "pos", "SPEC"},
-					
-					// AdpType
-					{"AdpType", "Comprep", "feat.vztype", "versm"},
-					{"AdpType", "Prep", "feat.vztype", "init"},
-					{"AdpType", "Post", "feat.vztype", "fin"},
-					
-					// nominal features
-					
-					{"Number", "Plur", "feat.getal", "mv"},
-					{"Number", "Sing", "feat.getal", "ev"},
-					
-					{"Gender", "Fem", "feat.genus", "fem"},
-					{"Gender", "Fem", "feat.npagr", "evf"},
-					{"Gender", "Fem", "feat.persoon", "2v|3v"},
-					
-					
-					{"Gender", "Masc", "feat.genus", "masc"},
-					{"Gender", "Masc", "feat.persoon", "3m"},
-					
-					// ? evmo, wel of niet doen?
-					
-					{"Gender", "Neut", "feat.genus", "onz"},
-					{"Gender", "Neut", "feat.npagr", "evon"},
-					{"Gender", "Neut", "feat.graad", "dim", "pos", "N"},
-					
-					
-					{"Gender",  "Com", "feat.genus", "zijd"},  
-					
-				   // adjective
-					
-					{"Degree", "Pos", "feat.graad", "basis"},
-					{"Degree", "Cmp", "feat.graad", "comp"},
-					{"Degree", "Sup", "feat.graad", "sup"},
-					{"Degree", "Dim", "feat.graad", "dim"},
-
-					
-					{"Position", "Nom", "feat.positie", "nom"},
-					{"Position", "Postnom", "feat.positie", "postnom"},
-					{"Position", "Prenom", "feat.positie", "prenom"},
-					{"Position", "Free", "feat.positie", "vrij"},
-				    // 
-					{"??", "??", "feat.buiging", "met-e"}, // en wat doen we het de -s? (Ook in CHN tagging een probleem)
-					
-					{"Case", "Gen", "feat.naamval", "gen", "pos", "ADJ|N|VNW"}, 
-					{"Case", "Acc", "feat.naamval", "obl"},
-					{"Case", "Dat", "feat.naamval", "dat"},
-					{"Case", "Nom", "feat.naamval", "nomin"},
-					
-					// numeral 
-					
-					{"NumType", "Card", "feat.numtype", "hoofd"},
-					{"NumType", "Ord", "feat.numtype", "rang"},
-					
-					// verbal features
-					
-					{"Aspect", "Imp", "feat.wvorm", "od"},
-					{"Aspect", "Perf", "feat.wvorm", "vd"},
-					
-					{"Mood", "Ind", "feat.wvorm", "pv", "feat.pvtijd", "verl"},
-					{"Mood", "Ind", "feat.wvorm", "pv", "feat.pvtijd", "tgw", "feat.persoon", "1|3|3p|3v|3m|3o"},
-					
-					{"Mood", "Imp,Ind", "feat.wvorm", "pv", "feat.pvtijd", "tgw"},
-					
-					//{"Mood", "Imp", "feat.wvorm", "pv"},
-					{"Mood", "Sub", "feat.wvorm", "pv", "feat.pvtijd", "conj"},
-					
-					{"VerbForm", "Fin", "feat.wvorm", "pv"},
-					{"VerbForm", "Inf", "feat.wvorm", "inf"},
-					{"VerbForm", "Part", "feat.wvorm", "od"},
-					{"VerbForm", "Part", "feat.wvorm", "vd"},
-					
-					{"Person", "1", "feat.persoon", "1"},
-					{"Person", "2", "feat.persoon", "2|2v|2b"},
-					{"Person", "3", "feat.persoon", "3|3p|3v|3m|3o"},
-					
-					//{"Person", "1", "person", "1"},
-					//{"Person", "2", "person", "2"},
-					//{"Person", "3", "feat.pvagr", "met-t"},
-					
-					{"Tense", "Past", "feat.pvtijd", "verl"}, // Maar: NIET als het een deelwoord is Dus deze manier van converteren werkt niet; je hebt ook nog condities nodig
-					{"Tense", "Pres", "feat.pvtijd", "tgw"},
-					{"Tense", "Past", "feat.wvorm", "vd"},  // eigenlijk niet goed? in UD geen past maar perf?
-					{"Tense", "Pres", "feat.wvorm", "od"},
-					
-					{"Polite", "Inf", "feat.persoon", "2v"},
-					{"Polite", "Pol", "lemma", "u"},
-					
-					// pronoun / determiner / article
-					// UD heeft: Art (ldiwoord)	Dem	(aanwijzend) Emp (nadruk)	Exc (uitroepend)	Ind	(onbepaald) Int	Neg	Prs (persoonlijk)	Rcp (reciprocal)	Rel (betrekkelijk)	Tot (collectief: iedereen enzo)
-
-					
-					{"Definite", "Def", "feat.lwtype", "bep"},
-					{"Definite", "Ind", "feat.lwtype", "onbep"},
-					{"Definite", "Def", "feat.vwtype", "bep"},
-					{"Definite", "Ind", "feat.vwtype", "onbep"},
-					
-					{"PronType", "Art", "pos", "LID"},
-				
-					
-					
-					{"PronType", "Exc", "feat.vwtype", "excl"}, // misnomer: zou vnwtype moeten zijn?
-					{"PronType", "Dem", "feat.vwtype", "aanw"}, // in welk feat zit PronType????
-					{"PronType", "Prs", "feat.vwtype", "pers"},
-					{"PronType", "Rel", "feat.vwtype", "betr"},
-					{"PronType", "Int", "feat.vwtype", "vrag"}, // wanneer precies vb? Alleen bij wie/wat enz?
-					{"PronType", "Rel", "feat.vwtype", "betr"},
-					
-					{"PronType", "Rcp", "feat.vwtype", "recip"},
-					{"PronType", "Ind", "feat.lwtype", "onbep"},
-					{"PronType", "Ind", "feat.vwtype", "onbep"},
-					
-					{"PronType", "Tot", "feat.lwtype", "onbep", "lemma", "iedereen|ieder|al|alles|elk|elke"},
-					{"PronType", "Neg,Tot", "feat.lwtype", "onbep", "lemma", "geen"}, // ?
-					{"Poss", "Yes", "feat.vwtype", "bez"},
-					{"Reflex", "Yes", "feat.vwtype", "refl"},
-					{"Reflex", "Yes", "feat.vwtype", "pr"}, // ??
-					
-					{"Variant", "Long", "feat.status", "vol"},
-					{"Variant", "Short", "feat.status", "red"},
-			};
-
-		String[] grammarFeats1 = {
-				  "feat",
-				  "feat.buiging",
-		          "feat.conjtype",
-		          "feat.dial",
-		          "feat.genus",
-		          "feat.getal",
-		          "feat.getal-n",
-		          "feat.graad",
-		          "feat.lwtype",
-		          "feat.naamval",
-		          "feat.npagr",
-		          "feat.ntype",
-		          "feat.numtype",
-		          "feat.pdtype",
-		          "feat.persoon",
-		          "feat.positie",
-		          "feat.pvagr",
-		          "feat.pvtijd",
-		          "feat.spectype",
-		          "feat.status",
-		          "feat.vwtype",
-		          "feat.vztype",
-		          "feat.wvorm",
-		};
-
-		ConversionTable ct1 = new ConversionTable(fieldMapping1, featureMapping1);
+		// get mapping in right internal format
 		
-		ct1.quote = "\"";
-		ct1.useFeatureRegex = true;
-		ct1.includeFeatureNameInRegex = false;
-		ct1.posTagField = "pos";
-		ct1.grammaticalFeatures = grammarFeats1;
-		ct1.name = "UD2CGNSonar";
-		UD2CGNSonar = ct1;
+		String[][] fieldMapping = 	getfieldMapping( 	jsonMappingObject.getFieldMapping() );
+		String[][] featureMapping = getFeatureMapping( 	jsonMappingObject.getFeatureMapping() );
+		
+		
+		// generate new conversion table object, containing mapping and such
+		
+		ConversionTable conversionTable = new ConversionTable(fieldMapping, featureMapping);
+		
+		conversionTable.setUseFeatureRegex( jsonMappingObject.usesFeatureRegex() );
+		conversionTable.setPosTagField( jsonMappingObject.getPosTagField() );
+		conversionTable.setQuote( jsonMappingObject.getQuote() );
+		conversionTable.setGrammaticalFeatures( jsonMappingObject.getGrammaticalFeatures() );
+		conversionTable.setIncludeFeatureNameInRegex( jsonMappingObject.hasIncludedFeatureNameInRegex() );
+		conversionTable.setName( conversionName );
+		
+		
+		
+		// store this new conversion map
+		
+		conversionsMap.put(conversionName, conversionTable);
 	}
 	
-	static
-	{
-		ConversionTable ct2 = new ConversionTable(UD2CGNSonar.fieldMapping, UD2CGNSonar.featureMapping);
-		ct2.useFeatureRegex = false;
-		ct2.posTagField = "pos";
-		ct2.name = "UD2CGNNederlab";
-		UD2CGNNederlab = ct2;
+	
+	
+	// getters
+	
+	public static Conversion getConversionTable(String name) {
+		
+		return conversionsMap.get(name);
+		
 	}
+	
+	public static ConcurrentHashMap<String, Conversion> getConversionTables() {
+		
+		return conversionsMap;
+		
+	}
+
+
+	
+	
+	
+	
+	// --------------------------------------------------------------------------
+	
+	// SUB-ROUTINES:
+	
+	
+	/**
+	 *  convert field mapping to needed internal format
+	 * @param jsonFieldMapping
+	 * @return
+	 */	
+	private static String[][] getfieldMapping(ArrayList<ConcurrentHashMap<String, String>> jsonFieldMapping){
+		
+		String[][] fieldMapping = new String[ jsonFieldMapping.size() ] [ 2 ];
+		
+		// loop through mapping
+		
+		for (int i=0; i<jsonFieldMapping.size(); i++)
+		{
+			// convert the hash into a string array
+			
+			ConcurrentHashMap<String, String> oneSet = jsonFieldMapping.get(i);
+			fieldMapping[i][0] = oneSet.get("from");			
+			fieldMapping[i][1] = oneSet.get("to");
+		}
+		
+		
+		return fieldMapping;
+	};
+	
+	
+	/**
+	 *  convert feature mapping to needed internal format
+	 * @param jsonFeatureMapping
+	 * @return
+	 */	
+	private static String[][] getFeatureMapping(ArrayList<ConcurrentHashMap<String, ConcurrentHashMap<String, String>>> jsonFeatureMapping){
+		
+		String[][] featureMapping = new String[ jsonFeatureMapping.size() ] [];
+		
+		// loop through mapping
+		
+		for (int i=0; i<jsonFeatureMapping.size(); i++)
+		{
+			// get a single conversion set  FROM -> TO 
+			
+			ConcurrentHashMap<String, ConcurrentHashMap<String, String>> oneSet = jsonFeatureMapping.get(i);
+			ConcurrentHashMap<String, String> fromSet =	removeCommentsFromHash( oneSet.get("from") );
+			ConcurrentHashMap<String, String> toSet = 	removeCommentsFromHash( oneSet.get("to") );
+			
+			// convert the hash into a string array
+			
+			ArrayList<String> tmpArr = new ArrayList<String>();
+			for (String oneKey : fromSet.keySet())
+			{
+				tmpArr.add(oneKey);
+				tmpArr.add(fromSet.get(oneKey));
+			}
+			for (String oneKey : toSet.keySet())
+			{
+				tmpArr.add(oneKey);
+				tmpArr.add(toSet.get(oneKey));
+			}
+			
+			featureMapping[i] = new String[tmpArr.size()];
+			featureMapping[i] = tmpArr.toArray( featureMapping[i] );
+		}
+		
+		return featureMapping;
+	}
+	
+	
+	/**
+	 * remove the 'comment' key for the hash
+	 * 
+	 * NB: the comment key is needed in the JSON file to be able to add comment to some data,
+	 *     we don't want it to make it to the conversion table
+	 * 
+	 * @param hash
+	 * @return
+	 */
+	private static ConcurrentHashMap<String, String> removeCommentsFromHash(ConcurrentHashMap<String, String> hash){
+		
+		hash.remove("comment");		
+		
+		return hash;
+	}
+	
+	
 }
-
-/*
-{
-	  "status": "ok",
-	  "mtas": {
-	    "prefix": [
-	      {
-	        "key": "list of prefixes NLContent_mtasSource",
-	        "singlePosition": [
-	          "t",
-	          "t.original",
-	          "t.suggestion",
-	          "t_lc",
-	          "t_lc.original",
-	          "t_lc.suggestion"
-	        ],
-	        "multiplePosition": [
-	          "p"
-	        ],
-	        "setPosition": [],
-	        "intersecting": [
-	          "t.suggestion",
-	          "t_lc.suggestion"
-	        ]
-	      },
-	      {
-	        "key": "list of prefixes NLContent_mtas",
-	        "singlePosition": [
-	          "feat.buiging",
-	          "feat.conjtype",
-	          "feat.dial",
-	          "feat.genus",
-	          "feat.getal",
-	          "feat.getal-n",
-	          "feat.graad",
-	          "feat.lwtype",
-	          "feat.naamval",
-	          "feat.npagr",
-	          "feat.ntype",
-	          "feat.numtype",
-	          "feat.pdtype",
-	          "feat.persoon",
-	          "feat.positie",
-	          "feat.pvagr",
-	          "feat.pvtijd",
-	          "feat.spectype",
-	          "feat.status",
-	          "feat.vwtype",
-	          "feat.vztype",
-	          "feat.wvorm",
-	          "lemma",
-	          "pos",
-	          "t",
-	          "t_lc",
-	          "w"
-	        ],
-	        "multiplePosition": [
-	          "entity",
-	          "p",
-	          "s"
-	        ],
-	        "setPosition": [],
-	        "intersecting": []
-	      }
-	    ]
-	  }
-	}
-
-*/
+	
+	

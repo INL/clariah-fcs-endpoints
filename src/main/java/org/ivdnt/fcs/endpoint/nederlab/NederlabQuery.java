@@ -4,11 +4,12 @@ import org.ivdnt.fcs.endpoint.bls.BlacklabServerQuery;
 import org.ivdnt.fcs.endpoint.bls.BlacklabServerResultSet;
 import org.ivdnt.fcs.endpoint.nederlab.stuff.NederlabClient;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class NederlabQuery extends clariah.fcs.Query
 {
-	Map<String,String> prefixMapping = new HashMap<String, String>() 
+	ConcurrentHashMap<String,String> prefixMapping = new ConcurrentHashMap<String, String>() 
 	{
 		{
 	    

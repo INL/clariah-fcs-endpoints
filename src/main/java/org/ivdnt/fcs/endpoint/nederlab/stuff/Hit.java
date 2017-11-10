@@ -1,5 +1,6 @@
 package org.ivdnt.fcs.endpoint.nederlab.stuff;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,7 +34,7 @@ public class Hit
 
 	public Hit(List<TokenProperty> unordered)
 	{
-		Map<Integer,Token> m = new HashMap<>();
+		Map<Integer,Token> m = new ConcurrentHashMap<>();
 		for (TokenProperty tp: unordered)
 		{
 			Token t = m.get(tp.positionStart);

@@ -28,16 +28,16 @@ import eu.clarin.sru.server.fcs.parser.SimpleWithin;
  * TODO QueryWithWithin
  *
  */
-public class AttackOfTheClones
+public class QueryProcessor
 {
 	private ExpressionRewriter erw;
 	
-	public AttackOfTheClones(ExpressionRewriter erw)
+	public QueryProcessor(ExpressionRewriter erw)
 	{
 		this.erw = erw;
 	}
 	
-	public AttackOfTheClones(Conversion  c)
+	public QueryProcessor(Conversion  c)
 	{
 		this.erw = new ExpressionConverter(c);
 	}

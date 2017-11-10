@@ -69,7 +69,7 @@ import clariah.fcs.mapping.Conversion;
 
 
 /**
- * Base class for  endpoint search engines, mainly copies from the Korp reference example
+ * Base class for endpoint search engines, mainly copies from the Korp reference example
  *
  */
 public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
@@ -112,7 +112,7 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	 * @param queryParserBuilder
 	 *            the {@link SRUQueryParserRegistry.Builder} object to be used for
 	 *            this search engine. Use to register additional query parsers with
-	 *            the {@link SRUServer}.
+	 *            the SRUServer.
 	 * @param params
 	 *            additional parameters gathered from the Servlet configuration and
 	 *            Servlet context.
@@ -121,11 +121,13 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	 */
 	protected void doInit(ServletContext context, SRUServerConfig config,
 			SRUQueryParserRegistry.Builder queryParserBuilder, Map<String, String> params) throws SRUConfigException {
+		
 		doInit(config, queryParserBuilder, params);
 	}
 
 	protected void doInit(SRUServerConfig config, SRUQueryParserRegistry.Builder queryParserBuilder,
 			Map<String, String> params) throws SRUConfigException {
+		
 		LOG.info("KorpEndpointSearchEngine::doInit {}", config.getPort());
 		//List<String> openCorpora = ServiceInfo.getModernCorpora();
 		//openCorporaInfo = CorporaInfo.getCorporaInfo(openCorpora);
@@ -381,6 +383,7 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	}
 
 	public static String translateQuery(SRURequest request, Conversion conversion) throws SRUException {
+		
 		String query;
 	
 		if (request.isQueryType(Constants.FCS_QUERY_TYPE_CQL)) {

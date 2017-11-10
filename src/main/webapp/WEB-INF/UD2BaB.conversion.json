@@ -1,0 +1,96 @@
+{
+    "ConversionTable": "UD2BaB",
+    
+    "UseFeatureRegex": true,
+    
+    "GrammaticalFeatures": ["number", "tense", "mood", "type", "person", "gender", "subtype", "finiteness", "position", "degree", "case"],
+    
+    "FieldMapping": [
+        {
+            "from": "xxword", 
+            "to":   "t_lc"
+        }
+    ],
+
+    "PosTagField": "pos",
+
+    "FeatureMapping": [
+        {
+            "from": {"pos": "ADJ"},
+            "to":   {"pos": "AA"}
+        },
+        {
+            "from": {"pos": "ADJ"},
+            "to":   {"pos": "ADJ"}
+        },
+        {
+            "from": {"pos": "ADV"},
+            "to":   {"pos": "ADV"}
+        },
+        {
+            "from": {"pos": "INTJ"},
+            "to":   {"pos": "INT"}
+        },
+        {
+            "from": {"pos": "NOUN"},
+            "to":   {"pos": "NOU"}
+        },
+        {
+            "from": {"pos": "PROPN"},
+            "to":   {"pos": "NEPER|NELOC|NEOTHER|NEORG"}
+        },
+        {
+            "from": {"pos": "VERB"},
+            "to":   {"pos": "VRB"}
+        },
+        {
+            "from": {"pos": "ADP"},
+            "to":   {"pos": "ADP"}
+        },
+        {
+            "from": {"pos": "AUX"},
+            "to":   {"pos": "VRB", "lemma": "zijn|hebben|willen|kunnen|mogen"}
+        },
+        {
+            "from": {"pos": "DET"},
+            "to":   {"pos": "ART", "comment": "HM; alleen bij historische corpora"}
+        },
+        {
+            "from": {"pos": "DET"},
+            "to":   {"pos": "PRN"}
+        },
+        {
+            "from": {"PronType": "Art"},
+            "to":   {"pos": "ART"}
+        },
+        {
+            "from": {"pos": "PRON"},
+            "to":   {"pos": "PRN", "comment": "HM, zo krijg je ook de determiners"}
+        },
+        {
+            "from": {"pos": "NUM"},
+            "to":   {"pos": "NUM"}
+        },
+        {
+            "from": {"pos": "CCONJ"},
+            "to":   {"pos": "CON", "comment": "HM"}
+        },
+        {
+            "from": {"pos": "SCONJ"},
+            "to":   {"pos": "CON", "comment": "HM"}
+        },
+        {
+            "from": {"pos": "PUNCT"},
+            "to":   {"pos": "RES", "comment": "HM hebben we niet"}
+        },
+        {
+            "from": {"pos": "SYM"},
+            "to":   {"pos": "RES"}
+        },
+        {
+            "from": {"pos": "X"},
+            "to":   {"pos": "RES"}
+        }
+    ]
+
+}

@@ -13,21 +13,7 @@ import eu.clarin.sru.server.fcs.parser.ExpressionGroup;
 import eu.clarin.sru.server.fcs.parser.ExpressionNot;
 import eu.clarin.sru.server.fcs.parser.ExpressionOr;
 
-/**
- 
- Simple-minded atomic expression rewriter.<br>
- An atomic expression is rewritten to disjunction of conjunctions
- <p>
- Issues: negation stuff and amount of brackets still feel fragile<br>
 
- this works now:<br>
- UD: [word="taalman"][pos!="PROPN" & word="kip"]<br>
- nederlab: [t_lc="taalman"] [!((pos="SPEC" & feat.spectype="deeleigen") | (pos="N" & feat.ntype="eigen")) & t_lc="kip"]<br>
- opensonar: [word="taalman"] [!((pos="^(SPEC).*" & pos=".*(deeleigen).*") | (pos="^(N).*" & pos=".*(eigen).*")) & word="kip"]<br>
- 
- * @author jesse
- *
- */
 public class ExpressionConverter implements ExpressionRewriter
 {
 	private Conversion conversion;

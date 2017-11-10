@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Engines>
+
+        <Engine>
+            <engine-name>nederlab</engine-name>
+            <engine-type>nederlab</engine-type>
+            <engine-url>http://svprre02.inl.loc:8080/blacklab-server-1.6.0/</engine-url>
+            <tagset-conversion-table>UD2CGNNederlab</tagset-conversion-table>
+        </Engine>
+        
+        <Engine>
+            <engine-name>opensonar</engine-name>
+            <engine-type>blacklabserver</engine-type>
+            <engine-url>http://opensonar.ato.inl.nl/blacklab-server/</engine-url>
+            <tagset-conversion-table>UD2CGNSonar</tagset-conversion-table>
+        </Engine>
+        
+        <Engine>
+            <engine-name>chn</engine-name>
+            <engine-type>blacklabserver</engine-type>
+            <engine-url>http://chn-i.inl.nl/blacklab-server/</engine-url>
+            <tagset-conversion-table>UD2CHN</tagset-conversion-table>
+        </Engine>
+        
+        <Engine>
+            <engine-name>zeebrieven</engine-name>
+            <engine-type>blacklabserver</engine-type>
+            <engine-url>http://svprre02.inl.loc:8080/blacklab-server/</engine-url>
+            <tagset-conversion-table>UD2BaB</tagset-conversion-table>
+        </Engine>
+        
+        <Engine>
+            <engine-name>StatenGeneraal</engine-name>
+            <engine-type>blacklabserver</engine-type>
+            <engine-url>http://svprre02.inl.loc:8080/blacklab-server/</engine-url>
+            <tagset-conversion-table>UD2CHN</tagset-conversion-table>
+        </Engine>
+        
+        <Engine>
+            <engine-name>corpusgysseling</engine-name>
+            <engine-type>blacklabserver</engine-type>
+            <engine-url>http://svprre02.inl.loc:8080/blacklab-server/</engine-url>
+            <tagset-conversion-table>UD2GYS</tagset-conversion-table>
+        </Engine>
+    
+</Engines>

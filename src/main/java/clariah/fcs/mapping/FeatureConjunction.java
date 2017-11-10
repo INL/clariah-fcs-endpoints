@@ -1,11 +1,12 @@
 package clariah.fcs.mapping;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.ivdnt.util.StringUtils;
 
-public class FeatureConjunction extends HashMap<String, Set<String>> 
+public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> 
 {
 
 	public String getValues(String name)
