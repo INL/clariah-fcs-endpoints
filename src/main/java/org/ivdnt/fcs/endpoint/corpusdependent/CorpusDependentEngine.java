@@ -67,6 +67,9 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
    private synchronized SimpleEndpointSearchEngineBase chooseEngine(String corpusId)
    {
 	   
+	   CorpusDependentEngineFactory engineFactory = 
+			   new CorpusDependentEngineFactory( this.contextCache );
+	   
 	   // Beware: This method must be synchronized, otherwise a first call involving
 	   // ------  more than one engine would cause the engines the be initialized 
 	   //         in each thread, which malfunction as a consequence. One single
@@ -77,11 +80,11 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
 	   // ----------
 	   // fill tag sets conversion maps
 	   
-	   if ( (ConversionObjectProcessor.getConversionEngines()).size() == 0)
+	   if ( (ConversionObjectProcessor.getConversionEngines()).size() == 0 )
 	   {
 		   System.err.println( ">> loading tagsets conversion tables...");
 		   
-		   fillTagSetsConversionMap();
+		   engineFactory.fillTagSetsConversionMap();
 		   
 		   System.err.println( ">> " + (ConversionObjectProcessor.getConversionEngines()).size() + 
 				   " tagsets conversion tables loaded");
@@ -89,28 +92,31 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
 	   
 	   // fill engine map
 	   
-	   if (engineMap.size() == 0)
+	   if (this.engineMap.size() == 0)
 	   {
 		   System.err.println( ">> loading engines...");
 		   
-		   fillEngineMap();	
+		   engineFactory.fillEngineMap( this.engineMap );	
 		   
-		   System.err.println( ">> " + engineMap.size() + 
+		   System.err.println( ">> " + this.engineMap.size() + 
 				   " engines loaded");
 	   }
 	   
-	   // ----------
+	   // now pick up the engine we need
 	   
-	   for (String k: engineMap.keySet())
+	   for (String k: this.engineMap.keySet())
 		   if (corpusId.toLowerCase().contains(k.toLowerCase())) 
 		   {
-			   System.err.printf("Choosing %s for %s\n", engineMap.get(k), corpusId);
-			   return engineMap.get(k);
+			   System.err.printf("Choosing %s for %s\n", this.engineMap.get(k), corpusId);
+			   return this.engineMap.get(k);
 		   }
 	   
 	   System.err.println("Could not find engine for corpus: " + corpusId);
 	   return null;
    }
+   
+   
+   
    
    protected void doInit(ServletContext context, SRUServerConfig config,
 			SRUQueryParserRegistry.Builder queryParserBuilder, Map<String, String> params) throws SRUConfigException 
@@ -129,225 +135,7 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
 	}
    
    
-/** 
- * read the list of tag sets conversion tables and read each tag set conversion table
- */
-   private void fillTagSetsConversionMap() {
-	   
-	   String enginesListFileName = "/WEB-INF/endpoint-engines-list.xml";
-	   
-	   URL url = null;
-		try {
-			url = contextCache.getResource(enginesListFileName);
-		} catch (MalformedURLException e1) {
-			e1.printStackTrace();
-		}
-		
-	   DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	   dbf.setNamespaceAware(true);
-	   dbf.setCoalescing(true);
-	   
-	   DocumentBuilder db;
-	   Document doc;
-	   
-	   try {
-			
-			db = dbf.newDocumentBuilder();
-			doc = db.parse(url.openStream());
-			
-			
-			// optional, but recommended
-			// read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
-			doc.getDocumentElement().normalize();
-			
-			XPathFactory factory = XPathFactory.newInstance();
-		    XPath xpath = factory.newXPath();		    
-		    
-		    // parse
-		    
-		    XPathExpression enginesExpr;
-		    NodeList enginesList;
-		    
-			try {				
-				enginesExpr = xpath.compile("/Engines/Engine");
-				enginesList = (NodeList) enginesExpr.evaluate(doc, XPathConstants.NODESET);				
-				
-				// process each engine
-				
-				HashSet<String> listOfLoadedConversions = new HashSet<String>();
-				
-				for (int engineNr = 0; engineNr < enginesList.getLength(); engineNr++)
-				{
-					Node oneEngine = enginesList.item(engineNr);	
-					
-					XPathExpression conversionNameExpr = xpath.compile(".//tagset-conversion-table");							
-					String conversionName = conversionNameExpr.evaluate(oneEngine);					
-					
-					// load the tag set conversion into memory
-					// 
-					// NB: since a tagset conversion table might be in use by several engines
-					//     it is necessary to check if the conversion table hasn't been loaded
-					//     already!
-					
-					if ( !listOfLoadedConversions.contains(conversionName) )
-					{
-						listOfLoadedConversions.add(conversionName);
-						readConversionMap(conversionName);
-					}
-										
-				}
-				
-				
-			} catch (XPathExpressionException e) {						
-				e.printStackTrace();
-			}			
-							    
-			
-		} catch (ParserConfigurationException | SAXException | IOException e) {				
-			throw new RuntimeException("Error while reading and parsing "+enginesListFileName, e);
-		}
-	  
-   }
-   
-   /**
-    *  read a tag set conversion map, give its name
-    * @param name
-    */
-   private void readConversionMap(String name) {
-	   
-	   System.err.println("reading tagset "+name);
-	   
-	   String endConversionFileName = "/WEB-INF/"+name+".conversion.json";
-	   
-	   URL url = null;
-		try {
-			url = contextCache.getResource(endConversionFileName);
-		} catch (MalformedURLException e1) {
-			e1.printStackTrace();
-		}
-	   
-	   ObjectMapper mapper = new ObjectMapper();
-	   
-	   try {
-		   
-		  // read the JSON file 
-			ConversionObject oneConversion = mapper.readValue(url, ConversionObject.class);
-			
-			
-			// DON'T REMOVE: convenient when debugging
-			// -----------
-			//String prettyConversion = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(oneConversion);
-			//System.err.println(prettyConversion);
-			
-			// convert the data into the right format			 
-			
-			ConversionObjectProcessor.processConversionTable(name, oneConversion);
-		
-		
-	} catch (JsonParseException e) {
-		Utils.printStackTrace(e);
-	} catch (JsonMappingException e) {
-		Utils.printStackTrace(e);
-	} catch (IOException e) {
-		Utils.printStackTrace(e);
-	}
-			
-	   
-   }
-   
-   /**
-    *  read and process the list of engines 
-    */
-   private void fillEngineMap() {
-	   
-	   String endPointEngineListFileName = "/WEB-INF/endpoint-engines-list.xml";
-	   
-	   URL url = null;
-	   
-		try {
-			url = this.contextCache.getResource(endPointEngineListFileName);
-			
-		} catch (MalformedURLException e1) {
-			e1.printStackTrace();
-		}
-	   
-	   DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	   dbf.setNamespaceAware(true);
-	   dbf.setCoalescing(true);
-	   
-	   DocumentBuilder db;
-	   Document doc;
-	   
-		try {
-			
-			db = dbf.newDocumentBuilder();
-			doc = db.parse(url.openStream());
-			
-			// optional, but recommended
-			// read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
-			doc.getDocumentElement().normalize();
-			
-			XPathFactory factory = XPathFactory.newInstance();
-		    XPath xpath = factory.newXPath();		    
-		    
-		    // parse
-		    
-		    XPathExpression engineExpr;
-		    NodeList engineList;
-		    
-			try {
-				engineExpr = xpath.compile("/Engines/Engine");
-				engineList = (NodeList) engineExpr.evaluate(doc, XPathConstants.NODESET);				
-				
-				// process each engine
-				
-				for (int engineNr = 0; engineNr< engineList.getLength(); engineNr++)
-				{
-					Node oneEngine = engineList.item(engineNr);	
-					
-					XPathExpression engineNameExpr = xpath.compile(".//engine-name");
-					XPathExpression engineTypeExpr = xpath.compile(".//engine-type");
-					XPathExpression engineClassExpr = xpath.compile(".//engine-url");
-					XPathExpression tagSetConversionTableExpr = xpath.compile(".//tagset-conversion-table");
-					
-					
-					String engineName = engineNameExpr.evaluate(oneEngine);
-					String engineType = engineTypeExpr.evaluate(oneEngine);
-					String engineUrl = engineClassExpr.evaluate(oneEngine);
-					String tagSetConversionTable = tagSetConversionTableExpr.evaluate(oneEngine);
-					
-					System.err.println("building "+engineName+" engine with "+tagSetConversionTable+" conversion table");
-					
-					
-					ConversionEngine conversionEngine = ConversionObjectProcessor.getConversionEngine( tagSetConversionTable );
-					
-					
-					// Nederlab engine type
-					
-					if (engineType.contains("nederlab"))
-					{
-						engineMap.put(engineName, new NederlabEndpointSearchEngine( engineUrl, conversionEngine ));
-					}
-					
-					// Blacklab engine type
-					
-					else
-					{
-						engineMap.put(engineName, new BlacklabServerEndpointSearchEngine( engineUrl, conversionEngine ));
-					}
-					
-				}
-				
-				
-			} catch (XPathExpressionException e) {
-				Utils.printStackTrace(e);
-			}			
-					    
-			
-		} catch (ParserConfigurationException | SAXException | IOException e) {				
-			throw new RuntimeException("Error while parsing and parsing " + endPointEngineListFileName, e);
-		}
-   }
+
    
 
 

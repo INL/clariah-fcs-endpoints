@@ -17,6 +17,12 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.servlet.ServletContext;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 
 /**
@@ -172,32 +178,75 @@ public class FileUtils {
 	
 	
 	// -------------------------------------------------------------
-	// get file out of some config folder (t.i. NOT the resource folder)
+	// get file out of the -config subfolder in the Webapps folder 
 	
 	public String readConfigFile(ServletContext context, String filename) throws IOException{
 		
-		String filepath = context.getContextPath() + File.separatorChar+ filename;		
+		String contextpath = context.getRealPath(filename);
+		
+		String filepath = contextpath.replace("blacklab-sru-server", "blacklab-sru-server-config");
+		
+		// debug
+		if (false)
+		{
+			System.err.println(contextpath);
+			System.err.println(filepath);
+		}		
 		
 		StringBuilder sb = new StringBuilder();
 		
-		try{
-			FileInputStream fstream = new FileInputStream(filepath);
-			// Get the object of DataInputStream
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String strLine;
-			while ((strLine = br.readLine()) != null) {				
-				sb.append(strLine);
-				sb.append("\n");
-			}
-			br.close();
-			in.close();
+		
+		FileInputStream fstream = new FileInputStream(filepath);
+		
+		// Get the object of DataInputStream
+		DataInputStream in = new DataInputStream(fstream);
+		BufferedReader br = new BufferedReader(new InputStreamReader(in));
+		
+		String strLine;
+		while ((strLine = br.readLine()) != null) {				
+			sb.append(strLine);
+			sb.append("\n");
 		}
-		catch (Exception e){
-			throw new RuntimeException("Error while reading the "+filename+" configuration file", e);
-		}
+		br.close();
+		in.close();
+		
 		
 		return sb.toString();
+	}
+	
+	public Document readConfigDoc(ServletContext context, String filename) throws IOException, ParserConfigurationException, SAXException{
+		
+		String contextpath = context.getRealPath(filename);
+		
+		String filepath = contextpath.replace("blacklab-sru-server", "blacklab-sru-server-config");
+		
+		
+		// debug
+		if (false)
+		{
+			System.err.println(contextpath);
+			System.err.println(filepath);
+		}		
+		
+		
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		dbf.setNamespaceAware(true);
+		dbf.setCoalescing(true);
+		   
+		DocumentBuilder db;
+		Document doc;
+		
+		FileInputStream fstream = new FileInputStream(filepath);
+		
+		// Get the object of DataInputStream
+		DataInputStream in = new DataInputStream(fstream);
+		
+		db = dbf.newDocumentBuilder();
+		doc = db.parse(in);
+		
+		in.close();
+		
+		return doc;
 	}
 
 }
