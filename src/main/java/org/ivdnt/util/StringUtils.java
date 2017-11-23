@@ -10,6 +10,12 @@ import java.util.regex.Pattern;
 
 public class StringUtils 
 {
+	static Pattern punctuationPattern = Pattern.compile("^\\p{P}+$");
+	static String punctuation = "\\p{P}+";
+	
+	// -------------------------------------------------------------------
+	// joins methods
+	
 	static public String join(Collection<String> list, String conjunction)
 	{
 		StringBuilder sb = new StringBuilder();
@@ -40,14 +46,17 @@ public class StringUtils
 		return sb.toString();
 	}
 
+	// -------------------------------------------------------------------
+	
 	public static Set<String> removeInfix(String s, String infix)
 	{
-		Set<String> V = new HashSet<String>(); int p=0;
+		Set<String> V = new HashSet<String>(); 
+		int p=0;
 		V.add(s);
 		
-		while ((p=s.indexOf(infix,p)) >= 0)
+		while ((p=s.indexOf(infix, p)) >= 0)
 		{
-			V.add(s.substring(0,p) + s.substring(p + infix.length()));
+			V.add(s.substring(0, p) + s.substring(p + infix.length()));
 			p++;
 		}
 		
@@ -117,28 +126,18 @@ public class StringUtils
 		return r;
 	}
 	
-	public static List<String> readStringList(String fileName) throws IOException
-	{
-		String l;
-		BufferedReader b = new BufferedReader(new FileReader(fileName));
-
-		List<String> L = new ArrayList<String>();
-		while ((l = b.readLine()) != null)
-		{
-			L.add(l);
-		}
-		b.close();
-		return L;
-	}
 	
-	static Pattern punctuationPattern = Pattern.compile("^\\p{P}+$");
-	static String punctuation = "\\p{P}+";
 	
     public static String stripPunctuation(String s)
     {
     	s = s.replaceAll(punctuation, "");
     	return s;
     }
+    
+    
+    
+    // --------------------------------------------------------
+    // test only
     
 	public static void main(String[] args)
 	{

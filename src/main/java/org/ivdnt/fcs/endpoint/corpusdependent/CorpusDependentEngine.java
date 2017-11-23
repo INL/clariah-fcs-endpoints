@@ -1,6 +1,5 @@
 package org.ivdnt.fcs.endpoint.corpusdependent;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,10 +17,9 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.ivdnt.fcs.endpoint.bls.BlacklabServerEndpointSearchEngine;
+import org.ivdnt.fcs.endpoint.blacklab.BlacklabServerEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.common.BasicEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.nederlab.NederlabEndpointSearchEngine;
-import org.ivdnt.util.FileUtils;
 import org.ivdnt.util.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -32,10 +30,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import clariah.fcs.mapping.Conversion;
-import clariah.fcs.mapping.ConversionTable;
-import clariah.fcs.mapping.Conversions;
-import clariah.fcs.mapping.JsonConversionObject;
+import clariah.fcs.mapping.ConversionEngine;
+import clariah.fcs.mapping.ConversionObjectProcessor;
+import clariah.fcs.mapping.ConversionObject;
 import eu.clarin.sru.server.SRUConfigException;
 import eu.clarin.sru.server.SRUDiagnosticList;
 import eu.clarin.sru.server.SRUException;
@@ -46,10 +43,10 @@ import eu.clarin.sru.server.SRUServerConfig;
 import eu.clarin.sru.server.fcs.SimpleEndpointSearchEngineBase;
 /**
  * 
- * @author jesse
+ * @author jesse, mathieu
  *
- *Choose implementation, determined by corpus
- *TODO: move configuration to a resource description file
+ * Choose implementation, determined by corpus
+ *
  */
 public class CorpusDependentEngine extends BasicEndpointSearchEngine
 {
@@ -70,23 +67,23 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
    private synchronized SimpleEndpointSearchEngineBase chooseEngine(String corpusId)
    {
 	   
-	   // Beware: The method must be synchronized, otherwise a first call involving
+	   // Beware: This method must be synchronized, otherwise a first call involving
 	   // ------  more than one engine would cause the engines the be initialized 
 	   //         in each thread, which malfunction as a consequence. One single
-	   //         initialisation in the first thread is enough.
+	   //         initialisation in the very first thread is enough.
 	   
 	   
 	   // FIRST CALL:
 	   // ----------
 	   // fill tag sets conversion maps
 	   
-	   if ( (Conversions.getConversionTables()).size() == 0)
+	   if ( (ConversionObjectProcessor.getConversionEngines()).size() == 0)
 	   {
 		   System.err.println( ">> loading tagsets conversion tables...");
 		   
 		   fillTagSetsConversionMap();
 		   
-		   System.err.println( ">> " + (Conversions.getConversionTables()).size() + 
+		   System.err.println( ">> " + (ConversionObjectProcessor.getConversionEngines()).size() + 
 				   " tagsets conversion tables loaded");
 	   }
 	   
@@ -234,7 +231,7 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
 	   try {
 		   
 		  // read the JSON file 
-			JsonConversionObject oneConversion = mapper.readValue(url, JsonConversionObject.class);
+			ConversionObject oneConversion = mapper.readValue(url, ConversionObject.class);
 			
 			
 			// DON'T REMOVE: convenient when debugging
@@ -244,7 +241,7 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
 			
 			// convert the data into the right format			 
 			
-			Conversions.processConversionTable(name, oneConversion);
+			ConversionObjectProcessor.processConversionTable(name, oneConversion);
 		
 		
 	} catch (JsonParseException e) {
@@ -322,21 +319,21 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
 					System.err.println("building "+engineName+" engine with "+tagSetConversionTable+" conversion table");
 					
 					
-					Conversion conversionTable = Conversions.getConversionTable( tagSetConversionTable );
+					ConversionEngine conversionEngine = ConversionObjectProcessor.getConversionEngine( tagSetConversionTable );
 					
 					
 					// Nederlab engine type
 					
 					if (engineType.contains("nederlab"))
 					{
-						engineMap.put(engineName, new NederlabEndpointSearchEngine( engineUrl, conversionTable ));
+						engineMap.put(engineName, new NederlabEndpointSearchEngine( engineUrl, conversionEngine ));
 					}
 					
 					// Blacklab engine type
 					
 					else
 					{
-						engineMap.put(engineName, new BlacklabServerEndpointSearchEngine( engineUrl, conversionTable ));
+						engineMap.put(engineName, new BlacklabServerEndpointSearchEngine( engineUrl, conversionEngine ));
 					}
 					
 				}

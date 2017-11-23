@@ -5,10 +5,12 @@ import org.ivdnt.util.StringUtils;
 
 public class Feature 
 {
-	public String name;
-	public Set<String> values = new HashSet<String>();
-	public static String multiValueSeparator="\\|";
-	public static String multiValueJoiner="|";
+	private String name;
+	private Set<String> values = new HashSet<String>();
+	
+	
+	// -----------------------------------------------------------------------
+	// constructors
 	
 	public Feature(String name, Set<String> values)
 	{
@@ -20,10 +22,25 @@ public class Feature
 	{
 		this.name = name;
 		Set<String> v = new HashSet<>();
-		for (String s: values.split(multiValueSeparator)) v.add(s);
+		for (String s: values.split(MappingConstants.multiValueSeparator)) v.add(s);
 		//System.err.println(v);
 		this.values = v;
 	}
+	
+	// -----------------------------------------------------------------------
+	// getters
+	
+	public String getFeatureName(){
+		return this.name;
+	}
+	
+	public Set<String> getValues(){
+		return this.values;
+	}
+	
+	
+	// -----------------------------------------------------------------------
+	
 	
 	public String asCQL()
 	{

@@ -3,30 +3,44 @@ package eu.clarin.sru.server.fcs.parser;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import clariah.fcs.mapping.Conversion;
+import clariah.fcs.mapping.ConversionEngine;
 import clariah.fcs.mapping.Feature;
 import clariah.fcs.mapping.FeatureConjunction;
 
 import eu.clarin.sru.server.fcs.parser.Expression;
 import eu.clarin.sru.server.fcs.parser.ExpressionAnd;
-import eu.clarin.sru.server.fcs.parser.ExpressionGroup;
 import eu.clarin.sru.server.fcs.parser.ExpressionNot;
 import eu.clarin.sru.server.fcs.parser.ExpressionOr;
+
+/**
+ *  dit is een hack: 
+ *  implementatie van een class waarvan de velden protected zijn, om die toch te kunnen benaderen...
+ *   
+ * @author jesse
+ *
+ */
 
 
 public class ExpressionConverter implements ExpressionRewriter
 {
-	private Conversion conversion;
+	private ConversionEngine conversion;
 	
-	public ExpressionConverter(Conversion conversion)
+	
+	// ---------------------------------------------------------------------------------
+	// constructor
+	
+	public ExpressionConverter(ConversionEngine conversion)
 	{
 		this.conversion = conversion;
 	}
 	
 	
+	// ---------------------------------------------------------------------------------
+	
+	
 	private QueryNode featureNode(Feature f)
 	{
-		List<QueryNode> orz = f.values.stream().map(v -> new Expression(null, f.name, Operator.EQUALS, v, null)).collect(Collectors.toList());
+		List<QueryNode> orz = f.getValues().stream().map(v -> new Expression(null, f.getFeatureName(), Operator.EQUALS, v, null)).collect(Collectors.toList());
 		if (orz.size() == 1)
 			return orz.get(0);
 		ExpressionOr eo = new ExpressionOr(orz);
@@ -49,6 +63,10 @@ public class ExpressionConverter implements ExpressionRewriter
 		return new ExpressionNot(n); // kan je natuurlijk naar binnen proberen te duwen, etc, maar laat maar even
 	}
 	
+	
+	// ---------------------------------------------------------------------------------
+	
+	
 	@Override
 	public QueryNode rewriteExpression(Expression e) // TODO: if the operator is a NOT_EQUALS, this is too simple
 	{
@@ -62,7 +80,7 @@ public class ExpressionConverter implements ExpressionRewriter
 	    
 	    for (FeatureConjunction fc: fcs)
 	    {
-	    	List<QueryNode> andz = fc.features().map(feat -> featureNode(feat)).collect(Collectors.toList());
+	    	List<QueryNode> andz = fc.getFeatures().map(feat -> featureNode(feat)).collect(Collectors.toList());
 	    	if (andz.size() == 1)
 	    		orz.add(andz.get(0));
 	    	else
@@ -74,7 +92,7 @@ public class ExpressionConverter implements ExpressionRewriter
 	    if (orz.size() == 1)
 	    {
 	    	QueryNode o1 =  orz.get(0);
-	    	return negative?negation(o1): o1;
+	    	return negative ? negation(o1): o1;
 	    }
 	    ExpressionOr orrie = new ExpressionOr(orz);
 		return negative?negation(orrie):orrie; 

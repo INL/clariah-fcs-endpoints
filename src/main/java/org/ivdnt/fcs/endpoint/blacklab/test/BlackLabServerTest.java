@@ -1,9 +1,9 @@
-package org.ivdnt.fcs.endpoint.bls.stuff;
+package org.ivdnt.fcs.endpoint.blacklab.test;
 
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 
-import clariah.fcs.Kwic;
+import clariah.fcs.results.Kwic;
 
 import java.io.*;
 import java.net.*;

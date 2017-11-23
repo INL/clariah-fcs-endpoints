@@ -3,7 +3,8 @@ package eu.clarin.sru.server.fcs.parser;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import clariah.fcs.mapping.Conversion;
+
+import clariah.fcs.mapping.ConversionEngine;
 import eu.clarin.sru.server.fcs.parser.Expression;
 import eu.clarin.sru.server.fcs.parser.ExpressionAnd;
 import eu.clarin.sru.server.fcs.parser.ExpressionGroup;
@@ -21,45 +22,59 @@ import eu.clarin.sru.server.fcs.parser.QueryVisitor;
 import eu.clarin.sru.server.fcs.parser.SimpleWithin;
 
 /**
+ * This class is about converting a FSC-QL query (as a string or as a node) 
+ * into a CQP query.
+ * When doing so, the universal dependencies are also converted into the
+ * tagset given as a parameter in the constructor.
+ * 
+ * Jesse:
  * Bleuh dit moet je in package eu.clarin.sru.server.fcs.parser zetten, anders 
  * kan je niks clonen. Bleurp.
- * @author does
+ * 
+ * @author jesse
  * 
  * TODO QueryWithWithin
  *
  */
 public class QueryProcessor
 {
-	private ExpressionRewriter erw;
+	private ExpressionRewriter expressionRewriter;
 	
-	public QueryProcessor(ExpressionRewriter erw)
+	// ---------------------------------------------------------------------------------
+	// constructors
+	
+	public QueryProcessor(ExpressionRewriter expressionRewriter)
 	{
-		this.erw = erw;
+		this.expressionRewriter = expressionRewriter;
 	}
 	
-	public QueryProcessor(Conversion  c)
+	public QueryProcessor(ConversionEngine conversion)
 	{
-		this.erw = new ExpressionConverter(c);
+		this.expressionRewriter = new ExpressionConverter(conversion);
 	}
 	
-	private List<QueryNode> mapRewrite(List<QueryNode> l)
-	{
-		return l.stream().map(n -> rewriteNode(n)).collect(Collectors.toList());
-	}
 	
-	public QueryNode rewrite (QueryNode node)
-	{
-		return rewriteNode(node);
-	}
+	// ---------------------------------------------------------------------------------
 	
+	/**
+	 * Rewrite a FSC-QL query string, and in particular convert the universal dependencies
+	 * into the tag set given in the constructor
+	 * 
+	 * When input is a node, use rewriteNode method instead
+	 * 
+	 * @param cqp String
+	 * @return a rewritten node
+	 */
 	public QueryNode rewrite(String cqp)
 	{
 		QueryParser parser = new QueryParser();
 		try
 		{
+			// convert the query string into a node
 			QueryNode qn = parser.parse(cqp);
-			System.out.println(qn.toString());
-			return rewrite(qn);
+			
+			// now rewrite the node!
+			return rewriteNode(qn);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -67,6 +82,16 @@ public class QueryProcessor
 		return null;
 	}
 	
+	
+	/**
+	 * Rewrite a FSC-QL query node, and in particular convert the universal dependencies
+	 * into the tag set given in the constructor
+	 * 
+	 * When input is a string, use rewrite method instead
+	 * 
+	 * @param node
+	 * @return a rewritten node
+	 */
 	private QueryNode rewriteNode(QueryNode node)
 	{
 		QueryNode n1;
@@ -81,7 +106,7 @@ public class QueryProcessor
 		} else if (node instanceof ExpressionAnd) {
 			n1=rewriteExpressionAnd((ExpressionAnd) node);
 		} else if (node instanceof Expression) {
-			n1=erw.rewriteExpression( (Expression) node ); // hier gebeurt iets
+			n1=expressionRewriter.rewriteExpression( (Expression) node ); // this is where the tags/features are converted
 		} else if (node instanceof ExpressionGroup) {
 			n1=rewriteExpressionGroup((ExpressionGroup) node);
 		} else if (node instanceof ExpressionNot) {
@@ -101,6 +126,26 @@ public class QueryProcessor
 		
 		return n1;
 	}
+	
+	
+	/**
+	 * Rewrite a list of FSC-QL query nodes 
+	 * (which we have when dealing with AND, OR, etc.; that consists of at least 2 nodes).
+	 * 
+	 * In particular convert the universal dependencies
+	 * into the tag set given in the constructor
+	 * 
+	 * @param list of nodes 
+	 * @return a list of rewritten nodes 
+	 */
+	private List<QueryNode> mapRewrite(List<QueryNode> l)
+	{
+		return l.stream().map(n -> rewriteNode(n)).collect(Collectors.toList());
+	}
+	
+	
+	// ------------------------------------------------------------------------
+	// special cases
 
 	private QueryNode rewriteQueryWithWithin(QueryWithWithin node) {
 		// TODO Auto-generated method stub

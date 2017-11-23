@@ -2,7 +2,12 @@ package org.ivdnt.util;
 
 public class Utils {
 
-	
+	/**
+	 * print the stack trace to the ERROR console
+	 * convenient when debugging
+	 * 
+	 * @param e
+	 */
 	public static void printStackTrace(Exception e) {	
 		
 		System.err.println(e.getMessage());

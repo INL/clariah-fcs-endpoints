@@ -6,13 +6,13 @@ import java.util.stream.Collectors;
 import org.ivdnt.util.StringUtils;
 
 /**
+ * Reserialize parsed query to CQP.<br>
+ * The clarin fcs Parser classes did not have this.
  * 
  * @author jesse
- *<p>
- *Reserialize parsed query to CQP.<br>
- *The clarin fcs Parser classes did not have this.
+ * 
  */
-public class WriteAsCQP 
+public class CqpWriter 
 {
 	boolean useRegex = false;
 	boolean includeFeatureNameInRegex = true;

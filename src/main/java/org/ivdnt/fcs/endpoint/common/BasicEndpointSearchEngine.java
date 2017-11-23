@@ -6,17 +6,12 @@
 package org.ivdnt.fcs.endpoint.common;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URI;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
+import java.net.URI;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.xml.XMLConstants;
 import javax.xml.stream.XMLStreamException;
@@ -25,15 +20,8 @@ import javax.xml.stream.XMLStreamWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.z3950.zing.cql.CQLAndNode;
-import org.z3950.zing.cql.CQLBooleanNode;
-import org.z3950.zing.cql.CQLNode;
-import org.z3950.zing.cql.CQLNotNode;
-import org.z3950.zing.cql.CQLOrNode;
-import org.z3950.zing.cql.CQLTermNode;
-
+import clariah.fcs.mapping.ConversionEngine;
 import eu.clarin.sru.server.CQLQueryParser;
-import eu.clarin.sru.server.CQLQueryParser.CQLQuery;
 import eu.clarin.sru.server.SRUConfigException;
 import eu.clarin.sru.server.SRUConstants;
 import eu.clarin.sru.server.SRUDiagnosticList;
@@ -47,24 +35,10 @@ import eu.clarin.sru.server.fcs.Constants;
 import eu.clarin.sru.server.fcs.DataView;
 import eu.clarin.sru.server.fcs.EndpointDescription;
 import eu.clarin.sru.server.fcs.FCSQueryParser;
-import eu.clarin.sru.server.fcs.FCSQueryParser.FCSQuery;
 import eu.clarin.sru.server.fcs.Layer;
 import eu.clarin.sru.server.fcs.ResourceInfo;
 import eu.clarin.sru.server.fcs.SimpleEndpointSearchEngineBase;
-import eu.clarin.sru.server.fcs.parser.Expression;
-import eu.clarin.sru.server.fcs.parser.Operator;
-import eu.clarin.sru.server.fcs.parser.QueryNode;
-import eu.clarin.sru.server.fcs.parser.QuerySegment;
 import eu.clarin.sru.server.fcs.utils.SimpleEndpointDescriptionParser;
-
-import org.w3c.dom.Document;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import clariah.fcs.mapping.Conversion;
 
 
 
@@ -73,6 +47,7 @@ import clariah.fcs.mapping.Conversion;
  *
  */
 public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
+	
 	private static final String X_FCS_ENDPOINT_DESCRIPTION = "x-fcs-endpoint-description";
 	private static final String ED_NS = "http://clarin.eu/fcs/endpoint-description";
 	private static final String ED_PREFIX = "ed";
@@ -82,6 +57,7 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	protected EndpointDescription endpointDescription;
 	public static final String RESOURCE_INVENTORY_URL = "se.gu.spraakbanken.fcs.korp.sru.resourceInventoryURL";
 
+	
 	protected EndpointDescription createEndpointDescription(ServletContext context, SRUServerConfig config,
 			Map<String, String> params) throws SRUConfigException {
 		try {
@@ -363,13 +339,10 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 
 	public static String getCorpusNameFromRequest(SRURequest request, String defaultCorpus) 
 	{
-		boolean hasFcsContextCorpus = false;
-		
 		String fcsContextCorpus = defaultCorpus;
 		
-		for (String erd : request.getExtraRequestDataNames()) {
-			if ("x-fcs-context".equals(erd)) {
-				hasFcsContextCorpus = true;
+		for (String oneExtraRequestDataName : request.getExtraRequestDataNames()) {
+			if ("x-fcs-context".equals(oneExtraRequestDataName)) {
 				fcsContextCorpus = request.getExtraRequestData("x-fcs-context"); // TODO fix this in corpusinfo implementation
 				break;
 			}
@@ -382,23 +355,90 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 		return translateQuery(request,null);
 	}
 
-	public static String translateQuery(SRURequest request, Conversion conversion) throws SRUException {
+	
+	/**
+	 * Translate a CQL or a FCS-QL query 
+	 * into a CQP query   
+	 * 
+	 * References:
+	 * 
+	 * CQL : 	https://en.wikipedia.org/wiki/Contextual_Query_Language
+	 * ---
+	 * 
+	 * CQP : 	http://cwb.sourceforge.net/files/CQP_Tutorial/
+	 * ---	 	(CQP is sometimes also called CQL)
+	 *  
+	 * FCS-QL:	kind of CQP, with some specs 
+	 * ------	defined in https://office.clarin.eu/v/CE-2017-1046-FCS-Specification.pdf
+	 * 
+	 * 
+	 * 
+	 * CQL can do simple queries like:			dinosaur 
+	 * ---										"complete dinosaur"
+	 * 
+	 * it can contain boolean logic like:		dinosaur or bird
+	 * 											dinosaur not reptile
+	 * 
+	 * and it can access publication indexes like:
+	 * 											publicationYear < 1980
+	 * 											date within "2002 2005"
+	 * 
+	 * etc.
+	 * 
+	 * 
+	 * FCS-QL can do queries like: 				[word="dinosaur"]
+	 * ------									[word="complete"][word="dinosaur"]
+	 * 
+	 * it can contain boolean logic like:		[word="dinosaur|bird"]
+	 * 
+	 * but it has no means to access publication indexes...
+	 * 
+	 * @param request
+	 * @param conversion
+	 * @return
+	 * @throws SRUException
+	 */
+	public static String translateQuery(SRURequest request, ConversionEngine conversion) throws SRUException {
 		
 		String query;
-	
+		
 		if (request.isQueryType(Constants.FCS_QUERY_TYPE_CQL)) {
 			/*
-			 * Got a CQL query (either SRU 1.1 or higher). Translate to a proper CQP query
+			 * Got a CQL  [Contextual Query Language query]
+			 * (either SRU 1.1 or higher), like in:
+			 * 
+			 *   ... operation= searchRetrieve & version= 1.2 & 
+			 *   query= lopen & startRecord= 1 & maximumRecords= 10 & 
+			 *   recordSchema= http://clarin.eu/fcs/resource & x-fcs-context=opensonar
+			 * 
+			 * Translate that into a proper CQP query
 			 * ...
 			 */
+			
 			final CQLQueryParser.CQLQuery q = request.getQuery(CQLQueryParser.CQLQuery.class);
 			query = FCSToCQPConverter.makeCQPFromCQL(q);
-		} else if (request.isQueryType(Constants.FCS_QUERY_TYPE_FCS)) {
+			
+			// #############
+			// PAY ATTENTION:
+			// #############
+			// according to Jan,  CQL2CQP conversion is not needed for BlackLab...
+			
+			
+		} 
+		else if (request.isQueryType(Constants.FCS_QUERY_TYPE_FCS)) {
 			/*
-			 * Got a FCS query (SRU 2.0). Translate to a proper CQP query
+			 * Got a FCS query (SRU 2.0), like in:
+			 * 
+			 *   ... query= [word="lopen"] & queryType= fcs & startRecord= 1 &
+			 *   maximumRecords= 10 & recordSchema= http://clarin.eu/fcs/resource & x-fcs-context= chn  
+			 * 
+			 * Translate that into a proper CQP query
 			 */
 			
 			final FCSQueryParser.FCSQuery q = request.getQuery(FCSQueryParser.FCSQuery.class);
+			
+			// get the query part out of the whole FSC request 
+			
 			System.err.println(String.format("FCSQuery %s: raw %s", q, q.getRawQuery()));
 			query = q.getRawQuery();
 			
@@ -410,7 +450,8 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 			}
 			        // do not parse the query. TODO real mapping component!
 					// FCSToCQPConverter.makeCQPFromFCS(q);
-		} else {
+		} 
+		else {
 			/*
 			 * Got something else we don't support. Send error ...
 			 */

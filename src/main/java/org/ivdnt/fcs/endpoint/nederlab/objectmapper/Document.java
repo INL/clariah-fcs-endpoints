@@ -1,4 +1,4 @@
-package org.ivdnt.fcs.endpoint.nederlab.stuff;
+package org.ivdnt.fcs.endpoint.nederlab.objectmapper;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -6,6 +6,9 @@ import java.util.*;
 import java.lang.reflect.*;
 
 /**
+ * This class is used by the Json ObjectMapper
+ * so as deserialize the JSON string response from Nederlab 
+ * into Java objects (here: Document, Token, TokenPropery, ...)
  * 
  * @author does
  *{

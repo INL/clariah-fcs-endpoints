@@ -7,15 +7,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * This class when an engine configuration file is read at start up.
+ * This class is needed for the ObjectMapper
+ * 
+ * It is used when an engine configuration file is read at start up:
+ * 
  * The configuration files (stored in WEB-INF) have JSON format and contain tag sets conversion tables
- * for our endpoint engines (so a tag in a query can be translated correctly, like pos='ADJ' --> pas='bnw').
- * This class makes sure the JSON input can be converted into JAVA object to be used by the engines
+ * for our endpoint engines (so some tags in a query can be correctly translated
+ * into the tags set of a particular corpus. Eg. pos='ADJ' --> pas='bnw').
+ * 
+ * This class makes sure the JSON input can be converted into a JAVA object to be used by the engines
  * 
  * @author fannee
  *
  */
-public class JsonConversionObject {
+public class ConversionObject {
 	
 	@JsonProperty("ConversionTable")
 	private String name;
@@ -42,6 +47,7 @@ public class JsonConversionObject {
 	private ArrayList<ConcurrentHashMap<String, ConcurrentHashMap<String, String>>> featureMapping;
 	
 	
+	// --------------------------------------------------------------------
 	// getters and setters
 
 	public String getName() {
@@ -107,6 +113,6 @@ public class JsonConversionObject {
 		this.featureMapping = featureMapping;
 	}
 	
-	
+	// --------------------------------------------------------------------
 }
 

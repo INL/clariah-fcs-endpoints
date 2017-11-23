@@ -7,7 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 
  * @author jesse
- * Even houtjetouwtje in code. TODO zet in XML bestandje (Wat eigenlijk weer minder leesbaar is :))
+ * Even houtjetouwtje in code. 
+ * TODO zet in XML bestandje (Wat eigenlijk weer minder leesbaar is :))
  * 
  * @author Mathieu
  * 3 nov 2017 in JSON gegoten
@@ -15,15 +16,17 @@ import java.util.concurrent.ConcurrentHashMap;
  * Kijk ook naar https://raw.githubusercontent.com/proycon/folia/master/setdefinitions/frog-mbpos-cgn voor de feature namen in cgn tags
  */
 
-public class Conversions 
+public class ConversionObjectProcessor 
 {
 	
-	private static ConcurrentHashMap<String, Conversion> conversionsMap = new ConcurrentHashMap<String, Conversion>();
+	private static ConcurrentHashMap<String, ConversionEngine> conversionsMap = 
+			new ConcurrentHashMap<String, ConversionEngine>();
 	
 	
+	// --------------------------------------------------------------------------
 	// setters
 	
-	public static void processConversionTable(String conversionName, JsonConversionObject jsonMappingObject ) {
+	public static void processConversionTable(String conversionName, ConversionObject jsonMappingObject ) {
 		
 				
 		// get mapping in right internal format
@@ -32,35 +35,35 @@ public class Conversions
 		String[][] featureMapping = getFeatureMapping( 	jsonMappingObject.getFeatureMapping() );
 		
 		
-		// generate new conversion table object, containing mapping and such
+		// generate new conversion engine, containing mapping and such
 		
-		ConversionTable conversionTable = new ConversionTable(fieldMapping, featureMapping);
+		ConversionEngine conversionEngine = new ConversionEngine(fieldMapping, featureMapping);
 		
-		conversionTable.setUseFeatureRegex( jsonMappingObject.usesFeatureRegex() );
-		conversionTable.setPosTagField( jsonMappingObject.getPosTagField() );
-		conversionTable.setQuote( jsonMappingObject.getQuote() );
-		conversionTable.setGrammaticalFeatures( jsonMappingObject.getGrammaticalFeatures() );
-		conversionTable.setIncludeFeatureNameInRegex( jsonMappingObject.hasIncludedFeatureNameInRegex() );
-		conversionTable.setName( conversionName );
+		conversionEngine.setUseFeatureRegex( jsonMappingObject.usesFeatureRegex() );
+		conversionEngine.setPosTagField( jsonMappingObject.getPosTagField() );
+		conversionEngine.setQuote( jsonMappingObject.getQuote() );
+		conversionEngine.setGrammaticalFeatures( jsonMappingObject.getGrammaticalFeatures() );
+		conversionEngine.setIncludeFeatureNameInRegex( jsonMappingObject.hasIncludedFeatureNameInRegex() );
+		conversionEngine.setName( conversionName );
 		
 		
 		
 		// store this new conversion map
 		
-		conversionsMap.put(conversionName, conversionTable);
+		conversionsMap.put(conversionName, conversionEngine);
 	}
 	
 	
-	
+	// --------------------------------------------------------------------------
 	// getters
 	
-	public static Conversion getConversionTable(String name) {
+	public static ConversionEngine getConversionEngine(String name) {
 		
 		return conversionsMap.get(name);
 		
 	}
 	
-	public static ConcurrentHashMap<String, Conversion> getConversionTables() {
+	public static ConcurrentHashMap<String, ConversionEngine> getConversionEngines() {
 		
 		return conversionsMap;
 		
@@ -143,10 +146,11 @@ public class Conversions
 	
 	
 	/**
-	 * remove the 'comment' key for the hash
+	 * Remove the 'comment' key for a tagset hash
 	 * 
-	 * NB: the comment key is needed in the JSON file to be able to add comment to some data,
-	 *     we don't want it to make it to the conversion table
+	 * NB: the 'comment key' is needed in the JSON file to be able to add comment to some data,
+	 *     but we don't want it to make it to the conversion engine as it is no part of the
+	 *     tags of features to be mapped to another tag set
 	 * 
 	 * @param hash
 	 * @return

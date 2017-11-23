@@ -1,45 +1,86 @@
 package org.ivdnt.fcs.endpoint.nederlab;
 
-import org.ivdnt.fcs.endpoint.bls.BlacklabServerQuery;
-import org.ivdnt.fcs.endpoint.bls.BlacklabServerResultSet;
-import org.ivdnt.fcs.endpoint.nederlab.stuff.NederlabClient;
-import java.util.*;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-public class NederlabQuery extends clariah.fcs.Query
+import org.ivdnt.fcs.endpoint.nederlab.client.NederlabClient;
+import org.ivdnt.fcs.endpoint.nederlab.results.NederlabResultSet;
+
+import clariah.fcs.results.ResultSet;
+
+public class NederlabQuery extends clariah.fcs.client.Query
 {
 	ConcurrentHashMap<String,String> prefixMapping = new ConcurrentHashMap<String, String>() 
 	{
 		{
-	    
 	        put("t", "word");
-	       
 		}
 	};
 	
+	// --------------------------------------------------------------------
+	
+	/**
+	 * NederlabQuery constructor
+	 * 
+	 * @param server, a URL string
+	 * 
+	 * @param corpus, a corpus name, like 'opensonar' (those are declared
+	 *                as Resource pid's in WEB-INF/endpoint-description.xml)
+	 *                
+	 * @param cqp, a query like [word='lopen']
+	 * 
+	 */
 	public NederlabQuery(String server, String corpus, String cqp)
 	{
 		super(server, corpus, cqp);
-		this.cqp = this.cqp.replaceAll("word *=", "t_lc="); // hm ugly hacks
-		this.cqp = this.cqp.replaceAll("'", "\"");
-		System.err.println("CQP to nederlab:" + this.cqp);
+		
+		// make sure the CQL query
+		// has the right quotes and parameter names
+		
+		String cqlQuery = this.getCqp();
+		cqlQuery = cqlQuery.replaceAll("word *=", "t_lc="); // hm ugly hacks 
+		cqlQuery = cqlQuery.replaceAll("'", "\"");
+		this.setCqp( cqlQuery );
+		
+		System.err.println( "CQP to nederlab:" + this.getCqp() );
 	}
 	
-	public clariah.fcs.ResultSet execute()
+	
+	
+	// --------------------------------------------------------------------
+	
+	/**
+	 * Execute a prepared search (prepared in NederlabEndpointSearchEngine.search)
+	 * and put the results into a FCS ResultSet
+	 */
+	public clariah.fcs.results.ResultSet execute()
 	{
-		NederlabClient c = new NederlabClient();
 		
-	    List<clariah.fcs.Kwic> hits = 
-	    		c.getResults(this.cqp, this.startPosition, this.maximumResults)
+		// search
+		
+		NederlabClient nederlabClient = new NederlabClient();		
+		NederlabResultSet nederlabResultSet = 
+				nederlabClient.doSearch(this.getCqp(), this.getStartPosition(), this.getMaximumResults());
+		
+		
+		// get results
+		
+	    List<clariah.fcs.results.Kwic> hits = 
+	    		nederlabResultSet.getResults()
 	    		.stream()
 	    		.map(h -> h.toKwic().translatePrefixes(prefixMapping)) // another ugly hack
 	    		.collect(Collectors.toList());
-	    clariah.fcs.ResultSet bsrs = new clariah.fcs.ResultSet();
-		bsrs.hits = hits;
-		bsrs.query = this;
-		bsrs.totalNumberOfResults = Integer.MAX_VALUE; // oops, hoe doe je dit?
-		System.err.println("Result set determined " + bsrs.toString());
-		return bsrs;	
+	    
+	    
+	    // build FCS ResultSet
+	    
+	    ResultSet fcsResultSet = new ResultSet();
+		fcsResultSet.setHits ( hits );
+		fcsResultSet.setQuery( this );
+		fcsResultSet.setTotalNumberOfResults( nederlabResultSet.getTotalNumberOfHits() );
+		
+		System.err.println("Result set determined " + fcsResultSet.toString());
+		return fcsResultSet;	
 	}
 }

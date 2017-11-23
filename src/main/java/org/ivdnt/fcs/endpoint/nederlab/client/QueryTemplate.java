@@ -1,45 +1,41 @@
-package org.ivdnt.fcs.endpoint.nederlab.stuff;
-import java.io.*;
+package org.ivdnt.fcs.endpoint.nederlab.client;
 import java.util.*;
 
+import org.ivdnt.util.FileUtils;
+
+/**
+ * This class constructs a query out of a template 
+ * for Nederlab querying 
+ * 
+ * @author jesse / mathieu
+ *
+ */
 public class QueryTemplate 
 {
 	public String template;
 	public String defaultFile = "Query/template.json";
 	
-	private String getFile(String fileName) {
-
-		StringBuilder result = new StringBuilder("");
-
-		//Get file from resources folder
-		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource(fileName).getFile());
-
-		try (Scanner scanner = new Scanner(file)) {
-
-			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine();
-				result.append(line).append("\n");
-			}
-
-			scanner.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return result.toString();
-	 }
+	
+	// ------------------------------------------------------------------
+	// constructors
+	//
+	// get the default template (hard coded) or read it from a file
 	
 	public QueryTemplate(String fileName)
 	{
-		readFromFile(fileName);
+		this.template = new FileUtils().getResourceAsString(fileName);
+		// s removed from output. offsets??
 	}
 	
 	public QueryTemplate()
 	{
-		template = tpl;
+		this.template = this.tpl; // default hard coded template
 	}
+	
+	
+	// ------------------------------------------------------------------
+	// extend the base template with extra parameters
+	// or fill in some values which are not pre-filled in the template
 	
 	public String expandTemplate(Map<String,String> e)
 	{
@@ -49,28 +45,13 @@ public class QueryTemplate
 		return t;
 	}
 	
-	public void readFromFile(String fileName)
-	{
-		template = getFile(fileName);
-		/*
-		try
-		{
-		  FileReader r  = new FileReader(getFile(fileName));
-		  BufferedReader b = new BufferedReader(r);
-		  String l;
-		  template = "";
-		  while ((l = b.readLine()) != null)
-		  {
-			  template += l + "\n";
-		  }
-		  b.close();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		*/
-	}
-	// s removed from output. offsets??
+	
+	// ------------------------------------------------------------------
+	//
+	// default hard coded template
+	//
+	// useful reference: 
+	// http://www.nederlab.nl/onderzoeksportaal/sites/nederlab/javascript/nederlab/controller/querybuilder.js?version=2017-10-12
 	
 	static String tpl =
 			"{"+
@@ -88,7 +69,7 @@ public class QueryTemplate
 			"  \"response\": {"+
 			"    \"stats\": true,"+
 			"    \"documents\": {"+
-			"      \"number\": _NUMBER_,"+
+			"      \"number\": _NUMBER_,"+	// = items per page (see ./nederlab/controller/querybuilder.js)
 			"      \"start\": _START_,"+
 			"      \"translate\": true,"+
 			"      \"fields\": ["+
@@ -108,9 +89,11 @@ public class QueryTemplate
 			"            \"type\": \"cql\","+
 			"            \"value\": \"_QUERY_\""+
 			"          },"+
-			"          \"key\": \"_QUERY_0\","+    // beware: the 0 belongs here!
+			"          \"key\": \"tekst\","+   
+			//"          \"key\": \"_QUERY_\"0,"+    // beware: the 0 belongs here!
 			"          \"output\": \"token\","+
-			"          \"number\": 50, "+
+			//"          \"number\": 50, "+			
+			"          \"number\": _NUMBER_, "+			// max inline snippets
 			"          \"start\": 0,"+
 			"          \"prefix\": \"t,pos,lemma\","+
 			"          \"left\": _CONTEXT_,"+

@@ -6,13 +6,19 @@ import java.util.stream.Stream;
 
 import org.ivdnt.util.StringUtils;
 
+/**
+ * This class is an extension of the ConcurrentHashMap class
+ * with some extra get / toString-like methods
+ * 
+ * @author jesse
+ *
+ */
 public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> 
 {
+	
 
-	public String getValues(String name)
-	{
-		return StringUtils.join(get(name), Feature.multiValueJoiner+"");
-	}
+	// ------------------------------------------------
+	// setter
 	
 	public void put(String name, String value)
 	{
@@ -21,6 +27,10 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>>
 			super.put(name, v = new HashSet<String>());
 		v.add(value);
 	}
+	
+	
+	// ------------------------------------------------
+	// getters
 
 	@Override
 	public Set<String> get(Object s) // oho this is silly..
@@ -31,17 +41,15 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>>
 		else // return the empty set
 			return new HashSet<String>();
 	}
-
-	//@Override
-	public Set<String> keySetX()
+	
+	public String getValues(String name)
 	{
-		Set<String> Z = new HashSet<String>();
-		for (String s: super.keySet())
-		{
-			Z.add(s);
-		}
-		return Z;
-		//return super.keySet();
+		return StringUtils.join(get(name), MappingConstants.multiValueJoiner+"");
+	}
+	
+	public Stream<Feature> getFeatures() 
+	{
+		return this.keySet().stream().map(k -> new Feature(k, get(k)));
 	}
 
 	public boolean hasFeature(String fname)
@@ -55,20 +63,42 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>>
 		return this.hasFeature(name) && this.get(name).contains(val);
 	}
 
+	
+	// ------------------------------------------------
+	// kind of toString() methods
+	
 	public String asCQL()
 	{
-		Set<String> clauses = this.keySet().stream().map(k -> new Feature(k, get(k)).asCQL()).collect(Collectors.toSet());
+		Set<String> clauses = 
+				this.keySet().stream().map(
+						k -> new Feature(k, get(k)).asCQL()
+				).collect(Collectors.toSet());
+		
 		return "[" + StringUtils.join(clauses, " & ") + "]";
 	}
 	
 	public String asRegexInTag()
 	{
-		Set<String> clauses = this.keySet().stream().map(k -> new Feature(k, get(k)).asRegexInTag("pos")).collect(Collectors.toSet());
+		Set<String> clauses = 
+				this.keySet().stream().map(
+						k -> new Feature(k, get(k)).asRegexInTag("pos")
+				).collect(Collectors.toSet());
+		
 		return "[" + StringUtils.join(clauses, " & ") + "]";
 	}
 	
-	public Stream<Feature> features() 
+	
+	
+	// ---------------------------------
+	// NOT IN USE
+	
+	public Set<String> keySetX()
 	{
-		return this.keySet().stream().map(k -> new Feature(k, get(k)));
+		Set<String> Z = new HashSet<String>();
+		for (String s: super.keySet())
+		{
+			Z.add(s);
+		}
+		return Z;
 	}
 }

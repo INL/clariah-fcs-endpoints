@@ -6,18 +6,24 @@ import java.util.concurrent.ConcurrentHashMap;
 import eu.clarin.sru.server.fcs.FCSQueryParser;
 import eu.clarin.sru.server.fcs.parser.QueryProcessor;
 import eu.clarin.sru.server.fcs.parser.QueryNode;
-import eu.clarin.sru.server.fcs.parser.WriteAsCQP;
+import eu.clarin.sru.server.fcs.parser.CqpWriter;
 
 
 
-/*
+/**
  * This class stores the tag set conversion tables
- * and holds some methods for translating annotations written in a given tag set into another.
+ * and holds methods for translating annotations written in a given tag set into another.
+ * 
+ * 
+ * Hm.
+ * Already at this level, a single feature might translate to a disjunction or a conjunction 
+ * of other features, or a disjunction of conjunctions. 
+ * this should also cover translation of word= to t_lc= for Nederlab, etc.
+ *
+ * @author jesse
+ *
  */
-
-
-
-public class ConversionTable extends Conversion
+public class ConversionEngine 
 {
 	private String[][] fieldMapping;
 	private String[][] featureMapping;
@@ -39,7 +45,7 @@ public class ConversionTable extends Conversion
 	
 	// constructor
 	
-	public ConversionTable(String[][] fieldMapping, String[][] featureMapping) 
+	public ConversionEngine(String[][] fieldMapping, String[][] featureMapping) 
 	{
 		this.fieldMapping = fieldMapping;
 		this.featureMapping = featureMapping;
@@ -50,19 +56,19 @@ public class ConversionTable extends Conversion
 	// subroutine of constructor
 	
 	private void init() {
-		for (String[] x : fieldMapping) {
-			fieldMap.put(x[0], x[1]);
+		for (String[] x : this.fieldMapping) {
+			this.fieldMap.put(x[0], x[1]);
 		}
-		for (String[] x : featureMapping) 
+		for (String[] x : this.featureMapping) 
 		{
 			Feature original = new Feature(x[0], x[1]);
 			FeatureConjunction fc = new FeatureConjunction();
 			for (int i=2; i < x.length; i+=2)
 				fc.put(x[i], x[i+1]);
-			Set<FeatureConjunction> s = featureMap.get(original);
+			Set<FeatureConjunction> s = this.featureMap.get(original);
 			if (s== null) s = new HashSet<FeatureConjunction>();
 			s.add(fc);
-			featureMap.put(original, s);
+			this.featureMap.put(original, s);
 		}
 	}
 	
@@ -151,16 +157,14 @@ public class ConversionTable extends Conversion
 	// ---------------------------------------------------------------------------------------
 	
 
-	@Override
 	public Set<String> translatePoS(String PoS) { // TODO dit werkt niet en is eigenlijk helemaal niet nodig ....
 		Feature f = new Feature("pos",PoS);
-		Feature v = this.featureMap.get(f).stream().findFirst().get().features().findFirst().get();
+		Feature v = this.featureMap.get(f).stream().findFirst().get().getFeatures().findFirst().get();
 		if (v == null)
 			v = f;
-		return v.values;
+		return v.getValues();
 	}
 
-	@Override
 	public Set<FeatureConjunction> translateFeature(String feature, String value) {
 		// TODO Auto-generated method stub
 		Feature f = new Feature(feature,value);
@@ -169,7 +173,7 @@ public class ConversionTable extends Conversion
 		if (s == null)
 		{
 			FeatureConjunction fc = new FeatureConjunction();
-			fc.put(f.name, f.values); // TODO geen pass-through meer als niet gemapt
+			fc.put(f.getFeatureName(), f.getValues()); // TODO geen pass-through meer als niet gemapt
 			s = new HashSet<>();		
 			s.add(fc);
 		}
@@ -177,26 +181,52 @@ public class ConversionTable extends Conversion
 		return s;
 	}
 
-	@Override
+	/**
+	 * Translate a query, meaning: converting 
+	 * universal dependencies (cross-linguistically consistent grammatical annotations)
+	 * into the set of tags and features instantiated in this class
+	 * 
+	 * Input is the query part of FSC request, like:
+	 * 
+	 * 		query= [word="lopen"][pos="NOUN"] 
+	 *  
+	 * Output is CQP, like:
+	 * 
+	 * 		cqp="[word="lopen"] [pos="^(N).*" & pos=".*[\(,\|](soort)[,\)\|].*"] 
+	 */
 	public String translateQuery(String query)
 	{
-		QueryProcessor x = new QueryProcessor(this);
-		QueryNode rw = x.rewrite(query);
+		// convert the query into nodes
+		// and translate the tags and features 
 		
-		WriteAsCQP wasqp = new WriteAsCQP();
-		wasqp.setQuote(this.getQuote());
+		QueryProcessor qp = new QueryProcessor(this);
+		QueryNode rw = qp.rewrite(query);
+		
+		
+		// convert the nodes into CQP
+		
+		CqpWriter cqpWriter = new CqpWriter();
+		cqpWriter.setQuote(this.getQuote());
 		
 		if (this.usesFeatureRegex())
-		 wasqp.setRegexHack(this.getPosTagField(), this.getGrammaticalFeatures(), this.hasIncludedFeatureNameInRegex());
+		 cqpWriter.setRegexHack(this.getPosTagField(), this.getGrammaticalFeatures(), this.hasIncludedFeatureNameInRegex());
 		
-		return wasqp.writeAsCQP(rw);
+		return cqpWriter.writeAsCQP(rw);
 	}
+	
+	
+	
+	
+	
+	// --------------------------------------------------------------------------
+	
+	// for test only
 	
 	public static void main(String[] args)
 	{
 
 
-		Conversion ct = Conversions.getConversionTable("UD2CHN");
+		ConversionEngine ct = ConversionObjectProcessor.getConversionEngine("UD2CHN");
 
 		String q = "[pos='PROPN'][lemma='aap' & pos='NOUN' & Number='Plur'] [pos='DET'][pos='CCONJ'][lemma='niet.*']";
 		q = "[pos=\"NOUN\" & Number=\"Plur\"][pos=\"VERB\"]";

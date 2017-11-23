@@ -5,10 +5,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.ivdnt.util.StringUtils;
 
 /**
- * 
+ * This class parses parole-style tags, type NOU(number=sg), etc.
+ *  
  * @author does
- *
- *This class parses parole-style tags, type NOU(number=sg), etc
  */
 
 public class TagWithFeatures extends FeatureConjunction
@@ -39,20 +38,33 @@ public class TagWithFeatures extends FeatureConjunction
 	public static TagWithFeatures parseParoleStyleTag(String tag)
 	{
 		TagWithFeatures t = new TagWithFeatures();
+		
+		
+		// get the pos-tag  (string part before the brackets, which contain the features)
+		
 		String[] a = tag.split("\\(");
 		t.put("pos", a[0]);
+		
+		
+		// get the features
+		
 		if (a.length > 1)
 		{
+			// get and split into separate features (part before the closing bracket)
+			
 			String rest = a[1].replaceAll("\\)", "");
+			
 			String[] featuresvalues = rest.split(",");
 			for (String fplusv: featuresvalues)
 			{
+				// key = value
+				
 				String[] fv = fplusv.split("=");
 				if (fv.length > 1)
 				{
 					String name= fv[0];
 					String values = fv[1];
-					for (String value: values.split(Feature.multiValueSeparator))
+					for (String value: values.split(MappingConstants.multiValueSeparator))
 					{
 						t.put(name, value);
 					}
@@ -62,6 +74,10 @@ public class TagWithFeatures extends FeatureConjunction
 
 		return t;
 	}
+	
+	
+	// --------------------------------------------------------------------
+	// test only
 
 	public static void main(String[] args)
 	{

@@ -1,5 +1,8 @@
-package org.ivdnt.fcs.endpoint.nederlab.stuff;
+package org.ivdnt.fcs.endpoint.nederlab.objectmapper;
 import java.util.*;
+
+import org.ivdnt.fcs.endpoint.nederlab.client.NederlabClient;
+import org.ivdnt.fcs.endpoint.nederlab.results.Hit;
 
 public class HitIterator implements Iterable<Hit>, Iterator<Hit> 
 {
@@ -7,21 +10,24 @@ public class HitIterator implements Iterable<Hit>, Iterator<Hit>
 	int position;
 	int n=0; // ToDo
 	int portionSize = 500;
-	NederlabClient client;
+	NederlabClient nederlabClient;
 	String CQL;
 	boolean done = false;
 
+	
 	public HitIterator(NederlabClient client, String CQL)
 	{
-		this.client = client;
+		this.nederlabClient = client;
 		this.CQL = CQL;
 	}
 	
 	private int nextPortion()
 	{
 		position = 0;
-		currentPortion = client.getResults(CQL, n, portionSize);
+		currentPortion = nederlabClient.doSearch(CQL, n, portionSize).getResults();
+		
 		System.err.println("retrieved next portion at " + n + "  size= " + currentPortion.size());
+		
 		n += currentPortion.size();
 		return currentPortion.size();
 	}
