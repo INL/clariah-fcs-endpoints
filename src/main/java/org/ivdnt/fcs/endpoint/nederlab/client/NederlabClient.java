@@ -102,7 +102,7 @@ public class NederlabClient
 	{
 		try
 		{
-			URL obj = new URL(NederlabConstants.nederlabUrl);
+			URL obj = new URL(NederlabConstants.NEDERLAB_URL);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 			//add request header

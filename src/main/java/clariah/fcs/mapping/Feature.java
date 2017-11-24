@@ -5,6 +5,9 @@ import org.ivdnt.util.StringUtils;
 
 public class Feature 
 {
+	// A feature has only one name
+	// but it can have several values. In a string expression, those can be joined as a Regex.
+	
 	private String name;
 	private Set<String> values = new HashSet<String>();
 	
@@ -12,20 +15,29 @@ public class Feature
 	// -----------------------------------------------------------------------
 	// constructors
 	
+	
 	public Feature(String name, Set<String> values)
 	{
 		this.name = name;
 		this.values = values;
 	}
 
+	// Constructor for cases in which the values are given as a string with a separator
+	
 	public Feature(String name, String values)
 	{
 		this.name = name;
-		Set<String> v = new HashSet<>();
-		for (String s: values.split(MappingConstants.multiValueSeparator)) v.add(s);
-		//System.err.println(v);
-		this.values = v;
+		
+		Set<String> setOfValues = new HashSet<>();
+		for (String oneValue : values.split(MappingConstants.MULTIVALUE_SEPARATOR)) 
+			{
+			setOfValues.add(oneValue);
+			}
+
+		this.values = setOfValues;
 	}
+	
+	
 	
 	// -----------------------------------------------------------------------
 	// getters
@@ -41,35 +53,77 @@ public class Feature
 	
 	// -----------------------------------------------------------------------
 	
-	
+	/**
+	 * Get an equality expression string
+	 * for the current feature
+	 * and all its values joined into a Regex string
+	 * 
+	 *   feature x -> { a, b, c}
+	 * 
+	 * will give
+	 * 
+	 *   x = 'a|b|c'
+	 * 
+	 * @return
+	 */
 	public String asCQL()
 	{
-		String vals = StringUtils.join(values, "|");
-		return String.format("%s='%s'", name, vals);
+		String pipeSeparatedValues = StringUtils.join( this.values, "|" );
+		return String.format("%s='%s'", this.name, pipeSeparatedValues);
 	}
 
+	
+	/**
+	 * Build an equality expression string 
+	 * mapping a given tag field to the current feature name
+	 * and all its values joined into a Regex string
+	 * 
+	 *   feature x -> { a, b, c}
+	 * 
+	 * will give
+	 * 
+	 *   field = '... x = a|b|c ...'
+	 * 
+	 * @param CQLTagField
+	 * @return
+	 */
 	public String asRegexInTag(String CQLTagField)
 	{
-		String vals = StringUtils.join(values, "|");
-		if (name.equals(CQLTagField))
-			return String.format("%s='^(%s).*'",name,vals);
+		String pipeSeparatedValues = StringUtils.join( this.values, "|" );
+		
+		if ( this.name.equals(CQLTagField))
+			return String.format("%s='^(%s).*'", this.name, pipeSeparatedValues);
 		else
-			return String.format("%s='.*%s\\s*=(%s).*'", CQLTagField, name, vals);
+			return String.format("%s='.*%s\\s*=(%s).*'", CQLTagField, this.name, pipeSeparatedValues);
 	}
 	
+	
+	
+	
+	/**
+	 * Test equality of current feature with another
+	 */
 	public boolean equals(Object other)
 	{
 		try
 		{
-			Feature f = (Feature) other;
-			return f.name.equals(this.name) && f.values.equals(this.values);
+			Feature feature = (Feature) other;
+			
+			return ( feature.getFeatureName().equals(this.name) 
+					 && 
+					 feature.getValues().equals(this.values) );
+			
 		} catch (Exception e)
 		{
 			return false;
 		}
 	}
+	
+	
+	
+	
 	public int hashCode()
 	{
-		return name.hashCode() + values.hashCode();
+		return this.name.hashCode() + this.values.hashCode();
 	}
 }

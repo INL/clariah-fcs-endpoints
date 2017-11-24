@@ -3,14 +3,14 @@ package org.ivdnt.fcs.endpoint.blacklab;
 public class BlacklabConstants {
 	
 	
-	public static final String atHome = 			"http://localhost:8080/blacklab-server/";
+	public static final String AT_HOME = 			"http://localhost:8080/blacklab-server/";
 	
-	public static final String openSonarServer = 	"http://opensonar.ato.inl.nl/blacklab-server/";
-	public static final String openSonarCorpus =	"opensonar";
+	public static final String OPENSONAR_SERVER = 	"http://opensonar.ato.inl.nl/blacklab-server/";
+	public static final String OPENSONAR_CORPUS =	"opensonar";
 	
 	public static String cqp = 						"[word='hadjememaar']";
 	
-	public static final String defaultServer = 		BlacklabConstants.openSonarServer;
-	public static final String defaultCorpus = 		BlacklabConstants.openSonarCorpus;
+	public static final String DEFAULT_SERVER = 	BlacklabConstants.OPENSONAR_SERVER;
+	public static final String DEFAULT_CORPUS = 	BlacklabConstants.OPENSONAR_CORPUS;
 
 }

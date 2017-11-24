@@ -15,7 +15,7 @@ import eu.clarin.sru.server.SRUServerConfig;
 
 public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngine
 {
-	String server = BlacklabConstants.defaultServer;
+	String server = BlacklabConstants.DEFAULT_SERVER;
 	ConversionEngine conversion = null;
 	
 	
@@ -56,7 +56,7 @@ public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngi
 		// translate FCS into CQP
 		
 		String query = BasicEndpointSearchEngine.translateQuery(request, conversion);
-		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request, BlacklabConstants.defaultCorpus);
+		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request, BlacklabConstants.DEFAULT_CORPUS);
 		
 		
 		// instantiate the Blacklab query

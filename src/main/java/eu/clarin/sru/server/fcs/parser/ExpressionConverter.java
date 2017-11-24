@@ -27,8 +27,15 @@ public class ExpressionConverter implements ExpressionRewriter
 	
 	
 	// ---------------------------------------------------------------------------------
-	// constructor
-	
+
+	/**
+	 * Constructor
+	 * 
+	 * An ExpressionConverter takes a ConversionEngine as a parameter, 
+	 * so as to be able to convert features etc.
+	 * 
+	 * @param ConversionEngine
+	 */
 	public ExpressionConverter(ConversionEngine conversion)
 	{
 		this.conversion = conversion;
@@ -37,64 +44,145 @@ public class ExpressionConverter implements ExpressionRewriter
 	
 	// ---------------------------------------------------------------------------------
 	
-	
-	private QueryNode featureNode(Feature f)
+	/**
+	 * Build a queryNode for a given feature
+	 * 
+	 * (this is a special case when dealing with nodes, since nodes can also be
+	 * groups of nodes, etc.)
+	 * 
+	 * @param feature object (which consists of a feature name and a set of values)
+	 * @return a QueryNode representing the feature
+	 */
+	private QueryNode buildNodeForFeature(Feature feature)
 	{
-		List<QueryNode> orz = f.getValues().stream().map(v -> new Expression(null, f.getFeatureName(), Operator.EQUALS, v, null)).collect(Collectors.toList());
+		List<QueryNode> orz = 
+				
+				feature.getValues().stream().map(
+						
+						// an expression is an extension of QueryNode:
+						// the QueryNode is being attached an operator and 
+						// (sometimes) a regex representing its values
+						value -> 
+						new Expression(null, feature.getFeatureName(), Operator.EQUALS, value, null)
+						
+				).collect(Collectors.toList());
+		
+		// Features out of a conjunction should be joined into a OR expression;
+		// for simplex nodes, this is not necessary
+		
 		if (orz.size() == 1)
 			return orz.get(0);
-		ExpressionOr eo = new ExpressionOr(orz);
-		return eo;
+		
+		return new ExpressionOr(orz);
 	}
 	
-	private QueryNode negation(QueryNode n)
+	
+	/**
+	 * Add a negation operator to a QueryNode
+	 * 
+	 * (and make sure a neglected operator is processed correctly: [-]x[-] = [+])
+	 * 
+	 * @param nodes
+	 * @return
+	 */
+	private QueryNode negation(QueryNode nodes)
 	{
-		if (n instanceof Expression) // flip if simple expression
-    	{
+		// 2 possibilities:
 		
-    		Expression e1 = (Expression) n;
-    		Operator flip = (e1.getOperator() == Operator.NOT_EQUALS)? Operator.EQUALS: Operator.NOT_EQUALS;
+		// [1] Negation is applied to simplex Expressions (=no conjunctions, etc.)
+		
+		if (nodes instanceof Expression)
+    	{
+			// an expression is an extension of QueryNode:
+			// the QueryNode is being attached an operator and 
+			// (sometimes) a regex representing its values
+			
+    		Expression e = (Expression) nodes;
     		
-    		Expression e2 = new Expression(e1.getLayerQualifier(), e1.getLayerIdentifier(), flip, e1.getRegexValue(), e1.getRegexFlags());
-    		// clone e and make negative
-    		//System.err.println("Simple negation, flip="  + flip + " input operator = " + e1.getOperator());
-    		return e2;
+    		// negation of negation means equality
+    		Operator flip = (e.getOperator() == Operator.NOT_EQUALS) ? 
+    				Operator.EQUALS : Operator.NOT_EQUALS;
+    		
+    		return new Expression(e.getLayerQualifier(), e.getLayerIdentifier(), flip, e.getRegexValue(), e.getRegexFlags());
     	}
-		return new ExpressionNot(n); // kan je natuurlijk naar binnen proberen te duwen, etc, maar laat maar even
+		
+		// [2] In case we have a conjunction of nodes, it will be tagged as a negative expression
+		
+		return new ExpressionNot(nodes); 
+		// TODO? kan je natuurlijk naar binnen proberen te duwen, etc, maar laat maar even
 	}
 	
 	
 	// ---------------------------------------------------------------------------------
 	
-	
+	/**
+	 * Translate an Expression (which is an extension of QueryNode,
+	 * supplying it with an operator and some Regex flags)
+	 * 
+	 * This method is called for simplex nodes, meaning NO disjunction NOR group of nodes of any kind.
+	 * A simplex node is supposed to contain a single feature, 
+	 * consisting of a feature name and a feature value (identifier => regex value).
+	 *    
+	 */
 	@Override
 	public QueryNode rewriteExpression(Expression e) // TODO: if the operator is a NOT_EQUALS, this is too simple
 	{
 	    final boolean negative = e.getOperator() == Operator.NOT_EQUALS;
-		String f = e.getLayerIdentifier();
-		String v = e.getRegexValue();
-		// System.err.println("Expression: "  + f + "=" + v);
-	    Set<FeatureConjunction> fcs = conversion.translateFeature(f, v);
-	  
-	    List<QueryNode> orz = new ArrayList<>();
+	 
 	    
-	    for (FeatureConjunction fc: fcs)
+	    // get feature name and value
+	    
+		String feature = 	e.getLayerIdentifier();
+		String value =		e.getRegexValue();
+
+		// Translating a feature can result into a conjunction of more features
+		// like:
+		//
+		// {"pos": "NOUN"}   =>  {"pos": "N", "feat.ntype": "soort"}
+		//
+		// That's why the output of the translation is a Set of FeatureConjunctions
+		
+	    Set<FeatureConjunction> featureConjunctions = this.conversion.translateFeature(feature, value);
+	  
+	    List<QueryNode> nodesOr = new ArrayList<>();
+	    
+	    
+	    // build QueryNodes for all (conjunctions of) features
+	    
+	    for (FeatureConjunction oneFeatureConjunction: featureConjunctions)
 	    {
-	    	List<QueryNode> andz = fc.getFeatures().map(feat -> featureNode(feat)).collect(Collectors.toList());
-	    	if (andz.size() == 1)
-	    		orz.add(andz.get(0));
-	    	else
+	    	List<QueryNode> nodesOfCurrentConjunction = 
+	    	
+	    			oneFeatureConjunction.getFeatures().map(
+	    			
+	    					feat -> buildNodeForFeature(feat)
+	    			
+	    			).collect(Collectors.toList());
+	    	
+	    	
+	    	// Siblings of a conjunction are joined into an AND expression;
+	    	// for simplex nodes, this is not necessary
+	    	
+	    	if (nodesOfCurrentConjunction.size() == 1)
 	    	{
-	    		ExpressionAnd ea = new ExpressionAnd(andz);
-	    		orz.add(ea);
+	    		nodesOr.add(nodesOfCurrentConjunction.get(0));
+	    	}
+	    	else
+	    	{	    			    		
+	    		ExpressionAnd ea = new ExpressionAnd(nodesOfCurrentConjunction);
+	    		nodesOr.add(ea);
 	    	}
 	    }
-	    if (orz.size() == 1)
+	    
+	    
+	    // the different conjunctions are joined into the output with a OR operator
+	    
+	    if (nodesOr.size() == 1)
 	    {
-	    	QueryNode o1 =  orz.get(0);
+	    	QueryNode o1 =  nodesOr.get(0);
 	    	return negative ? negation(o1): o1;
 	    }
-	    ExpressionOr orrie = new ExpressionOr(orz);
-		return negative?negation(orrie):orrie; 
+	    ExpressionOr exprOr = new ExpressionOr(nodesOr);
+		return negative ? negation(exprOr) : exprOr; 
 	}
 }

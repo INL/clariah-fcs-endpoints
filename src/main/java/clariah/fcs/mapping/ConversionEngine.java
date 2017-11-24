@@ -57,20 +57,32 @@ public class ConversionEngine
 	
 	private void init() {
 		for (String[] x : this.fieldMapping) {
-			this.fieldMap.put(x[0], x[1]);
+			this.fieldMap.put(x[0], x[1]); // 
 		}
+		
+		// this part is about pos tags translation
+		
 		for (String[] x : this.featureMapping) 
 		{
-			Feature original = new Feature(x[0], x[1]);
+			// source tag
+			
+			Feature source = new Feature(x[0], x[1]); // [0 = key, 1 = value]
+			
+			// destination tag
+			
 			FeatureConjunction fc = new FeatureConjunction();
 			for (int i=2; i < x.length; i+=2)
 				fc.put(x[i], x[i+1]);
-			Set<FeatureConjunction> s = this.featureMap.get(original);
-			if (s== null) s = new HashSet<FeatureConjunction>();
-			s.add(fc);
-			this.featureMap.put(original, s);
+			
+			Set<FeatureConjunction> destination = this.featureMap.get(source);
+			if (destination== null) 
+				destination = new HashSet<FeatureConjunction>();
+			
+			destination.add(fc);
+			this.featureMap.put(source, destination);
 		}
 	}
+	
 	
 	// ---------------------------------------------------------------------------------------
 	
@@ -157,30 +169,7 @@ public class ConversionEngine
 	// ---------------------------------------------------------------------------------------
 	
 
-	public Set<String> translatePoS(String PoS) { // TODO dit werkt niet en is eigenlijk helemaal niet nodig ....
-		Feature f = new Feature("pos",PoS);
-		Feature v = this.featureMap.get(f).stream().findFirst().get().getFeatures().findFirst().get();
-		if (v == null)
-			v = f;
-		return v.getValues();
-	}
-
-	public Set<FeatureConjunction> translateFeature(String feature, String value) {
-		// TODO Auto-generated method stub
-		Feature f = new Feature(feature,value);
-		Set<FeatureConjunction> s = this.featureMap.get(f); 
-
-		if (s == null)
-		{
-			FeatureConjunction fc = new FeatureConjunction();
-			fc.put(f.getFeatureName(), f.getValues()); // TODO geen pass-through meer als niet gemapt
-			s = new HashSet<>();		
-			s.add(fc);
-		}
-
-		return s;
-	}
-
+	
 	/**
 	 * Translate a query, meaning: converting 
 	 * universal dependencies (cross-linguistically consistent grammatical annotations)
@@ -200,7 +189,7 @@ public class ConversionEngine
 		// and translate the tags and features 
 		
 		QueryProcessor qp = new QueryProcessor(this);
-		QueryNode rw = qp.rewrite(query);
+		QueryNode queryAsNode = qp.rewrite(query); // this one will translate the features
 		
 		
 		// convert the nodes into CQP
@@ -211,11 +200,33 @@ public class ConversionEngine
 		if (this.usesFeatureRegex())
 		 cqpWriter.setRegexHack(this.getPosTagField(), this.getGrammaticalFeatures(), this.hasIncludedFeatureNameInRegex());
 		
-		return cqpWriter.writeAsCQP(rw);
+		return cqpWriter.writeAsCQP( queryAsNode );
 	}
 	
 	
-	
+	/**
+	 * Translate a feature put in a given tag set
+	 * into another tag set
+	 * 
+	 * @param feature
+	 * @param value
+	 * @return
+	 */
+	public Set<FeatureConjunction> translateFeature(String feature, String value) {
+		// TODO Auto-generated method stub
+		Feature source = new Feature(feature, value);
+		Set<FeatureConjunction> destination = this.featureMap.get(source); 
+
+		if (destination == null)
+		{
+			FeatureConjunction fc = new FeatureConjunction();
+			fc.put(source.getFeatureName(), source.getValues()); // TODO geen pass-through meer als niet gemapt
+			destination = new HashSet<>();		
+			destination.add(fc);
+		}
+
+		return destination;
+	}
 	
 	
 	// --------------------------------------------------------------------------

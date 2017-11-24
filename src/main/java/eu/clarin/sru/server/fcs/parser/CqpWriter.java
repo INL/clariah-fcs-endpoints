@@ -38,7 +38,11 @@ public class CqpWriter
 
 	public List<String> writeList(List<QueryNode> l)
 	{
-		return l.stream().map(n -> writeAsCQP(n)).collect(Collectors.toList());
+		return l.stream().map(
+				
+				n -> writeAsCQP(n)
+				
+		).collect(Collectors.toList());
 	}
 
 	public  String writeAsCQP(QueryNode node)

@@ -11,7 +11,7 @@ import clariah.fcs.results.ResultSet;
 public abstract class Query 
 {
 	
-	private String server = QueryConstants.defaultServer;	
+	private String server = QueryConstants.DEFAULT_SERVER;	
 	private String cqp;
 	private String corpus;
 	

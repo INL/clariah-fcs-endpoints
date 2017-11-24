@@ -1,38 +1,13 @@
 package org.ivdnt.fcs.endpoint.corpusdependent;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletContext;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
-import org.ivdnt.fcs.endpoint.blacklab.BlacklabServerEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.common.BasicEndpointSearchEngine;
-import org.ivdnt.fcs.endpoint.nederlab.NederlabEndpointSearchEngine;
-import org.ivdnt.util.Utils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import clariah.fcs.mapping.ConversionEngine;
 import clariah.fcs.mapping.ConversionObjectProcessor;
-import clariah.fcs.mapping.ConversionObject;
 import eu.clarin.sru.server.SRUConfigException;
 import eu.clarin.sru.server.SRUDiagnosticList;
 import eu.clarin.sru.server.SRUException;
@@ -67,8 +42,8 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
    private synchronized SimpleEndpointSearchEngineBase chooseEngine(String corpusId)
    {
 	   
-	   CorpusDependentEngineFactory engineFactory = 
-			   new CorpusDependentEngineFactory( this.contextCache );
+	   CorpusDependentEngineBuilder enginebuilder = 
+			   new CorpusDependentEngineBuilder( this.contextCache );
 	   
 	   // Beware: This method must be synchronized, otherwise a first call involving
 	   // ------  more than one engine would cause the engines the be initialized 
@@ -84,7 +59,7 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
 	   {
 		   System.err.println( ">> loading tagsets conversion tables...");
 		   
-		   engineFactory.fillTagSetsConversionMap();
+		   enginebuilder.fillTagSetsConversionMap();
 		   
 		   System.err.println( ">> " + (ConversionObjectProcessor.getConversionEngines()).size() + 
 				   " tagsets conversion tables loaded");
@@ -96,7 +71,7 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
 	   {
 		   System.err.println( ">> loading engines...");
 		   
-		   engineFactory.fillEngineMap( this.engineMap );	
+		   enginebuilder.fillEngineMap( this.engineMap );	
 		   
 		   System.err.println( ">> " + this.engineMap.size() + 
 				   " engines loaded");

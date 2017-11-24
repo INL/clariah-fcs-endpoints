@@ -35,7 +35,7 @@ import clariah.fcs.mapping.ConversionObject;
 import clariah.fcs.mapping.ConversionObjectProcessor;
 import eu.clarin.sru.server.fcs.SimpleEndpointSearchEngineBase;
 
-public class CorpusDependentEngineFactory {
+public class CorpusDependentEngineBuilder {
 	
 	ServletContext contextCache;
 	
@@ -45,7 +45,7 @@ public class CorpusDependentEngineFactory {
 	 * 
 	 * @param contextCache
 	 */
-	public CorpusDependentEngineFactory(ServletContext contextCache) {
+	public CorpusDependentEngineBuilder(ServletContext contextCache) {
 		
 		this.contextCache = contextCache; 
 	}

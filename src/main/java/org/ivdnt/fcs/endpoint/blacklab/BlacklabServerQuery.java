@@ -29,8 +29,8 @@ import clariah.fcs.results.ResultSet;
 public class BlacklabServerQuery extends clariah.fcs.client.Query
 {	
 	
-	private String server = BlacklabConstants.defaultServer;
-	private String corpus = BlacklabConstants.defaultCorpus;	
+	private String server = BlacklabConstants.DEFAULT_SERVER;
+	private String corpus = BlacklabConstants.DEFAULT_CORPUS;	
 	private String cqp = 	BlacklabConstants.cqp;
 
 

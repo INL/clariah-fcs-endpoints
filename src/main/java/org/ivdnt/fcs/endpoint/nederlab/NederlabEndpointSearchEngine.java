@@ -17,7 +17,7 @@ import eu.clarin.sru.server.SRUServerConfig;
 public class NederlabEndpointSearchEngine  extends BasicEndpointSearchEngine
 {
 	
-	String server = NederlabConstants.defaultServer;
+	String server = NederlabConstants.DEFAULT_SERVER;
 	ConversionEngine conversion = null;
 	
 	

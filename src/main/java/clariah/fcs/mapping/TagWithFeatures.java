@@ -20,14 +20,14 @@ public class TagWithFeatures extends FeatureConjunction
 
 	public String toString()
 	{
-		String pos = this.getValues("pos");
+		String pos = this.getJoinedValues("pos");
 
 		List<String> l = new ArrayList<String>();
 		for (String name: super.keySet())
 		{
 			if (!name.equals("pos"))
 			{
-				l.add(name + "=" + getValues(name));
+				l.add(name + "=" + getJoinedValues(name));
 			}
 		}
 		return pos + "(" + StringUtils.join(l, ",") + ")";
@@ -64,7 +64,7 @@ public class TagWithFeatures extends FeatureConjunction
 				{
 					String name= fv[0];
 					String values = fv[1];
-					for (String value: values.split(MappingConstants.multiValueSeparator))
+					for (String value: values.split(MappingConstants.MULTIVALUE_SEPARATOR))
 					{
 						t.put(name, value);
 					}

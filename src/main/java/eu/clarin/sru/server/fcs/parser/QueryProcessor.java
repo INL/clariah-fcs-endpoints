@@ -57,10 +57,10 @@ public class QueryProcessor
 	// ---------------------------------------------------------------------------------
 	
 	/**
-	 * Rewrite a FSC-QL query string, and in particular convert the universal dependencies
+	 * Rewrite a FSC-QL query string (in particular convert the universal dependencies)
 	 * into the tag set given in the constructor
 	 * 
-	 * When input is a node, use rewriteNode method instead
+	 * (When input is a node, use rewriteNode method instead)
 	 * 
 	 * @param cqp String
 	 * @return a rewritten node
@@ -75,6 +75,7 @@ public class QueryProcessor
 			
 			// now rewrite the node!
 			return rewriteNode(qn);
+			
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -84,10 +85,10 @@ public class QueryProcessor
 	
 	
 	/**
-	 * Rewrite a FSC-QL query node, and in particular convert the universal dependencies
+	 * Rewrite a FSC-QL query node (in particular convert the universal dependencies)
 	 * into the tag set given in the constructor
 	 * 
-	 * When input is a string, use rewrite method instead
+	 * (When input is a string, use rewrite method instead)
 	 * 
 	 * @param node
 	 * @return a rewritten node
@@ -96,29 +97,29 @@ public class QueryProcessor
 	{
 		QueryNode n1;
 		if (node instanceof QueryDisjunction) {
-			n1=rewriteQueryDisjunction((QueryDisjunction) node);
+			n1 = rewriteQueryDisjunction((QueryDisjunction) node);
 		} else if (node instanceof QueryGroup) {
-			n1=rewriteQueryGroup((QueryGroup) node);
+			n1 = rewriteQueryGroup((QueryGroup) node);
 		} else if (node instanceof QuerySegment) {
-			n1=rewriteQuerySegment((QuerySegment) node);
+			n1 = rewriteQuerySegment((QuerySegment) node);
 		} else if (node instanceof QuerySequence) {
-			n1=rewriteQuerySequence((QuerySequence) node);
+			n1 = rewriteQuerySequence((QuerySequence) node);
 		} else if (node instanceof ExpressionAnd) {
-			n1=rewriteExpressionAnd((ExpressionAnd) node);
+			n1 = rewriteExpressionAnd((ExpressionAnd) node);
 		} else if (node instanceof Expression) {
-			n1=expressionRewriter.rewriteExpression( (Expression) node ); // this is where the tags/features are converted
+			n1 = expressionRewriter.rewriteExpression( (Expression) node ); // this is where the tags/features are converted
 		} else if (node instanceof ExpressionGroup) {
-			n1=rewriteExpressionGroup((ExpressionGroup) node);
+			n1 = rewriteExpressionGroup((ExpressionGroup) node);
 		} else if (node instanceof ExpressionNot) {
-			n1=rewriteExpressionNot((ExpressionNot) node);
+			n1 = rewriteExpressionNot((ExpressionNot) node);
 		} else if (node instanceof ExpressionOr) {
-			n1=rewriteExpressionOr((ExpressionOr) node);
+			n1 = rewriteExpressionOr((ExpressionOr) node);
 		} else if (node instanceof ExpressionWildcard) {
-			n1=rewriteExpressionWildcard((ExpressionWildcard) node);
+			n1 = rewriteExpressionWildcard((ExpressionWildcard) node);
 		} else if (node instanceof SimpleWithin) {
-			n1=rewriteSimpleWithin((SimpleWithin) node);
+			n1 = rewriteSimpleWithin((SimpleWithin) node);
 		} else if (node instanceof QueryWithWithin) {
-			n1=rewriteQueryWithWithin((QueryWithWithin) node);
+			n1 = rewriteQueryWithWithin((QueryWithWithin) node);
 		} else {
 			throw new RuntimeException("unexpected node type: "  + node.getNodeType());
 		}
@@ -138,9 +139,13 @@ public class QueryProcessor
 	 * @param list of nodes 
 	 * @return a list of rewritten nodes 
 	 */
-	private List<QueryNode> mapRewrite(List<QueryNode> l)
+	private List<QueryNode> mapRewrite(List<QueryNode> nodesList)
 	{
-		return l.stream().map(n -> rewriteNode(n)).collect(Collectors.toList());
+		return nodesList.stream().map(
+				
+				node -> rewriteNode(node)
+				
+		).collect(Collectors.toList());
 	}
 	
 	
