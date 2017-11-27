@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -179,6 +180,7 @@ public class FileUtils {
 	
 	// -------------------------------------------------------------
 	// get file out of the -config subfolder in the Webapps folder 
+	
 	
 	public String readConfigFile(ServletContext context, String filename) throws IOException{
 		

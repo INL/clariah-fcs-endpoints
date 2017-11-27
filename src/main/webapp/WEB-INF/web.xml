@@ -4,11 +4,11 @@
 	 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	 id="SB_KORP_SRU_SERVER" version="2.5">
-  <display-name>Språkbankens Korp-SRU/CQL-tjänst</display-name>
+  <display-name>INT-SRU/CQL-Service</display-name>
 
   <servlet>
-    <display-name>Språkbanken's SRU/CQL Service (HTTP Interface)</display-name>
-    <servlet-name>SBKorpSRUServlet</servlet-name>
+    <display-name>INT's SRU/CQL Service (HTTP Interface)</display-name>
+    <servlet-name>IvdntSRUServlet</servlet-name>
     <servlet-class>eu.clarin.sru.server.utils.SRUServerServlet</servlet-class>
     <init-param>
       <param-name>eu.clarin.sru.server.numberOfRecords</param-name>
@@ -35,20 +35,7 @@
       <param-name>eu.clarin.sru.server.legacyNamespaceMode</param-name>
       <param-value>loc</param-value>
     </init-param>
-    <!--
-    <init-param>
-      <param-name>eu.clarin.sru.server.utils.sruServerSearchEngineClass</param-name>
-      <param-value>org.ivdnt.fcs.endpoint.nederlab.NederlabEndpointSearchEngine</param-value>
-	</init-param>
-	<init-param>
-    <param-name>eu.clarin.sru.server.utils.sruServerSearchEngineClass</param-name>
-      <param-value>org.ivdnt.fcs.endpoint.bls.BlacklabServerEndpointSearchEngine</param-value>
-    </init-param>
-
-	<init-param>
-      <param-value>se.gu.spraakbanken.fcs.endpoint.korp.KorpEndpointSearchEngine</param-value>
-    </init-param>
--->
+   
 	<init-param>
       <param-name>eu.clarin.sru.server.utils.sruServerSearchEngineClass</param-name>
       <param-value>org.ivdnt.fcs.endpoint.corpusdependent.CorpusDependentEngine</param-value>
@@ -56,8 +43,23 @@
     
     <load-on-startup>1</load-on-startup>
   </servlet>
+  
+  <servlet>
+  <display-name>IvdntConfig</display-name>
+    <servlet-name>IvdntConfig</servlet-name>
+    <servlet-class>org.ivdnt.fcs.endpoint.common.ClarinCenterList</servlet-class>
+    
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  
   <servlet-mapping>
-    <servlet-name>SBKorpSRUServlet</servlet-name>
+    <servlet-name>IvdntSRUServlet</servlet-name>
     <url-pattern>/sru</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>IvdntConfig</servlet-name>
+    <url-pattern>/get_registry</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
