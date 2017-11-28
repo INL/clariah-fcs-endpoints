@@ -195,8 +195,7 @@ public class FileUtils {
 			System.err.println(filepath);
 		}		
 		
-		StringBuilder sb = new StringBuilder();
-		
+		StringBuilder sb = new StringBuilder();		
 		
 		FileInputStream fstream = new FileInputStream(filepath);
 		
