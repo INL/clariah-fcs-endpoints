@@ -1,4 +1,4 @@
-package clariah.fcs.mapping;
+package org.ivdnt.fcs.mapping;
 import java.util.*;
 
 import org.ivdnt.util.StringUtils;

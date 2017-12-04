@@ -1,9 +1,9 @@
-package clariah.fcs.results;
+package org.ivdnt.fcs.results;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-import clariah.fcs.client.Query;
-import clariah.fcs.results.*;
+import org.ivdnt.fcs.client.Query;
+import org.ivdnt.fcs.results.*;
 
 
 /**

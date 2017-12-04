@@ -1,4 +1,4 @@
-package clariah.fcs.client;
+package org.ivdnt.fcs.client;
 
 public class QueryConstants {
 	

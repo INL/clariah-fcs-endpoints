@@ -1,12 +1,12 @@
-package clariah.fcs.mapping;
+package org.ivdnt.fcs.mapping;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import eu.clarin.sru.server.fcs.FCSQueryParser;
-import eu.clarin.sru.server.fcs.parser.QueryProcessor;
-import eu.clarin.sru.server.fcs.parser.QueryNode;
 import eu.clarin.sru.server.fcs.parser.CqpWriter;
+import eu.clarin.sru.server.fcs.parser.QueryNode;
+import eu.clarin.sru.server.fcs.parser.QueryProcessor;
 
 
 

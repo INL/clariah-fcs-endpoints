@@ -1,7 +1,5 @@
 package org.ivdnt.fcs.endpoint.nederlab.client;
-import java.util.*;
-
-import org.ivdnt.util.FileUtils;
+import java.util.Map;
 
 /**
  * This class constructs a query out of a template 
@@ -13,36 +11,26 @@ import org.ivdnt.util.FileUtils;
 public class QueryTemplate 
 {
 	public String template;
-	public String defaultFile = "Query/template.json";
 	
 	
-	// ------------------------------------------------------------------
-	// constructors
-	//
-	// get the default template (hard coded) or read it from a file
-	
-	public QueryTemplate(String fileName)
-	{
-		this.template = new FileUtils().getResourceAsString(fileName);
-		// s removed from output. offsets??
-	}
-	
-	public QueryTemplate()
-	{
-		this.template = this.tpl; // default hard coded template
+	public QueryTemplate(String nederlabQueryTemplate) {
+		
+		this.template = nederlabQueryTemplate;
 	}
 	
 	
 	// ------------------------------------------------------------------
-	// extend the base template with extra parameters
+	// expand the base template with extra parameters
 	// or fill in some values which are not pre-filled in the template
 	
-	public String expandTemplate(Map<String,String> e)
+	public String expandTemplate(Map<String, String> e)
 	{
-		String t = template;
+		String expandedTemplate = this.template;
+		
 		for (String k: e.keySet())
-			t = t.replaceAll(k, e.get(k));
-		return t;
+			expandedTemplate = expandedTemplate.replaceAll(k, e.get(k));
+		
+		return expandedTemplate;
 	}
 	
 	
@@ -50,10 +38,14 @@ public class QueryTemplate
 	//
 	// default hard coded template
 	//
+	// DON'T REMOVE THIS: this template can be used as an example
+	//                    to build other valid Nederlab templates...
+	//
 	// useful reference: 
 	// http://www.nederlab.nl/onderzoeksportaal/sites/nederlab/javascript/nederlab/controller/querybuilder.js?version=2017-10-12
 	
-	static String tpl =
+	/*
+	static String oldTpl =
 			"{"+
 			"  \"filter\": {"+
 			"    \"list\": ["+
@@ -95,19 +87,16 @@ public class QueryTemplate
 			//"          \"number\": 50, "+			
 			"          \"number\": _NUMBER_, "+			// max inline snippets
 			"          \"start\": 0,"+
-			"          \"prefix\": \"t,pos,lemma\","+
+			//"          \"prefix\": \"t,pos,lemma\","+
+			"          \"prefix\": \"t,lemma, pos, entity, feat.tokentype, feat.pos, feat.ntype, feat.getal, feat.graad, feat.genus, feat.naamval, feat.positie, feat.buiging, feat.getal-n, feat.wvorm, feat.pvtijd, feat.pvagr, feat.numtype,feat.vwtype, feat.pdtype, feat.persoon, feat.status, feat.npagr, feat.lwtype, feat.vztype, feat.conjtype, feat.spectype\","+ 
 			"          \"left\": _CONTEXT_,"+
 			"          \"right\": _CONTEXT_ "+
 			"        }"+
 			"      ]"+
 			"    }"+
 			"  },"+
-			// sorting gives a 400 BAD REQUEST error
-//			"  \"sort\": ["+
-//			"    \"field\": \"NLContent_mtas\","+
-//			"    \"direction\": \"asc\""+
-//			"  ],"+
 			"  \"cache\": true"+
 			"}";
-
+	*/
+	
 }

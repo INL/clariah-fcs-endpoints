@@ -30,10 +30,10 @@ public class ClarinCenterList extends HttpServlet {
 		
 		try {
 			
-			xmlFileContent = new FileUtils().readConfigFile(context, "clarin_center_ivdnt.xml");
+			xmlFileContent = new FileUtils(context, "clarin_center_ivdnt.xml").readConfigFileAsString();
 			
 			
-		// if read that file fails, try to read it from the registry subfolder (inside the WAR)
+		// if reading that file fails, try to read it from the registry subfolder (inside the WAR)
 			
 		} catch (IOException e1) {
 			

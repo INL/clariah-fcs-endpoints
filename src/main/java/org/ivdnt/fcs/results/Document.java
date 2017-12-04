@@ -1,4 +1,4 @@
-package clariah.fcs.results;
+package org.ivdnt.fcs.results;
 
 
 import java.util.Map;

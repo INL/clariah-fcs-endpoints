@@ -1,10 +1,10 @@
 package org.ivdnt.fcs.endpoint.blacklab;
 
 import org.ivdnt.fcs.endpoint.common.BasicEndpointSearchEngine;
+import org.ivdnt.fcs.mapping.ConversionEngine;
+import org.ivdnt.fcs.results.FcsSearchResultSet;
+import org.ivdnt.fcs.results.ResultSet;
 
-import clariah.fcs.mapping.ConversionEngine;
-import clariah.fcs.results.FcsSearchResultSet;
-import clariah.fcs.results.ResultSet;
 import eu.clarin.sru.server.SRUConstants;
 import eu.clarin.sru.server.SRUDiagnosticList;
 import eu.clarin.sru.server.SRUException;

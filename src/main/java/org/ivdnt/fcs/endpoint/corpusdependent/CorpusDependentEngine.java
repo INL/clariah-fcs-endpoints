@@ -6,8 +6,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.ServletContext;
 
 import org.ivdnt.fcs.endpoint.common.BasicEndpointSearchEngine;
+import org.ivdnt.fcs.mapping.ConversionObjectProcessor;
 
-import clariah.fcs.mapping.ConversionObjectProcessor;
 import eu.clarin.sru.server.SRUConfigException;
 import eu.clarin.sru.server.SRUDiagnosticList;
 import eu.clarin.sru.server.SRUException;
@@ -98,7 +98,6 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine
    {
 		this.contextCache = context;
 		super.doInit(context, config, queryParserBuilder, params);
-		// engineMap.forEach((k,e)->e.doInit(context, config, queryParserBuilder, params));
    }
    
    public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)

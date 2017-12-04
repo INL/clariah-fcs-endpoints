@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -34,26 +35,37 @@ import org.xml.sax.SAXException;
  */
 public class FileUtils {
 	
+	private String filepath;
+	ServletContext context;
+	
 	
 	// -------------------------------------------------------------
 	// constructor
 	
-	public FileUtils() {
+	public FileUtils(String filepath) {
 		
+		this.filepath = filepath;
 	}
+	
+	public FileUtils(ServletContext context, String filepath) {
+		
+		this.context = context;
+		this.filepath = filepath;
+	}
+	
 	
 	// -------------------------------------------------------------
 	// write to files
 	
 	
-	public void writeStringToFile(String filepath, String content)
+	public void writeStringToFile(String content)
 	{
 
 		FileOutputStream fos;
 		OutputStreamWriter out;
 		
 		try {
-			fos = new FileOutputStream(filepath);
+			fos = new FileOutputStream(this.filepath);
 			out = new OutputStreamWriter(fos, "UTF-8");
 			
 			out.write(content);
@@ -78,11 +90,11 @@ public class FileUtils {
 	
 	// get string from file (moved from nederlab.stuff.IO.java)
 	
-	public String readStringFromFile(String fileName)
+	public String readStringFromFile()
 	{
 		try
 		{
-		  FileReader r  = new FileReader(new File(fileName));
+		  FileReader r  = new FileReader(new File(this.filepath));
 		  BufferedReader b = new BufferedReader(r);
 		  String l;
 		  StringBuffer sb = new StringBuffer();
@@ -105,10 +117,10 @@ public class FileUtils {
 	
 	// get list from file (moved from util.StringUtils.java)
 	
-	public List<String> readListFromFile(String fileName) throws IOException
+	public List<String> readListFromFile() throws IOException
 	{
 		String l;
-		BufferedReader b = new BufferedReader(new FileReader(fileName));
+		BufferedReader b = new BufferedReader(new FileReader(this.filepath));
 
 		List<String> L = new ArrayList<String>();
 		while ((l = b.readLine()) != null)
@@ -125,13 +137,13 @@ public class FileUtils {
 	// get file from resource folder in different formats:
 	// as string or as file
 	
-	public String getResourceAsString(String resourcePath) {
+	public String getResourceAsString() {
 
 		StringBuffer result = new StringBuffer("");
 
 		// Get file from resources folder
 		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource(resourcePath).getFile());
+		File file = new File(classLoader.getResource(this.filepath).getFile());
 
 		try (Scanner scanner = new Scanner(file)) {
 
@@ -151,9 +163,9 @@ public class FileUtils {
 	
 	
 	// https://stackoverflow.com/questions/14089146/file-loading-by-getclass-getresource
-	public File getResourceAsFile(String resourcePath) {
+	public File getResourceAsFile() {
 	    try {
-	        InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream(resourcePath);
+	        InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream(this.filepath);
 	        if (in == null) {
 	            return null;
 	        }
@@ -173,7 +185,7 @@ public class FileUtils {
 	        return tempFile;
 	    } catch (IOException e) {
 	    	
-	    	throw new RuntimeException("Error while reading resource "+resourcePath, e);
+	    	throw new RuntimeException("Error while reading resource "+this.filepath, e);
 	    }
 	}
 	
@@ -181,25 +193,19 @@ public class FileUtils {
 	// -------------------------------------------------------------
 	// get file out of the -config subfolder in the Webapps folder 
 	
+	// fews versions with different output: URL, String or Document
 	
-	public String readConfigFile(ServletContext context, String filename) throws IOException{
+	public String readConfigFileAsString() throws IOException{
 		
-		String contextpath = context.getRealPath(filename);
+		// translate path into the path to the config file
+		String contextpath = this.context.getRealPath(this.filepath);
+		String newFilepath = contextpath.replace("blacklab-sru-server", "blacklab-sru-server-config");
 		
-		String filepath = contextpath.replace("blacklab-sru-server", "blacklab-sru-server-config");
+		// build string output
 		
-		// debug
-		if (false)
-		{
-			System.err.println(contextpath);
-			System.err.println(filepath);
-		}		
+		StringBuilder sb = 			new StringBuilder();
+		FileInputStream fstream =	new FileInputStream(newFilepath);
 		
-		StringBuilder sb = new StringBuilder();		
-		
-		FileInputStream fstream = new FileInputStream(filepath);
-		
-		// Get the object of DataInputStream
 		DataInputStream in = new DataInputStream(fstream);
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		
@@ -215,20 +221,28 @@ public class FileUtils {
 		return sb.toString();
 	}
 	
-	public Document readConfigDoc(ServletContext context, String filename) throws IOException, ParserConfigurationException, SAXException{
+	
+	public URL readConfigFileAsURL() throws IOException{
 		
-		String contextpath = context.getRealPath(filename);
+		// translate path into the path to the config file
 		
-		String filepath = contextpath.replace("blacklab-sru-server", "blacklab-sru-server-config");
+		String contextpath = this.context.getRealPath(this.filepath);
+		String newFilepath = contextpath.replace("blacklab-sru-server", "blacklab-sru-server-config");
 		
+		// return path as URL		
+		// https://stackoverflow.com/questions/6098472/pass-a-local-file-in-to-url-in-java
+		return new File(newFilepath).toURI().toURL();
+	}
+	
+	
+	public Document readConfigFileAsDoc() throws IOException, ParserConfigurationException, SAXException{
 		
-		// debug
-		if (false)
-		{
-			System.err.println(contextpath);
-			System.err.println(filepath);
-		}		
+		// translate path into the path to the config file
 		
+		String contextpath = this.context.getRealPath(this.filepath);
+		String newFilepath = contextpath.replace("blacklab-sru-server", "blacklab-sru-server-config");
+		
+		// build the document
 		
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setNamespaceAware(true);
@@ -237,9 +251,8 @@ public class FileUtils {
 		DocumentBuilder db;
 		Document doc;
 		
-		FileInputStream fstream = new FileInputStream(filepath);
+		FileInputStream fstream = new FileInputStream(newFilepath);
 		
-		// Get the object of DataInputStream
 		DataInputStream in = new DataInputStream(fstream);
 		
 		db = dbf.newDocumentBuilder();

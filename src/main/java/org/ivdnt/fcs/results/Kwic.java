@@ -1,10 +1,12 @@
-package clariah.fcs.results;
+package org.ivdnt.fcs.results;
 
 import java.net.URI;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+
+import org.ivdnt.util.StringUtils;
 
 
 /**
@@ -31,7 +33,7 @@ public class Kwic
 	private List<String> 				tokenPropertyNames = new ArrayList<>();
 	private Map<String, List<String>>	tokenProperties = new ConcurrentHashMap<>();
 	private Map<String,String> 			metadata = new ConcurrentHashMap<>(); // considering the size of opensonar metadata, probably better to introduce separate document objects
-	Document 							document = null;
+	private Document 					document = null;
 	
 	// -----------------------------------------------------------------------------------
 	
@@ -110,6 +112,9 @@ public class Kwic
 	}
 	
 	public List<String> getTokenPropertyNames() {
+		
+		//System.err.println( "tokenPropertyNames = " + StringUtils.join(this.tokenPropertyNames, " / "));
+		
 		return this.tokenPropertyNames;
 	}
 	

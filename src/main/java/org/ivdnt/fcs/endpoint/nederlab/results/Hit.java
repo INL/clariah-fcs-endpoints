@@ -165,9 +165,9 @@ public class Hit
 				+ StringUtils.join(lines, "; ");
 	}
 	
-	public clariah.fcs.results.Kwic toKwic()
+	public org.ivdnt.fcs.results.Kwic toKwic()
 	{
-		clariah.fcs.results.Kwic kwic = new clariah.fcs.results.Kwic();
+		org.ivdnt.fcs.results.Kwic kwic = new org.ivdnt.fcs.results.Kwic();
 		
 		
 		kwic.setMetadata(document.getMetadata());

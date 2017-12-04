@@ -19,6 +19,9 @@ import javax.xml.xpath.XPathFactory;
 
 import org.ivdnt.fcs.endpoint.blacklab.BlacklabServerEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.nederlab.NederlabEndpointSearchEngine;
+import org.ivdnt.fcs.mapping.ConversionEngine;
+import org.ivdnt.fcs.mapping.ConversionObject;
+import org.ivdnt.fcs.mapping.ConversionObjectProcessor;
 import org.ivdnt.util.FileUtils;
 import org.ivdnt.util.Utils;
 import org.w3c.dom.Document;
@@ -30,9 +33,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import clariah.fcs.mapping.ConversionEngine;
-import clariah.fcs.mapping.ConversionObject;
-import clariah.fcs.mapping.ConversionObjectProcessor;
 import eu.clarin.sru.server.fcs.SimpleEndpointSearchEngineBase;
 
 public class CorpusDependentEngineBuilder {
@@ -76,7 +76,7 @@ public class CorpusDependentEngineBuilder {
 	   
 	   try {
 			   
-		   doc = new FileUtils().readConfigDoc(this.contextCache, endPointEngineListFileName);
+		   doc = new FileUtils(this.contextCache, endPointEngineListFileName).readConfigFileAsDoc();
 		   
 		   parseAndFillEngineMap(doc, engineMap);
 			
@@ -173,14 +173,17 @@ public class CorpusDependentEngineBuilder {
 			
 			if (engineType.contains("nederlab"))
 			{
-				engineMap.put(engineName, new NederlabEndpointSearchEngine( engineUrl, conversionEngine ));
+				String queryTemplate = readQueryTemplate("nederlab_query_template.json");
+				engineMap.put(engineName, 
+						new NederlabEndpointSearchEngine( engineUrl, conversionEngine, queryTemplate ));
 			}
 			
 			// Blacklab engine type
 			
 			else
 			{
-				engineMap.put(engineName, new BlacklabServerEndpointSearchEngine( engineUrl, conversionEngine ));
+				engineMap.put(engineName, 
+						new BlacklabServerEndpointSearchEngine( engineUrl, conversionEngine ));
 			}
 			
 		}
@@ -191,6 +194,39 @@ public class CorpusDependentEngineBuilder {
 	}
 	
 	
+   }
+   
+
+   // --------------------------------------------------------------------------------
+   
+   /**
+    * Read the Nederlab query template 
+    * @param filename
+    * @return
+    */
+   public String readQueryTemplate(String filename) {
+	   
+	   String queryTemplate = null;
+	   FileUtils fileUtils = new FileUtils( this.contextCache, filename );
+	   
+	   try {
+		   queryTemplate = fileUtils.readConfigFileAsString();
+			
+			System.err.println("using '"+filename+"' file from IvdNT config folder");
+		}
+		
+		// [2] if that fails, try to get it from the WAR file
+		
+		catch (IOException ioe) {
+			
+			Utils.printStackTrace(ioe);
+			
+			queryTemplate = fileUtils.getResourceAsString();
+			
+			System.err.println("using bundled '\"+filename+\"' file");
+		}
+	   
+	   return queryTemplate;
    }
    
 
@@ -218,7 +254,7 @@ public class CorpusDependentEngineBuilder {
 	   
 	   try {
 			   
-		   doc = new FileUtils().readConfigDoc(this.contextCache, endPointEngineListFileName);
+		   doc = new FileUtils(this.contextCache, endPointEngineListFileName).readConfigFileAsDoc();
 		   
 		   parseAndfillTagSetsConversionMap(doc);
 			
@@ -341,7 +377,8 @@ public class CorpusDependentEngineBuilder {
 		   
 		   try {
 			   
-			String conversionString = new FileUtils().readConfigFile(this.contextCache, endConversionFileName);
+			String conversionString = 
+					new FileUtils(this.contextCache, endConversionFileName).readConfigFileAsString();
 			
 			// read the JSON file 
 			
@@ -390,10 +427,6 @@ public class CorpusDependentEngineBuilder {
 					}
 			
 			}
-		   
-		   
-		   
-		  
 				
 		   
 	   }

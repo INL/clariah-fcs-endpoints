@@ -1,6 +1,6 @@
-package clariah.fcs.client;
+package org.ivdnt.fcs.client;
 
-import clariah.fcs.results.ResultSet;
+import org.ivdnt.fcs.results.ResultSet;
 
 /**
  * All engines will have a Query class that implements the Query abstract class
@@ -12,7 +12,7 @@ public abstract class Query
 {
 	
 	private String server = QueryConstants.DEFAULT_SERVER;	
-	private String cqp;
+	private String cqpQuery;
 	private String corpus;
 	
 	private int startPosition;
@@ -38,11 +38,11 @@ public abstract class Query
 	 * @param cqp, a CQL query string like [word="paard"]
 	 * 
 	 */
-	public Query(String server, String corpus, String cqp)
+	public Query(String server, String corpus, String cqpQuery)
 	{
 		this.server = server;
 		this.corpus= corpus;
-		this.cqp = cqp;
+		this.cqpQuery = cqpQuery;
 	}
 	
 	
@@ -57,8 +57,8 @@ public abstract class Query
 		return this.corpus;
 	}	
 	
-	public String getCqp() {
-		return this.cqp;
+	public String getCqpQuery() {
+		return this.cqpQuery;
 	}
 	
 	public int getStartPosition() {
@@ -85,8 +85,8 @@ public abstract class Query
 		this.corpus = corpus;
 	}
 
-	public void setCqp(String cqp) {
-		this.cqp = cqp;
+	public void setCqpQuery(String cqpQuery) {
+		this.cqpQuery = cqpQuery;
 	}
 
 	public void setStartPosition(int startPosition) {
@@ -107,7 +107,7 @@ public abstract class Query
 	
 	public String toString() 
 	{
-		return String.format("Query(cqp=%s,server=%s,corpus=%s)",cqp,server,corpus);
+		return String.format("Query(cqp=%s,server=%s,corpus=%s)",cqpQuery,server,corpus);
 	}
 
 	

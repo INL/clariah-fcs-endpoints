@@ -3,8 +3,8 @@ package eu.clarin.sru.server.fcs.parser;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import org.ivdnt.fcs.mapping.ConversionEngine;
 
-import clariah.fcs.mapping.ConversionEngine;
 import eu.clarin.sru.server.fcs.parser.Expression;
 import eu.clarin.sru.server.fcs.parser.ExpressionAnd;
 import eu.clarin.sru.server.fcs.parser.ExpressionGroup;
@@ -19,6 +19,7 @@ import eu.clarin.sru.server.fcs.parser.QueryParser;
 import eu.clarin.sru.server.fcs.parser.QuerySegment;
 import eu.clarin.sru.server.fcs.parser.QuerySequence;
 import eu.clarin.sru.server.fcs.parser.QueryVisitor;
+import eu.clarin.sru.server.fcs.parser.QueryWithWithin;
 import eu.clarin.sru.server.fcs.parser.SimpleWithin;
 
 /**

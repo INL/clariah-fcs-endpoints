@@ -1,4 +1,4 @@
-package clariah.fcs.results;
+package org.ivdnt.fcs.results;
 
 import java.util.List;
 
@@ -25,6 +25,13 @@ import eu.clarin.sru.server.fcs.XMLStreamWriterHelper;
  */
 public class FcsSearchResultSet extends SRUSearchResultSet 
 {
+	// the resultset from the standard example is our ResultSet
+	// but Jesse wanted to add some extra information to it (even it
+	// the aggregator does nothing with it). That's why the ResultSet
+	// is packed into a bigger result object FcsSearchResultSet
+	// which the extra information Jesse wanted to be able to send
+	
+	
 	SRURequest request;
 	String corpus;
 	ResultSet resultSet;

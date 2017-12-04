@@ -51,7 +51,23 @@ public class NederlabClient
 	// This number is:
 	
 	private int contextSize = 8;
+	
+	
+	// The Nederlab query template set for this client
+	
+	private QueryTemplate nederlabQueryTemplate;
 
+
+	// ------------------------------------------------------------------
+	
+	// Constructor
+	
+	public NederlabClient(QueryTemplate nederlabQueryTemplate) {
+		
+		this.nederlabQueryTemplate = nederlabQueryTemplate;
+	}
+	
+	
 	
 	// ------------------------------------------------------------------
 		
@@ -64,19 +80,21 @@ public class NederlabClient
 	 * @param number
 	 * @return
 	 */
-	public NederlabResultSet doSearch(String CQL, int start, int number)
+	public NederlabResultSet doSearch(
+			String CQL,  
+			int start, int number)
 	{
 		String cqlQuery = CQL.replaceAll("\"", "\\\\\\\\" + "\"");		
 		
 		// fill in some values in the Query
 		
-		Map<String, String> r = new ConcurrentHashMap<>();
-		r.put("_START_", new Integer(start).toString());
-		r.put("_NUMBER_", new Integer(number).toString());
-		r.put("_CONTEXT_", new Integer(this.contextSize).toString());
-		r.put("_QUERY_", cqlQuery);
+		Map<String, String> queryTemplateValues = new ConcurrentHashMap<>();
+		queryTemplateValues.put("_START_", new Integer(start).toString());
+		queryTemplateValues.put("_NUMBER_", new Integer(number).toString());
+		queryTemplateValues.put("_CONTEXT_", new Integer(this.contextSize).toString());
+		queryTemplateValues.put("_QUERY_", cqlQuery);
 		
-		String jsonQuery = (new QueryTemplate()).expandTemplate(r);
+		String jsonQuery = this.nederlabQueryTemplate.expandTemplate(queryTemplateValues);
 		
 		// send the query
 		
@@ -401,7 +419,7 @@ public class NederlabClient
 	
 	public Stream<Hit> getHits(String CQL)
 	{
-		Iterator<Hit> hits = new HitIterator(this,CQL);
+		Iterator<Hit> hits = new HitIterator(this, CQL);
 		Iterable<Hit> iterable = () -> hits;
 		Stream<Hit> targetStream = StreamSupport.stream(iterable.spliterator(), false);
 		return targetStream;
@@ -449,7 +467,7 @@ public class NederlabClient
 
 	public void testCQLQuery(String CQL)
 	{
-		HitIterator hi = new HitIterator(this,CQL);
+		HitIterator hi = new HitIterator(this, CQL);
 		while (hi.hasNext())
 		{
 			System.out.println(hi.next());
@@ -458,14 +476,8 @@ public class NederlabClient
 	
 	public void queryCQLFromFile(String fileName)
 	{
-		String cql = new FileUtils().readStringFromFile(fileName).trim();
+		String cql = new FileUtils(fileName).readStringFromFile().trim();
 		testCQLQuery(cql);
 	}
 	
-	public static void main(String[] args)
-	{
-		NederlabClient n = new NederlabClient();
-		n.queryCQLFromFile(args[0]);
-		
-	}
 }

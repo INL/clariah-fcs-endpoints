@@ -2,10 +2,11 @@ package org.ivdnt.fcs.endpoint.nederlab;
 
 import org.ivdnt.fcs.endpoint.common.BasicEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.nederlab.client.NederlabConstants;
+import org.ivdnt.fcs.endpoint.nederlab.client.QueryTemplate;
+import org.ivdnt.fcs.mapping.ConversionEngine;
+import org.ivdnt.fcs.results.FcsSearchResultSet;
+import org.ivdnt.fcs.results.ResultSet;
 
-import clariah.fcs.mapping.ConversionEngine;
-import clariah.fcs.results.FcsSearchResultSet;
-import clariah.fcs.results.ResultSet;
 import eu.clarin.sru.server.SRUConstants;
 import eu.clarin.sru.server.SRUDiagnosticList;
 import eu.clarin.sru.server.SRUException;
@@ -14,21 +15,25 @@ import eu.clarin.sru.server.SRUSearchResultSet;
 import eu.clarin.sru.server.SRUServerConfig;
 
 
-public class NederlabEndpointSearchEngine  extends BasicEndpointSearchEngine
+public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine
 {
 	
 	String server = NederlabConstants.DEFAULT_SERVER;
 	ConversionEngine conversion = null;
-	
+	QueryTemplate nederlabQueryTemplate;
+		
 	
 	// ---------------------------------------------------------------------------------
 	// constructors
 	
-	public NederlabEndpointSearchEngine(String server, ConversionEngine conversion)
+	public NederlabEndpointSearchEngine(String server, ConversionEngine conversion, String nederlabQueryTemplate)
 	{
 		super();
 		this.server = server;
 		this.conversion = conversion;
+		
+		// instantiate a Nederlab query template (needed to post well formed query's to Nederlab)
+		this.nederlabQueryTemplate = new QueryTemplate(nederlabQueryTemplate);
 	}
 	
 	public NederlabEndpointSearchEngine() {
@@ -51,14 +56,19 @@ public class NederlabEndpointSearchEngine  extends BasicEndpointSearchEngine
 	{
 		// translate FCS into CQP
 		
-		String query = BasicEndpointSearchEngine.translateQuery(request, conversion);
+		String cqpQuery = BasicEndpointSearchEngine.translateQuery(request, this.conversion);
 		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request, "nederlab");
 		
 		
 		// instantiate the Nederlab query 
 		
-		NederlabQuery nederlabQuery = new NederlabQuery(server, fcsContextCorpus, query);
-
+		NederlabQuery nederlabQuery = 
+				new NederlabQuery( 
+						this.server, 
+						fcsContextCorpus, 
+						cqpQuery, 
+						this.nederlabQueryTemplate);
+		
 		nederlabQuery.setStartPosition( request.getStartRecord()-1 ); // fcs begint bij 1 te tellen, nederlab bij 0 (?)
 		nederlabQuery.setMaximumResults( request.getMaximumRecords() );
 

@@ -1,4 +1,4 @@
-package clariah.fcs.mapping;
+package org.ivdnt.fcs.mapping;
 
 public class MappingConstants {
 	

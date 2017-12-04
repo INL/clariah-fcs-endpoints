@@ -1,4 +1,4 @@
-package clariah.fcs.mapping;
+package org.ivdnt.fcs.mapping;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -7,7 +7,7 @@ import org.ivdnt.util.StringUtils;
 /**
  * This class parses parole-style tags, type NOU(number=sg), etc.
  *  
- * @author does
+ * @author jesse
  */
 
 public class TagWithFeatures extends FeatureConjunction

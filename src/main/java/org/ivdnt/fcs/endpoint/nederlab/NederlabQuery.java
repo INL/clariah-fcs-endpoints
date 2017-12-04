@@ -5,12 +5,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import org.ivdnt.fcs.endpoint.nederlab.client.NederlabClient;
+import org.ivdnt.fcs.endpoint.nederlab.client.QueryTemplate;
 import org.ivdnt.fcs.endpoint.nederlab.results.NederlabResultSet;
+import org.ivdnt.fcs.results.ResultSet;
 
-import clariah.fcs.results.ResultSet;
-
-public class NederlabQuery extends clariah.fcs.client.Query
+public class NederlabQuery extends org.ivdnt.fcs.client.Query
 {
+	
+	// template needed to build a well formed Nederlab query
+	
+	private QueryTemplate nederlabQueryTemplate;
+	
+	
 	ConcurrentHashMap<String,String> prefixMapping = new ConcurrentHashMap<String, String>() 
 	{
 		{
@@ -31,45 +37,55 @@ public class NederlabQuery extends clariah.fcs.client.Query
 	 * @param cqp, a query like [word='lopen']
 	 * 
 	 */
-	public NederlabQuery(String server, String corpus, String cqp)
+	public NederlabQuery(String server, String corpus, 
+			String cqpQuery, QueryTemplate nederlabQueryTemplate)
 	{
-		super(server, corpus, cqp);
+		super(server, corpus, cqpQuery);
+		
+		
+		// template to build Nederlab query's
+		
+		this.nederlabQueryTemplate = nederlabQueryTemplate;
+		
 		
 		// make sure the CQL query
 		// has the right quotes and parameter names
 		
-		String cqlQuery = this.getCqp();
+		String cqlQuery = this.getCqpQuery();
 		cqlQuery = cqlQuery.replaceAll("word *=", "t_lc="); // hm ugly hacks 
 		cqlQuery = cqlQuery.replaceAll("'", "\"");
-		this.setCqp( cqlQuery );
+		this.setCqpQuery( cqlQuery );
 		
-		System.err.println( "CQP to nederlab:" + this.getCqp() );
+		System.err.println( "CQP to nederlab:" + this.getCqpQuery() );
 	}
 	
 	
-	
 	// --------------------------------------------------------------------
-	
+		
 	/**
 	 * Execute a prepared search (prepared in NederlabEndpointSearchEngine.search)
 	 * and put the results into a FCS ResultSet
 	 */
-	public clariah.fcs.results.ResultSet execute()
+	public org.ivdnt.fcs.results.ResultSet execute()
 	{
 		
 		// search
 		
-		NederlabClient nederlabClient = new NederlabClient();		
+		NederlabClient nederlabClient = new NederlabClient( this.nederlabQueryTemplate );	
+		
 		NederlabResultSet nederlabResultSet = 
-				nederlabClient.doSearch(this.getCqp(), this.getStartPosition(), this.getMaximumResults());
+				nederlabClient.doSearch(
+						this.getCqpQuery(),
+						this.getStartPosition(), 
+						this.getMaximumResults());
 		
 		
 		// get results
 		
-	    List<clariah.fcs.results.Kwic> hits = 
+	    List<org.ivdnt.fcs.results.Kwic> hits = 
 	    		nederlabResultSet.getResults()
 	    		.stream()
-	    		.map(h -> h.toKwic().translatePrefixes(prefixMapping)) // another ugly hack
+	    		.map(h -> h.toKwic().translatePrefixes( this.prefixMapping )) // another ugly hack
 	    		.collect(Collectors.toList());
 	    
 	    
@@ -83,4 +99,8 @@ public class NederlabQuery extends clariah.fcs.client.Query
 		System.err.println("Result set determined " + fcsResultSet.toString());
 		return fcsResultSet;	
 	}
+
+
+
+	
 }

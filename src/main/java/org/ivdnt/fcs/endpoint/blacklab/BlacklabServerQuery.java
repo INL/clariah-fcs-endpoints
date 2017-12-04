@@ -11,13 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.ivdnt.fcs.results.Document;
+import org.ivdnt.fcs.results.Kwic;
+import org.ivdnt.fcs.results.ResultSet;
 import org.ivdnt.util.JsonUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import clariah.fcs.results.Document;
-import clariah.fcs.results.Kwic;
-import clariah.fcs.results.ResultSet;
 
 /**
  * This class is about sending a query to the BlacklabServer
@@ -26,7 +25,7 @@ import clariah.fcs.results.ResultSet;
  * @author jesse 
  *
  */
-public class BlacklabServerQuery extends clariah.fcs.client.Query
+public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 {	
 	
 	private String server = BlacklabConstants.DEFAULT_SERVER;
@@ -197,7 +196,6 @@ public class BlacklabServerQuery extends clariah.fcs.client.Query
 	 */
 	private List<Kwic> parseResults(JSONArray hits, JSONObject docs){	
 		
-		JsonUtils jsonUtils = new JsonUtils();
 		List<Kwic> results = new ArrayList<Kwic>();
 		
 		for (int i = 0; i < hits.size(); i++) 
@@ -237,7 +235,7 @@ public class BlacklabServerQuery extends clariah.fcs.client.Query
 					// [1] -----------------------------
 					
 					// add LEFT context
-					tokensList.addAll( jsonUtils.getProperty(leftContext, pname) );
+					tokensList.addAll( JsonUtils.getProperty(leftContext, pname) );
 
 					// [2] -----------------------------
 					
@@ -245,14 +243,14 @@ public class BlacklabServerQuery extends clariah.fcs.client.Query
 					// and note the start and end position of it
 					if (pname.equals("word")) 
 						hitStart = tokensList.size();
-					tokensList.addAll( jsonUtils.getProperty(match, pname) );
+					tokensList.addAll( JsonUtils.getProperty(match, pname) );
 					if (pname.equals("word")) 
 						hitEnd = tokensList.size();
 					
 					// [3] -----------------------------
 					
 					// add RIGHT context					
-					tokensList.addAll( jsonUtils.getProperty(rightContext, pname) );
+					tokensList.addAll( JsonUtils.getProperty(rightContext, pname) );
 					
 					
 					// add keyword in context (Kwic)
@@ -290,8 +288,6 @@ public class BlacklabServerQuery extends clariah.fcs.client.Query
 		// and 
 		// instantiate some convenient JSON methods
 		
-		JsonUtils jsonUtils = new JsonUtils();
-		
 		URLConnection connection =  new URL(url).openConnection();
 		
 		InputStream input = null;
@@ -301,7 +297,7 @@ public class BlacklabServerQuery extends clariah.fcs.client.Query
 		
 		try {
 			input = connection.getInputStream();	
-			return jsonUtils.getJsonFromStream(input);
+			return JsonUtils.getJsonFromStream(input);
 		} 
 		
 		
@@ -313,7 +309,7 @@ public class BlacklabServerQuery extends clariah.fcs.client.Query
 			input = huc.getErrorStream();
 			
 			try {
-				JSONObject errorObject = jsonUtils.getJsonFromStream(input);
+				JSONObject errorObject = JsonUtils.getJsonFromStream(input);
 				System.err.println("Error: " + errorObject.toJSONString());
 				throw new Exception(errorObject.toJSONString());
 			} 

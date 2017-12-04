@@ -6,6 +6,7 @@
 package org.ivdnt.fcs.endpoint.common;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -17,10 +18,12 @@ import javax.xml.XMLConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import org.ivdnt.fcs.mapping.ConversionEngine;
+import org.ivdnt.util.FileUtils;
+import org.ivdnt.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import clariah.fcs.mapping.ConversionEngine;
 import eu.clarin.sru.server.CQLQueryParser;
 import eu.clarin.sru.server.SRUConfigException;
 import eu.clarin.sru.server.SRUConstants;
@@ -44,34 +47,54 @@ import eu.clarin.sru.server.fcs.utils.SimpleEndpointDescriptionParser;
 
 /**
  * Base class for endpoint search engines, mainly copies from the Korp reference example
+ * 
+ * It implements some methods, which are abstract in the SimpleEndpointSearchEngineBase
+ * but it extends this class as well.
  *
  */
 public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
-	
-	private static final String X_FCS_ENDPOINT_DESCRIPTION = "x-fcs-endpoint-description";
-	private static final String ED_NS = "http://clarin.eu/fcs/endpoint-description";
-	private static final String ED_PREFIX = "ed";
-	private static final int ED_VERSION = 2;
 
+	// logger
 	private static final Logger LOG = LoggerFactory.getLogger(BasicEndpointSearchEngine.class);
+	
+	// Object to store the endpoint description into
 	protected EndpointDescription endpointDescription;
-	public static final String RESOURCE_INVENTORY_URL = "se.gu.spraakbanken.fcs.korp.sru.resourceInventoryURL";
-
+	
+	
 	
 	protected EndpointDescription createEndpointDescription(ServletContext context, SRUServerConfig config,
 			Map<String, String> params) throws SRUConfigException {
+		
+		URL url = null;
+		
 		try {
-			URL url = null;
-			String riu = params.get(RESOURCE_INVENTORY_URL);
-			if ((riu == null) || riu.isEmpty()) {
-				url = context.getResource("/WEB-INF/endpoint-description.xml");
-				LOG.debug("using bundled 'endpoint-description.xml' file");
-			} else {
-				url = new File(riu).toURI().toURL();
-				LOG.debug("using external file '{}'", riu);
+			
+			// try to read our own endpoint description file
+			
+			// [1] first try to get it from the -config folder
+			
+			try {
+				url = new FileUtils(context, "endpoint-description.xml").readConfigFileAsURL();
+				
+				System.err.println("using 'endpoint-description.xml' file from IvdNT config folder");
+				LOG.debug("using 'endpoint-description.xml' file from IvdNT config folder");
 			}
+			
+			// [2] if that fails, try to get it from the WAR file
+			
+			catch (IOException ioe) {
+				
+				Utils.printStackTrace(ioe);
+				
+				url = context.getResource("/WEB-INF/endpoint-description.xml");
+				
+				System.err.println("using bundled 'endpoint-description.xml' file");
+				LOG.debug("using bundled 'endpoint-description.xml' file");
+			}
+		
 
 			return SimpleEndpointDescriptionParser.parse(url);
+			
 		} catch (MalformedURLException mue) {
 			throw new SRUConfigException("Malformed URL for initializing resource info inventory", mue);
 		}
@@ -170,173 +193,23 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 		return false;
 	}
 
-	private void writeEndpointDescription(XMLStreamWriter writer) throws XMLStreamException {
-		writer.setPrefix(ED_PREFIX, ED_NS);
-		writer.writeStartElement(ED_NS, "EndpointDescription");
-		writer.writeNamespace(ED_PREFIX, ED_NS);
-		writer.writeAttribute("version", Integer.toString(ED_VERSION));
-
-		// Capabilities
-		writer.writeStartElement(ED_NS, "Capabilities");
-		for (URI capability : endpointDescription.getCapabilities()) {
-			writer.writeStartElement(ED_NS, "Capability");
-			writer.writeCharacters(capability.toString());
-			writer.writeEndElement(); // "Capability" element
-		}
-		writer.writeEndElement(); // "Capabilities" element
-
-		// SupportedDataViews
-		writer.writeStartElement(ED_NS, "SupportedDataViews");
-		for (DataView dataView : endpointDescription.getSupportedDataViews()) {
-			writer.writeStartElement(ED_NS, "SupportedDataView");
-			writer.writeAttribute("id", dataView.getIdentifier());
-			String s;
-			switch (dataView.getDeliveryPolicy()) {
-			case SEND_BY_DEFAULT:
-				s = "send-by-default";
-				break;
-			case NEED_TO_REQUEST:
-				s = "need-to-request";
-				break;
-			default:
-				throw new XMLStreamException(
-						"invalid value for payload delivery policy: " + dataView.getDeliveryPolicy());
-			} // switch
-			writer.writeAttribute("delivery-policy", s);
-			writer.writeCharacters(dataView.getMimeType());
-			writer.writeEndElement(); // "SupportedDataView" element
-		}
-		writer.writeEndElement(); // "SupportedDataViews" element
-
-		// SupportedLayers
-		final List<Layer> layers = endpointDescription.getSupportedLayers();
-		if (layers != null) {
-			writer.writeStartElement(ED_NS, "SupportedLayers");
-			for (Layer layer : layers) {
-				writer.writeStartElement(ED_NS, "SupportedLayer");
-				writer.writeAttribute("id", layer.getId());
-				writer.writeAttribute("result-id", layer.getResultId().toString());
-				if (layer.getContentEncoding() == Layer.ContentEncoding.EMPTY) {
-					writer.writeAttribute("type", "empty");
-				}
-				if (layer.getQualifier() != null) {
-					writer.writeAttribute("qualifier", layer.getQualifier());
-				}
-				if (layer.getAltValueInfo() != null) {
-					writer.writeAttribute("alt-value-info", layer.getAltValueInfo());
-					if (layer.getAltValueInfoURI() != null) {
-						writer.writeAttribute("alt-value-info-uri", layer.getAltValueInfoURI().toString());
-					}
-				}
-				writer.writeCharacters(layer.getType());
-				writer.writeEndElement(); // "SupportedLayer" element
-			}
-			writer.writeEndElement(); // "SupportedLayers" element
-
-		}
-
-		// Resources
-		try {
-			List<ResourceInfo> resources = endpointDescription.getResourceList(EndpointDescription.PID_ROOT);
-			writeResourceInfos(writer, resources);
-		} catch (SRUException e) {
-			throw new XMLStreamException("error retriving top-level resources", e);
-		}
-		writer.writeEndElement(); // "EndpointDescription" element
-	}
-
-	private void writeResourceInfos(XMLStreamWriter writer, List<ResourceInfo> resources) throws XMLStreamException {
-		if (resources == null) {
-			throw new NullPointerException("resources == null");
-		}
-		if (!resources.isEmpty()) {
-			writer.writeStartElement(ED_NS, "Resources");
-
-			for (ResourceInfo resource : resources) {
-				writer.writeStartElement(ED_NS, "Resource");
-				writer.writeAttribute("pid", resource.getPid());
-
-				// title
-				final Map<String, String> title = resource.getTitle();
-				for (Map.Entry<String, String> i : title.entrySet()) {
-					writer.setPrefix(XMLConstants.XML_NS_PREFIX, XMLConstants.XML_NS_URI);
-					writer.writeStartElement(ED_NS, "Title");
-					writer.writeAttribute(XMLConstants.XML_NS_URI, "lang", i.getKey());
-					writer.writeCharacters(i.getValue());
-					writer.writeEndElement(); // "title" element
-				}
-
-				// description
-				final Map<String, String> description = resource.getDescription();
-				if (description != null) {
-					for (Map.Entry<String, String> i : description.entrySet()) {
-						writer.writeStartElement(ED_NS, "Description");
-						writer.writeAttribute(XMLConstants.XML_NS_URI, "lang", i.getKey());
-						writer.writeCharacters(i.getValue());
-						writer.writeEndElement(); // "Description" element
-					}
-				}
-
-				// landing page
-				final String landingPageURI = resource.getLandingPageURI();
-				if (landingPageURI != null) {
-					writer.writeStartElement(ED_NS, "LandingPageURI");
-					writer.writeCharacters(landingPageURI);
-					writer.writeEndElement(); // "LandingPageURI" element
-				}
-
-				// languages
-				final List<String> languages = resource.getLanguages();
-				writer.writeStartElement(ED_NS, "Languages");
-				for (String i : languages) {
-					writer.writeStartElement(ED_NS, "Language");
-					writer.writeCharacters(i);
-					writer.writeEndElement(); // "Language" element
-
-				}
-				writer.writeEndElement(); // "Languages" element
-
-				// available data views
-				StringBuilder sb = new StringBuilder();
-				for (DataView dataview : resource.getAvailableDataViews()) {
-					if (sb.length() > 0) {
-						sb.append(" ");
-					}
-					sb.append(dataview.getIdentifier());
-				}
-				writer.writeEmptyElement(ED_NS, "AvailableDataViews");
-				writer.writeAttribute("ref", sb.toString());
-
-				final List<Layer> layers = resource.getAvailableLayers();
-				if (layers != null) {
-					sb = new StringBuilder();
-					for (Layer layer : resource.getAvailableLayers()) {
-						if (sb.length() > 0) {
-							sb.append(" ");
-						}
-						sb.append(layer.getId());
-					}
-					writer.writeEmptyElement(ED_NS, "AvailableLayers");
-					writer.writeAttribute("ref", sb.toString());
-				}
-
-				// child resources
-				List<ResourceInfo> subs = resource.getSubResources();
-				if ((subs != null) && !subs.isEmpty()) {
-					writeResourceInfos(writer, subs);
-				}
-
-				writer.writeEndElement(); // "Resource" element
-			}
-			writer.writeEndElement(); // "Resources" element
-		}
-	}
+	
 
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException {
 		return null;
 	}
 
+	
+	/**
+	 * New method (no part of SimpleEndpointSearchEngineBase)
+	 * 
+	 * Get the corpus name out of the request
+	 * 
+	 * @param request
+	 * @param defaultCorpus
+	 * @return
+	 */
 	public static String getCorpusNameFromRequest(SRURequest request, String defaultCorpus) 
 	{
 		String fcsContextCorpus = defaultCorpus;
@@ -350,13 +223,26 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 		return fcsContextCorpus;
 	}
 
+	
+	/**
+	 * New method (no part of SimpleEndpointSearchEngineBase)
+	 * 
+	 * 1-parameter version of translateQuery, which calls the
+	 * main translateQuery method, which requires 2 parameters
+	 * 
+	 * @param request
+	 * @return
+	 * @throws SRUException
+	 */
 	public static String translateQuery(SRURequest request) throws SRUException 
 	{
-		return translateQuery(request,null);
+		return translateQuery(request, null);
 	}
 
 	
 	/**
+	 * New method (no part of SimpleEndpointSearchEngineBase)
+	 * 
 	 * Translate a CQL or a FCS-QL query 
 	 * into a CQP query   
 	 * 

@@ -1,4 +1,4 @@
-package clariah.fcs.mapping;
+package org.ivdnt.fcs.mapping;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;

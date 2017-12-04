@@ -14,11 +14,6 @@ import org.json.simple.parser.ParseException;
 
 public class JsonUtils {
 	
-	
-	public JsonUtils() {
-		
-	}	
-	
 	/**
 	 * Get JSON object out of InputStream
 	 * @param is
@@ -26,7 +21,7 @@ public class JsonUtils {
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	public JSONObject getJsonFromStream(InputStream is) throws IOException, ParseException {
+	public static JSONObject getJsonFromStream(InputStream is) throws IOException, ParseException {
 		
 		String line;
 		JSONParser parser = new JSONParser();
@@ -47,7 +42,7 @@ public class JsonUtils {
 	 * @param pname
 	 * @return
 	 */
-	public List<String> getProperty(JSONObject context, String pname)
+	public static List<String> getProperty(JSONObject context, String pname)
 	{
 		List<String> list = new ArrayList<String>();
 		JSONArray words = (JSONArray) context.get(pname);

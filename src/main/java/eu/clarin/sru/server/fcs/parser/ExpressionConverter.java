@@ -3,14 +3,16 @@ package eu.clarin.sru.server.fcs.parser;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import clariah.fcs.mapping.ConversionEngine;
-import clariah.fcs.mapping.Feature;
-import clariah.fcs.mapping.FeatureConjunction;
+import org.ivdnt.fcs.mapping.ConversionEngine;
+import org.ivdnt.fcs.mapping.Feature;
+import org.ivdnt.fcs.mapping.FeatureConjunction;
 
 import eu.clarin.sru.server.fcs.parser.Expression;
 import eu.clarin.sru.server.fcs.parser.ExpressionAnd;
 import eu.clarin.sru.server.fcs.parser.ExpressionNot;
 import eu.clarin.sru.server.fcs.parser.ExpressionOr;
+import eu.clarin.sru.server.fcs.parser.Operator;
+import eu.clarin.sru.server.fcs.parser.QueryNode;
 
 /**
  *  dit is een hack: 
