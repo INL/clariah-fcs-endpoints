@@ -155,7 +155,7 @@
         <CenterProfile>
             <Centername>Instituut voor de Nederlandse Taal</Centername>
             <Center_id>22</Center_id>
-            <Center_id_link>http://localhost:8080/blacklab-sru-server/registry/clarin_center_ivdnt.xml</Center_id_link>
+            <Center_id_link>http://localhost:8080/blacklab-sru-server/get_registry</Center_id_link>
         </CenterProfile>
 <!--
         <CenterProfile>

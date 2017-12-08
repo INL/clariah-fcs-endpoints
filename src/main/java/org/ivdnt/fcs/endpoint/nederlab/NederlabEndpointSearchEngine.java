@@ -19,18 +19,18 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine
 {
 	
 	String server = NederlabConstants.DEFAULT_SERVER;
-	ConversionEngine conversion = null;
+	ConversionEngine conversionEngine = null;
 	QueryTemplate nederlabQueryTemplate;
 		
 	
 	// ---------------------------------------------------------------------------------
 	// constructors
 	
-	public NederlabEndpointSearchEngine(String server, ConversionEngine conversion, String nederlabQueryTemplate)
+	public NederlabEndpointSearchEngine(String server, ConversionEngine conversionEngine, String nederlabQueryTemplate)
 	{
 		super();
 		this.server = server;
-		this.conversion = conversion;
+		this.conversionEngine = conversionEngine;
 		
 		// instantiate a Nederlab query template (needed to post well formed query's to Nederlab)
 		this.nederlabQueryTemplate = new QueryTemplate(nederlabQueryTemplate);
@@ -56,7 +56,7 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine
 	{
 		// translate FCS into CQP
 		
-		String cqpQuery = BasicEndpointSearchEngine.translateQuery(request, this.conversion);
+		String cqpQuery = BasicEndpointSearchEngine.translateQuery(request, this.conversionEngine);
 		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request, "nederlab");
 		
 		
@@ -77,8 +77,15 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine
 		
 		try {
 			ResultSet fcsResultSet = nederlabQuery.execute();
+			
+			
+			// translate the results POS back into universal dependencies
+			
+			this.conversionEngine.translateIntoUniversalDependencies(fcsResultSet);
+			
 
 			return new FcsSearchResultSet(config, request, diagnostics, fcsResultSet);
+			
 		} catch (Exception e) {
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
 					"The query execution failed by this CLARIN-FCS (nederlab) endpoint. " + nederlabQuery);

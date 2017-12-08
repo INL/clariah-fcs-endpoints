@@ -74,6 +74,8 @@ public class QueryProcessor
 			// convert the query string into a node
 			QueryNode qn = parser.parse(cqp);
 			
+			System.err.println("qn.toString() = " + qn.toString());
+			
 			// now rewrite the node!
 			return rewriteNode(qn);
 			
@@ -108,7 +110,7 @@ public class QueryProcessor
 		} else if (node instanceof ExpressionAnd) {
 			n1 = rewriteExpressionAnd((ExpressionAnd) node);
 		} else if (node instanceof Expression) {
-			n1 = expressionRewriter.rewriteExpression( (Expression) node ); // this is where the tags/features are converted
+			n1 = this.expressionRewriter.rewriteExpression( (Expression) node ); // this is where the tags/features are converted
 		} else if (node instanceof ExpressionGroup) {
 			n1 = rewriteExpressionGroup((ExpressionGroup) node);
 		} else if (node instanceof ExpressionNot) {

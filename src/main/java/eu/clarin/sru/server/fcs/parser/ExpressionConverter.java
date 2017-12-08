@@ -25,7 +25,7 @@ import eu.clarin.sru.server.fcs.parser.QueryNode;
 
 public class ExpressionConverter implements ExpressionRewriter
 {
-	private ConversionEngine conversion;
+	private ConversionEngine conversionEngine;
 	
 	
 	// ---------------------------------------------------------------------------------
@@ -38,9 +38,9 @@ public class ExpressionConverter implements ExpressionRewriter
 	 * 
 	 * @param ConversionEngine
 	 */
-	public ExpressionConverter(ConversionEngine conversion)
+	public ExpressionConverter(ConversionEngine conversionEngine)
 	{
-		this.conversion = conversion;
+		this.conversionEngine = conversionEngine;
 	}
 	
 	
@@ -144,7 +144,7 @@ public class ExpressionConverter implements ExpressionRewriter
 		//
 		// That's why the output of the translation is a Set of FeatureConjunctions
 		
-	    Set<FeatureConjunction> featureConjunctions = this.conversion.translateFeature(feature, value);
+	    Set<FeatureConjunction> featureConjunctions = this.conversionEngine.translateFeature(feature, value);
 	  
 	    List<QueryNode> nodesOr = new ArrayList<>();
 	    

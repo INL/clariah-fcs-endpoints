@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import org.ivdnt.util.StringUtils;
+import org.ivdnt.util.Utils;
 
 
 /**
@@ -20,18 +21,42 @@ import org.ivdnt.util.StringUtils;
 public class Kwic 
 {
 	
-	// start and end position of a keyword, within its context
-	// (t.i. the token that matches the query)
+	// A Kwic (keyword in context) is a list of words in which a match was found
+	// so it consists of [a left context], [a match], and [a right context]
+	//
+	// The tokens of those 3 parts are stored together in lists, each of which represents one property. 
+	// So, for a given token at position X, we can retrieve the value of a given property
+	// by accessing the corresponding list at the same position X
+	//
+	// (t.i. we have one sorted list for each single property, so there are as many lists
+	//  as properties)
+	//
+	// To be able to recognize each part, the Kwic object has
+	// hitStart and hitEnd, which indicate the borders of the [match part]
+	// = start and end position of a keyword, within its context
 	
 	private int hitStart;
 	private int hitEnd;
 	
-	// 
+	
+	// default property
 	
 	private String defaultProperty = "word";
 	
+	
+	// the list contains the names of all the properties contained in our Kwic object
+	
 	private List<String> 				tokenPropertyNames = new ArrayList<>();
+	
+	
+	// this maps a property name to a sorted list of token properties
+	// (sorted, as the list represents the tokens on the result string)
+	
 	private Map<String, List<String>>	tokenProperties = new ConcurrentHashMap<>();
+	
+	
+	// metadata
+	
 	private Map<String,String> 			metadata = new ConcurrentHashMap<>(); // considering the size of opensonar metadata, probably better to introduce separate document objects
 	private Document 					document = null;
 	
@@ -65,6 +90,13 @@ public class Kwic
 		return this.tokenProperties.get(propertyName);
 	}
 	
+	// synonym of getLayer 
+	public List<String> getPropertyValues(String propertyName)
+	{
+		return getLayer(propertyName);
+	}
+	
+	
 	public String getWord(int i)
 	{
 	  return this.tokenProperties.get(defaultProperty).get(i);
@@ -90,8 +122,8 @@ public class Kwic
 		try {
 			return new URI("http://www.ivdnt.org/annotation-layers/" + pname);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			Utils.printStackTrace(e);
 			return null;
 		}
 	}
@@ -112,8 +144,6 @@ public class Kwic
 	}
 	
 	public List<String> getTokenPropertyNames() {
-		
-		//System.err.println( "tokenPropertyNames = " + StringUtils.join(this.tokenPropertyNames, " / "));
 		
 		return this.tokenPropertyNames;
 	}
@@ -145,8 +175,42 @@ public class Kwic
 	}
 	
 	
-	public void addTokenProperties(String pname, List<String> properties) {
+	// set one property for all tokens at once 
+	// eg. the pos-tag of all tokens of a sentence
+	public void setTokenProperties(String pname, List<String> properties) {
 		this.tokenProperties.put(pname, properties);
+	}
+	
+	// modify the value of a property for token at position X
+	public void setTokenPropertyAt(String propertyName, String property, int index) {
+		List<String> propertyValues = this.getLayer(propertyName);
+		
+		if (propertyValues.size()==0)
+			propertyValues = new ArrayList<>(this.getTokenPropertyNames().size());
+		
+		propertyValues.set(index, property);
+		this.setTokenProperties(propertyName, propertyValues);
+	}
+	
+	
+	// add a new property name to all tokens
+	public void addTokenProperty(String propertyName) {
+		
+		// register the property name
+		// and 
+		// add the property to all tokens
+		if ( !this.tokenPropertyNames.contains(propertyName) )
+			{
+			this.addTokenPropertyName(propertyName);
+			
+			List<String> propertyValues = new ArrayList<>( this.size() );
+			for (int i=0; i < this.size(); i++)
+				{
+				propertyValues.add(null);
+				}
+			this.setTokenProperties( propertyName, propertyValues );
+			}
+
 	}
 	
 	

@@ -16,7 +16,7 @@ import eu.clarin.sru.server.SRUServerConfig;
 public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngine
 {
 	String server = BlacklabConstants.DEFAULT_SERVER;
-	ConversionEngine conversion = null;
+	ConversionEngine conversionEngine = null;
 	
 	
 	// -----------------------------------------------------------------------
@@ -33,11 +33,11 @@ public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngi
 		this.server = server;
 	}
 	
-	public BlacklabServerEndpointSearchEngine(String server, ConversionEngine conversion)
+	public BlacklabServerEndpointSearchEngine(String server, ConversionEngine conversionEngine)
 	{
 		super();
 		this.server = server;
-		this.conversion = conversion;
+		this.conversionEngine = conversionEngine;
 	}
 	
 	
@@ -55,7 +55,7 @@ public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngi
 	{
 		// translate FCS into CQP
 		
-		String query = BasicEndpointSearchEngine.translateQuery(request, conversion);
+		String query = BasicEndpointSearchEngine.translateQuery(request, this.conversionEngine);
 		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request, BlacklabConstants.DEFAULT_CORPUS);
 		
 		
@@ -73,6 +73,12 @@ public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngi
 		
 		try {
 			ResultSet resultSet = blacklabServerQuery.execute();
+			
+			
+			// translate the results POS back into universal dependencies
+			
+			this.conversionEngine.translateIntoUniversalDependencies(resultSet);
+			
 
 			return new FcsSearchResultSet(config, request, diagnostics, resultSet);
 			

@@ -169,8 +169,26 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>>
 	
 	
 	
+	
 	// ---------------------------------
 	// NOT IN USE
+	
+	
+	
+	public static void main(String[] args)
+	{
+	
+		FeatureConjunction fc = new FeatureConjunction();
+		fc.put("pos", "RES");
+		fc.put("type", "sym");
+		System.out.println(fc.asCQL());
+		
+	}
+	
+	
+	
+	// ---------------------------------
+
 	
 	public Set<String> keySetX()
 	{

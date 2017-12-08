@@ -85,7 +85,7 @@
         },
         {
             "from": {"pos": "SYM"},
-            "to":   {"pos": "RES"}
+            "to":   {"pos": "RES", "type": "sym"}
         },
         {
             "from": {"pos": "X"},
@@ -121,7 +121,7 @@
         },
         {
             "from": {"Gender": "Com"},
-            "to":   {"gender": "f", "gender": "m", "comment": "HM, not implemented in regex or otherwise"}
+            "to":   {"gender": "f|m", "comment": "HM, not implemented in regex or otherwise"}
         },
         {
             "from": {"Degree": "Pos"},
@@ -261,7 +261,7 @@
         },
         {
             "from": {"PronType": "Tot"},
-            "to":   {"type": "indef", "lemma": "iedereen|ieder|al|alles"}
+            "to":   {"type": "indef", "comment": "lemma:iedereen|ieder|al|alles"}
         },
         {
             "from": {"Poss": "Yes"},

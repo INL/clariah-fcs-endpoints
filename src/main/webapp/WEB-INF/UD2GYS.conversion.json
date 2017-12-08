@@ -121,7 +121,7 @@
         },
         {
             "from": {"Gender": "Com"},
-            "to":   {"gender": "f", "gender": "m", "comment": "HM, not implemented in regex or otherwise"}
+            "to":   {"gender": "f|m", "comment": "HM, not implemented in regex or otherwise"}
         },
         {
             "from": {"Degree": "Pos"},

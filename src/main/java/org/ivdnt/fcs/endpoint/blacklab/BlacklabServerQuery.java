@@ -28,9 +28,9 @@ import org.json.simple.JSONObject;
 public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 {	
 	
-	private String server = BlacklabConstants.DEFAULT_SERVER;
-	private String corpus = BlacklabConstants.DEFAULT_CORPUS;	
-	private String cqp = 	BlacklabConstants.cqp;
+	private String server = 	BlacklabConstants.DEFAULT_SERVER;
+	private String corpus = 	BlacklabConstants.DEFAULT_CORPUS;	
+	private String cqpQuery = 	BlacklabConstants.cqpQueryExample;
 
 
 	// ------------------------------------------------------------------------------
@@ -46,12 +46,12 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 	 * @param cqp, a query like [word='lopen']
 	 * 
 	 */
-	public BlacklabServerQuery(String server, String corpus, String cqp)
+	public BlacklabServerQuery(String server, String corpus, String cqpQuery)
 	{
-		super(server, corpus, cqp);
+		super(server, corpus, cqpQuery);
 		this.server = server;
 		this.corpus= corpus;
-		this.cqp = cqp;
+		this.cqpQuery = cqpQuery;
 	}
 	
 	
@@ -70,7 +70,7 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 		try 
 		{
 			String url = server  +  "/" + corpus + "/"  + "hits?" +
-					"patt=" + URLEncoder.encode(cqp, "utf-8") + 
+					"patt=" + URLEncoder.encode(cqpQuery, "utf-8") + 
 					"&outputformat=json" +
 					"&first=" + this.getStartPosition() +
 					"&number=" + this.getMaximumResults();
@@ -155,7 +155,7 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 					
 					blacklabServerResultSet.addDocument(docId.toString(), d);
 				}
-				);	
+			);	
 		
 		
 		// set number of hits
@@ -254,8 +254,11 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 					
 					
 					// add keyword in context (Kwic)
+					// NB: the tokensList is sorted, so each property has the same index
+					//     as the token it represents!
+					
 					kwic.addTokenPropertyName(pname);
-					kwic.addTokenProperties(pname, tokensList);					
+					kwic.setTokenProperties(pname, tokensList);					
 				}
 
 				// store the start and end position of the matched token (=part [2] hereabove)
@@ -285,8 +288,6 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 	private JSONObject sendQuery(String url) throws Exception 
 	{
 		// start connection to url
-		// and 
-		// instantiate some convenient JSON methods
 		
 		URLConnection connection =  new URL(url).openConnection();
 		

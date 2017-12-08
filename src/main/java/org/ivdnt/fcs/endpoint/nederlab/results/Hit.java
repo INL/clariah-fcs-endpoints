@@ -181,7 +181,7 @@ public class Hit
 		this.knownPrefixes.forEach(
 				pref -> {
 					List<String> content = this.tokens.stream().map(t -> t.getProperty(pref)).collect(Collectors.toList());
-					kwic.addTokenProperties(pref, content);
+					kwic.setTokenProperties(pref, content);
 				 }
 				);
 		
