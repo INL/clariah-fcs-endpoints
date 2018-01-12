@@ -30,18 +30,23 @@ import eu.clarin.sru.server.fcs.parser.QueryProcessor;
  */
 public class ConversionEngine 
 {
-	private String[][] fieldMapping;
-	private String[][] featureMapping;
 
-	private String name;	
+	private ArrayList<ConcurrentHashMap< String, String >> fieldMappingArr;
+	private ArrayList<ConcurrentHashMap< String, ConcurrentHashMap< String, String >>> featureMappingArr;
 	
-	private boolean useFeatureRegex = false;
-	private String posTagField = null;
-	private String[] grammaticalFeatures = {};
-	private String quote = "'";
-	private boolean includeFeatureNameInRegex = true;
+	private String 		name;	
+	
+	private boolean		useFeatureRegex = false;
+	private String		posTagField = null;
+	private String[]	grammaticalFeatures = {};
+	private String 		quote = "'";
+	private boolean 	includeFeatureNameInRegex = true;
+	
+	
+	// hash mapping a fieldname A onto another fieldname B 
 
 	private Map<String, String> fieldMap = new ConcurrentHashMap<>();
+	
 	
 	// hash mapping a feature in tagset A (universal dependencies)
 	// onto a set of features in tagset B (tagset of Nederlab, BlackLab, whatever)
@@ -56,9 +61,12 @@ public class ConversionEngine
 	private Map<FeatureConjunction, Set<Feature>> featureBackMap = 
 			new ConcurrentHashMap<>();
 	
+	
 	// this one maps FeatureConjunction to their keySet
+	
 	private Map<FeatureConjunction, HashSet<String>> featureBackMap2KeySet = 
 			new ConcurrentHashMap<>();
+	
 	
 	// When translating FeatureConjunctions into universal dependencies,
 	// we will need to be able to get the most complex FeatureConjunctions first
@@ -76,10 +84,12 @@ public class ConversionEngine
 	
 	// constructor
 	
-	public ConversionEngine(String[][] fieldMapping, String[][] featureMapping) 
+	public ConversionEngine(
+			ArrayList<ConcurrentHashMap< String, String >> fieldMappingArr, 
+			ArrayList<ConcurrentHashMap< String, ConcurrentHashMap< String, String >>> featureMappingArr) 
 	{
-		this.fieldMapping = fieldMapping;
-		this.featureMapping = featureMapping;
+		this.fieldMappingArr = fieldMappingArr;
+		this.featureMappingArr = featureMappingArr;
 		init();
 	}
 	
@@ -87,24 +97,53 @@ public class ConversionEngine
 	// subroutine of constructor
 	
 	private void init() {
-		for (String[] x : this.fieldMapping) {
-			this.fieldMap.put(x[0], x[1]); // 
+		
+		for (int i=0; i<this.fieldMappingArr.size(); i++)
+		{
+			ConcurrentHashMap<String, String> onePair = this.fieldMappingArr.get(i);
+			this.fieldMap.put( onePair.get("from"), onePair.get("to") );
 		}
+				
 		
 		// this part is about pos tags translation
 		
-		for (String[] x : this.featureMapping) 
+		for (int i=0; i<this.featureMappingArr.size(); i++)
 		{
-			// source tag
+			// get a single conversion set  FROM -> TO 
 			
-			Feature sourceFeature = new Feature(x[0], x[1]); // [0 = key, 1 = value]
+			ConcurrentHashMap<String, ConcurrentHashMap<String, String>> oneSet = this.featureMappingArr.get(i);
+			ConcurrentHashMap<String, String> fromSet =	removeCommentsFromHash( oneSet.get("from") );
+			ConcurrentHashMap<String, String> toSet = 	removeCommentsFromHash( oneSet.get("to") );
 			
-			// destination tag
+			
+			// Source tag
+			// ----------
+			// (since the source has only one feature, we extract the key and value
+			//  and build one single Feature object with it)
+			
+			// see: https://stackoverflow.com/questions/26230225/hashmap-getting-first-key-value
+			
+			Map.Entry<String,String> entry = fromSet.entrySet().iterator().next();			
+			String featureFrom =	entry.getKey();
+			String featureTo = 		entry.getValue();
+			
+			Feature sourceFeature = new Feature(featureFrom, featureTo);
+			
+			
+			// Destination tag
+			// ---------------
+			// (instead of source, the destination may contain different features,
+			//  so we'll loop through the keys and values)
 			
 			FeatureConjunction featureConjunction = new FeatureConjunction();
-			for (int i=2; i < x.length; i+=2)
-				featureConjunction.put(x[i], x[i+1]);
 			
+			for (String oneKey : toSet.keySet())
+			{
+				String featureConjFrom = 	oneKey;
+				String featureConjTo = 		toSet.get(oneKey);
+				
+				featureConjunction.put( featureConjFrom, featureConjTo );
+			}
 			
 			
 			// A set of FeatureConjunction means that we have different
@@ -123,7 +162,8 @@ public class ConversionEngine
 			
 			
 			
-			// HERE kind of mirrored procedure, for the translation back into universal dependencies
+			// HERE kind of mirrored procedure, for the translation of result sets in their own tag set
+			// back into universal dependencies
 			
 			// the map for translation back into universal dependencies doesn't contain
 			// a set (OR-relation, meaning different possible translations) 
@@ -137,7 +177,9 @@ public class ConversionEngine
 			universalDependencies.add(sourceFeature);
 			
 			this.featureBackMap.put(featureConjunction, universalDependencies);
+			
 		}
+		
 		
 		
 		// We also need a sorted version of the featureBackMap keySet.
@@ -145,6 +187,7 @@ public class ConversionEngine
 		// into universal dependencies, we will first try to match the most complex
 		// sets of features we know a translation of (=the special cases), and if those 
 		// don't match, we will then try to match less complex sets of features (=general cases)
+		// [which is the only correct way to do it]
 		
 		
 		for (FeatureConjunction oneConjunction : this.featureBackMap.keySet())
@@ -175,23 +218,6 @@ public class ConversionEngine
 	// ---------------------------------------------------------------------------------------
 	
 	// getters and setters etc
-	
-	
-	public String[][] getFieldMapping(){
-		return this.fieldMapping;
-	}
-	public void setFieldMapping(String[][] fieldMapping){
-		this.fieldMapping = fieldMapping;
-	}
-	
-	
-	public String[][] getFeatureMapping(){
-		return this.featureMapping;
-	}
-	public void setFeatureMapping(String[][] featureMapping){
-		this.featureMapping = featureMapping;
-	}
-	
 	
 	public String[] getGrammaticalFeatures(){
 		return this.grammaticalFeatures;
@@ -301,7 +327,7 @@ public class ConversionEngine
 	 * @return
 	 */
 	public Set<FeatureConjunction> translateFeature(String feature, String value) {
-		// TODO Auto-generated method stub
+		
 		Feature source = new Feature(feature, value);
 		Set<FeatureConjunction> destination = this.featureMap.get(source); 
 
@@ -363,16 +389,16 @@ public class ConversionEngine
 				// Special case:
 				// In some search engines, the different grammatical features are
 				// not specified in separate token properties (t.i. layers)
-				// but a concatenated in the pos-tag, eg. like 
+				// but are concatenated in the pos-tag, eg. like 
 				//
 				//		NOU-C(gender=n,number=sg)
 				//
 				// In such cases, we need to extract the features out of the brackets
 				// and add each of them to our list of token properties:
 				//
-				//		pos = NOU-C
-				//		gender= n
-				//		number= sg
+				//		pos = 	NOU-C
+				//		gender=	n
+				//		number=	sg
 				
 				if (featureNamesOfCurrentToken.contains("pos"))
 				{
@@ -507,6 +533,24 @@ public class ConversionEngine
 		
 		
 		
+	}
+	
+	
+	/**
+	 * Remove the 'comment' key for a tagset hash
+	 * 
+	 * NB: the 'comment key' is needed in the JSON file to be able to add comment to some data,
+	 *     but we don't want it to make it to the conversion engine as it is no part of the
+	 *     tags of features to be mapped to another tag set
+	 * 
+	 * @param hash
+	 * @return
+	 */
+	private static ConcurrentHashMap<String, String> removeCommentsFromHash(ConcurrentHashMap<String, String> hash){
+		
+		hash.remove("comment");		
+		
+		return hash;
 	}
 	
 	
