@@ -3,6 +3,8 @@
     
     "UseFeatureRegex": true,
     
+    "IncludeFeatureNameInRegex": true,
+    
     "GrammaticalFeatures": ["number", "tense", "mood", "type", "person", "gender", "subtype", "finiteness", "position", "degree", "case"],
     
     "FieldMapping": [
