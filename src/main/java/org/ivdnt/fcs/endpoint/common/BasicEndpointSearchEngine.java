@@ -5,18 +5,12 @@
  */
 package org.ivdnt.fcs.endpoint.common;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
-import javax.xml.XMLConstants;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 
 import org.ivdnt.fcs.mapping.ConversionEngine;
 import org.ivdnt.util.FileUtils;
@@ -35,11 +29,8 @@ import eu.clarin.sru.server.SRUScanResultSet;
 import eu.clarin.sru.server.SRUSearchResultSet;
 import eu.clarin.sru.server.SRUServerConfig;
 import eu.clarin.sru.server.fcs.Constants;
-import eu.clarin.sru.server.fcs.DataView;
 import eu.clarin.sru.server.fcs.EndpointDescription;
 import eu.clarin.sru.server.fcs.FCSQueryParser;
-import eu.clarin.sru.server.fcs.Layer;
-import eu.clarin.sru.server.fcs.ResourceInfo;
 import eu.clarin.sru.server.fcs.SimpleEndpointSearchEngineBase;
 import eu.clarin.sru.server.fcs.utils.SimpleEndpointDescriptionParser;
 
@@ -78,13 +69,9 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 				
 				System.err.println("using 'endpoint-description.xml' file from IvdNT config folder");
 				LOG.debug("using 'endpoint-description.xml' file from IvdNT config folder");
-			}
-			
-			// [2] if that fails, try to get it from the WAR file
-			
-			catch (IOException ioe) {
-				
-				Utils.printStackTrace(ioe);
+			} catch (IOException ioe) {
+				// [2] if that fails, try to get it from the WAR file
+				//Utils.printStackTrace(ioe);
 				
 				url = context.getResource("/WEB-INF/endpoint-description.xml");
 				

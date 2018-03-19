@@ -146,8 +146,7 @@ public class FcsSearchResultSet extends SRUSearchResultSet
 		
 		// for debugging  -----------------
 
-		if (false) 
-			System.err.println("start writing kwic " + this.currentRecordNr + " : " + kwic);
+		// System.err.println("start writing kwic " + this.currentRecordNr + " : " + kwic);
 
 		// --------------------------------
 		
@@ -199,14 +198,11 @@ public class FcsSearchResultSet extends SRUSearchResultSet
 					String pname  = kwic.getTokenPropertyNames().get(j);
 					
 					// show info when debugging
-					if (false) 
-					{
-						System.err.println(String.format("add to layer: layer: %s, start: %d, end: %d, value: %s", 
-								kwic.getLayerURL(pname),
-								start,
-								end,
-								kwic.get(pname, i)));
-					}
+//						System.err.println(String.format("add to layer: layer: %s, start: %d, end: %d, value: %s", 
+//								kwic.getLayerURL(pname),
+//								start,
+//								end,
+//								kwic.get(pname, i)));
 						
 					
 					helper.addSpan(kwic.getLayerURL(pname), start, end, kwic.get(pname, i));

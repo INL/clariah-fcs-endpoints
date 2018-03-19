@@ -1,26 +1,9 @@
 package eu.clarin.sru.server.fcs.parser;
 
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.ivdnt.fcs.mapping.ConversionEngine;
-
-import eu.clarin.sru.server.fcs.parser.Expression;
-import eu.clarin.sru.server.fcs.parser.ExpressionAnd;
-import eu.clarin.sru.server.fcs.parser.ExpressionGroup;
-import eu.clarin.sru.server.fcs.parser.ExpressionNot;
-import eu.clarin.sru.server.fcs.parser.ExpressionOr;
-import eu.clarin.sru.server.fcs.parser.ExpressionWildcard;
-import eu.clarin.sru.server.fcs.parser.QueryDisjunction;
-import eu.clarin.sru.server.fcs.parser.QueryGroup;
-import eu.clarin.sru.server.fcs.parser.QueryNode;
-import eu.clarin.sru.server.fcs.parser.QueryNodeType;
-import eu.clarin.sru.server.fcs.parser.QueryParser;
-import eu.clarin.sru.server.fcs.parser.QuerySegment;
-import eu.clarin.sru.server.fcs.parser.QuerySequence;
-import eu.clarin.sru.server.fcs.parser.QueryVisitor;
-import eu.clarin.sru.server.fcs.parser.QueryWithWithin;
-import eu.clarin.sru.server.fcs.parser.SimpleWithin;
 
 /**
  * This class is about converting a FSC-QL query (as a string or as a node) 
@@ -182,6 +165,7 @@ public class QueryProcessor
 		return new ExpressionGroup(rewriteNode(node.getFirstChild()));
 	}
 
+	@SuppressWarnings("unused")
 	private QueryNode rewriteExpression(Expression node) {
 		Expression e = new Expression(node.getLayerQualifier(), node.getLayerIdentifier(), node.getOperator(), node.getRegexValue(), node.getRegexFlags());
 		return e;

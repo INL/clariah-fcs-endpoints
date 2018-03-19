@@ -1,5 +1,6 @@
 package org.ivdnt.fcs.endpoint.nederlab.objectmapper;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is used by the Json ObjectMapper

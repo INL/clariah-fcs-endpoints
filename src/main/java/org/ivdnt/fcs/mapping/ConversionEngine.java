@@ -1,14 +1,18 @@
 package org.ivdnt.fcs.mapping;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.antlr.v4.runtime.misc.Utils;
 import org.ivdnt.fcs.results.Kwic;
 import org.ivdnt.fcs.results.ResultSet;
 import org.ivdnt.util.StringUtils;
 
-import eu.clarin.sru.server.fcs.FCSQueryParser;
 import eu.clarin.sru.server.fcs.parser.CqpWriter;
 import eu.clarin.sru.server.fcs.parser.QueryNode;
 import eu.clarin.sru.server.fcs.parser.QueryProcessor;

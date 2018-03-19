@@ -1,9 +1,11 @@
 package org.ivdnt.fcs.endpoint.nederlab.objectmapper;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.*;
-import java.lang.reflect.*;
 
 /**
  * This class is used by the Json ObjectMapper

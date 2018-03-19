@@ -1,18 +1,13 @@
 package eu.clarin.sru.server.fcs.parser;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.ivdnt.fcs.mapping.ConversionEngine;
 import org.ivdnt.fcs.mapping.Feature;
 import org.ivdnt.fcs.mapping.FeatureConjunction;
-
-import eu.clarin.sru.server.fcs.parser.Expression;
-import eu.clarin.sru.server.fcs.parser.ExpressionAnd;
-import eu.clarin.sru.server.fcs.parser.ExpressionNot;
-import eu.clarin.sru.server.fcs.parser.ExpressionOr;
-import eu.clarin.sru.server.fcs.parser.Operator;
-import eu.clarin.sru.server.fcs.parser.QueryNode;
 
 /**
  *  dit is een hack: 

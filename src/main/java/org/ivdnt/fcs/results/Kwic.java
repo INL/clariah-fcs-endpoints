@@ -1,12 +1,13 @@
 package org.ivdnt.fcs.results;
 
 import java.net.URI;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-import org.ivdnt.util.StringUtils;
 import org.ivdnt.util.Utils;
 
 
@@ -58,7 +59,7 @@ public class Kwic
 	// metadata
 	
 	private Map<String,String> 			metadata = new ConcurrentHashMap<>(); // considering the size of opensonar metadata, probably better to introduce separate document objects
-	private Document 					document = null;
+	//private Document 					document = null;
 	
 	// -----------------------------------------------------------------------------------
 	

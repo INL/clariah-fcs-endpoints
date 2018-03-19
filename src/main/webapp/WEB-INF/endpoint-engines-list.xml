@@ -25,7 +25,7 @@
         <Engine>
             <engine-name>zeebrieven</engine-name>
             <engine-type>blacklabserver</engine-type>
-            <engine-url>http://svprre02.inl.loc:8080/blacklab-server/</engine-url>
+            <engine-url>http://idunn:jeugdappels@demo.clariah.ivdnt.org/blacklab-server/</engine-url>
             <tagset-conversion-table>UD2BaB</tagset-conversion-table>
         </Engine>
         
@@ -37,9 +37,9 @@
         </Engine>
         
         <Engine>
-            <engine-name>corpusgysseling</engine-name>
+            <engine-name>gysseling</engine-name>
             <engine-type>blacklabserver</engine-type>
-            <engine-url>http://svprre02.inl.loc:8080/blacklab-server/</engine-url>
+            <engine-url>http://idunn:jeugdappels@demo.clariah.ivdnt.org/blacklab-server/</engine-url>
             <tagset-conversion-table>UD2GYS</tagset-conversion-table>
         </Engine>
     

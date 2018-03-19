@@ -219,8 +219,6 @@ public class CorpusDependentEngineBuilder {
 		
 		catch (IOException ioe) {
 			
-			Utils.printStackTrace(ioe);
-			
 			queryTemplate = fileUtils.getResourceAsString();
 			
 			System.err.println("using bundled '\"+filename+\"' file");

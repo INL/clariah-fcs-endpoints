@@ -7,7 +7,10 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -22,7 +25,7 @@ import org.ivdnt.util.FileUtils;
 import org.ivdnt.util.Utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 
@@ -299,8 +302,7 @@ public class NederlabClient
 
 			
 			// ---- for debugging --------------------------			
-			if (false) 
-				return nederlabResultSet;			
+//			return nederlabResultSet;			
 			// ---------------------------------------------
 			
 			
@@ -429,7 +431,8 @@ public class NederlabClient
 	Map<String,Object> readQueryAsObject(String fileName)
 	{
 		try {
-			Map<String,Object> userData =  (Map<String,Object>) this.mapper.readValue(new File(fileName), Map.class);
+			@SuppressWarnings("unchecked")
+			Map<String,Object> userData =  this.mapper.readValue(new File(fileName), Map.class);
 			String x = this.mapper.writeValueAsString(userData);
 			System.err.println(x);
 			return userData;
@@ -443,7 +446,7 @@ public class NederlabClient
 	String readQuery(String fileName)
 	{
 		try {
-			Map<String,Object> userData =  (Map<String,Object>) this.mapper.readValue(new File(fileName), Map.class);
+			Map<String,Object> userData =  this.mapper.readValue(new File(fileName), Map.class);
 			String x = this.mapper.writeValueAsString(userData);
 			System.err.println(x);
 			return this.mapper.writeValueAsString(userData);

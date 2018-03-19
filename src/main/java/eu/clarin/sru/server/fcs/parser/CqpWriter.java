@@ -1,24 +1,11 @@
 package eu.clarin.sru.server.fcs.parser;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.ivdnt.util.StringUtils;
-
-import eu.clarin.sru.server.fcs.parser.Expression;
-import eu.clarin.sru.server.fcs.parser.ExpressionAnd;
-import eu.clarin.sru.server.fcs.parser.ExpressionGroup;
-import eu.clarin.sru.server.fcs.parser.ExpressionNot;
-import eu.clarin.sru.server.fcs.parser.ExpressionOr;
-import eu.clarin.sru.server.fcs.parser.ExpressionWildcard;
-import eu.clarin.sru.server.fcs.parser.Operator;
-import eu.clarin.sru.server.fcs.parser.QueryDisjunction;
-import eu.clarin.sru.server.fcs.parser.QueryGroup;
-import eu.clarin.sru.server.fcs.parser.QueryNode;
-import eu.clarin.sru.server.fcs.parser.QuerySegment;
-import eu.clarin.sru.server.fcs.parser.QuerySequence;
-import eu.clarin.sru.server.fcs.parser.QueryWithWithin;
-import eu.clarin.sru.server.fcs.parser.SimpleWithin;
 
 /**
  * Reserialize parsed query to CQP.<br>

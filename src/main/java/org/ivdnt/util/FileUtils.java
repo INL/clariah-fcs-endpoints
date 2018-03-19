@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -138,12 +137,13 @@ public class FileUtils {
 	// as string or as file
 	
 	public String getResourceAsString() {
-
 		StringBuffer result = new StringBuffer("");
 
 		// Get file from resources folder
 		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource(this.filepath).getFile());
+		URL resource = classLoader.getResource(this.filepath);
+		String file2 = resource.getFile();
+		File file = new File(file2);
 
 		try (Scanner scanner = new Scanner(file)) {
 
@@ -231,7 +231,10 @@ public class FileUtils {
 		
 		// return path as URL		
 		// https://stackoverflow.com/questions/6098472/pass-a-local-file-in-to-url-in-java
-		return new File(newFilepath).toURI().toURL();
+		File file = new File(newFilepath);
+		if (!file.exists())
+			throw new FileNotFoundException("File not found in blacklab-sru-server-config/");
+		return file.toURI().toURL();
 	}
 	
 	

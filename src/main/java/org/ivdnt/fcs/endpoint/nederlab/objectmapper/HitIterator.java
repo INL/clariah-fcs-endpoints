@@ -1,5 +1,7 @@
 package org.ivdnt.fcs.endpoint.nederlab.objectmapper;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.ivdnt.fcs.endpoint.nederlab.client.NederlabClient;
 import org.ivdnt.fcs.endpoint.nederlab.results.Hit;

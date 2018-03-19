@@ -7,29 +7,20 @@ package org.ivdnt.fcs.endpoint.common;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.z3950.zing.cql.CQLAndNode;
 import org.z3950.zing.cql.CQLBooleanNode;
 import org.z3950.zing.cql.CQLNode;
 import org.z3950.zing.cql.CQLNotNode;
-import org.z3950.zing.cql.CQLOrNode;
 import org.z3950.zing.cql.CQLTermNode;
 
-import eu.clarin.sru.server.CQLQueryParser;
 import eu.clarin.sru.server.SRUConstants;
-import eu.clarin.sru.server.SRUDiagnosticList;
 import eu.clarin.sru.server.SRUException;
 import eu.clarin.sru.server.SRUQuery;
-import eu.clarin.sru.server.SRUQueryParserRegistry;
 import eu.clarin.sru.server.fcs.Constants;
-import eu.clarin.sru.server.fcs.FCSQueryParser;
 import eu.clarin.sru.server.fcs.parser.Expression;
 import eu.clarin.sru.server.fcs.parser.ExpressionAnd;
-import eu.clarin.sru.server.fcs.parser.ExpressionNot;
 import eu.clarin.sru.server.fcs.parser.ExpressionOr;
 import eu.clarin.sru.server.fcs.parser.ExpressionWildcard;
 import eu.clarin.sru.server.fcs.parser.Operator;

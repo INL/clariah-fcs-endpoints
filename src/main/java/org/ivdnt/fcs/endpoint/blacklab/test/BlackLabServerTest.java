@@ -1,14 +1,7 @@
 package org.ivdnt.fcs.endpoint.blacklab.test;
 
-import org.ivdnt.fcs.results.Kwic;
-import org.json.simple.*;
-import org.json.simple.parser.JSONParser;
-
-import java.io.*;
-import java.net.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class BlackLabServerTest {
 	// http://localhost:8080/blacklab-server-1.6.0/ezel/hits?patt=%22ezel%22
