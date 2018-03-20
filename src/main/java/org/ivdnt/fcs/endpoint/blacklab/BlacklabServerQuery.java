@@ -69,7 +69,9 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 	{
 		try 
 		{
-			String url = server  +  "/" + corpus + "/"  + "hits?" +
+			String url = server;
+				   url += url.endsWith("/") ? "" : "/";
+				   url += corpus + "/"  + "hits?" +
 					"patt=" + URLEncoder.encode(cqpQuery, "utf-8") + 
 					"&outputformat=json" +
 					"&first=" + this.getStartPosition() +
@@ -161,6 +163,7 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 		// set number of hits
 		
 		Object nof = summary.get("numberOfHits");
+		int hsize = hits.size();
 
 		if (nof instanceof Integer)
 		{
@@ -179,7 +182,6 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 
 		List<Kwic> results = parseResults(hits, docs);		
 		
-
 		System.err.printf("Loop completed, %d hits !\n", results.size());
 		return results;
 	}

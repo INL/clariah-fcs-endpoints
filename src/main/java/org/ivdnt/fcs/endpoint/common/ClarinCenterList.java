@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
@@ -41,8 +43,8 @@ public class ClarinCenterList extends HttpServlet {
 
 				StringBuilder sb = new StringBuilder();		
 				
-				FileInputStream fstream = 
-						new FileInputStream("http://localhost:8080/blacklab-sru-server/registry/clarin_center_ivdnt.xml");
+				InputStream fstream = 
+						new URL("http://localhost:8080/blacklab-sru-server/registry/clarin_center_ivdnt.xml").openStream();
 				
 				// Get the object of DataInputStream
 				DataInputStream in = new DataInputStream(fstream);
