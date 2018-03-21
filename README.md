@@ -10,11 +10,14 @@ We test by running the 'clarin fcs aggregator' (cf below) locally.
 
 
 ## Clarin Federated Content Search
+Code of dependencies of this project:
+* https://svn.clarin.eu/FCSSimpleEndpoint/ (reference endpoint implementation)  
+* https://svn.clarin.eu/FCS-QL/ (dependency of this project)
+* https://svn.clarin.eu/SRUServer/ (dependency of this project)
+
 
 Cf:
 * https://www.clarin.eu/content/federated-content-search-clarin-fcs
-* https://svn.clarin.eu/FCSSimpleEndpoint/ (reference endpoint implementation)  
-* https://svn.clarin.eu/FCS-QL/
 * https://www.clarin.eu/sites/default/files/CE-2015-0629-FCS-2-workplan.pdf
 * published FCS 2.0 specification at https://office.clarin.eu/v/CE-2017-1046-FCS-Specification.pdf
 * On dataviews cf. https://www.clarin.eu/sites/default/files/CE-2014-0317-CLARIN_FCS_Specification_DataViews_1_0.pdf, met name CMDI data view. 
@@ -31,7 +34,7 @@ https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/# for a running version; source
  
 ## Quick start
 
-Call 'mvn package' and 'mvn war:war' to create a war file; deploy it, and start the aggregator to test. 
+Call 'mvn package' to create a war file; deploy it, and start the aggregator to test. 
 
 Configuration is described below.
 
@@ -115,7 +118,7 @@ We are number 22:
 
 #### The center profile 
 
-Official location for INT:  https://centres.clarin.eu/restxml/22 (We need to update this if we want to make resources visible for the aggregator running at Språkbanken)
+Official location for INT:  https://centres.clarin.eu/restxml/22 (We need to update this if we want to make resources visible for the aggregator running at Sprï¿½kbanken)
 
 Testing location: http://localhost:8080/blacklab-sru-server/registry/clarin_center_ivdnt.xml
 
