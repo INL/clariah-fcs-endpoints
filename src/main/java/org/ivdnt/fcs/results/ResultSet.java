@@ -25,7 +25,8 @@ public class ResultSet
 	// - a CQP query
 	private Query query;
 	
-	// The total number of results of a query
+	// The total number of results of a query,
+	// can be more than the number of results shown in this API call
 	private int totalNumberOfResults;
 		
 	// The text results, as a list of keywords in context (Kwic)	

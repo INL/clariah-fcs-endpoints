@@ -17,6 +17,10 @@ public abstract class Query
 	
 	private int startPosition;
 	private int maximumResults;
+	
+	// Total number of results matching the query: this can be more than
+	// number of results returned by one API call, which is thresholded by
+	// maximumResults (maximumRecords argument in query)
 	private int totalNumberOfResults;
 	
 	

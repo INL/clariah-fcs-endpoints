@@ -160,11 +160,9 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 			);	
 		
 		
-		// set number of hits
-		
+		// Set total number of hits, can be more than the number of hits returned
+		// by this API call, which is thresholded by maximumRecords
 		Object nof = summary.get("numberOfHits");
-		int hsize = hits.size();
-
 		if (nof instanceof Integer)
 		{
 			this.setTotalNumberOfResults( (Integer) nof );
@@ -182,6 +180,10 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 
 		List<Kwic> results = parseResults(hits, docs);		
 		
+		
+		// Print number of hits returned by this API call,
+		// determined by maximumRecords, can be equal or less than total
+		// number of hits.
 		System.err.printf("Loop completed, %d hits !\n", results.size());
 		return results;
 	}
