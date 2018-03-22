@@ -71,7 +71,7 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query
 		
 		// search
 		
-		NederlabClient nederlabClient = new NederlabClient( this.nederlabQueryTemplate );	
+		NederlabClient nederlabClient = new NederlabClient( this.nederlabQueryTemplate, this.getServer());	
 		
 		NederlabResultSet nederlabResultSet = 
 				nederlabClient.doSearch(

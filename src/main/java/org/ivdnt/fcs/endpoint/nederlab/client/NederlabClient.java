@@ -44,6 +44,9 @@ public class NederlabClient
 	
 	private ObjectMapper mapper = new ObjectMapper();
 	
+	// Variable to store server URL, initialized by constructor
+	private String server;
+	
 	
 	// When searching Nederlab for a word, we want to get results
 	// in context, t.i. not only the word, but also a part of the text
@@ -65,9 +68,10 @@ public class NederlabClient
 	
 	// Constructor
 	
-	public NederlabClient(QueryTemplate nederlabQueryTemplate) {
+	public NederlabClient(QueryTemplate nederlabQueryTemplate, String server) {
 		
 		this.nederlabQueryTemplate = nederlabQueryTemplate;
+		this.server = server;
 	}
 	
 	
@@ -123,7 +127,8 @@ public class NederlabClient
 	{
 		try
 		{
-			URL obj = new URL(NederlabConstants.NEDERLAB_URL);
+			System.err.println("Now connecting to server to send POST request: " + this.server);
+			URL obj = new URL(this.server);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 			//add request header
