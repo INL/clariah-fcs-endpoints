@@ -38,14 +38,15 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query
 	 * 
 	 */
 	public NederlabQuery(String server, String corpus, 
-			String cqpQuery, QueryTemplate nederlabQueryTemplate)
+			String cqpQuery, QueryTemplate nederlabQueryTemplate, String engineNativeUrlTemplate)
 	{
-		super(server, corpus, cqpQuery);
+		super(server, corpus, cqpQuery, engineNativeUrlTemplate);
 		
 		
 		// template to build Nederlab query's
 		
 		this.nederlabQueryTemplate = nederlabQueryTemplate;
+		
 		
 		
 		// make sure the CQL query

@@ -14,7 +14,9 @@ public abstract class Query
 	private String server = QueryConstants.DEFAULT_SERVER;	
 	private String cqpQuery;
 	private String corpus;
-	
+	private String engineNativeUrl;
+
+
 	private int startPosition;
 	private int maximumResults;
 	
@@ -42,11 +44,14 @@ public abstract class Query
 	 * @param cqp, a CQL query string like [word="paard"]
 	 * 
 	 */
-	public Query(String server, String corpus, String cqpQuery)
+	public Query(String server, String corpus, String cqpQuery, String engineNativeUrlTemplate)
 	{
 		this.server = server;
 		this.corpus= corpus;
 		this.cqpQuery = cqpQuery;
+		
+		// TODO: change this to browser-compatible version of query
+		this.engineNativeUrl = engineNativeUrlTemplate + this.cqpQuery;
 	}
 	
 	
@@ -77,6 +82,9 @@ public abstract class Query
 		return this.totalNumberOfResults;
 	}
 	
+	public String getEngineNativeUrl() {
+		return engineNativeUrl;
+	}
 	
 	// --------------------------------------------------------------------------------	
 	// setters
@@ -104,7 +112,6 @@ public abstract class Query
 	public void setTotalNumberOfResults(int totalNumberOfResults) {
 		this.totalNumberOfResults = totalNumberOfResults;
 	}
-	
 	
 	
 	// --------------------------------------------------------------------------------

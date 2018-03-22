@@ -28,9 +28,9 @@ import org.json.simple.JSONObject;
 public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 {	
 	
-	private String server = 	BlacklabConstants.DEFAULT_SERVER;
-	private String corpus = 	BlacklabConstants.DEFAULT_CORPUS;	
-	private String cqpQuery = 	BlacklabConstants.cqpQueryExample;
+	//private String server = 	BlacklabConstants.DEFAULT_SERVER;
+	//private String corpus = 	BlacklabConstants.DEFAULT_CORPUS;	
+	//private String cqpQuery = 	BlacklabConstants.cqpQueryExample;
 
 
 	// ------------------------------------------------------------------------------
@@ -46,12 +46,12 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 	 * @param cqp, a query like [word='lopen']
 	 * 
 	 */
-	public BlacklabServerQuery(String server, String corpus, String cqpQuery)
+	public BlacklabServerQuery(String server, String corpus, String cqpQuery, String engineNativeUrlTemplate)
 	{
-		super(server, corpus, cqpQuery);
-		this.server = server;
-		this.corpus= corpus;
-		this.cqpQuery = cqpQuery;
+		super(server, corpus, cqpQuery, engineNativeUrlTemplate);
+		//this.server = server;
+		//this.corpus= corpus;
+		//this.cqpQuery = cqpQuery;
 	}
 	
 	
@@ -69,10 +69,10 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query
 	{
 		try 
 		{
-			String url = server;
+			String url = this.getServer();
 				   url += url.endsWith("/") ? "" : "/";
-				   url += corpus + "/"  + "hits?" +
-					"patt=" + URLEncoder.encode(cqpQuery, "utf-8") + 
+				   url += this.getCorpus() + "/"  + "hits?" +
+					"patt=" + URLEncoder.encode(this.getCqpQuery(), "utf-8") + 
 					"&outputformat=json" +
 					"&first=" + this.getStartPosition() +
 					"&number=" + this.getMaximumResults();

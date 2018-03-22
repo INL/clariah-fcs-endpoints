@@ -22,22 +22,13 @@ public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngi
 	// -----------------------------------------------------------------------
 	// constructors
 	
-	public BlacklabServerEndpointSearchEngine()
-	{
-		super();
-	}
 	
-	public BlacklabServerEndpointSearchEngine(String server)
-	{
-		super();
-		this.server = server;
-	}
-	
-	public BlacklabServerEndpointSearchEngine(String server, ConversionEngine conversionEngine)
+	public BlacklabServerEndpointSearchEngine(String server, ConversionEngine conversionEngine, String engineNativeUrlTemplate)
 	{
 		super();
 		this.server = server;
 		this.conversionEngine = conversionEngine;
+		this.setEngineNativeUrlTemplate(engineNativeUrlTemplate);
 	}
 	
 	
@@ -61,7 +52,7 @@ public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngi
 		
 		// instantiate the Blacklab query
 		
-		BlacklabServerQuery blacklabServerQuery = new BlacklabServerQuery(this.server, fcsContextCorpus, query);
+		BlacklabServerQuery blacklabServerQuery = new BlacklabServerQuery(this.server, fcsContextCorpus, query, this.getEngineNativeUrlTemplate());
 
 		blacklabServerQuery.setStartPosition( request.getStartRecord()-1 ); // bij fcs beginnen ze bij 1 te tellen ?
 		blacklabServerQuery.setMaximumResults( request.getMaximumRecords() );

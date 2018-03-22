@@ -1,9 +1,12 @@
 package org.ivdnt.fcs.results;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+
+import org.ivdnt.fcs.client.Query;
 
 import eu.clarin.sru.server.SRUDiagnosticList;
 import eu.clarin.sru.server.SRUException;
@@ -35,6 +38,7 @@ public class FcsSearchResultSet extends SRUSearchResultSet
 	SRURequest request;
 	String corpus;
 	ResultSet resultSet;
+	Query query;
 	
 	// list of text results, t.i. keywords in context (Kwic)
 	List<Kwic> hits;
@@ -70,7 +74,8 @@ public class FcsSearchResultSet extends SRUSearchResultSet
 		this.request =		request;
 		this.resultSet = 	resultSet;
 		this.hits = 		resultSet.getHits();
-		this.corpus = 		resultSet.getQuery().getCorpus();
+		this.query =		resultSet.getQuery();
+		this.corpus = 		this.query.getCorpus();
 	}
 
 	// ---------------------------------------------------------------------------------
@@ -120,10 +125,23 @@ public class FcsSearchResultSet extends SRUSearchResultSet
 		// return "rid:" + currentRecord;
 	}
 	
+	/**
+     * Check, if extra record data should be serialized for the current record.
+     * Return true, since we have extra record data: the converted query.
+     *
+     * @return <code>true</code>
+     * @throws NoSuchElementException
+     *             result set is already advanced past all records
+     * @see #writeExtraResponseData(XMLStreamWriter)
+     */
+    public boolean hasExtraRecordData() {
+        return true;
+    }
+	
 	
 	
 	// ---------------------------------------------------------------------------------
-	// setter / writer
+	// setters / writers
 	
 
 	/**
@@ -256,6 +274,35 @@ public class FcsSearchResultSet extends SRUSearchResultSet
 		}
 		
 	}
+	
+	/**
+     * Serialize extra record data for the current record. In our case,
+     * we write the converted query. In fact, it is redundant to
+     * return the same converted query for every hit, but this is the
+     * only allowed way to add extra information to the XML in the
+     * current framework.
+     *
+     * @param writer
+     *            the {@link XMLStreamException} instance to be used
+     * @throws XMLStreamException
+     *             an error occurred while serializing the result extra data
+     * @throws NoSuchElementException
+     *             result set past already advanced past all records
+     * @see #hasExtraRecordData()
+     */
+    public void writeExtraRecordData(XMLStreamWriter writer)
+            throws XMLStreamException {
+    	// Output query, converted to the format of the target corpus
+    	writer.writeStartElement("", "convertedQuery");
+    	writer.writeCharacters(this.query.getCqpQuery());
+    	writer.writeEndElement();
+    	
+    	// Output URL of the native web application where users can
+    	// visit the query
+    	writer.writeStartElement("", "nativeUrl");
+    	writer.writeCharacters(this.query.getEngineNativeUrl());
+    	writer.writeEndElement();
+    }
 	
 	
 	// ---------------------------------------------------------------------------------

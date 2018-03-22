@@ -51,8 +51,16 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	// Object to store the endpoint description into
 	protected EndpointDescription endpointDescription;
 	
+	private String engineNativeUrlTemplate;
 	
-	
+	public String getEngineNativeUrlTemplate() {
+		return engineNativeUrlTemplate;
+	}
+
+	public void setEngineNativeUrlTemplate(String engineNativeUrlTemplate) {
+		this.engineNativeUrlTemplate = engineNativeUrlTemplate;
+	}
+
 	protected EndpointDescription createEndpointDescription(ServletContext context, SRUServerConfig config,
 			Map<String, String> params) throws SRUConfigException {
 		

@@ -155,12 +155,14 @@ public class CorpusDependentEngineBuilder {
 			XPathExpression engineNameExpr = xpath.compile(".//engine-name");
 			XPathExpression engineTypeExpr = xpath.compile(".//engine-type");
 			XPathExpression engineClassExpr = xpath.compile(".//engine-url");
+			XPathExpression engineNativeUrlTemplateExpr = xpath.compile(".//engine-native-url-template");
 			XPathExpression tagSetConversionTableExpr = xpath.compile(".//tagset-conversion-table");
 			
 			
 			String engineName = engineNameExpr.evaluate(oneEngine);
 			String engineType = engineTypeExpr.evaluate(oneEngine);
 			String engineUrl = engineClassExpr.evaluate(oneEngine);
+			String engineNativeUrlTemplate = engineNativeUrlTemplateExpr.evaluate(oneEngine);
 			String tagSetConversionTable = tagSetConversionTableExpr.evaluate(oneEngine);
 			
 			System.err.println("building "+engineName+" engine with "+tagSetConversionTable+" conversion table");
@@ -175,7 +177,7 @@ public class CorpusDependentEngineBuilder {
 			{
 				String queryTemplate = readQueryTemplate("nederlab_query_template.json");
 				engineMap.put(engineName, 
-						new NederlabEndpointSearchEngine( engineUrl, conversionEngine, queryTemplate ));
+						new NederlabEndpointSearchEngine( engineUrl, conversionEngine, queryTemplate, engineNativeUrlTemplate ));
 			}
 			
 			// Blacklab engine type
@@ -183,7 +185,7 @@ public class CorpusDependentEngineBuilder {
 			else
 			{
 				engineMap.put(engineName, 
-						new BlacklabServerEndpointSearchEngine( engineUrl, conversionEngine ));
+						new BlacklabServerEndpointSearchEngine( engineUrl, conversionEngine, engineNativeUrlTemplate));
 			}
 			
 		}

@@ -18,7 +18,7 @@ import eu.clarin.sru.server.SRUServerConfig;
 public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine
 {
 	
-	String server = NederlabConstants.DEFAULT_SERVER;
+	String server;
 	ConversionEngine conversionEngine = null;
 	QueryTemplate nederlabQueryTemplate;
 		
@@ -26,7 +26,9 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine
 	// ---------------------------------------------------------------------------------
 	// constructors
 	
-	public NederlabEndpointSearchEngine(String server, ConversionEngine conversionEngine, String nederlabQueryTemplate)
+	
+	// TODO: merge details from Nederlab and Blacklab constructors into constructor of superclass
+	public NederlabEndpointSearchEngine(String server, ConversionEngine conversionEngine, String nederlabQueryTemplate, String engineNativeUrlTemplate)
 	{
 		super();
 		this.server = server;
@@ -34,12 +36,10 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine
 		
 		// instantiate a Nederlab query template (needed to post well formed query's to Nederlab)
 		this.nederlabQueryTemplate = new QueryTemplate(nederlabQueryTemplate);
+		
+		this.setEngineNativeUrlTemplate(engineNativeUrlTemplate);
 	}
 	
-	public NederlabEndpointSearchEngine() {
-		// TODO Auto-generated constructor stub
-		super();
-	}
 	
 	
 	// ---------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine
 	/**
 	 * Prepare and start a Nederlab search:
 	 * 
-	 * 1. translate que FCS query into CQP
+	 * 1. translate the FCS query into CQP
 	 * 2. instantiate the Nederlab query 
 	 * 3. send the query and build a FCS ResultSet  
 	 */
@@ -67,7 +67,8 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine
 						this.server, 
 						fcsContextCorpus, 
 						cqpQuery, 
-						this.nederlabQueryTemplate);
+						this.nederlabQueryTemplate,
+						this.getEngineNativeUrlTemplate());
 		
 		nederlabQuery.setStartPosition( request.getStartRecord()-1 ); // fcs begint bij 1 te tellen, nederlab bij 0 (?)
 		nederlabQuery.setMaximumResults( request.getMaximumRecords() );
