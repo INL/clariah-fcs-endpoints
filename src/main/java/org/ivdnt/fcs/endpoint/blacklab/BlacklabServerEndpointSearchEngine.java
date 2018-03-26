@@ -15,9 +15,7 @@ import eu.clarin.sru.server.SRUServerConfig;
 
 public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngine
 {
-	String server = BlacklabConstants.DEFAULT_SERVER;
-	ConversionEngine conversionEngine = null;
-	
+
 	
 	// -----------------------------------------------------------------------
 	// constructors
@@ -25,10 +23,7 @@ public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngi
 	
 	public BlacklabServerEndpointSearchEngine(String server, ConversionEngine conversionEngine, String engineNativeUrlTemplate)
 	{
-		super();
-		this.server = server;
-		this.conversionEngine = conversionEngine;
-		this.setEngineNativeUrlTemplate(engineNativeUrlTemplate);
+		super(server,conversionEngine,engineNativeUrlTemplate);
 	}
 	
 	
@@ -46,13 +41,13 @@ public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngi
 	{
 		// translate FCS into CQP
 		
-		String query = BasicEndpointSearchEngine.translateQuery(request, this.conversionEngine);
+		String query = BasicEndpointSearchEngine.translateQuery(request, this.getConversionEngine());
 		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request, BlacklabConstants.DEFAULT_CORPUS);
 		
 		
 		// instantiate the Blacklab query
 		
-		BlacklabServerQuery blacklabServerQuery = new BlacklabServerQuery(this.server, fcsContextCorpus, query, this.getEngineNativeUrlTemplate());
+		BlacklabServerQuery blacklabServerQuery = new BlacklabServerQuery(this.getServer(), fcsContextCorpus, query, this.getEngineNativeUrlTemplate());
 
 		blacklabServerQuery.setStartPosition( request.getStartRecord()-1 ); // bij fcs beginnen ze bij 1 te tellen ?
 		blacklabServerQuery.setMaximumResults( request.getMaximumRecords() );
@@ -68,7 +63,7 @@ public class BlacklabServerEndpointSearchEngine  extends BasicEndpointSearchEngi
 			
 			// translate the results POS back into universal dependencies
 			
-			this.conversionEngine.translateIntoUniversalDependencies(resultSet);
+			this.getConversionEngine().translateIntoUniversalDependencies(resultSet);
 			
 
 			return new FcsSearchResultSet(config, request, diagnostics, resultSet);

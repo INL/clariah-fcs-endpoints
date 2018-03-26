@@ -53,6 +53,7 @@ public abstract class Query
 		this.corpus= corpus;
 		this.cqpQuery = cqpQuery;
 		
+		// From native URL based on template and URL-encoded query string
 		try {
 			this.engineNativeUrl = engineNativeUrlTemplate + URLEncoder.encode(this.cqpQuery, "utf-8");
 		} catch (UnsupportedEncodingException e) {

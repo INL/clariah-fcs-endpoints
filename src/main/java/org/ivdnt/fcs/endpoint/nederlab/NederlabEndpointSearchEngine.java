@@ -18,8 +18,6 @@ import eu.clarin.sru.server.SRUServerConfig;
 public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine
 {
 	
-	String server;
-	ConversionEngine conversionEngine = null;
 	QueryTemplate nederlabQueryTemplate;
 		
 	
@@ -27,17 +25,13 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine
 	// constructors
 	
 	
-	// TODO: merge details from Nederlab and Blacklab constructors into constructor of superclass
 	public NederlabEndpointSearchEngine(String server, ConversionEngine conversionEngine, String nederlabQueryTemplate, String engineNativeUrlTemplate)
 	{
-		super();
-		this.server = server;
-		this.conversionEngine = conversionEngine;
+		super(server, conversionEngine, engineNativeUrlTemplate);
 		
 		// instantiate a Nederlab query template (needed to post well formed query's to Nederlab)
 		this.nederlabQueryTemplate = new QueryTemplate(nederlabQueryTemplate);
-		
-		this.setEngineNativeUrlTemplate(engineNativeUrlTemplate);
+
 	}
 	
 	
@@ -56,7 +50,7 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine
 	{
 		// translate FCS into CQP
 		
-		String cqpQuery = BasicEndpointSearchEngine.translateQuery(request, this.conversionEngine);
+		String cqpQuery = BasicEndpointSearchEngine.translateQuery(request, this.getConversionEngine());
 		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request, "nederlab");
 		
 		
@@ -64,7 +58,7 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine
 		
 		NederlabQuery nederlabQuery = 
 				new NederlabQuery( 
-						this.server, 
+						this.getServer(), 
 						fcsContextCorpus, 
 						cqpQuery, 
 						this.nederlabQueryTemplate,
@@ -82,7 +76,7 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine
 			
 			// translate the results POS back into universal dependencies
 			
-			this.conversionEngine.translateIntoUniversalDependencies(fcsResultSet);
+			this.getConversionEngine().translateIntoUniversalDependencies(fcsResultSet);
 			
 
 			return new FcsSearchResultSet(config, request, diagnostics, fcsResultSet);

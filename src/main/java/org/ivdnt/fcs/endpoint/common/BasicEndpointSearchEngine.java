@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 
+import org.ivdnt.fcs.endpoint.blacklab.BlacklabConstants;
 import org.ivdnt.fcs.mapping.ConversionEngine;
 import org.ivdnt.util.FileUtils;
 import org.ivdnt.util.Utils;
@@ -48,11 +49,42 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	// logger
 	private static final Logger LOG = LoggerFactory.getLogger(BasicEndpointSearchEngine.class);
 	
+	private String server = BlacklabConstants.DEFAULT_SERVER;
+	private ConversionEngine conversionEngine = null;
+	private String engineNativeUrlTemplate;
+	
 	// Object to store the endpoint description into
 	protected EndpointDescription endpointDescription;
 	
-	private String engineNativeUrlTemplate;
+	// Empty constructor, called by CorpusDependentEngine subclass
+	public BasicEndpointSearchEngine() {
+		
+	}
 	
+	// Constructor with arguments, called by BlacklabServerEndpointSearchEngine and NederlabEndpointSearchEngine subclasses
+	public BasicEndpointSearchEngine(String server, ConversionEngine conversionEngine, String engineNativeUrlTemplate)
+	{
+		this.server = server;
+		this.conversionEngine = conversionEngine;
+		this.engineNativeUrlTemplate = engineNativeUrlTemplate;
+	}
+	
+	public String getServer() {
+		return server;
+	}
+
+	public void setServer(String server) {
+		this.server = server;
+	}
+
+	public ConversionEngine getConversionEngine() {
+		return conversionEngine;
+	}
+
+	public void setConversionEngine(ConversionEngine conversionEngine) {
+		this.conversionEngine = conversionEngine;
+	}
+
 	public String getEngineNativeUrlTemplate() {
 		return engineNativeUrlTemplate;
 	}
