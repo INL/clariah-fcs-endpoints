@@ -1,5 +1,8 @@
 package org.ivdnt.fcs.client;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.ivdnt.fcs.results.ResultSet;
 
 /**
@@ -50,8 +53,11 @@ public abstract class Query
 		this.corpus= corpus;
 		this.cqpQuery = cqpQuery;
 		
-		// TODO: change this to browser-compatible version of query
-		this.engineNativeUrl = engineNativeUrlTemplate + this.cqpQuery;
+		try {
+			this.engineNativeUrl = engineNativeUrlTemplate + URLEncoder.encode(this.cqpQuery, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

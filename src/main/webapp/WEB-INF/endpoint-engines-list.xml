@@ -20,6 +20,7 @@
             <engine-name>chn</engine-name>
             <engine-type>blacklabserver</engine-type>
             <engine-url>http://chn-i.inl.nl/blacklab-server/</engine-url>
+            <engine-native-url-template>http://chn-i.inl.nl/corpora/chn/search?operation=hits&amp;pattern=</engine-native-url-template>
             <tagset-conversion-table>UD2CHN</tagset-conversion-table>
         </Engine>
         
