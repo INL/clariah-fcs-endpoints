@@ -13,16 +13,17 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class JsonUtils {
-	
+
 	/**
 	 * Get JSON object out of InputStream
+	 * 
 	 * @param is
 	 * @return
 	 * @throws IOException
 	 * @throws ParseException
 	 */
 	public static JSONObject getJsonFromStream(InputStream is) throws IOException, ParseException {
-		
+
 		String line;
 		JSONParser parser = new JSONParser();
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -30,20 +31,19 @@ public class JsonUtils {
 		while ((line = br.readLine()) != null) {
 			b.append(line);
 		}
-	
-		Object o =  parser.parse(b.toString());
+
+		Object o = parser.parse(b.toString());
 		return (JSONObject) o;
 	}
-	
-	
+
 	/**
 	 * Get value of a given key out of the JSON object
+	 * 
 	 * @param context
 	 * @param pname
 	 * @return
 	 */
-	public static List<String> getProperty(JSONObject context, String pname)
-	{
+	public static List<String> getProperty(JSONObject context, String pname) {
 		List<String> list = new ArrayList<String>();
 		JSONArray words = (JSONArray) context.get(pname);
 		for (int i = 0; i < words.size(); i++) {

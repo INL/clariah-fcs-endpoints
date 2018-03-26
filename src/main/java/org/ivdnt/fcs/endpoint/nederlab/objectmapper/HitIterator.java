@@ -1,4 +1,5 @@
 package org.ivdnt.fcs.endpoint.nederlab.objectmapper;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -6,58 +7,49 @@ import java.util.List;
 import org.ivdnt.fcs.endpoint.nederlab.client.NederlabClient;
 import org.ivdnt.fcs.endpoint.nederlab.results.Hit;
 
-public class HitIterator implements Iterable<Hit>, Iterator<Hit> 
-{
+public class HitIterator implements Iterable<Hit>, Iterator<Hit> {
 	List<Hit> currentPortion = new ArrayList<>();
 	int position;
-	int n=0; // ToDo
+	int n = 0; // ToDo
 	int portionSize = 500;
 	NederlabClient nederlabClient;
 	String CQL;
 	boolean done = false;
 
-	
-	public HitIterator(NederlabClient client, String CQL)
-	{
+	public HitIterator(NederlabClient client, String CQL) {
 		this.nederlabClient = client;
 		this.CQL = CQL;
 	}
-	
-	private int nextPortion()
-	{
+
+	private int nextPortion() {
 		position = 0;
 		currentPortion = nederlabClient.doSearch(CQL, n, portionSize).getResults();
-		
+
 		System.err.println("retrieved next portion at " + n + "  size= " + currentPortion.size());
-		
+
 		n += currentPortion.size();
 		return currentPortion.size();
 	}
 
 	@Override
-	public Iterator<Hit> iterator() 
-	{
+	public Iterator<Hit> iterator() {
 		// TODO Auto-generated method stub
 		return this;
 	}
 
 	@Override
-	public boolean hasNext() 
-	{
+	public boolean hasNext() {
 		// TODO Auto-generated method stub
-		if (done)
-		{
+		if (done) {
 			return false;
 		}
 		if (position < currentPortion.size())
 			return true;
-		else
-		{
+		else {
 			int k = nextPortion();
 			if (k > 0)
 				return true;
-			else
-			{
+			else {
 				done = true;
 				return false;
 			}
@@ -65,22 +57,18 @@ public class HitIterator implements Iterable<Hit>, Iterator<Hit>
 	}
 
 	@Override
-	public Hit next() 
-	{
+	public Hit next() {
 		// TODO Auto-generated method stub
-		if (done)
-		{
+		if (done) {
 			return null;
 		}
 		if (position < currentPortion.size())
 			return currentPortion.get(position++);
-		else
-		{
+		else {
 			int k = nextPortion();
 			if (k > 0)
 				return currentPortion.get(position++);
-			else
-			{
+			else {
 				done = true;
 				return null;
 			}

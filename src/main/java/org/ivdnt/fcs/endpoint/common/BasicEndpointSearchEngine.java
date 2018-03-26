@@ -15,7 +15,6 @@ import javax.servlet.ServletContext;
 import org.ivdnt.fcs.endpoint.blacklab.BlacklabConstants;
 import org.ivdnt.fcs.mapping.ConversionEngine;
 import org.ivdnt.util.FileUtils;
-import org.ivdnt.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,40 +34,39 @@ import eu.clarin.sru.server.fcs.FCSQueryParser;
 import eu.clarin.sru.server.fcs.SimpleEndpointSearchEngineBase;
 import eu.clarin.sru.server.fcs.utils.SimpleEndpointDescriptionParser;
 
-
-
 /**
- * Base class for endpoint search engines, mainly copies from the Korp reference example
+ * Base class for endpoint search engines, mainly copies from the Korp reference
+ * example
  * 
- * It implements some methods, which are abstract in the SimpleEndpointSearchEngineBase
- * but it extends this class as well.
+ * It implements some methods, which are abstract in the
+ * SimpleEndpointSearchEngineBase but it extends this class as well.
  *
  */
 public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 
 	// logger
 	private static final Logger LOG = LoggerFactory.getLogger(BasicEndpointSearchEngine.class);
-	
+
 	private String server = BlacklabConstants.DEFAULT_SERVER;
 	private ConversionEngine conversionEngine = null;
 	private String engineNativeUrlTemplate;
-	
+
 	// Object to store the endpoint description into
 	protected EndpointDescription endpointDescription;
-	
+
 	// Empty constructor, called by CorpusDependentEngine subclass
 	public BasicEndpointSearchEngine() {
-		
+
 	}
-	
-	// Constructor with arguments, called by BlacklabServerEndpointSearchEngine and NederlabEndpointSearchEngine subclasses
-	public BasicEndpointSearchEngine(String server, ConversionEngine conversionEngine, String engineNativeUrlTemplate)
-	{
+
+	// Constructor with arguments, called by BlacklabServerEndpointSearchEngine and
+	// NederlabEndpointSearchEngine subclasses
+	public BasicEndpointSearchEngine(String server, ConversionEngine conversionEngine, String engineNativeUrlTemplate) {
 		this.server = server;
 		this.conversionEngine = conversionEngine;
 		this.engineNativeUrlTemplate = engineNativeUrlTemplate;
 	}
-	
+
 	public String getServer() {
 		return server;
 	}
@@ -95,33 +93,32 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 
 	protected EndpointDescription createEndpointDescription(ServletContext context, SRUServerConfig config,
 			Map<String, String> params) throws SRUConfigException {
-		
+
 		URL url = null;
-		
+
 		try {
-			
+
 			// try to read our own endpoint description file
-			
+
 			// [1] first try to get it from the -config folder
-			
+
 			try {
 				url = new FileUtils(context, "endpoint-description.xml").readConfigFileAsURL();
-				
+
 				System.err.println("using 'endpoint-description.xml' file from IvdNT config folder");
 				LOG.debug("using 'endpoint-description.xml' file from IvdNT config folder");
 			} catch (IOException ioe) {
 				// [2] if that fails, try to get it from the WAR file
-				//Utils.printStackTrace(ioe);
-				
+				// Utils.printStackTrace(ioe);
+
 				url = context.getResource("/WEB-INF/endpoint-description.xml");
-				
+
 				System.err.println("using bundled 'endpoint-description.xml' file");
 				LOG.debug("using bundled 'endpoint-description.xml' file");
 			}
-		
 
 			return SimpleEndpointDescriptionParser.parse(url);
-			
+
 		} catch (MalformedURLException mue) {
 			throw new SRUConfigException("Malformed URL for initializing resource info inventory", mue);
 		}
@@ -147,16 +144,16 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	 */
 	protected void doInit(ServletContext context, SRUServerConfig config,
 			SRUQueryParserRegistry.Builder queryParserBuilder, Map<String, String> params) throws SRUConfigException {
-		
+
 		doInit(config, queryParserBuilder, params);
 	}
 
 	protected void doInit(SRUServerConfig config, SRUQueryParserRegistry.Builder queryParserBuilder,
 			Map<String, String> params) throws SRUConfigException {
-		
+
 		LOG.info("KorpEndpointSearchEngine::doInit {}", config.getPort());
-		//List<String> openCorpora = ServiceInfo.getModernCorpora();
-		//openCorporaInfo = CorporaInfo.getCorporaInfo(openCorpora);
+		// List<String> openCorpora = ServiceInfo.getModernCorpora();
+		// openCorporaInfo = CorporaInfo.getCorporaInfo(openCorpora);
 	}
 
 	/**
@@ -220,14 +217,11 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 		return false;
 	}
 
-	
-
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException {
 		return null;
 	}
 
-	
 	/**
 	 * New method (no part of SimpleEndpointSearchEngineBase)
 	 * 
@@ -237,72 +231,64 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	 * @param defaultCorpus
 	 * @return
 	 */
-	public static String getCorpusNameFromRequest(SRURequest request, String defaultCorpus) 
-	{
+	public static String getCorpusNameFromRequest(SRURequest request, String defaultCorpus) {
 		String fcsContextCorpus = defaultCorpus;
-		
+
 		for (String oneExtraRequestDataName : request.getExtraRequestDataNames()) {
 			if ("x-fcs-context".equals(oneExtraRequestDataName)) {
-				fcsContextCorpus = request.getExtraRequestData("x-fcs-context"); // TODO fix this in corpusinfo implementation
+				fcsContextCorpus = request.getExtraRequestData("x-fcs-context"); // TODO fix this in corpusinfo
+																					// implementation
 				break;
 			}
 		}
 		return fcsContextCorpus;
 	}
 
-	
 	/**
 	 * New method (no part of SimpleEndpointSearchEngineBase)
 	 * 
-	 * 1-parameter version of translateQuery, which calls the
-	 * main translateQuery method, which requires 2 parameters
+	 * 1-parameter version of translateQuery, which calls the main translateQuery
+	 * method, which requires 2 parameters
 	 * 
 	 * @param request
 	 * @return
 	 * @throws SRUException
 	 */
-	public static String translateQuery(SRURequest request) throws SRUException 
-	{
+	public static String translateQuery(SRURequest request) throws SRUException {
 		return translateQuery(request, null);
 	}
 
-	
 	/**
 	 * New method (no part of SimpleEndpointSearchEngineBase)
 	 * 
-	 * Translate a CQL or a FCS-QL query 
-	 * into a CQP query   
+	 * Translate a CQL or a FCS-QL query into a CQP query
 	 * 
 	 * References:
 	 * 
-	 * CQL : 	https://en.wikipedia.org/wiki/Contextual_Query_Language
-	 * ---
+	 * CQL : https://en.wikipedia.org/wiki/Contextual_Query_Language ---
 	 * 
-	 * CQP : 	http://cwb.sourceforge.net/files/CQP_Tutorial/
-	 * ---	 	(CQP is sometimes also called CQL)
-	 *  
-	 * FCS-QL:	kind of CQP, with some specs 
-	 * ------	defined in https://office.clarin.eu/v/CE-2017-1046-FCS-Specification.pdf
+	 * CQP : http://cwb.sourceforge.net/files/CQP_Tutorial/ --- (CQP is sometimes
+	 * also called CQL)
 	 * 
+	 * FCS-QL: kind of CQP, with some specs ------ defined in
+	 * https://office.clarin.eu/v/CE-2017-1046-FCS-Specification.pdf
 	 * 
 	 * 
-	 * CQL can do simple queries like:			dinosaur 
-	 * ---										"complete dinosaur"
 	 * 
-	 * it can contain boolean logic like:		dinosaur or bird
-	 * 											dinosaur not reptile
+	 * CQL can do simple queries like: dinosaur --- "complete dinosaur"
 	 * 
-	 * and it can access publication indexes like:
-	 * 											publicationYear < 1980
-	 * 											date within "2002 2005"
+	 * it can contain boolean logic like: dinosaur or bird dinosaur not reptile
+	 * 
+	 * and it can access publication indexes like: publicationYear < 1980 date
+	 * within "2002 2005"
 	 * 
 	 * etc.
 	 * 
 	 * 
-	 * FCS-QL can do queries like: 				[word="dinosaur"]
-	 * ------									[word="complete"][word="dinosaur"]
+	 * FCS-QL can do queries like: [word="dinosaur"] ------
+	 * [word="complete"][word="dinosaur"]
 	 * 
-	 * it can contain boolean logic like:		[word="dinosaur|bird"]
+	 * it can contain boolean logic like: [word="dinosaur|bird"]
 	 * 
 	 * but it has no means to access publication indexes...
 	 * 
@@ -312,59 +298,54 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	 * @throws SRUException
 	 */
 	public static String translateQuery(SRURequest request, ConversionEngine conversion) throws SRUException {
-		
+
 		String query;
-		
+
 		if (request.isQueryType(Constants.FCS_QUERY_TYPE_CQL)) {
 			/*
-			 * Got a CQL  [Contextual Query Language query]
-			 * (either SRU 1.1 or higher), like in:
+			 * Got a CQL [Contextual Query Language query] (either SRU 1.1 or higher), like
+			 * in:
 			 * 
-			 *   ... operation= searchRetrieve & version= 1.2 & 
-			 *   query= lopen & startRecord= 1 & maximumRecords= 10 & 
-			 *   recordSchema= http://clarin.eu/fcs/resource & x-fcs-context=opensonar
+			 * ... operation= searchRetrieve & version= 1.2 & query= lopen & startRecord= 1
+			 * & maximumRecords= 10 & recordSchema= http://clarin.eu/fcs/resource &
+			 * x-fcs-context=opensonar
 			 * 
-			 * Translate that into a proper CQP query
-			 * ...
+			 * Translate that into a proper CQP query ...
 			 */
-			
+
 			final CQLQueryParser.CQLQuery q = request.getQuery(CQLQueryParser.CQLQuery.class);
 			query = FCSToCQPConverter.makeCQPFromCQL(q);
-			
+
 			// #############
 			// PAY ATTENTION:
 			// #############
-			// according to Jan,  CQL2CQP conversion is not needed for BlackLab...
-			
-			
-		} 
-		else if (request.isQueryType(Constants.FCS_QUERY_TYPE_FCS)) {
+			// according to Jan, CQL2CQP conversion is not needed for BlackLab...
+
+		} else if (request.isQueryType(Constants.FCS_QUERY_TYPE_FCS)) {
 			/*
 			 * Got a FCS query (SRU 2.0), like in:
 			 * 
-			 *   ... query= [word="lopen"] & queryType= fcs & startRecord= 1 &
-			 *   maximumRecords= 10 & recordSchema= http://clarin.eu/fcs/resource & x-fcs-context= chn  
+			 * ... query= [word="lopen"] & queryType= fcs & startRecord= 1 & maximumRecords=
+			 * 10 & recordSchema= http://clarin.eu/fcs/resource & x-fcs-context= chn
 			 * 
 			 * Translate that into a proper CQP query
 			 */
-			
+
 			final FCSQueryParser.FCSQuery q = request.getQuery(FCSQueryParser.FCSQuery.class);
-			
-			// get the query part out of the whole FSC request 
-			
+
+			// get the query part out of the whole FSC request
+
 			System.err.println(String.format("FCSQuery %s: raw %s", q, q.getRawQuery()));
 			query = q.getRawQuery();
-			
-			if (conversion != null)
-			{
-				System.err.println(String.format("Before conversion with %s: %s",  conversion, query));
-			    query = conversion.translateQuery(query);
-			    System.err.println(String.format("After conversion with %s: %s",  conversion, query));
+
+			if (conversion != null) {
+				System.err.println(String.format("Before conversion with %s: %s", conversion, query));
+				query = conversion.translateQuery(query);
+				System.err.println(String.format("After conversion with %s: %s", conversion, query));
 			}
-			        // do not parse the query. TODO real mapping component!
-					// FCSToCQPConverter.makeCQPFromFCS(q);
-		} 
-		else {
+			// do not parse the query. TODO real mapping component!
+			// FCSToCQPConverter.makeCQPFromFCS(q);
+		} else {
 			/*
 			 * Got something else we don't support. Send error ...
 			 */
