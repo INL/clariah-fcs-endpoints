@@ -271,17 +271,13 @@ public class NederlabClient {
 
 			JSONArray documents = (JSONArray) context.read("$['documents']");
 
-			List<Document> docs = new ArrayList<Document>();
 			Map<String, Document> docMap = new ConcurrentHashMap<>();
 
 			for (Object d : documents) {
-				String docJ = this.mapper.writeValueAsString(d); // ugly reserialization!!!
-				Document doc = this.mapper.readValue(docJ, Document.class);
-				docs.add(doc);
-			}
-
-			for (Document d : docs) {
-				docMap.put(d.NLCore_NLIdentification_nederlabID, d);
+				/*String docJ = this.mapper.writeValueAsString(d); // ugly reserialization!!!
+				Document doc = this.mapper.readValue(docJ, Document.class);*/
+				Document doc = new Document(d);
+				docMap.put(doc.getField("NLCore_NLIdentification_nederlabID"), doc);
 			}
 
 			// ---- for debugging --------------------------

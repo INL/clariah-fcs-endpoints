@@ -1,11 +1,7 @@
 package org.ivdnt.fcs.endpoint.nederlab.objectmapper;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class is used by the Json ObjectMapper so as deserialize the JSON string
@@ -18,29 +14,33 @@ import java.util.concurrent.ConcurrentHashMap;
  *         "Notificatie." },
  */
 public class Document {
-	public String NLCore_NLIdentification_nederlabID;
+	/*public String NLCore_NLIdentification_nederlabID;
 	public String NLTitle_title;
 	public String NLTitle_yearOfPublicationMin;
 	public String NLTitle_yearOfPublicationMax;
 	public String NLProfile_name;
 	public String NLCore_NLAdministrative_sourceCollection; // of NLCore_NLExternalReference_collectionName
-
-	public Map<String, String> getMetadata() {
-		Map<String, String> m = new ConcurrentHashMap<>();
-
-		List<Field> publicFields = new ArrayList<>();
-		Field[] allFields = this.getClass().getDeclaredFields();
-		for (Field field : allFields) {
-			if (Modifier.isPublic(field.getModifiers())) {
-				publicFields.add(field);
-				try {
-					m.put(field.getName(), field.get(this).toString());
-				} catch (IllegalArgumentException | IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+*/
+	
+	private Map<String,String> data =new HashMap<String,String>();
+	
+	public Document(Object obj) {
+		@SuppressWarnings("unchecked")
+		Map<String,Object> obj_map = (Map<String,Object>) obj;
+		// Map values are converted from Object (text or number) to String
+		for (Map.Entry<String, Object> entry : obj_map.entrySet()) {
+			data.put(entry.getKey(), entry.getValue().toString());
+		 }
+	}
+	
+	public String getField(String fieldName) {
+		if (!data.containsKey(fieldName)) {
+			throw new NullPointerException("Key " + fieldName + " does not exist in Document object.");
 		}
-		return m;
+		return data.get(fieldName);
+	}
+	
+	public Map<String, String> getMetadata() {
+		return data;
 	}
 }

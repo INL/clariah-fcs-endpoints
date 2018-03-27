@@ -144,7 +144,7 @@ public class Hit {
 
 	public String toString() {
 		List<String> lines = tokens.stream().map(t -> t.toString()).collect(Collectors.toList());
-		return "(" + this.startPosition + "-" + this.endPosition + ") " + this.document.NLTitle_title + "\n"
+		return "(" + this.startPosition + "-" + this.endPosition + ") " + this.document.getField("NLTitle_title") + "\n"
 				+ StringUtils.join(lines, "; ");
 	}
 
