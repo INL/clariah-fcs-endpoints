@@ -276,7 +276,9 @@ public class NederlabClient {
 			for (Object d : documents) {
 				/*String docJ = this.mapper.writeValueAsString(d); // ugly reserialization!!!
 				Document doc = this.mapper.readValue(docJ, Document.class);*/
-				Document doc = new Document(d);
+				@SuppressWarnings("unchecked")
+				Map<String,Object> d_map = (Map<String,Object>) d;
+				Document doc = new Document(d_map);
 				docMap.put(doc.getField("NLCore_NLIdentification_nederlabID"), doc);
 			}
 
@@ -326,11 +328,11 @@ public class NederlabClient {
 							JSONArray tokens = (JSONArray) hitMap.get("tokens");
 
 							for (int l = 0; l < tokens.size(); l++) {
-								// en nu wel mappen met jackson ??
 								@SuppressWarnings("unchecked")
 								Map<String,Object> tok = (Map<String,Object>) (tokens.get(l));
-								String tokJ = this.mapper.writeValueAsString(tok); // ugly reserialization!!!
-								TokenProperty t = this.mapper.readValue(tokJ, TokenProperty.class);
+								//String tokJ = this.mapper.writeValueAsString(tok); // ugly reserialization!!!
+								//TokenProperty t = this.mapper.readValue(tokJ, TokenProperty.class);
+								TokenProperty t = new TokenProperty(tok);
 								tokenProps.add(t);
 							}
 

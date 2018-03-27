@@ -1,5 +1,7 @@
 package org.ivdnt.fcs.endpoint.nederlab.objectmapper;
 
+import java.util.Map;
+
 /**
  * This class is used by the Json ObjectMapper so as deserialize the JSON string
  * response from Nederlab into Java objects (here: Document, Token,
@@ -18,11 +20,11 @@ package org.ivdnt.fcs.endpoint.nederlab.objectmapper;
  * 
  * 
  * 
- * @author jesse
+ * @author jesse, peter
  *
  */
 public class TokenProperty {
-	// see explanation above
+	/*// see explanation above
 
 	private String prefix; // this can have value 't'=token, or 'pos', or 'lemma'
 	private String value;
@@ -36,44 +38,40 @@ public class TokenProperty {
 
 	public int mtasId;
 	public String valueposition;
-	public int parentMtasId;
+	public int parentMtasId;*/
+	
+	private Map<String,Object> data;
+	
+	public TokenProperty(Map<String,Object> obj) {
+		// Map values stay Object (text or number): no conversion to string performed
+		data = obj;
+	}
+	
+	public Object getField(String fieldName) {
+		if (!data.containsKey(fieldName)) {
+			throw new NullPointerException("Key " + fieldName + " does not exist in TokenProperty object.");
+		}
+		return data.get(fieldName);
+	}
 
 	// -----------------------------------------------------------------------------
 	// getters
 
 	public String getPrefix() {
-		return prefix;
+		return (String) getField("prefix");
 	}
 
 	public String getValue() {
-		return value;
+		return (String) getField("value");
 	}
 
 	public int getPositionStart() {
-		return positionStart;
+		return (int) getField("positionStart");
 	}
 
 	public int getPositionEnd() {
-		return positionEnd;
+		return (int) getField("positionEnd");
 	}
 
-	// -----------------------------------------------------------------------------
-	// setters
-
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-
-	public void setPositionStart(int positionStart) {
-		this.positionStart = positionStart;
-	}
-
-	public void setPositionEnd(int positionEnd) {
-		this.positionEnd = positionEnd;
-	}
 
 };

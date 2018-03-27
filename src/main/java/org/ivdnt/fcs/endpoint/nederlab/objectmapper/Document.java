@@ -8,7 +8,9 @@ import java.util.Map;
  * response from Nederlab into Java objects (here: Document, Token,
  * TokenPropery, ...)
  * 
- * @author does { "NLProfile_name": "nederlabTitleProfile",
+ * @author jesse, peter 
+ * 
+ * { "NLProfile_name": "nederlabTitleProfile",
  *         "NLCore_NLIdentification_nederlabID":
  *         "c277847b-1264-4980-9b94-4350f5c43056", "NLTitle_title":
  *         "Notificatie." },
@@ -24,11 +26,9 @@ public class Document {
 	
 	private Map<String,String> data =new HashMap<String,String>();
 	
-	public Document(Object obj) {
-		@SuppressWarnings("unchecked")
-		Map<String,Object> obj_map = (Map<String,Object>) obj;
+	public Document(Map<String,Object> obj) {
 		// Map values are converted from Object (text or number) to String
-		for (Map.Entry<String, Object> entry : obj_map.entrySet()) {
+		for (Map.Entry<String, Object> entry : obj.entrySet()) {
 			data.put(entry.getKey(), entry.getValue().toString());
 		 }
 	}
