@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -19,6 +20,7 @@ import javax.xml.xpath.XPathFactory;
 
 import org.ivdnt.fcs.endpoint.blacklab.BlacklabServerEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.nederlab.NederlabEndpointSearchEngine;
+import org.ivdnt.fcs.endpoint.nederlab.client.NederlabConstants;
 import org.ivdnt.fcs.mapping.ConversionEngine;
 import org.ivdnt.fcs.mapping.ConversionObject;
 import org.ivdnt.fcs.mapping.ConversionObjectProcessor;
@@ -165,8 +167,9 @@ public class CorpusDependentEngineBuilder {
 
 				if (engineType.contains("nederlab")) {
 					String queryTemplate = readQueryTemplate("nederlab_query_template.json");
+					List<String> nederlabExtraResponseFields = NederlabConstants.NEDERLAB_EXTRA_RESPONSE_FIELDS;
 					engineMap.put(engineName, new NederlabEndpointSearchEngine(engineUrl, conversionEngine,
-							queryTemplate, engineNativeUrlTemplate));
+							queryTemplate, engineNativeUrlTemplate, nederlabExtraResponseFields));
 				}
 
 				// Blacklab engine type

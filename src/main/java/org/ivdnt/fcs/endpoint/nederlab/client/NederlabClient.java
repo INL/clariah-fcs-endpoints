@@ -9,6 +9,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
 
 /**
- * @author jesse
+ * @author jesse, peter
  * 
  *         Zie ook
  *         https://github.com/meertensinstituut/mtas/blob/master/conf/solr/schemaOeaw.xml
@@ -61,15 +62,19 @@ public class NederlabClient {
 	// The Nederlab query template set for this client
 
 	private QueryTemplate nederlabQueryTemplate;
+	
+	// Extra response fields, are send with query, to ask Nederlab to return these fields
+	private List<String> nederlabExtraResponseFields;
 
 	// ------------------------------------------------------------------
 
 	// Constructor
 
-	public NederlabClient(QueryTemplate nederlabQueryTemplate, String server) {
+	public NederlabClient(QueryTemplate nederlabQueryTemplate, String server, List<String> nederlabExtraResponseFields) {
 
 		this.nederlabQueryTemplate = nederlabQueryTemplate;
 		this.server = server;
+		this.nederlabExtraResponseFields = nederlabExtraResponseFields;
 	}
 
 	// ------------------------------------------------------------------
@@ -93,16 +98,24 @@ public class NederlabClient {
 		queryTemplateValues.put("_NUMBER_", new Integer(number).toString());
 		queryTemplateValues.put("_CONTEXT_", new Integer(this.contextSize).toString());
 		queryTemplateValues.put("_QUERY_", cqlQuery);
-
+		
+		// Add extra response fields to query, so we ask Nederlab server to return these fields
 		String jsonQuery = this.nederlabQueryTemplate.expandTemplate(queryTemplateValues);
-
+		String jsonQueryUpdated = addResponseFieldsToQuery(jsonQuery, nederlabExtraResponseFields);
+		
 		// send the query
-
-		String jsonResults = sendQuery(jsonQuery);
+		String jsonResults = sendQuery(jsonQueryUpdated);
 
 		// parse the response
-
 		return parseResults(jsonResults);
+	}
+
+	private String addResponseFieldsToQuery(String jsonQuery, List<String> extraResponseFields) {
+		DocumentContext dc = JsonPath.parse(jsonQuery);
+		for (String f : extraResponseFields) {
+			dc = dc.add("$.response.documents.fields", f);
+		}
+		return dc.jsonString();
 	}
 
 	// ------------------------------------------------------------------

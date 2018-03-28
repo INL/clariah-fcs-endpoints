@@ -1,5 +1,7 @@
 package org.ivdnt.fcs.endpoint.nederlab;
 
+import java.util.List;
+
 import org.ivdnt.fcs.endpoint.common.BasicEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.nederlab.client.QueryTemplate;
 import org.ivdnt.fcs.mapping.ConversionEngine;
@@ -15,18 +17,20 @@ import eu.clarin.sru.server.SRUServerConfig;
 
 public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 
-	QueryTemplate nederlabQueryTemplate;
+	private QueryTemplate nederlabQueryTemplate;
+	private List<String> nederlabExtraResponseFields;
 
 	// ---------------------------------------------------------------------------------
 	// constructors
 
 	public NederlabEndpointSearchEngine(String server, ConversionEngine conversionEngine, String nederlabQueryTemplate,
-			String engineNativeUrlTemplate) {
+			String engineNativeUrlTemplate, List<String> nederlabExtraResponseFields) {
 		super(server, conversionEngine, engineNativeUrlTemplate);
 
 		// instantiate a Nederlab query template (needed to post well formed query's to
 		// Nederlab)
 		this.nederlabQueryTemplate = new QueryTemplate(nederlabQueryTemplate);
+		this.nederlabExtraResponseFields = nederlabExtraResponseFields;
 
 	}
 
@@ -48,7 +52,7 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 		// instantiate the Nederlab query
 
 		NederlabQuery nederlabQuery = new NederlabQuery(this.getServer(), fcsContextCorpus, cqpQuery,
-				this.nederlabQueryTemplate, this.getEngineNativeUrlTemplate());
+				this.nederlabQueryTemplate, this.getEngineNativeUrlTemplate(), this.nederlabExtraResponseFields);
 
 		nederlabQuery.setStartPosition(request.getStartRecord() - 1); // fcs begint bij 1 te tellen, nederlab bij 0 (?)
 		nederlabQuery.setMaximumResults(request.getMaximumRecords());
@@ -65,6 +69,7 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 			return new FcsSearchResultSet(config, request, diagnostics, fcsResultSet);
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
 					"The query execution failed by this CLARIN-FCS (nederlab) endpoint. " + nederlabQuery);
 		}

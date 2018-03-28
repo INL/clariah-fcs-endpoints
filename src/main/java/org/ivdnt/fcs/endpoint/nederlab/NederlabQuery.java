@@ -14,6 +14,7 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 	// template needed to build a well formed Nederlab query
 
 	private QueryTemplate nederlabQueryTemplate;
+	private List<String> nederlabExtraResponseFields;
 
 	ConcurrentHashMap<String, String> prefixMapping = new ConcurrentHashMap<String, String>() {
 		{
@@ -38,12 +39,14 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 	 * 
 	 */
 	public NederlabQuery(String server, String corpus, String cqpQuery, QueryTemplate nederlabQueryTemplate,
-			String engineNativeUrlTemplate) {
+			String engineNativeUrlTemplate, List<String> nederlabExtraResponseFields) {
 		super(server, corpus, cqpQuery, engineNativeUrlTemplate);
 
 		// template to build Nederlab query's
 
 		this.nederlabQueryTemplate = nederlabQueryTemplate;
+		
+		this.nederlabExtraResponseFields = nederlabExtraResponseFields;
 
 		// make sure the CQL query
 		// has the right quotes and parameter names
@@ -66,7 +69,7 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 
 		// search
 
-		NederlabClient nederlabClient = new NederlabClient(this.nederlabQueryTemplate, this.getServer());
+		NederlabClient nederlabClient = new NederlabClient(this.nederlabQueryTemplate, this.getServer(), this.nederlabExtraResponseFields);
 
 		NederlabResultSet nederlabResultSet = nederlabClient.doSearch(this.getCqpQuery(), this.getStartPosition(),
 				this.getMaximumResults());
