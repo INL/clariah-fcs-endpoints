@@ -167,6 +167,7 @@ public class CorpusDependentEngineBuilder {
 
 				if (engineType.contains("nederlab")) {
 					String queryTemplate = readQueryTemplate("nederlab_query_template.json");
+					// TODO: Make extra reponse fields configurable, are now hardcoded
 					List<String> nederlabExtraResponseFields = NederlabConstants.NEDERLAB_EXTRA_RESPONSE_FIELDS;
 					engineMap.put(engineName, new NederlabEndpointSearchEngine(engineUrl, conversionEngine,
 							queryTemplate, engineNativeUrlTemplate, nederlabExtraResponseFields));

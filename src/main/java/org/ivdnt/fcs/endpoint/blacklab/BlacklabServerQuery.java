@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -182,7 +183,8 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 				results.add(kwic);
 
 				JSONObject hit = (JSONObject) hits.get(i);
-				JSONObject doc = (JSONObject) docs.get((String) hit.get("docPid"));
+				@SuppressWarnings("unchecked")
+				HashMap<String,Object> doc = (HashMap<String,Object>) docs.get((String) hit.get("docPid"));
 
 				doc.forEach((k, v) -> kwic.getMetadata().put(k.toString(), v.toString()));
 				// or put this in separate document info objects?
@@ -196,7 +198,8 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 
 				// initialize details about matched token
 
-				Set<String> matchedTokenProperties = match.keySet();
+				@SuppressWarnings("unchecked")
+				Set<String> matchedTokenProperties = (Set<String>) match.keySet();
 				int hitStart = 0;
 				int hitEnd = 0;
 
