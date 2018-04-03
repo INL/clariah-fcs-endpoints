@@ -131,7 +131,7 @@ public class FCSToCQPConverter {
 				children.add(getQuerySegment(child));
 			}
 		}
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for (String child : children) {
 			sb.append(child);
 		}
@@ -209,7 +209,7 @@ public class FCSToCQPConverter {
 	private static String translatePos(final String layerIdentifier, final String operator, final String pos)
 			throws SRUException {
 		List<String> sucT = SUCTranslator.toSUC(pos);
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 
 		buf.append(layerIdentifier);
 		buf.append(" ");
@@ -242,7 +242,7 @@ public class FCSToCQPConverter {
 
 	private static String getWordLayerFilter(Expression expression) {
 		boolean contRegexFlag = false;
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		buf.append((expression.getLayerIdentifier().equals("text") || expression.getLayerIdentifier().equals("token"))
 				? "word"
 				: expression.getLayerIdentifier());
@@ -281,7 +281,7 @@ public class FCSToCQPConverter {
 
 	private static String getLemmaLayerFilter(Expression expression) {
 		boolean contRegexFlag = false;
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		buf.append(expression.getLayerIdentifier());
 		buf.append(" ");
 		if (expression.getOperator() == Operator.NOT_EQUALS) {

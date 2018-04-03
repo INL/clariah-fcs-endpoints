@@ -18,7 +18,7 @@
     <SupportedLayer id="pos" result-id="http://spraakbanken.gu.se/ns/fcs/layer/pos">pos</SupportedLayer>
   </SupportedLayers>
   <Resources>
-    <Resource pid="hdl:10794/intkorpusar">
+    <Resource pid="INTCorpora">
       <Title xml:lang="sv">INTs korpusar</Title>
       <Title xml:lang="en">INT corpora</Title>
       <Description xml:lang="sv">Korpusarna hos INT.</Description>
@@ -31,7 +31,7 @@
       <AvailableLayers ref="word lemma pos"/>
       <Resources>
 
-	<Resource pid="hdl:10794/INTModernCorpora">
+	<Resource pid="INTModernCorpora">
 	  <Title xml:lang="sv">INTs moderna korpusar</Title>
 	  <Title xml:lang="en">INT modern Dutch corpora</Title>
 	  <Description xml:lang="sv">De moderna korpusarna hos INT.</Description>

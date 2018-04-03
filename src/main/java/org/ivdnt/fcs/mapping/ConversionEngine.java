@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.ivdnt.fcs.results.Kwic;
 import org.ivdnt.fcs.results.ResultSet;
@@ -316,6 +318,9 @@ public class ConversionEngine {
 		// get all the results (keywords in context) out of the resultSet
 
 		List<Kwic> kwics = resultSet.getHits();
+		
+		// Compile regex pattern once, to be matched against in the loop:
+		Pattern posTagPattern = Pattern.compile("^[A-Z-]+\\(.+\\)$");
 
 		// now loop through the results
 
@@ -354,7 +359,8 @@ public class ConversionEngine {
 
 				if (featureNamesOfCurrentToken.contains("pos")) {
 					String posTag = oneKeywordAndContext.get("pos", index);
-					if (posTag.matches("^[A-Z-]+\\(.+\\)$")) {
+					Matcher posTagMatcher = posTagPattern.matcher(posTag);
+					if (posTagMatcher.matches()) {
 						// pos tag
 
 						String realPosTag = posTag.replaceAll("^([A-Z-]+)\\((.+)\\)$", "$1");

@@ -87,7 +87,7 @@ public class FileUtils {
 			FileReader r = new FileReader(new File(this.filepath));
 			BufferedReader b = new BufferedReader(r);
 			String l;
-			StringBuffer sb = new StringBuffer();
+			StringBuilder sb = new StringBuilder();
 
 			while ((l = b.readLine()) != null) {
 				sb.append(l);
@@ -121,7 +121,7 @@ public class FileUtils {
 	// as string or as file
 
 	public String getResourceAsString() {
-		StringBuffer result = new StringBuffer("");
+		StringBuilder result = new StringBuilder("");
 
 		// Get file from resources folder
 		ClassLoader classLoader = getClass().getClassLoader();
