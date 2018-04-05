@@ -418,7 +418,6 @@ public class NederlabClient {
 			System.err.println(x);
 			return userData;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -432,7 +431,6 @@ public class NederlabClient {
 			System.err.println(x);
 			return this.mapper.writeValueAsString(userData);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

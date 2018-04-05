@@ -127,7 +127,6 @@ public class QueryProcessor {
 	// special cases
 
 	private QueryNode rewriteQueryWithWithin(QueryWithWithin node) {
-		// TODO Auto-generated method stub
 		return new QueryWithWithin(rewriteNode(node.getFirstChild()), rewriteNode(node.getChildren().get(1)));
 	}
 

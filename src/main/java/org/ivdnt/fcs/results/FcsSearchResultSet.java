@@ -115,7 +115,6 @@ public class FcsSearchResultSet extends SRUSearchResultSet {
 	 */
 	@Override
 	public String getRecordIdentifier() {
-		// TODO Auto-generated method stub
 		return null;
 		// return "rid:" + currentRecord;
 	}

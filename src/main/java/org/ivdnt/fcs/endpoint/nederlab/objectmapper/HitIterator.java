@@ -33,13 +33,11 @@ public class HitIterator implements Iterable<Hit>, Iterator<Hit> {
 
 	@Override
 	public Iterator<Hit> iterator() {
-		// TODO Auto-generated method stub
 		return this;
 	}
 
 	@Override
 	public boolean hasNext() {
-		// TODO Auto-generated method stub
 		if (done) {
 			return false;
 		}
@@ -58,7 +56,6 @@ public class HitIterator implements Iterable<Hit>, Iterator<Hit> {
 
 	@Override
 	public Hit next() {
-		// TODO Auto-generated method stub
 		if (done) {
 			return null;
 		}
