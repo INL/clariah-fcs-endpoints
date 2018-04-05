@@ -103,10 +103,16 @@ public class NederlabClient {
 		String jsonQueryUpdated = addResponseFieldsToQuery(jsonQuery, nederlabExtraResponseFields);
 		
 		// send the query
+		final long startTime = System.currentTimeMillis();
 		String jsonResults = sendQuery(jsonQueryUpdated);
-
+		final long sendEndTime = System.currentTimeMillis();
+		
 		// parse the response
-		return parseResults(jsonResults);
+		NederlabResultSet results = parseResults(jsonResults);
+		final long endTime = System.currentTimeMillis();
+		System.err.println("Send query/receive answer: " + (sendEndTime - startTime) + " ms.");
+		System.err.println("Parse results: " + (endTime - sendEndTime) + " ms.");
+		return results;
 	}
 
 	private String addResponseFieldsToQuery(String jsonQuery, List<String> extraResponseFields) {

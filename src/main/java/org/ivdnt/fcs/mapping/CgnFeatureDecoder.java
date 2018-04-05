@@ -16,6 +16,11 @@ import org.ivdnt.util.StringUtils;
 public class CgnFeatureDecoder {
 
 	private static ConcurrentHashMap<String, HashSet<String>> featureName2FeatureValues = new ConcurrentHashMap<String, HashSet<String>>() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -2253004472326058497L;
+
 		{
 			put("buiging", new HashSet<String>(Arrays.asList("met-e", "met-s", "zonder")));
 			put("getal-n", new HashSet<String>(Arrays.asList("mv-n", "zonder-n")));
@@ -49,6 +54,11 @@ public class CgnFeatureDecoder {
 	};
 
 	private static ConcurrentHashMap<String, HashSet<String>> postag2FeatureNames = new ConcurrentHashMap<String, HashSet<String>>() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -6260445263371236442L;
+
 		{
 			put("N", new HashSet<String>(Arrays.asList("ntype", "getal", "graad", "genus", "naamval")));
 			put("ADJ", new HashSet<String>(Arrays.asList("positie", "graad", "buiging", "getal-n", "naamval")));

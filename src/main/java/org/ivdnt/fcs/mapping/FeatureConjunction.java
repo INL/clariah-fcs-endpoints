@@ -21,6 +21,11 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 	// setter
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -815788743698217044L;
+
+	/**
 	 * Store a feature as a hash mapping a feature name to a feature value
 	 * 
 	 * @param name

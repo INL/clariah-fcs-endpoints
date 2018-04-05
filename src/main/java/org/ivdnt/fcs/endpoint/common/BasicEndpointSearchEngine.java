@@ -298,7 +298,6 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	 * @throws SRUException
 	 */
 	public static String translateQuery(SRURequest request, ConversionEngine conversion) throws SRUException {
-
 		String query;
 
 		if (request.isQueryType(Constants.FCS_QUERY_TYPE_CQL)) {
@@ -340,7 +339,10 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 
 			if (conversion != null) {
 				System.err.println(String.format("Before conversion with %s: %s", conversion, query));
+				final long translationStartTime = System.currentTimeMillis();
 				query = conversion.translateQuery(query);
+				final long translationEndTime = System.currentTimeMillis();
+				System.err.println("Translation: " + (translationEndTime-translationStartTime) + " ms.");
 				System.err.println(String.format("After conversion with %s: %s", conversion, query));
 			}
 			// do not parse the query. TODO real mapping component!

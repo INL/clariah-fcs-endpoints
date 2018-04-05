@@ -17,6 +17,11 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 	private List<String> nederlabExtraResponseFields;
 
 	ConcurrentHashMap<String, String> prefixMapping = new ConcurrentHashMap<String, String>() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -7521524109418078231L;
+
 		{
 			put("t", "word");
 		}

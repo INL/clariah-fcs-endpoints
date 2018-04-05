@@ -18,6 +18,11 @@ import org.ivdnt.util.Utils;
 
 public class ClarinCenterList extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4249262880158005274L;
+
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) {
 
