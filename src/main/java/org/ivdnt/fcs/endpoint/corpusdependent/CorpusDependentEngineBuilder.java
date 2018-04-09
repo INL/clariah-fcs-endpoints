@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -150,12 +151,14 @@ public class CorpusDependentEngineBuilder {
 				XPathExpression engineClassExpr = xpath.compile(".//engine-url");
 				XPathExpression engineNativeUrlTemplateExpr = xpath.compile(".//engine-native-url-template");
 				XPathExpression tagSetConversionTableExpr = xpath.compile(".//tagset-conversion-table");
+				XPathExpression nederlabExtraResponseFieldsExpr = xpath.compile(".//nederlab-extra-response-fields");
 
 				String engineName = engineNameExpr.evaluate(oneEngine);
 				String engineType = engineTypeExpr.evaluate(oneEngine);
 				String engineUrl = engineClassExpr.evaluate(oneEngine);
 				String engineNativeUrlTemplate = engineNativeUrlTemplateExpr.evaluate(oneEngine);
 				String tagSetConversionTable = tagSetConversionTableExpr.evaluate(oneEngine);
+				String nederlabExtraResponseFieldsStr = nederlabExtraResponseFieldsExpr.evaluate(oneEngine);
 
 				System.err.println(
 						"building " + engineName + " engine with " + tagSetConversionTable + " conversion table");
@@ -168,7 +171,7 @@ public class CorpusDependentEngineBuilder {
 				if (engineType.contains("nederlab")) {
 					String queryTemplate = readQueryTemplate("nederlab_query_template.json");
 					// TODO: Make extra reponse fields configurable, are now hardcoded
-					List<String> nederlabExtraResponseFields = NederlabConstants.NEDERLAB_EXTRA_RESPONSE_FIELDS;
+					List<String> nederlabExtraResponseFields = Arrays.asList(nederlabExtraResponseFieldsStr.split("\\s+"));
 					engineMap.put(engineName, new NederlabEndpointSearchEngine(engineUrl, conversionEngine,
 							queryTemplate, engineNativeUrlTemplate, nederlabExtraResponseFields));
 				}

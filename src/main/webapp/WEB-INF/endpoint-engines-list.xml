@@ -7,6 +7,7 @@
             <engine-url>http://www.nederlab.nl/testbroker/search/</engine-url>
             <engine-native-url-template>http://www.nederlab.nl/onderzoeksportaal/?action=results&amp;cql-expert=</engine-native-url-template>
             <tagset-conversion-table>UD2CGNNederlab</tagset-conversion-table>
+            <nederlab-extra-response-fields>NLCore_NLIdentification_versionID NLCore_NLIdentification_editorialCode</nederlab-extra-response-fields>
         </Engine>
         
         <Engine>
