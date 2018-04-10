@@ -15,7 +15,6 @@ import org.ivdnt.fcs.mapping.ConversionEngine;
  * 
  * @author jesse
  * 
- *         TODO QueryWithWithin
  *
  */
 public class QueryProcessor {
@@ -132,11 +131,11 @@ public class QueryProcessor {
 
 	private QueryNode rewriteSimpleWithin(SimpleWithin node) {
 		SimpleWithin sw = new SimpleWithin(node.getScope());
-		return sw; // children ???? TODO dit kan niet kloppen!!!
+		return sw;
 	}
 
 	private QueryNode rewriteExpressionWildcard(ExpressionWildcard node) {
-		return new ExpressionWildcard(); // TODO snap ik dit??
+		return new ExpressionWildcard();
 	}
 
 	private QueryNode rewriteExpressionOr(ExpressionOr node) {

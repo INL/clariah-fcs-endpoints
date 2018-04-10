@@ -236,8 +236,7 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 
 		for (String oneExtraRequestDataName : request.getExtraRequestDataNames()) {
 			if ("x-fcs-context".equals(oneExtraRequestDataName)) {
-				fcsContextCorpus = request.getExtraRequestData("x-fcs-context"); // TODO fix this in corpusinfo
-																					// implementation
+				fcsContextCorpus = request.getExtraRequestData("x-fcs-context");
 				break;
 			}
 		}
@@ -345,8 +344,6 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 				System.err.println("Translation: " + (translationEndTime-translationStartTime) + " ms.");
 				System.err.println(String.format("After conversion with %s: %s", conversion, query));
 			}
-			// do not parse the query. TODO real mapping component!
-			// FCSToCQPConverter.makeCQPFromFCS(q);
 		} else {
 			/*
 			 * Got something else we don't support. Send error ...

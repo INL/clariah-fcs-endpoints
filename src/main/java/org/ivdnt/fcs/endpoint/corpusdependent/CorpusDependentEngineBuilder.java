@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -151,15 +152,13 @@ public class CorpusDependentEngineBuilder {
 				XPathExpression engineClassExpr = xpath.compile(".//engine-url");
 				XPathExpression engineNativeUrlTemplateExpr = xpath.compile(".//engine-native-url-template");
 				XPathExpression tagSetConversionTableExpr = xpath.compile(".//tagset-conversion-table");
-				XPathExpression nederlabExtraResponseFieldsExpr = xpath.compile(".//nederlab-extra-response-fields");
 
 				String engineName = engineNameExpr.evaluate(oneEngine);
 				String engineType = engineTypeExpr.evaluate(oneEngine);
 				String engineUrl = engineClassExpr.evaluate(oneEngine);
 				String engineNativeUrlTemplate = engineNativeUrlTemplateExpr.evaluate(oneEngine);
 				String tagSetConversionTable = tagSetConversionTableExpr.evaluate(oneEngine);
-				String nederlabExtraResponseFieldsStr = nederlabExtraResponseFieldsExpr.evaluate(oneEngine);
-
+				
 				System.err.println(
 						"building " + engineName + " engine with " + tagSetConversionTable + " conversion table");
 
@@ -169,9 +168,18 @@ public class CorpusDependentEngineBuilder {
 				// Nederlab engine type
 
 				if (engineType.contains("nederlab")) {
-					String queryTemplate = readQueryTemplate("nederlab_query_template.json");
-					// TODO: Make extra reponse fields configurable, are now hardcoded
-					List<String> nederlabExtraResponseFields = Arrays.asList(nederlabExtraResponseFieldsStr.split("\\s+"));
+					// For NederLab, parse extra response fields from config file
+					XPathExpression nederlabExtraResponseFieldsExpr = xpath.compile(".//nederlab-extra-response-fields/field");
+					NodeList nederlabExtraResponseFieldsNl = (NodeList)nederlabExtraResponseFieldsExpr.evaluate(oneEngine, XPathConstants.NODESET);
+					List<String> nederlabExtraResponseFields = new ArrayList<String>();
+					for (int i = 0; i < nederlabExtraResponseFieldsNl.getLength(); i++) {
+					    String value = nederlabExtraResponseFieldsNl.item(i).getTextContent();
+					    nederlabExtraResponseFields.add(value);
+					} 
+					// Get query template location from conf
+					XPathExpression nederlabQueryTemplateLocationExpr = xpath.compile(".//nederlab-query-template-location");
+					String nederlabQueryTemplateLocation = nederlabQueryTemplateLocationExpr.evaluate(oneEngine);
+					String queryTemplate = readQueryTemplate(nederlabQueryTemplateLocation);
 					engineMap.put(engineName, new NederlabEndpointSearchEngine(engineUrl, conversionEngine,
 							queryTemplate, engineNativeUrlTemplate, nederlabExtraResponseFields));
 				}

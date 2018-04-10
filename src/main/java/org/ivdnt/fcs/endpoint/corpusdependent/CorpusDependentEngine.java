@@ -28,8 +28,6 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine {
 	SimpleEndpointSearchEngineBase engine;
 	ServletContext contextCache;
 
-	// TODO: server may also depend on corpus identifier
-	// The corpus id also may need to be mapped
 
 	Map<String, SimpleEndpointSearchEngineBase> engineMap = new ConcurrentHashMap<String, SimpleEndpointSearchEngineBase>();
 

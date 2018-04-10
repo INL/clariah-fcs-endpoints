@@ -75,13 +75,16 @@ public class CqpWriter {
 		return n1;
 	}
 
-	// TODO: dit moet ook in de mapping....
+	
 
 	private String writeQueryWithWithin(QueryWithWithin node) {
 
 		return writeAsCQP(node.getFirstChild()) + "  within " + writeAsCQP(node.getWithin());
 
 	}
+	
+	// TODO: dit moet ook in de mapping....
+	// Per corpus andere XML-tag, zet xml-tag (bijv s) in mapping
 
 	private String writeSimpleWithin(SimpleWithin node) {
 		SimpleWithin sw = new SimpleWithin(node.getScope());
@@ -135,7 +138,6 @@ public class CqpWriter {
 	}
 
 	/**
-	 * TODO feature regexes are too simple
 	 * 
 	 * @param node
 	 *            (expression node)

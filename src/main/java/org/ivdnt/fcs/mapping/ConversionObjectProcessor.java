@@ -4,9 +4,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 
- * @author jesse Even houtjetouwtje in code. TODO zet in XML bestandje (Wat
- *         eigenlijk weer minder leesbaar is :))
- * 
  * @author Mathieu 3 nov 2017 in JSON gegoten
  * 
  *         Kijk ook naar
