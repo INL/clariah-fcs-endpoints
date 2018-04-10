@@ -34,7 +34,9 @@ import org.xml.sax.SAXException;
 public class FileUtils {
 
 	private String filepath;
+	private String newFilepath;
 	ServletContext context;
+	DataInputStream in;
 
 	// -------------------------------------------------------------
 	// constructor
@@ -44,10 +46,16 @@ public class FileUtils {
 		this.filepath = filepath;
 	}
 
-	public FileUtils(ServletContext context, String filepath) {
+	public FileUtils(ServletContext context, String filepath) throws FileNotFoundException {
 
 		this.context = context;
 		this.filepath = filepath;
+		// translate path into the path to the config file
+		String contextpath = this.context.getRealPath(this.filepath);
+		this.newFilepath = contextpath.replace("blacklab-sru-server", "blacklab-sru-server-config");
+		FileInputStream fstream = new FileInputStream(this.newFilepath);
+		this.in = new DataInputStream(fstream);
+		
 	}
 
 	// -------------------------------------------------------------
@@ -178,19 +186,10 @@ public class FileUtils {
 	// fews versions with different output: URL, String or Document
 
 	public String readConfigFileAsString() throws IOException {
-
-		// translate path into the path to the config file
-		String contextpath = this.context.getRealPath(this.filepath);
-		String newFilepath = contextpath.replace("blacklab-sru-server", "blacklab-sru-server-config");
-
 		// build string output
-
-		StringBuilder sb = new StringBuilder();
-		FileInputStream fstream = new FileInputStream(newFilepath);
-
-		DataInputStream in = new DataInputStream(fstream);
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
-
+		
+		StringBuilder sb = new StringBuilder();
 		String strLine;
 		while ((strLine = br.readLine()) != null) {
 			sb.append(strLine);
@@ -202,45 +201,26 @@ public class FileUtils {
 		return sb.toString();
 	}
 
+
 	public URL readConfigFileAsURL() throws IOException {
-
-		// translate path into the path to the config file
-
-		String contextpath = this.context.getRealPath(this.filepath);
-		String newFilepath = contextpath.replace("blacklab-sru-server", "blacklab-sru-server-config");
-
 		// return path as URL
 		// https://stackoverflow.com/questions/6098472/pass-a-local-file-in-to-url-in-java
-		File file = new File(newFilepath);
+		File file = new File(this.newFilepath);
 		if (!file.exists())
 			throw new FileNotFoundException("File not found in blacklab-sru-server-config/");
 		return file.toURI().toURL();
 	}
 
 	public Document readConfigFileAsDoc() throws IOException, ParserConfigurationException, SAXException {
-
-		// translate path into the path to the config file
-
-		String contextpath = this.context.getRealPath(this.filepath);
-		String newFilepath = contextpath.replace("blacklab-sru-server", "blacklab-sru-server-config");
-
 		// build the document
-
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setNamespaceAware(true);
 		dbf.setCoalescing(true);
 
-		DocumentBuilder db;
-		Document doc;
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		Document doc = db.parse(this.in);
 
-		FileInputStream fstream = new FileInputStream(newFilepath);
-
-		DataInputStream in = new DataInputStream(fstream);
-
-		db = dbf.newDocumentBuilder();
-		doc = db.parse(in);
-
-		in.close();
+		this.in.close();
 
 		return doc;
 	}

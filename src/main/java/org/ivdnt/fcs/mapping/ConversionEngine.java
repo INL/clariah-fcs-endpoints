@@ -297,6 +297,7 @@ public class ConversionEngine {
 		Set<FeatureConjunction> destination = this.featureMap.get(source);
 
 		if (destination == null) {
+			//throw new NullPointerException("Mapping not found for feature " + feature + " with value " + value);
 			FeatureConjunction fc = new FeatureConjunction();
 			fc.put(source.getFeatureName(), source.getValues()); // TODO geen pass-through meer als niet gemapt
 			destination = new HashSet<>();

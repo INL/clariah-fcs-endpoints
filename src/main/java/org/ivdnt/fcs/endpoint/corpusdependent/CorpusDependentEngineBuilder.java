@@ -1,6 +1,7 @@
 package org.ivdnt.fcs.endpoint.corpusdependent;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -210,7 +211,12 @@ public class CorpusDependentEngineBuilder {
 	public String readQueryTemplate(String filename) {
 
 		String queryTemplate = null;
-		FileUtils fileUtils = new FileUtils(this.contextCache, filename);
+		FileUtils fileUtils = null;
+		try {
+			fileUtils = new FileUtils(this.contextCache, filename);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
 		try {
 			queryTemplate = fileUtils.readConfigFileAsString();
@@ -362,53 +368,38 @@ public class CorpusDependentEngineBuilder {
 
 		// we'll need to map the json onto a java object
 		ObjectMapper mapper = new ObjectMapper();
-
+		ConversionObject oneConversion = null;
+		
 		try {
 
 			String conversionString = new FileUtils(this.contextCache, endConversionFileName).readConfigFileAsString();
-
 			// read the JSON file
-
-			ConversionObject oneConversion = mapper.readValue(conversionString, ConversionObject.class);
-
-			// convert the data into the right format
-
-			ConversionObjectProcessor.processConversionTable(name, oneConversion);
-
+			oneConversion = mapper.readValue(conversionString , ConversionObject.class);
 			System.err.println("[Tagset conversion set] " + endConversionFileName + " read from CONFIG DIR");
 
 		} catch (IOException e2) {
 
 			String endConversionFilePath = File.separator + "WEB-INF" + File.separator + endConversionFileName;
 
-			URL url = null;
 			try {
-				url = contextCache.getResource(endConversionFilePath);
+				URL url = contextCache.getResource(endConversionFilePath);
+				
+				// read the JSON file
+				oneConversion = mapper.readValue(url , ConversionObject.class);
+				
+				System.err.println("[Tagset conversion set] " + endConversionFileName + " read from WEB-INF");
 
 			} catch (MalformedURLException e1) {
 				e1.printStackTrace();
 			}
-
-			try {
-
-				// read the JSON file
-				ConversionObject oneConversion = mapper.readValue(url, ConversionObject.class);
-
-				// convert the data into the right format
-
-				ConversionObjectProcessor.processConversionTable(name, oneConversion);
-
-				System.err.println("[Tagset conversion set] " + endConversionFileName + " read from WEB-INF");
-
-			} catch (JsonParseException e) {
-				Utils.printStackTrace(e);
-			} catch (JsonMappingException e) {
-				Utils.printStackTrace(e);
-			} catch (IOException e) {
-				Utils.printStackTrace(e);
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-
 		}
+
+		// convert the data into the right format
+		ConversionObjectProcessor.processConversionTable(name, oneConversion);
 
 	}
 
