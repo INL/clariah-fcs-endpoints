@@ -18,7 +18,7 @@ import eu.clarin.sru.server.fcs.SimpleEndpointSearchEngineBase;
 
 /**
  * 
- * @author jesse, mathieu
+ * @author jesse, mathieu, peter
  *
  *         Choose implementation, determined by corpus
  *

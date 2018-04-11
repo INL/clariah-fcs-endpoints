@@ -28,7 +28,7 @@ import org.xml.sax.SAXException;
 /**
  * Several methods to read file content
  * 
- * @author fannee
+ * @author fannee, peter
  *
  */
 public class FileUtils {
@@ -150,10 +150,10 @@ public class FileUtils {
 			e.printStackTrace();
 		}
 		
-		return readStringFromStream(s);
+		return streamToString(s);
 	}
 
-	private String readStringFromStream(InputStream stream) {
+	private String streamToString(InputStream stream) {
 		StringBuilder result = new StringBuilder("");
 		Scanner scanner = new Scanner(stream);
 
@@ -196,12 +196,62 @@ public class FileUtils {
 		}
 	}*/
 
-	// -------------------------------------------------------------
-	// get file out of the -config subfolder in the Webapps folder
 
-	// fews versions with different output: URL, String or Document
-
+	public URL readConfigFileAsURL() {
+		// return path as URL
+		// https://stackoverflow.com/questions/6098472/pass-a-local-file-in-to-url-in-java
+		URL url = null;
+		File file = new File(userFilepath);
+		if (file.exists()) {
+			// Try user-defined config file in blacklab-sru-server-config directory
+			try {
+				url = file.toURI().toURL();
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+			System.err.println(filepath + " read from blacklab-sru-server-config/");
+		}
+		else {
+			// If that fails, read config file from WEB-INF directory in war
+			try {
+				url = context.getResource(this.warFilepath);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+			System.err.println(filepath + " read from WEB-INF");
+		}
+		
+		
+		return url;
+	}
+	
+	
 	public String readConfigFileAsString() {
+		InputStream in = readConfigFileAsStream();
+		
+		return streamToString(in);
+	}
+
+	
+
+	public Document readConfigFileAsDoc() {
+		InputStream in = readConfigFileAsStream();
+		
+		Document doc = null;
+		
+		// Convert stream to document object
+		try {
+			doc = streamToDoc(in);
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		return doc;
+	}
+	
+	// General method, which tries to read config file from user config directory, then defaults to WEB-INF directory packaged with war
+	// Returns InputStream
+	private InputStream readConfigFileAsStream() {
 		InputStream in = null;
 		URL url = null;
 		try {
@@ -218,66 +268,7 @@ public class FileUtils {
 			}
 			System.err.println(this.filepath + " read from WEB-INF");
 		}
-		
-		return readStringFromStream(in);
-	}
-
-
-	public URL readConfigFileAsURL() {
-		// return path as URL
-		// https://stackoverflow.com/questions/6098472/pass-a-local-file-in-to-url-in-java
-		URL url = null;
-		File file = new File(this.userFilepath);
-		if (file.exists()) {
-			// Try user-defined config file in blacklab-sru-server-config directory
-			try {
-				url = file.toURI().toURL();
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
-			System.err.println(this.filepath + " read from blacklab-sru-server-config/");
-		}
-		else {
-			// If that fails, read config file from WEB-INF directory in war
-			try {
-				url = context.getResource(this.warFilepath);
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
-			System.err.println(this.filepath + " read from WEB-INF");
-		}
-		
-		
-		return url;
-	}
-
-	public Document readConfigFileAsDoc() {
-		DataInputStream in = null;
-		Document doc = null;
-		URL url = null;
-		try {
-			// Try user-defined config file in blacklab-sru-server-config directory
-			in = createInputStream(this.userFilepath);
-			System.err.println(this.filepath + " read from blacklab-sru-server-config/");
-		} catch (FileNotFoundException e) {
-			// If that fails, read config file from WEB-INF directory in war
-			try {
-				url = this.context.getResource(this.warFilepath);
-				System.err.println(this.filepath + " read from WEB-INF");
-			} catch (MalformedURLException e1) {
-				e1.printStackTrace();
-			}
-		}
-		
-		
-		// Convert stream to document object
-		try {
-			doc = FileUtils.streamToDoc(in != null ? in : url.openStream());
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			e.printStackTrace();
-		}
-		
-		return doc;
+		return in;
 	}
 	
 	public static Document streamToDoc(InputStream istr) throws ParserConfigurationException, SAXException, IOException {
