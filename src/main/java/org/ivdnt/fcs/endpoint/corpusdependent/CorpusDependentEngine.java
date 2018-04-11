@@ -6,7 +6,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.ServletContext;
 
 import org.ivdnt.fcs.endpoint.common.BasicEndpointSearchEngine;
-import org.ivdnt.fcs.mapping.ConversionObjectProcessor;
 
 import eu.clarin.sru.server.SRUConfigException;
 import eu.clarin.sru.server.SRUDiagnosticList;
@@ -46,7 +45,7 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine {
 		// in each thread, which malfunction as a consequence. One single
 		// initialisation in the very first thread is enough.
 
-		// FIRST CALL:
+		/*// FIRST CALL:
 		// ----------
 		// fill tag sets conversion maps
 
@@ -57,7 +56,7 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine {
 
 			System.err.println(">> " + (ConversionObjectProcessor.getConversionEngines()).size()
 					+ " tagsets conversion tables loaded");
-		}
+		}*/
 
 		// fill engine map
 

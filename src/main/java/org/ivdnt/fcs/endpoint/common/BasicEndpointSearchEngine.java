@@ -5,11 +5,8 @@
  */
 package org.ivdnt.fcs.endpoint.common;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
-
 import javax.servlet.ServletContext;
 
 import org.ivdnt.fcs.endpoint.blacklab.BlacklabConstants;
@@ -94,34 +91,8 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	protected EndpointDescription createEndpointDescription(ServletContext context, SRUServerConfig config,
 			Map<String, String> params) throws SRUConfigException {
 
-		URL url = null;
-
-		try {
-
-			// try to read our own endpoint description file
-
-			// [1] first try to get it from the -config folder
-
-			try {
-				url = new FileUtils(context, "endpoint-description.xml").readConfigFileAsURL();
-
-				System.err.println("using 'endpoint-description.xml' file from IvdNT config folder");
-				LOG.debug("using 'endpoint-description.xml' file from IvdNT config folder");
-			} catch (IOException ioe) {
-				// [2] if that fails, try to get it from the WAR file
-				// Utils.printStackTrace(ioe);
-
-				url = context.getResource("/WEB-INF/endpoint-description.xml");
-
-				System.err.println("using bundled 'endpoint-description.xml' file");
-				LOG.debug("using bundled 'endpoint-description.xml' file");
-			}
-
-			return SimpleEndpointDescriptionParser.parse(url);
-
-		} catch (MalformedURLException mue) {
-			throw new SRUConfigException("Malformed URL for initializing resource info inventory", mue);
-		}
+		URL url = new FileUtils(context, "endpoint-description.xml").readConfigFileAsURL();
+		return SimpleEndpointDescriptionParser.parse(url);
 	}
 
 	/**
