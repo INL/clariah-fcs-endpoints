@@ -7,6 +7,7 @@ package org.ivdnt.fcs.endpoint.common;
 
 import java.net.URL;
 import java.util.Map;
+
 import javax.servlet.ServletContext;
 
 import org.ivdnt.fcs.endpoint.blacklab.BlacklabConstants;

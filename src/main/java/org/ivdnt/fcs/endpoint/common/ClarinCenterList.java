@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.ivdnt.util.FileUtils;
-import org.ivdnt.util.Utils;
 
 public class ClarinCenterList extends HttpServlet {
 
@@ -38,7 +37,7 @@ public class ClarinCenterList extends HttpServlet {
 			out.println(xmlFileContent);
 
 		} catch (IOException e) {
-			Utils.printStackTrace(e);
+			throw new RuntimeException("Exception while writing response.", e);
 		}
 	}
 

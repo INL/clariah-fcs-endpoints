@@ -69,7 +69,6 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 			return new FcsSearchResultSet(config, request, diagnostics, fcsResultSet);
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
 					"The query execution failed by this CLARIN-FCS (nederlab) endpoint. " + nederlabQuery);
 		}

@@ -169,6 +169,7 @@ public class FcsSearchResultSet extends SRUSearchResultSet {
 				writer.writeAttribute(null, null, "value", v);
 				writer.writeEndElement();
 			} catch (Exception e) {
+				throw new RuntimeException("Exception while writing XML.", e);
 			}
 			;
 		});
@@ -242,7 +243,6 @@ public class FcsSearchResultSet extends SRUSearchResultSet {
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
 			throw new XMLStreamException(e.getMessage());
 		}
 

@@ -56,7 +56,7 @@ public abstract class Query {
 		try {
 			this.engineNativeUrl = engineNativeUrlTemplate + URLEncoder.encode(this.cqpQuery, "utf-8");
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			throw new RuntimeException("Not able to encode query URL " + this.cqpQuery, e);
 		}
 	}
 

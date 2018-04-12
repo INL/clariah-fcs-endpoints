@@ -1,20 +1,15 @@
 package org.ivdnt.fcs.endpoint.nederlab.client;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 import org.ivdnt.fcs.endpoint.nederlab.objectmapper.Document;
 import org.ivdnt.fcs.endpoint.nederlab.objectmapper.HitIterator;
@@ -23,10 +18,7 @@ import org.ivdnt.fcs.endpoint.nederlab.objectmapper.TokenProperty;
 import org.ivdnt.fcs.endpoint.nederlab.results.Hit;
 import org.ivdnt.fcs.endpoint.nederlab.results.NederlabResultSet;
 import org.ivdnt.util.FileUtils;
-import org.ivdnt.util.Utils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 
@@ -41,9 +33,6 @@ import net.minidev.json.JSONArray;
 
 public class NederlabClient {
 
-	// Instantiate a mapper to convert a JSON response object into a JAVA object
-
-	private ObjectMapper mapper = new ObjectMapper();
 
 	// Variable to store server URL, initialized by constructor
 	private String server;
@@ -169,9 +158,7 @@ public class NederlabClient {
 
 			return response.toString();
 		} catch (Exception e) {
-
-			Utils.printStackTrace(e);
-			return null;
+			throw new RuntimeException("Exception while sending query " + query, e);
 		}
 	}
 
@@ -384,8 +371,7 @@ public class NederlabClient {
 
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println(context);
+			throw new RuntimeException("Exception while parsing json: " + context, e);
 		}
 		return nederlabResultSet;
 	}
@@ -393,7 +379,7 @@ public class NederlabClient {
 	// ------------------------------------------------------------------
 	// NOT IN USE
 
-	public String queryNederlab(Object o) {
+	/*public String queryNederlab(Object o) {
 		try {
 			String s = this.mapper.writeValueAsString(o);
 			return sendQuery(s);
@@ -434,7 +420,7 @@ public class NederlabClient {
 			e.printStackTrace();
 			return null;
 		}
-	}
+	}*/
 
 	// ------------------------------------------------------------------
 	// test only

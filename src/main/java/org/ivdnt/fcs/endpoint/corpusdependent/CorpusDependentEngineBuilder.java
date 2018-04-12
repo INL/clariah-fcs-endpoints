@@ -19,11 +19,9 @@ import org.ivdnt.fcs.mapping.ConversionEngine;
 import org.ivdnt.fcs.mapping.ConversionObject;
 import org.ivdnt.fcs.mapping.ConversionObjectProcessor;
 import org.ivdnt.util.FileUtils;
-import org.ivdnt.util.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -87,24 +85,6 @@ public class CorpusDependentEngineBuilder {
 
 			HashSet<String> listOfLoadedConversions = new HashSet<String>();
 
-			for (int engineNr = 0; engineNr < engineList.getLength(); engineNr++) {
-				Node oneEngine = engineList.item(engineNr);
-
-				XPathExpression conversionNameExpr = xpath.compile(".//tagset-conversion-table");
-				String conversionName = conversionNameExpr.evaluate(oneEngine);
-
-				// load the tag set conversion into memory
-				//
-				// NB: since a tagset conversion table might be in use by several engines
-				// it is necessary to check if the conversion table hasn't been loaded
-				// already!
-
-				if (!listOfLoadedConversions.contains(conversionName)) {
-					listOfLoadedConversions.add(conversionName);
-					readConversionMap(conversionName);
-				}
-
-			}
 
 			// process each engine
 
@@ -125,7 +105,17 @@ public class CorpusDependentEngineBuilder {
 				
 				System.err.println(
 						"building " + engineName + " engine with " + tagSetConversionTable + " conversion table");
-
+				
+				// load the tag set conversion into memory
+				//
+				// NB: since a tagset conversion table might be in use by several engines
+				// it is necessary to check if the conversion table hasn't been loaded
+				// already!
+				if (!listOfLoadedConversions.contains(tagSetConversionTable)) {
+					listOfLoadedConversions.add(tagSetConversionTable);
+					readConversionMap(tagSetConversionTable);
+				}
+				// Now get conversion engine, which may just have been loaded
 				ConversionEngine conversionEngine = ConversionObjectProcessor
 						.getConversionEngine(tagSetConversionTable);
 
@@ -158,7 +148,7 @@ public class CorpusDependentEngineBuilder {
 			}
 
 		} catch (XPathExpressionException e) {
-			Utils.printStackTrace(e);
+			throw new RuntimeException("Exception processing engine map.", e);
 		}
 
 	}
@@ -317,7 +307,7 @@ public class CorpusDependentEngineBuilder {
 		try {
 			oneConversion = mapper.readValue(conversionString , ConversionObject.class);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException("Exception while reading conversion map: " + name, e);
 		}
 
 

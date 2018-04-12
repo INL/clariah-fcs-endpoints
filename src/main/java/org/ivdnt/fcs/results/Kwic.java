@@ -8,8 +8,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-import org.ivdnt.util.Utils;
-
 /**
  * This class is used to store FCS keywords in context (kwic) as part of the
  * ResultSet (which is part of a FcsSearchResultSet = main result object)
@@ -109,9 +107,7 @@ public class Kwic {
 		try {
 			return new URI("http://www.ivdnt.org/annotation-layers/" + pname);
 		} catch (Exception e) {
-
-			Utils.printStackTrace(e);
-			return null;
+			throw new RuntimeException("Unable to get layer URL for " + pname, e);
 		}
 	}
 

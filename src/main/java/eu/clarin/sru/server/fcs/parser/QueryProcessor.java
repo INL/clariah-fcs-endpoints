@@ -45,19 +45,18 @@ public class QueryProcessor {
 	 */
 	public QueryNode rewrite(String cqp) {
 		QueryParser parser = new QueryParser();
+		// convert the query string into a node
+		QueryNode qn = null;
 		try {
-			// convert the query string into a node
-			QueryNode qn = parser.parse(cqp);
-
-			System.err.println("qn.toString() = " + qn.toString());
-
-			// now rewrite the node!
-			return rewriteNode(qn);
-
-		} catch (Exception e) {
-			e.printStackTrace();
+			qn = parser.parse(cqp);
+		} catch (QueryParserException e) {
+			throw new RuntimeException("Not able to parse query: " + cqp, e);
 		}
-		return null;
+
+		System.err.println("qn.toString() = " + qn.toString());
+
+		// now rewrite the node!
+		return rewriteNode(qn);
 	}
 
 	/**

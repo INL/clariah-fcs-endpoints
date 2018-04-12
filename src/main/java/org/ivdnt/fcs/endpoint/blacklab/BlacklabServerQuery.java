@@ -75,9 +75,8 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 
 			return url;
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			throw new RuntimeException("Exception while encoding query: " + this.getCqpQuery(), e);
 		}
-		return null;
 	}
 
 	/**
@@ -243,8 +242,7 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 				kwic.setHitEnd(hitEnd);
 
 			} catch (Exception e) {
-				e.printStackTrace();
-				throw e;
+				throw new RuntimeException("Exception while parsing results.", e);
 			}
 		}
 
