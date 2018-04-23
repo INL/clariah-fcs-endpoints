@@ -110,7 +110,6 @@ public class NederlabClient {
 		
 		// Add extra response fields to query, so we ask Nederlab server to return these fields
 		String jsonQuery = this.nederlabQueryTemplate.expandTemplate(queryTemplateValues);
-		//String jsonQueryUpdated = addResponseFieldsToQuery(jsonQuery, nederlabExtraResponseFields);
 		
 		// send the query
 		final long sendStartTime = System.currentTimeMillis();
@@ -217,22 +216,6 @@ public class NederlabClient {
 
 			System.err.println(">>> total number of hits = " + nederlabResultSet.getTotalNumberOfHits());
 
-			// process the 'documents' part of the JSON response
-
-			/*JSONArray documents = (JSONArray) context.read("$['documents']");
-
-			Map<String, Document> docMap = new ConcurrentHashMap<>();
-
-			for (Object d : documents) {
-				String docJ = this.mapper.writeValueAsString(d); // ugly reserialization!!!
-				Document doc = this.mapper.readValue(docJ, Document.class);
-				@SuppressWarnings("unchecked")
-				Map<String,Object> d_map = (Map<String,Object>) d;
-				Document doc = new Document(d_map);
-				docMap.put(doc.getField("NLCore_NLIdentification_nederlabID"), doc);
-			}*/
-
-
 
 			// Parse the list of hits
 
@@ -338,10 +321,11 @@ public class NederlabClient {
 		
 		// Add extra response fields to query, so we ask Nederlab server to return these fields
 		String jsonQuery = this.nederlabDocumentQueryTemplate.expandTemplate(queryTemplateValues);
+		String jsonQueryUpdated = addResponseFieldsToQuery(jsonQuery, nederlabExtraResponseFields);
 		
 		// send the query
 		final long sendStartTime = System.currentTimeMillis();
-		String jsonDocs= sendQuery(jsonQuery);
+		String jsonDocs= sendQuery(jsonQueryUpdated);
 		final long sendEndTime = System.currentTimeMillis();
 		System.err.println("Request documents: " + (sendEndTime - sendStartTime) + " ms.");
 		

@@ -9,10 +9,9 @@
 		</engine-native-url-template>
 		<tagset-conversion-table>UD2CGNNederlab</tagset-conversion-table>
 		<nederlab-extra-response-fields>
-			<field>NLCore_NLIdentification_versionID</field>
-			<field>NLTitle_yearOfPublicationApprox</field>
-			<field>NLTitle_textQuality</field>
-			<field>NLDependentTitle_subtitle</field>
+			<field>NLCore_NLIdentification_editorialCode</field>
+			<field>NLCore_NLIdentification_sourceRef</field>
+			<field>NLTitle_yearOfPublicationMax</field>
 		</nederlab-extra-response-fields>
 		<nederlab-query-template-location>nederlab_query_template.json</nederlab-query-template-location>
 		<nederlab-document-query-template-location>nederlab_document_query_template.json</nederlab-document-query-template-location>
