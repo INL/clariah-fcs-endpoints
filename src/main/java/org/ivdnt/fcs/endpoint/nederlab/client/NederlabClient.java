@@ -1,24 +1,29 @@
 package org.ivdnt.fcs.endpoint.nederlab.client;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.servlet.ServletContext;
+
+import org.codehaus.plexus.util.CollectionUtils;
 import org.ivdnt.fcs.endpoint.nederlab.objectmapper.Document;
-import org.ivdnt.fcs.endpoint.nederlab.objectmapper.HitIterator;
 import org.ivdnt.fcs.endpoint.nederlab.objectmapper.Token;
 import org.ivdnt.fcs.endpoint.nederlab.objectmapper.TokenProperty;
 import org.ivdnt.fcs.endpoint.nederlab.results.Hit;
 import org.ivdnt.fcs.endpoint.nederlab.results.NederlabResultSet;
 import org.ivdnt.util.FileUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 
@@ -48,21 +53,27 @@ public class NederlabClient {
 	private int contextSize = 8;
 
 	// The Nederlab query template set for this client
-
 	private QueryTemplate nederlabQueryTemplate;
+	private QueryTemplate nederlabDocumentQueryTemplate;
 	
 	// Extra response fields, are send with query, to ask Nederlab to return these fields
 	private List<String> nederlabExtraResponseFields;
-
+	
+	private ServletContext contextCache;
+	
+	private ObjectMapper mapper;
+	
 	// ------------------------------------------------------------------
 
 	// Constructor
 
-	public NederlabClient(QueryTemplate nederlabQueryTemplate, String server, List<String> nederlabExtraResponseFields) {
-
+	public NederlabClient(ServletContext contextCache, QueryTemplate nederlabQueryTemplate, QueryTemplate nederlabDocumentQueryTemplate, String server, List<String> nederlabExtraResponseFields) {
+		this.contextCache = contextCache;
 		this.nederlabQueryTemplate = nederlabQueryTemplate;
+		this.nederlabDocumentQueryTemplate = nederlabDocumentQueryTemplate;
 		this.server = server;
 		this.nederlabExtraResponseFields = nederlabExtraResponseFields;
+		this.mapper = new ObjectMapper();
 	}
 
 	// ------------------------------------------------------------------
@@ -77,6 +88,16 @@ public class NederlabClient {
 	 * @return
 	 */
 	public NederlabResultSet doSearch(String CQL, int start, int number) {
+		String jsonHits = requestHits(CQL, start, number);
+		// Parse the document keys from the response, and send new query, requesting document information
+		Map<String,Document> docMap = parseAndRequestDocuments(jsonHits);
+		
+		// parse the response
+		NederlabResultSet results = parseResults(jsonHits, docMap);
+		return results;
+	}
+
+	private String requestHits(String CQL, int start, int number) {
 		String cqlQuery = CQL.replaceAll("\"", "\\\\\\\\" + "\"");
 
 		// fill in some values in the Query
@@ -89,19 +110,14 @@ public class NederlabClient {
 		
 		// Add extra response fields to query, so we ask Nederlab server to return these fields
 		String jsonQuery = this.nederlabQueryTemplate.expandTemplate(queryTemplateValues);
-		String jsonQueryUpdated = addResponseFieldsToQuery(jsonQuery, nederlabExtraResponseFields);
+		//String jsonQueryUpdated = addResponseFieldsToQuery(jsonQuery, nederlabExtraResponseFields);
 		
 		// send the query
-		final long startTime = System.currentTimeMillis();
-		String jsonResults = sendQuery(jsonQueryUpdated);
+		final long sendStartTime = System.currentTimeMillis();
+		String jsonResults = sendQuery(jsonQuery);
 		final long sendEndTime = System.currentTimeMillis();
-		
-		// parse the response
-		NederlabResultSet results = parseResults(jsonResults);
-		final long endTime = System.currentTimeMillis();
-		System.err.println("Send query/receive answer: " + (sendEndTime - startTime) + " ms.");
-		System.err.println("Parse results: " + (endTime - sendEndTime) + " ms.");
-		return results;
+		System.err.println("Request hits: " + (sendEndTime - sendStartTime) + " ms.");
+		return jsonResults;
 	}
 
 	private String addResponseFieldsToQuery(String jsonQuery, List<String> extraResponseFields) {
@@ -121,6 +137,7 @@ public class NederlabClient {
 	 * @return
 	 */
 	public String sendQuery(String query) {
+		StringBuilder response = new StringBuilder();
 		try {
 			System.err.println("Now connecting to server to send POST request: " + this.server);
 			URL obj = new URL(this.server);
@@ -130,6 +147,8 @@ public class NederlabClient {
 
 			con.setRequestMethod("POST");
 			// con.setRequestProperty("User-Agent", USER_AGENT);
+			String brokerKey = new FileUtils(contextCache, "key.txt").readConfigFileAsString().trim();
+			con.setRequestProperty("X-Broker-key", brokerKey);
 			con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
 			// Send post request
@@ -149,17 +168,17 @@ public class NederlabClient {
 
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			String inputLine;
-			StringBuilder response = new StringBuilder();
 
 			while ((inputLine = in.readLine()) != null) {
 				response.append(inputLine);
 			}
 			in.close();
-
-			return response.toString();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 			throw new RuntimeException("Exception while sending query " + query, e);
 		}
+		return response.toString();
 	}
 
 	/**
@@ -170,7 +189,7 @@ public class NederlabClient {
 	 *            as a String
 	 * @return a NederlabResultSet object
 	 */
-	public NederlabResultSet parseResults(String jsonResult) {
+	public NederlabResultSet parseResults(String jsonResult, Map<String, Document> docMap) {
 		// The result string from Nederlab can be QUITE BIG,
 		// which is because it's formated in highly hierarchical Json,
 		// in which each text result is split up into its separate tokens,
@@ -179,81 +198,7 @@ public class NederlabClient {
 		System.err.println(">>> result string length = " + jsonResult.length());
 
 		// the response looks like this:
-		//
-		// {
-		// "status": "ok",
-		// "documents": [
-		// {
-		// "NLProfile_name": "nederlabTitleProfile",
-		// "NLCore_NLIdentification_nederlabID": "c242846c-7df1-47e0-8a8e-b9e37108e656",
-		// "NLCore_NLAdministrative_sourceCollection": "EDBO",
-		// "NLTitle_title": "Algemeen magazyn van wetenschap, konst en smaak [18] [18]",
-		// "NLTitle_yearOfPublicationMin": 1785,
-		// "NLTitle_yearOfPublicationMax": 1785
-		// },
-		//
-		// ...
-		//
-		// ],
-		//
-		// "stats": {
-		// "total": 10329, // this is the total number of hits
-		// "start": 0
-		// },
-		//
-		// "mtas": {"kwic": [{
-		// "key": "tekst",
-		// "list": [ // list of documents
-		// { // one document
-
-		// "documentKey": "c242846c-7df1-47e0-8a8e-b9e37108e656",
-		// "documentTotal": 14490,
-		// "documentMinPosition": 0,
-		// "documentMaxPosition": 116915,
-		// "list": [ // list of sentences of one document
-		// { // one sentence
-		// "startPosition": 17,
-		// "endPosition": 17,
-		// "tokens": [
-		// { // one token!
-		// "mtasId": 110,
-		// "prefix": "t", // this can have value 't'=token, or 'pos', or 'lemma'
-		// "value": "en", // (each token is represented by those 3 parts
-		// "positionStart": 14, // like we can see it here)
-		// "positionEnd": 14,
-		// "parentMtasId": 128
-		// },
-		// {
-		// "mtasId": 113,
-		// "prefix": "pos",
-		// "value": "VG",
-		// "positionStart": 14,
-		// "positionEnd": 14
-		// },
-		// {
-		// "mtasId": 114,
-		// "prefix": "lemma",
-		// "value": "en",
-		// "positionStart": 14,
-		// "positionEnd": 14
-		// },
-		//
-		// ...
-		//
-		// {
-		// "mtasId": 82,
-		// "prefix": "lemma",
-		// "value": ",",
-		// "positionStart": 9,
-		// "positionEnd": 9
-		// }
-		// ] // end of list of tokens of one sentence
-		// } // end of one sentence
-		// ] // end of list of sentences of one document
-		// } // end of one document
-		// ] // end of list of documents
-		// }]} // end of mtas
-		// }
+		// TODO 
 
 		// we will store the response in a NederlabResultSet object
 
@@ -267,179 +212,161 @@ public class NederlabClient {
 		try {
 			// get the stats out of the JSON response
 
-			String totalNrOfHits = (context.read("$['stats']['total']")).toString();
+			String totalNrOfHits = (context.read("$['mtas']['list'][0]['total']")).toString();
 			nederlabResultSet.setTotalNumberOfHits(Integer.parseInt(totalNrOfHits));
 
 			System.err.println(">>> total number of hits = " + nederlabResultSet.getTotalNumberOfHits());
 
 			// process the 'documents' part of the JSON response
 
-			JSONArray documents = (JSONArray) context.read("$['documents']");
+			/*JSONArray documents = (JSONArray) context.read("$['documents']");
 
 			Map<String, Document> docMap = new ConcurrentHashMap<>();
 
 			for (Object d : documents) {
-				/*String docJ = this.mapper.writeValueAsString(d); // ugly reserialization!!!
-				Document doc = this.mapper.readValue(docJ, Document.class);*/
+				String docJ = this.mapper.writeValueAsString(d); // ugly reserialization!!!
+				Document doc = this.mapper.readValue(docJ, Document.class);
 				@SuppressWarnings("unchecked")
 				Map<String,Object> d_map = (Map<String,Object>) d;
 				Document doc = new Document(d_map);
 				docMap.put(doc.getField("NLCore_NLIdentification_nederlabID"), doc);
-			}
+			}*/
 
-			// ---- for debugging --------------------------
-			// return nederlabResultSet;
-			// ---------------------------------------------
 
-			// now parse the 'keywords in context' part of the JSON response
 
-			// we should get only one list of documents, consisting of 10 documents
+			// Parse the list of hits
 
-			Object kwicList = context.read("$[*]['kwic'][*]['list']");
+			Object kwicList = context.read("$['mtas']['list'][0]['list'][*]");
+			
+			// First, go through list of hits to get all document keys
+			// TODO
+			
+			// Make new request to server: get document keys
 
-			if (kwicList instanceof net.minidev.json.JSONArray) {
-				JSONArray kwicListArr = (JSONArray) kwicList;
 
-				for (int i = 0; i < kwicListArr.size(); i++) {
-					JSONArray listOfDocumentsWithHits = (JSONArray) kwicListArr.get(i);
-
-					System.err.println(
-							">>> number of documents in current resultset = " + listOfDocumentsWithHits.size());
-
-					for (int j = 0; j < listOfDocumentsWithHits.size(); j++) {
-
-						// each document has its documentKey (= nederlabID)
-
-						@SuppressWarnings("unchecked")
-						Map<String,Object> documentWithListOfHits = (Map<String, Object>) listOfDocumentsWithHits.get(j);
-						String documentKey = (String) documentWithListOfHits.get("documentKey");
-
-						// a document contains a list of tokens:
-						//
-						// the size of the list is:
-						// X tokens on the left
-						// + 1 token in the middle (the hit)
-						// + X tokens on the right,
-						// with X being the value of NederlabClient.contextSize
-
-						Object list = documentWithListOfHits.get("list");
-						JSONArray hitsInDoc = (JSONArray) list;
-						for (int k = 0; k < hitsInDoc.size(); k++) {
-							Object hit = hitsInDoc.get(k);
-
-							List<TokenProperty> tokenProps = new ArrayList<>();
-							@SuppressWarnings("unchecked")
-							Map<String,Object> hitMap = (Map<String,Object>) hit;
-							JSONArray tokens = (JSONArray) hitMap.get("tokens");
-
-							for (int l = 0; l < tokens.size(); l++) {
-								@SuppressWarnings("unchecked")
-								Map<String,Object> tok = (Map<String,Object>) (tokens.get(l));
-								//String tokJ = this.mapper.writeValueAsString(tok); // ugly reserialization!!!
-								//TokenProperty t = this.mapper.readValue(tokJ, TokenProperty.class);
-								TokenProperty t = new TokenProperty(tok);
-								tokenProps.add(t);
-							}
-
-							// build a Hit object
-							// t.i.: a document with tokens (which form a context)
-							// and some start/end position for the hit within that context
-
-							Hit h = new Hit(tokenProps);
-							h.setDocumentKey(documentKey);
-							h.setDocument(docMap.get(documentKey));
-							h.setHitStart((Integer) hitMap.get("startPosition"));
-							h.setHitEnd((Integer) hitMap.get("endPosition"));
-							int l = 0;
-
-							// bleuh
-
-							for (Token t : h.getTokens()) {
-								if (t.isContentToken() && t.getStartPosition() == h.getHitStart()) {
-									h.setHitEnd(l + (h.getHitEnd() - h.getHitStart()));
-									h.setHitStart(l);
-									break;
-								}
-								if (t.isContentToken())
-									l++;
-							}
-
-							nederlabResultSet.addResult(h);
-						}
-					}
+			JSONArray hits = (JSONArray) kwicList;
+			System.err.println(
+					">>> number of hits in current resultset = " + hits.size());
+			for (int k = 0; k < hits.size(); k++) {
+				
+				Object hit = hits.get(k);
+				List<TokenProperty> tokenProps = new ArrayList<>();
+				@SuppressWarnings("unchecked")
+				Map<String,Object> hitMap = (Map<String,Object>) hit;
+				String documentKey = (String) hitMap.get("documentKey");
+				JSONArray tokens = (JSONArray) hitMap.get("tokens");
+				// a hit contains a list of tokens:
+				//
+				// the size of the list is:
+				// X tokens on the left
+				// + 1 token in the middle (the hit)
+				// + X tokens on the right,
+				// with X being the value of NederlabClient.contextSize
+				for (int l = 0; l < tokens.size(); l++) {
+					@SuppressWarnings("unchecked")
+					Map<String,Object> tok = (Map<String,Object>) (tokens.get(l));
+					//String tokJ = this.mapper.writeValueAsString(tok); // ugly reserialization!!!
+					//TokenProperty t = this.mapper.readValue(tokJ, TokenProperty.class);
+					TokenProperty t = new TokenProperty(tok);
+					tokenProps.add(t);
 				}
 
+				// build a Hit object
+				// t.i.: a document with tokens (which form a context)
+				// and some start/end position for the hit within that context
+
+				Hit h = new Hit(tokenProps);
+				h.setDocumentKey(documentKey);
+				h.setDocument(docMap.get(documentKey));
+				h.setHitStart((Integer) hitMap.get("startPosition"));
+				h.setHitEnd((Integer) hitMap.get("endPosition"));
+				int l = 0;
+
+				// bleuh
+
+				for (Token t : h.getTokens()) {
+					if (t.isContentToken() && t.getStartPosition() == h.getHitStart()) {
+						h.setHitEnd(l + (h.getHitEnd() - h.getHitStart()));
+						h.setHitStart(l);
+						break;
+					}
+					if (t.isContentToken())
+						l++;
+				}
+
+				nederlabResultSet.addResult(h);
 			}
+
 		} catch (Exception e) {
 			throw new RuntimeException("Exception while parsing json: " + context, e);
 		}
 		return nederlabResultSet;
 	}
+	
+	/**
+	 * Parse the document keys from the response, and send new query, requesting document information
+	 * 
+	 * @param jsonResult,
+	 *            as a String
+	 * @param documentQueryTemplate, String
+	 * @return a NederlabResultSet object
+	 * @throws IOException 
+	 */
+	public Map<String,Document> parseAndRequestDocuments(String jsonHits) {
 
-	// ------------------------------------------------------------------
-	// NOT IN USE
+		DocumentContext hitsContext = JsonPath.parse(jsonHits);
+		HashSet<String> documentKeysSet = new HashSet<String>();
+		String documentKeysString = "";
 
-	/*public String queryNederlab(Object o) {
 		try {
-			String s = this.mapper.writeValueAsString(o);
-			return sendQuery(s);
-		} catch (JsonProcessingException e) {
-			Utils.printStackTrace(e);
+			// Parse the list of hits
+			List<String> documentKeys = hitsContext.read("$['mtas']['list'][0]['list'][*]['documentKey']");
+			documentKeysSet = new HashSet<>(documentKeys);
+			documentKeysString = mapper.writeValueAsString(documentKeysSet);
+				
 		}
-		return null;
-	}
+		catch (Exception e) {
+			throw new RuntimeException("Exception while parsing json: " + hitsContext, e);
+		}
+		
+		// Create new request and send
+		// fill in some values in the Query
+		Map<String, String> queryTemplateValues = new ConcurrentHashMap<>();
+		queryTemplateValues.put("_DOCKEY_", documentKeysString);
+		// Set number of doc keys, so we get back all documents in one response
+		queryTemplateValues.put("_NUMBERDOC_", new Integer(documentKeysSet.size()).toString());
+		
+		// Add extra response fields to query, so we ask Nederlab server to return these fields
+		String jsonQuery = this.nederlabDocumentQueryTemplate.expandTemplate(queryTemplateValues);
+		
+		// send the query
+		final long sendStartTime = System.currentTimeMillis();
+		String jsonDocs= sendQuery(jsonQuery);
+		final long sendEndTime = System.currentTimeMillis();
+		System.err.println("Request documents: " + (sendEndTime - sendStartTime) + " ms.");
+		
+		// Process the 'docs' part of the JSON response
+		DocumentContext docsContext = JsonPath.parse(jsonDocs);
+		// First, check if documents for all keys have been returned
+		List<String> documentKeysRetrieved = docsContext.read("$['response']['docs'][*]['NLCore_NLIdentification_nederlabID']");
+		if(!equalsSet(documentKeysSet,documentKeysRetrieved)) {
+			throw new RuntimeException("Documents returned by server do not match document keys from hits query!");
+		}
+		// Now, really retrieve documents
+		JSONArray documents = docsContext.read("$['response']['docs'][*]");
+		Map<String, Document> docMap = new ConcurrentHashMap<>();
 
-	public Stream<Hit> getHits(String CQL) {
-		Iterator<Hit> hits = new HitIterator(this, CQL);
-		Iterable<Hit> iterable = () -> hits;
-		Stream<Hit> targetStream = StreamSupport.stream(iterable.spliterator(), false);
-		return targetStream;
-	}
-
-	Map<String, Object> readQueryAsObject(String fileName) {
-		try {
+		for (Object d: documents) {
 			@SuppressWarnings("unchecked")
-			Map<String, Object> userData = this.mapper.readValue(new File(fileName), Map.class);
-			String x = this.mapper.writeValueAsString(userData);
-			System.err.println(x);
-			return userData;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
+			Map<String,Object> dm = (Map<String,Object>) d;
+			Document doc = new Document(dm);
+			docMap.put(doc.getField("NLCore_NLIdentification_nederlabID"), doc);
 		}
+		return docMap;
 	}
 	
-	String readQuery(String fileName) {
-		try {
-			@SuppressWarnings("unchecked")
-			Map<String, Object> userData = this.mapper.readValue(new File(fileName), Map.class);
-			String x = this.mapper.writeValueAsString(userData);
-			System.err.println(x);
-			return this.mapper.writeValueAsString(userData);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}*/
-
-	// ------------------------------------------------------------------
-	// test only
-
-	public void testJSONQuery(String query) {
-		String jsonResult = sendQuery(query);
-		parseResults(jsonResult);
-	}
-
-	public void testCQLQuery(String CQL) {
-		HitIterator hi = new HitIterator(this, CQL);
-		while (hi.hasNext()) {
-			System.out.println(hi.next());
-		}
-	}
-
-	public void queryCQLFromFile(String fileName) {
-		String cql = new FileUtils(fileName).readStringFromFile().trim();
-		testCQLQuery(cql);
+	public static <T> boolean equalsSet(HashSet<T> set1, List<T> list2) {
+	    return set1.equals(new HashSet<>(list2));
 	}
 
 }

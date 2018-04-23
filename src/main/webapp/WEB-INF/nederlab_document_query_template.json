@@ -1,0 +1,19 @@
+{
+	"condition": {
+		"type": "equals",
+		"field": "NLCore_NLIdentification_nederlabID",
+		"value": _DOCKEY_
+	},
+	"response": {
+		"documents": {
+			"start": 0,
+			"rows": _NUMBERDOC_,
+			"fields": [
+				"NLCore_NLIdentification_nederlabID",
+				"NLCore_NLIdentification_versionID",
+				"NLTitle_title"
+			]
+		}
+	},
+	"cache": true
+}

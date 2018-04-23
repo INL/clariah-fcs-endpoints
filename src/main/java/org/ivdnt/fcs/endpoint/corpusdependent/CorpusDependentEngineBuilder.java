@@ -132,10 +132,13 @@ public class CorpusDependentEngineBuilder {
 					} 
 					// Get query template location from conf
 					XPathExpression nederlabQueryTemplateLocationExpr = xpath.compile(".//nederlab-query-template-location");
+					XPathExpression nederlabDocumentQueryTemplateLocationExpr = xpath.compile(".//nederlab-document-query-template-location");
 					String nederlabQueryTemplateLocation = nederlabQueryTemplateLocationExpr.evaluate(oneEngine);
+					String nederlabDocumentQueryTemplateLocation = nederlabDocumentQueryTemplateLocationExpr.evaluate(oneEngine);
 					String queryTemplate = readQueryTemplate(nederlabQueryTemplateLocation);
-					engineMap.put(engineName, new NederlabEndpointSearchEngine(engineUrl, conversionEngine,
-							queryTemplate, engineNativeUrlTemplate, nederlabExtraResponseFields));
+					String documentQueryTemplate = readQueryTemplate(nederlabDocumentQueryTemplateLocation);
+					engineMap.put(engineName, new NederlabEndpointSearchEngine(contextCache, engineUrl, conversionEngine,
+							queryTemplate, documentQueryTemplate, engineNativeUrlTemplate, nederlabExtraResponseFields));
 				}
 
 				// Blacklab engine type

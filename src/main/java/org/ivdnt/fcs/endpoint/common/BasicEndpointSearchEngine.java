@@ -52,7 +52,7 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	// Object to store the endpoint description into
 	protected EndpointDescription endpointDescription;
 
-	// Empty constructor, called by CorpusDependentEngine subclass
+	// Empty constructor, needed by CorpusDependentEngine subclass
 	public BasicEndpointSearchEngine() {
 
 	}

@@ -1,386 +1,749 @@
 {
-    "ConversionTable": "UD2CGNNederlab",
-    
-    "UseFeatureRegex": false,
-    
-    "Quote" : "\"",
-    
-    "IncludeFeatureNameInRegex": false,
-    
-    "GrammaticalFeatures": ["feat",
-                          "feat.buiging",
-                          "feat.conjtype",
-                          "feat.dial",
-                          "feat.genus",
-                          "feat.getal",
-                          "feat.getal-n",
-                          "feat.graad",
-                          "feat.lwtype",
-                          "feat.naamval",
-                          "feat.npagr",
-                          "feat.ntype",
-                          "feat.numtype",
-                          "feat.pdtype",
-                          "feat.persoon",
-                          "feat.positie",
-                          "feat.pvagr",
-                          "feat.pvtijd",
-                          "feat.spectype",
-                          "feat.status",
-                          "feat.vwtype",
-                          "feat.vztype",
-                          "feat.wvorm"],
-    
-    "FieldMapping": [
-        {
-            "from": "xxword", 
-            "to":   "t_lc"
-        }
-    ],
-
-    "PosTagField": "pos",
-
-    "FeatureMapping": [
-        {
-            "from": {"pos": "ADJ"},
-            "to":   {"pos": "ADJ"}
-        },
-        {
-            "from": {"pos": "ADV"},
-            "to":   {"pos": "BW"}
-        },
-        {
-            "from": {"pos": "INTJ"},
-            "to":   {"pos": "TSW"}
-        },
-        {
-            "from": {"pos": "NOUN"},
-            "to":   {"pos": "N", "feat.ntype": "soort"}
-        },
-        {
-            "from": {"pos": "PROPN"},
-            "to":   {"pos": "N", "feat.ntype": "eigen", "comment": "spec(deeleigen nooit te vinden zo...."}
-        },
-        {
-            "from": {"pos": "PROPN"},
-            "to":   {"pos": "SPEC", "feat.spectype": "deeleigen"}
-        },
-        {
-            "from": {"pos": "VERB"},
-            "to":   {"pos": "WW"}
-        },
-        {
-            "from": {"pos": "ADP"},
-            "to":   {"pos": "VZ"}
-        },
-        {
-            "from": {"pos": "AUX"},
-            "to":   {"pos": "WW", "comment": "HM"}
-        },
-        {
-            "from": {"pos": "DET"},
-            "to":   {"pos": "LID", "comment": "HM"}
-        },
-        {
-            "from": {"pos": "DET"},
-            "to":   {"pos": "VNW", "feat.pdtype": "det"}
-        },
-        {
-            "from": {"pos": "PRON"},
-            "to":   {"pos": "VNW", "feat.pdtype": "pron", "comment": "HM"}
-        },
-        {
-            "from": {"pos": "NUM"},
-            "to":   {"pos": "TW"}
-        },
-        {
-            "from": {"pos": "CCONJ"},
-            "to":   {"pos": "VG", "feat.conjtype": "neven", "comment": "HM"}
-        },
-        {
-            "from": {"pos": "SCONJ"},
-            "to":   {"pos": "VG", "feat.conjtype": "onder", "comment": "HM"}
-        },
-        {
-            "from": {"pos": "PUNCT"},
-            "to":   {"pos": "LET", "comment": "HM"}
-        },
-        {
-            "from": {"pos": "SYM"},
-            "to":   {"pos": "SPEC", "comment": "opzoeken"}
-        },
-        {
-            "from": {"pos": "X"},
-            "to":   {"pos": "SPEC"}
-        },
-        {
-            "from": {"AdpType": "Comprep"},
-            "to":   {"feat.vztype": "versm"}
-        },
-        {
-            "from": {"AdpType": "Prep"},
-            "to":   {"feat.vztype": "init"}
-        },
-        {
-            "from": {"AdpType": "Post"},
-            "to":   {"feat.vztype": "fin"}
-        },
-        {
-            "from": {"Number": "Plur"},
-            "to":   {"feat.getal": "mv"}
-        },
-        {
-            "from": {"Number": "Sing"},
-            "to":   {"feat.getal": "ev"}
-        },
-        {
-            "from": {"Gender": "Fem"},
-            "to":   {"feat.genus": "fem"}
-        },
-        {
-            "from": {"Gender": "Fem"},
-            "to":   {"feat.npagr": "evf"}
-        },
-        {
-            "from": {"Gender": "Fem"},
-            "to":   {"feat.persoon": "2v|3v"}
-        },
-        {
-            "from": {"Gender": "Masc"},
-            "to":   {"feat.genus": "masc"}
-        },
-        {
-            "from": {"Gender": "Masc"},
-            "to":   {"feat.persoon": "3m"}
-        },
-        {
-            "from": {"Gender": "Neut"},
-            "to":   {"feat.genus": "onz"}
-        },
-        {
-            "from": {"Gender": "Neut"},
-            "to":   {"feat.npagr": "evon"}
-        },
-        {
-            "from": {"Gender": "Neut"},
-            "to":   {"feat.graad": "dim", "pos": "N"}
-        },
-        {
-            "from": {"Gender": "Com"},
-            "to":   {"feat.genus": "zijd"}
-        },
-        {
-            "from": {"Degree": "Pos"},
-            "to":   {"feat.graad": "basis"}
-        },
-        {
-            "from": {"Degree": "Cmp"},
-            "to":   {"feat.graad": "comp"}
-        },
-        {
-            "from": {"Degree": "Sup"},
-            "to":   {"feat.graad": "sup"}
-        },
-        {
-            "from": {"Degree": "Dim"},
-            "to":   {"feat.graad": "dim"}
-        },
-        {
-            "from": {"Position": "Nom"},
-            "to":   {"feat.positie": "nom"}
-        },
-        {
-            "from": {"Position": "Postnom"},
-            "to":   {"feat.positie": "postnom"}
-        },
-        {
-            "from": {"Position": "Prenom"},
-            "to":   {"feat.positie": "prenom"}
-        },
-        {
-            "from": {"Position": "Free"},
-            "to":   {"feat.positie": "vrij"}
-        },
-        {
-            "from": {"Case": "Gen"},
-            "to":   {"feat.naamval": "gen", "pos": "ADJ|N|VNW"}
-        },
-        {
-            "from": {"Case": "Acc"},
-            "to":   {"feat.naamval": "obl"}
-        },
-        {
-            "from": {"Case": "Dat"},
-            "to":   {"feat.naamval": "dat"}
-        },
-        {
-            "from": {"Case": "Nom"},
-            "to":   {"feat.naamval": "nomin"}
-        },
-        {
-            "from": {"NumType": "Card"},
-            "to":   {"feat.numtype": "hoofd"}
-        },
-        {
-            "from": {"NumType": "Ord"},
-            "to":   {"feat.numtype": "rang"}
-        },
-        {
-            "from": {"Aspect": "Imp"},
-            "to":   {"feat.wvorm": "od"}
-        },
-        {
-            "from": {"Aspect": "Perf"},
-            "to":   {"feat.wvorm": "vd"}
-        },
-        {
-            "from": {"Mood": "Ind"},
-            "to":   {"feat.wvorm": "pv", "feat.pvtijd": "verl"}
-        },
-        {
-            "from": {"Mood": "Ind"},
-            "to":   {"feat.wvorm": "pv", "feat.pvtijd": "tgw", "feat.persoon": "1|3|3p|3v|3m|3o"}
-        },
-        {
-            "from": {"Mood": "Imp,Ind"},
-            "to":   {"feat.wvorm": "pv", "feat.pvtijd": "tgw"}
-        },
-        {
-            "from": {"Mood": "Sub"},
-            "to":   {"feat.wvorm": "pv", "feat.pvtijd": "conj"}
-        },
-        {
-            "from": {"VerbForm": "Fin"},
-            "to":   {"feat.wvorm": "pv"}
-        },
-        {
-            "from": {"VerbForm": "Inf"},
-            "to":   {"feat.wvorm": "inf"}
-        },
-        {
-            "from": {"VerbForm": "Part"},
-            "to":   {"feat.wvorm": "od"}
-        },
-        {
-            "from": {"VerbForm": "Part"},
-            "to":   {"feat.wvorm": "vd"}
-        },
-        {
-            "from": {"Person": "1"},
-            "to":   {"feat.persoon": "1"}
-        },
-        {
-            "from": {"Person": "2"},
-            "to":   {"feat.persoon": "2|2v|2b"}
-        },
-        {
-            "from": {"Person": "3"},
-            "to":   {"feat.persoon": "3|3p|3v|3m|3o"}
-        },
-        {
-            "from": {"Tense": "Past"},
-            "to":   {"feat.pvtijd": "verl", "comment": "Maar: NIET als het een deelwoord is Dus deze manier van converteren werkt niet; je hebt ook nog condities nodig"}
-        },
-        {
-            "from": {"Tense": "Pres"},
-            "to":   {"feat.pvtijd": "tgw"}
-        },
-        {
-            "from": {"Tense": "Past"},
-            "to":   {"feat.wvorm": "vd", "comment": "eigenlijk niet goed? in UD geen past maar perf?"}
-        },
-        {
-            "from": {"Tense": "Pres"},
-            "to":   {"feat.wvorm": "od"}
-        },        
-        {
-            "from": {"Polite": "Inf"},
-            "to":   {"feat.persoon": "2v"}
-        },
-        {
-            "from": {"Polite": "Pol"},
-            "to":   {"lemma": "u"}
-        },
-        {
-            "from": {"Definite": "Def"},
-            "to":   {"feat.lwtype": "bep"}
-        },
-        {
-            "from": {"Definite": "Ind"},
-            "to":   {"feat.lwtype": "onbep"}
-        },
-        {
-            "from": {"Definite": "Def"},
-            "to":   {"feat.vwtype": "bep"}
-        },
-        {
-            "from": {"Definite": "Ind"},
-            "to":   {"feat.vwtype": "onbep"}
-        },
-        {
-            "from": {"PronType": "Art"},
-            "to":   {"pos": "LID"}
-        },
-        {
-            "from": {"PronType": "Exc"},
-            "to":   {"feat.vwtype": "excl", "comment": "misnomer: zou vnwtype moeten zijn?"}
-        },
-        {
-            "from": {"PronType": "Dem"},
-            "to":   {"feat.vwtype": "aanw", "comment": "in welk feat zit PronType????"}
-        },
-        {
-            "from": {"PronType": "Prs"},
-            "to":   {"feat.vwtype": "pers"}
-        },
-        {
-            "from": {"PronType": "Rel"},
-            "to":   {"feat.vwtype": "betr"}
-        },
-        {
-            "from": {"PronType": "Int"},
-            "to":   {"feat.vwtype": "vrag", "comment": "wanneer precies vb? Alleen bij wie/wat enz?"}
-        },
-        {
-            "from": {"PronType": "Rcp"},
-            "to":   {"feat.vwtype": "recip"}
-        },
-        {
-            "from": {"PronType": "Ind"},
-            "to":   {"feat.lwtype": "onbep"}
-        },
-        {
-            "from": {"PronType": "Ind"},
-            "to":   {"feat.vwtype": "onbep"}
-        },
-        {
-            "from": {"PronType": "Tot"},
-            "to":   {"feat.lwtype": "onbep", "lemma": "iedereen|ieder|al|alles|elk|elke"}
-        },
-        {
-            "from": {"PronType": "Neg,Tot"},
-            "to":   {"feat.lwtype": "onbep", "lemma": "geen"}
-        },
-        {
-            "from": {"Poss": "Yes"},
-            "to":   {"feat.vwtype": "bez"}
-        },
-        {
-            "from": {"Reflex": "Yes"},
-            "to":   {"feat.vwtype": "refl"}
-        },
-        {
-            "from": {"Reflex": "Yes"},
-            "to":   {"feat.vwtype": "pr"}
-        },
-        {
-            "from": {"Variant": "Long"},
-            "to":   {"feat.status": "vol"}
-        },
-        {
-            "from": {"Variant": "Short"},
-            "to":   {"feat.status": "red"}
-        }
-    ]
-
+	"ConversionTable": "UD2CGNNederlab",
+	"UseFeatureRegex": false,
+	"Quote": "\"",
+	"IncludeFeatureNameInRegex": false,
+	"GrammaticalFeatures": [
+		"feat",
+		"feat.buiging",
+		"feat.conjtype",
+		"feat.dial",
+		"feat.genus",
+		"feat.getal",
+		"feat.getal-n",
+		"feat.graad",
+		"feat.lwtype",
+		"feat.naamval",
+		"feat.npagr",
+		"feat.ntype",
+		"feat.numtype",
+		"feat.pdtype",
+		"feat.persoon",
+		"feat.positie",
+		"feat.pvagr",
+		"feat.pvtijd",
+		"feat.spectype",
+		"feat.status",
+		"feat.vwtype",
+		"feat.vztype",
+		"feat.wvorm"
+	],
+	"FieldMapping": [
+		{
+			"from": "xxword",
+			"to": "t_lc"
+		}
+	],
+	"PosTagField": "pos",
+	"FeatureMapping": [
+		{
+			"from": {
+				"pos": "ADJ"
+			},
+			"to": {
+				"pos": "ADJ"
+			}
+		},
+		{
+			"from": {
+				"pos": "ADV"
+			},
+			"to": {
+				"pos": "BW"
+			}
+		},
+		{
+			"from": {
+				"pos": "INTJ"
+			},
+			"to": {
+				"pos": "TSW"
+			}
+		},
+		{
+			"from": {
+				"pos": "NOUN"
+			},
+			"to": {
+				"pos": "N",
+				"feat.ntype": "soort"
+			}
+		},
+		{
+			"from": {
+				"pos": "PROPN"
+			},
+			"to": {
+				"pos": "N",
+				"feat.ntype": "eigen",
+				"comment": "spec(deeleigen nooit te vinden zo...."
+			}
+		},
+		{
+			"from": {
+				"pos": "PROPN"
+			},
+			"to": {
+				"pos": "SPEC",
+				"feat.spectype": "deeleigen"
+			}
+		},
+		{
+			"from": {
+				"pos": "VERB"
+			},
+			"to": {
+				"pos": "WW"
+			}
+		},
+		{
+			"from": {
+				"pos": "ADP"
+			},
+			"to": {
+				"pos": "VZ"
+			}
+		},
+		{
+			"from": {
+				"pos": "AUX"
+			},
+			"to": {
+				"pos": "WW",
+				"comment": "HM"
+			}
+		},
+		{
+			"from": {
+				"pos": "DET"
+			},
+			"to": {
+				"pos": "LID",
+				"comment": "HM"
+			}
+		},
+		{
+			"from": {
+				"pos": "DET"
+			},
+			"to": {
+				"pos": "VNW",
+				"feat.pdtype": "det"
+			}
+		},
+		{
+			"from": {
+				"pos": "PRON"
+			},
+			"to": {
+				"pos": "VNW",
+				"feat.pdtype": "pron",
+				"comment": "HM"
+			}
+		},
+		{
+			"from": {
+				"pos": "NUM"
+			},
+			"to": {
+				"pos": "TW"
+			}
+		},
+		{
+			"from": {
+				"pos": "CCONJ"
+			},
+			"to": {
+				"pos": "VG",
+				"feat.conjtype": "neven",
+				"comment": "HM"
+			}
+		},
+		{
+			"from": {
+				"pos": "SCONJ"
+			},
+			"to": {
+				"pos": "VG",
+				"feat.conjtype": "onder",
+				"comment": "HM"
+			}
+		},
+		{
+			"from": {
+				"pos": "PUNCT"
+			},
+			"to": {
+				"pos": "LET",
+				"comment": "HM"
+			}
+		},
+		{
+			"from": {
+				"pos": "SYM"
+			},
+			"to": {
+				"pos": "SPEC",
+				"comment": "opzoeken"
+			}
+		},
+		{
+			"from": {
+				"pos": "X"
+			},
+			"to": {
+				"pos": "SPEC"
+			}
+		},
+		{
+			"from": {
+				"AdpType": "Comprep"
+			},
+			"to": {
+				"feat.vztype": "versm"
+			}
+		},
+		{
+			"from": {
+				"AdpType": "Prep"
+			},
+			"to": {
+				"feat.vztype": "init"
+			}
+		},
+		{
+			"from": {
+				"AdpType": "Post"
+			},
+			"to": {
+				"feat.vztype": "fin"
+			}
+		},
+		{
+			"from": {
+				"Number": "Plur"
+			},
+			"to": {
+				"feat.getal": "mv"
+			}
+		},
+		{
+			"from": {
+				"Number": "Sing"
+			},
+			"to": {
+				"feat.getal": "ev"
+			}
+		},
+		{
+			"from": {
+				"Gender": "Fem"
+			},
+			"to": {
+				"feat.genus": "fem"
+			}
+		},
+		{
+			"from": {
+				"Gender": "Fem"
+			},
+			"to": {
+				"feat.npagr": "evf"
+			}
+		},
+		{
+			"from": {
+				"Gender": "Fem"
+			},
+			"to": {
+				"feat.persoon": "2v|3v"
+			}
+		},
+		{
+			"from": {
+				"Gender": "Masc"
+			},
+			"to": {
+				"feat.genus": "masc"
+			}
+		},
+		{
+			"from": {
+				"Gender": "Masc"
+			},
+			"to": {
+				"feat.persoon": "3m"
+			}
+		},
+		{
+			"from": {
+				"Gender": "Neut"
+			},
+			"to": {
+				"feat.genus": "onz"
+			}
+		},
+		{
+			"from": {
+				"Gender": "Neut"
+			},
+			"to": {
+				"feat.npagr": "evon"
+			}
+		},
+		{
+			"from": {
+				"Gender": "Neut"
+			},
+			"to": {
+				"feat.graad": "dim",
+				"pos": "N"
+			}
+		},
+		{
+			"from": {
+				"Gender": "Com"
+			},
+			"to": {
+				"feat.genus": "zijd"
+			}
+		},
+		{
+			"from": {
+				"Degree": "Pos"
+			},
+			"to": {
+				"feat.graad": "basis"
+			}
+		},
+		{
+			"from": {
+				"Degree": "Cmp"
+			},
+			"to": {
+				"feat.graad": "comp"
+			}
+		},
+		{
+			"from": {
+				"Degree": "Sup"
+			},
+			"to": {
+				"feat.graad": "sup"
+			}
+		},
+		{
+			"from": {
+				"Degree": "Dim"
+			},
+			"to": {
+				"feat.graad": "dim"
+			}
+		},
+		{
+			"from": {
+				"Position": "Nom"
+			},
+			"to": {
+				"feat.positie": "nom"
+			}
+		},
+		{
+			"from": {
+				"Position": "Postnom"
+			},
+			"to": {
+				"feat.positie": "postnom"
+			}
+		},
+		{
+			"from": {
+				"Position": "Prenom"
+			},
+			"to": {
+				"feat.positie": "prenom"
+			}
+		},
+		{
+			"from": {
+				"Position": "Free"
+			},
+			"to": {
+				"feat.positie": "vrij"
+			}
+		},
+		{
+			"from": {
+				"Case": "Gen"
+			},
+			"to": {
+				"feat.naamval": "gen",
+				"pos": "ADJ|N|VNW"
+			}
+		},
+		{
+			"from": {
+				"Case": "Acc"
+			},
+			"to": {
+				"feat.naamval": "obl"
+			}
+		},
+		{
+			"from": {
+				"Case": "Dat"
+			},
+			"to": {
+				"feat.naamval": "dat"
+			}
+		},
+		{
+			"from": {
+				"Case": "Nom"
+			},
+			"to": {
+				"feat.naamval": "nomin"
+			}
+		},
+		{
+			"from": {
+				"NumType": "Card"
+			},
+			"to": {
+				"feat.numtype": "hoofd"
+			}
+		},
+		{
+			"from": {
+				"NumType": "Ord"
+			},
+			"to": {
+				"feat.numtype": "rang"
+			}
+		},
+		{
+			"from": {
+				"Aspect": "Imp"
+			},
+			"to": {
+				"feat.wvorm": "od"
+			}
+		},
+		{
+			"from": {
+				"Aspect": "Perf"
+			},
+			"to": {
+				"feat.wvorm": "vd"
+			}
+		},
+		{
+			"from": {
+				"Mood": "Ind"
+			},
+			"to": {
+				"feat.wvorm": "pv",
+				"feat.pvtijd": "verl"
+			}
+		},
+		{
+			"from": {
+				"Mood": "Ind"
+			},
+			"to": {
+				"feat.wvorm": "pv",
+				"feat.pvtijd": "tgw",
+				"feat.persoon": "1|3|3p|3v|3m|3o"
+			}
+		},
+		{
+			"from": {
+				"Mood": "Imp,Ind"
+			},
+			"to": {
+				"feat.wvorm": "pv",
+				"feat.pvtijd": "tgw"
+			}
+		},
+		{
+			"from": {
+				"Mood": "Sub"
+			},
+			"to": {
+				"feat.wvorm": "pv",
+				"feat.pvtijd": "conj"
+			}
+		},
+		{
+			"from": {
+				"VerbForm": "Fin"
+			},
+			"to": {
+				"feat.wvorm": "pv"
+			}
+		},
+		{
+			"from": {
+				"VerbForm": "Inf"
+			},
+			"to": {
+				"feat.wvorm": "inf"
+			}
+		},
+		{
+			"from": {
+				"VerbForm": "Part"
+			},
+			"to": {
+				"feat.wvorm": "od"
+			}
+		},
+		{
+			"from": {
+				"VerbForm": "Part"
+			},
+			"to": {
+				"feat.wvorm": "vd"
+			}
+		},
+		{
+			"from": {
+				"Person": "1"
+			},
+			"to": {
+				"feat.persoon": "1"
+			}
+		},
+		{
+			"from": {
+				"Person": "2"
+			},
+			"to": {
+				"feat.persoon": "2|2v|2b"
+			}
+		},
+		{
+			"from": {
+				"Person": "3"
+			},
+			"to": {
+				"feat.persoon": "3|3p|3v|3m|3o"
+			}
+		},
+		{
+			"from": {
+				"Tense": "Past"
+			},
+			"to": {
+				"feat.pvtijd": "verl",
+				"comment": "Maar: NIET als het een deelwoord is Dus deze manier van converteren werkt niet; je hebt ook nog condities nodig"
+			}
+		},
+		{
+			"from": {
+				"Tense": "Pres"
+			},
+			"to": {
+				"feat.pvtijd": "tgw"
+			}
+		},
+		{
+			"from": {
+				"Tense": "Past"
+			},
+			"to": {
+				"feat.wvorm": "vd",
+				"comment": "eigenlijk niet goed? in UD geen past maar perf?"
+			}
+		},
+		{
+			"from": {
+				"Tense": "Pres"
+			},
+			"to": {
+				"feat.wvorm": "od"
+			}
+		},
+		{
+			"from": {
+				"Polite": "Inf"
+			},
+			"to": {
+				"feat.persoon": "2v"
+			}
+		},
+		{
+			"from": {
+				"Polite": "Pol"
+			},
+			"to": {
+				"lemma": "u"
+			}
+		},
+		{
+			"from": {
+				"Definite": "Def"
+			},
+			"to": {
+				"feat.lwtype": "bep"
+			}
+		},
+		{
+			"from": {
+				"Definite": "Ind"
+			},
+			"to": {
+				"feat.lwtype": "onbep"
+			}
+		},
+		{
+			"from": {
+				"Definite": "Def"
+			},
+			"to": {
+				"feat.vwtype": "bep"
+			}
+		},
+		{
+			"from": {
+				"Definite": "Ind"
+			},
+			"to": {
+				"feat.vwtype": "onbep"
+			}
+		},
+		{
+			"from": {
+				"PronType": "Art"
+			},
+			"to": {
+				"pos": "LID"
+			}
+		},
+		{
+			"from": {
+				"PronType": "Exc"
+			},
+			"to": {
+				"feat.vwtype": "excl",
+				"comment": "misnomer: zou vnwtype moeten zijn?"
+			}
+		},
+		{
+			"from": {
+				"PronType": "Dem"
+			},
+			"to": {
+				"feat.vwtype": "aanw",
+				"comment": "in welk feat zit PronType????"
+			}
+		},
+		{
+			"from": {
+				"PronType": "Prs"
+			},
+			"to": {
+				"feat.vwtype": "pers"
+			}
+		},
+		{
+			"from": {
+				"PronType": "Rel"
+			},
+			"to": {
+				"feat.vwtype": "betr"
+			}
+		},
+		{
+			"from": {
+				"PronType": "Int"
+			},
+			"to": {
+				"feat.vwtype": "vrag",
+				"comment": "wanneer precies vb? Alleen bij wie/wat enz?"
+			}
+		},
+		{
+			"from": {
+				"PronType": "Rcp"
+			},
+			"to": {
+				"feat.vwtype": "recip"
+			}
+		},
+		{
+			"from": {
+				"PronType": "Ind"
+			},
+			"to": {
+				"feat.lwtype": "onbep"
+			}
+		},
+		{
+			"from": {
+				"PronType": "Ind"
+			},
+			"to": {
+				"feat.vwtype": "onbep"
+			}
+		},
+		{
+			"from": {
+				"PronType": "Tot"
+			},
+			"to": {
+				"feat.lwtype": "onbep",
+				"lemma": "iedereen|ieder|al|alles|elk|elke"
+			}
+		},
+		{
+			"from": {
+				"PronType": "Neg,Tot"
+			},
+			"to": {
+				"feat.lwtype": "onbep",
+				"lemma": "geen"
+			}
+		},
+		{
+			"from": {
+				"Poss": "Yes"
+			},
+			"to": {
+				"feat.vwtype": "bez"
+			}
+		},
+		{
+			"from": {
+				"Reflex": "Yes"
+			},
+			"to": {
+				"feat.vwtype": "refl"
+			}
+		},
+		{
+			"from": {
+				"Reflex": "Yes"
+			},
+			"to": {
+				"feat.vwtype": "pr"
+			}
+		},
+		{
+			"from": {
+				"Variant": "Long"
+			},
+			"to": {
+				"feat.status": "vol"
+			}
+		},
+		{
+			"from": {
+				"Variant": "Short"
+			},
+			"to": {
+				"feat.status": "red"
+			}
+		}
+	]
 }

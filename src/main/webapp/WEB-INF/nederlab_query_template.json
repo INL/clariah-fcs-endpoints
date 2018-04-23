@@ -1,55 +1,23 @@
 {
-    "filter": {
-  
-        "list": [
-            {
-                "condition": {
-                
-                    "type": "cql",
-                    "field": "NLContent_mtas",
-                    "value": "_QUERY_"
-                }
-            }
-        ]
-    },
-
-    "response": {
-
-        "stats": true,
-        "documents": {
-            "number": _NUMBER_,
-            "start": _START_,
-            "translate": true,
-            "fields": [
-                "NLCore_NLIdentification_nederlabID",
-                "NLProfile_name",
-                "NLTitle_title",
-                "NLTitle_yearOfPublicationMin",
-                "NLTitle_yearOfPublicationMax",
-                "NLCore_NLAdministrative_sourceCollection"
-            ]
-        },
-        
-        "mtas": {
-        
-            "kwic": [
-                {
-                "field": "NLContent_mtas",
-                "query": {
-                    "type": "cql",
-                    "value": "_QUERY_"
-                },
-                "key": "tekst",
-                "output": "token",
-                "number": _NUMBER_,
-                "start": 0,
-                "prefix": "t,lemma, pos, entity, feat.tokentype, feat.pos, feat.ntype, feat.getal, feat.graad, feat.genus, feat.naamval, feat.positie, feat.buiging, feat.getal-n, feat.wvorm, feat.pvtijd, feat.pvagr, feat.numtype,feat.vwtype, feat.pdtype, feat.persoon, feat.status, feat.npagr, feat.lwtype, feat.vztype, feat.conjtype, feat.spectype",
-                "left": _CONTEXT_,
-                "right": _CONTEXT_
-                }
-            ]
-        }
-    },
-
-    "cache": true
+	"response": {
+		"mtas": {
+			"list": [
+				{
+					"field": "NLContent_mtas",
+					"query": {
+						"type": "cql",
+						"value": "_QUERY_"
+					},
+					"key": "tekst",
+					"output": "token",
+					"number": _NUMBER_,
+					"start": _START_,
+					"prefix": "t,lemma, pos, entity, feat.tokentype, feat.pos, feat.ntype, feat.getal, feat.graad, feat.genus, feat.naamval, feat.positie, feat.buiging, feat.getal-n, feat.wvorm, feat.pvtijd, feat.pvagr, feat.numtype,feat.vwtype, feat.pdtype, feat.persoon, feat.status, feat.npagr, feat.lwtype, feat.vztype, feat.conjtype, feat.spectype",
+					"left": _CONTEXT_,
+					"right": _CONTEXT_
+				}
+			]
+		}
+	},
+	"cache": true
 }

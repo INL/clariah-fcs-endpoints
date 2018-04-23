@@ -1,1213 +1,1213 @@
 {
-    "corpus_hits": {
-        "SUC2": 5934
-    }, 
-    "corpus_order": [
-        "SUC2"
-    ], 
-    "hits": 5934, 
-    "kwic": [
-        {
-            "corpus": "SUC2", 
-            "match": {
-                "end": 7, 
-                "position": 86, 
-                "start": 4
-            }, 
-            "tokens": [
-                {
-                    "lemma": "|f\u00f6r|", 
-                    "msd": "PP", 
-                    "word": "F\u00f6r"
-                }, 
-                {
-                    "lemma": "|viss|", 
-                    "msd": "JJ.POS.UTR+NEU.PLU.IND+DEF.NOM", 
-                    "word": "vissa"
-                }, 
-                {
-                    "lemma": "|ledande|", 
-                    "msd": "PC.PRS.UTR+NEU.SIN+PLU.IND+DEF.NOM", 
-                    "word": "ledande"
-                }, 
-                {
-                    "lemma": "|statlig|", 
-                    "msd": "JJ.POS.UTR+NEU.PLU.IND+DEF.NOM", 
-                    "word": "statliga"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|kommunal|", 
-                    "msd": "JJ.POS.UTR+NEU.PLU.IND+DEF.NOM", 
-                    "word": "kommunala"
-                }, 
-                {
-                    "lemma": "|tj\u00e4nsteman|", 
-                    "msd": "NN.UTR.PLU.IND.NOM", 
-                    "word": "tj\u00e4nstem\u00e4n"
-                }, 
-                {
-                    "lemma": "|f\u00f6religga|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "f\u00f6religger"
-                }, 
-                {
-                    "lemma": "|det|", 
-                    "msd": "PN.NEU.SIN.DEF.SUB+OBJ", 
-                    "word": "det"
-                }, 
-                {
-                    "lemma": "|valbarhetshinder|", 
-                    "msd": "NN.NEU.SIN.IND.NOM", 
-                    "word": "valbarhetshinder"
-                }, 
-                {
-                    "lemma": "|.|", 
-                    "msd": "MAD", 
-                    "word": "."
-                }
-            ]
-        }, 
-        {
-            "corpus": "SUC2", 
-            "match": {
-                "end": 9, 
-                "position": 149, 
-                "start": 6
-            }, 
-            "tokens": [
-                {
-                    "lemma": "|f\u00f6r|", 
-                    "msd": "PP", 
-                    "word": "F\u00f6r"
-                }, 
-                {
-                    "lemma": "|att|", 
-                    "msd": "IE", 
-                    "word": "att"
-                }, 
-                {
-                    "lemma": "|f\u00f6rb\u00e4ttra|", 
-                    "msd": "VB.INF.AKT", 
-                    "word": "f\u00f6rb\u00e4ttra"
-                }, 
-                {
-                    "lemma": "|service|", 
-                    "msd": "NN.UTR.SIN.DEF.NOM", 
-                    "word": "servicen"
-                }, 
-                {
-                    "lemma": "|till|", 
-                    "msd": "PP", 
-                    "word": "till"
-                }, 
-                {
-                    "lemma": "|medborgare|", 
-                    "msd": "NN.UTR.PLU.DEF.NOM", 
-                    "word": "medborgarna"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|\u00f6ka|", 
-                    "msd": "VB.INF.AKT", 
-                    "word": "\u00f6ka"
-                }, 
-                {
-                    "lemma": "|effektivitet|", 
-                    "msd": "NN.UTR.SIN.DEF.NOM", 
-                    "word": "effektiviteten"
-                }, 
-                {
-                    "lemma": "|inom|", 
-                    "msd": "PP", 
-                    "word": "inom"
-                }, 
-                {
-                    "lemma": "|den|", 
-                    "msd": "DT.UTR.SIN.DEF", 
-                    "word": "den"
-                }, 
-                {
-                    "lemma": "|offentlig|", 
-                    "msd": "JJ.POS.UTR+NEU.SIN.DEF.NOM", 
-                    "word": "offentliga"
-                }, 
-                {
-                    "lemma": "|sektor|", 
-                    "msd": "NN.UTR.SIN.DEF.NOM", 
-                    "word": "sektorn"
-                }, 
-                {
-                    "lemma": "|beh\u00f6va|", 
-                    "msd": "VB.PRS.SFO", 
-                    "word": "beh\u00f6vs"
-                }, 
-                {
-                    "lemma": "|en|", 
-                    "msd": "DT.UTR.SIN.IND", 
-                    "word": "en"
-                }, 
-                {
-                    "lemma": "|stor|", 
-                    "msd": "JJ.KOM.UTR+NEU.SIN+PLU.IND+DEF.NOM", 
-                    "word": "st\u00f6rre"
-                }, 
-                {
-                    "lemma": "|flexibilitet|", 
-                    "msd": "NN.UTR.SIN.IND.NOM", 
-                    "word": "flexibilitet"
-                }, 
-                {
-                    "lemma": "|i|", 
-                    "msd": "PP", 
-                    "word": "i"
-                }, 
-                {
-                    "lemma": "|fr\u00e5ga|", 
-                    "msd": "NN.UTR.SIN.IND.NOM", 
-                    "word": "fr\u00e5ga"
-                }, 
-                {
-                    "lemma": "|om|", 
-                    "msd": "PP", 
-                    "word": "om"
-                }, 
-                {
-                    "lemma": "|verksamhetsform|", 
-                    "msd": "NN.UTR.PLU.IND.NOM", 
-                    "word": "verksamhetsformer"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|arbetss\u00e4tt|", 
-                    "msd": "NN.NEU.PLU.IND.NOM", 
-                    "word": "arbetss\u00e4tt"
-                }, 
-                {
-                    "lemma": "|.|", 
-                    "msd": "MAD", 
-                    "word": "."
-                }
-            ]
-        }, 
-        {
-            "corpus": "SUC2", 
-            "match": {
-                "end": 11, 
-                "position": 203, 
-                "start": 8
-            }, 
-            "tokens": [
-                {
-                    "lemma": "|omr\u00e5desstyrelse|", 
-                    "msd": "NN.UTR.PLU.DEF.NOM", 
-                    "word": "Omr\u00e5desstyrelserna"
-                }, 
-                {
-                    "lemma": "|f\u00f6ruts\u00e4tta|", 
-                    "msd": "VB.PRS.SFO", 
-                    "word": "f\u00f6ruts\u00e4tts"
-                }, 
-                {
-                    "lemma": "|styra|", 
-                    "msd": "VB.INF.AKT", 
-                    "word": "styra"
-                }, 
-                {
-                    "lemma": "|mycket|", 
-                    "msd": "AB.KOM", 
-                    "word": "mera"
-                }, 
-                {
-                    "lemma": "|med|", 
-                    "msd": "PP", 
-                    "word": "med"
-                }, 
-                {
-                    "lemma": "|hj\u00e4lp|", 
-                    "msd": "NN.UTR.SIN.IND.NOM", 
-                    "word": "hj\u00e4lp"
-                }, 
-                {
-                    "lemma": "|av|", 
-                    "msd": "PP", 
-                    "word": "av"
-                }, 
-                {
-                    "lemma": "|m\u00e5l|", 
-                    "msd": "NN.NEU.PLU.IND.NOM", 
-                    "word": "m\u00e5l"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|ekonomisk|", 
-                    "msd": "JJ.POS.UTR+NEU.PLU.IND+DEF.NOM", 
-                    "word": "ekonomiska"
-                }, 
-                {
-                    "lemma": "|ram|", 
-                    "msd": "NN.UTR.PLU.IND.NOM", 
-                    "word": "ramar"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|liten|", 
-                    "msd": "JJ.KOM.UTR+NEU.SIN+PLU.IND+DEF.NOM", 
-                    "word": "mindre"
-                }, 
-                {
-                    "lemma": "|genom|", 
-                    "msd": "PP", 
-                    "word": "genom"
-                }, 
-                {
-                    "lemma": "|detaljbeslut|", 
-                    "msd": "NN.NEU.PLU.IND.NOM", 
-                    "word": "detaljbeslut"
-                }, 
-                {
-                    "lemma": "|.|", 
-                    "msd": "MAD", 
-                    "word": "."
-                }
-            ]
-        }, 
-        {
-            "corpus": "SUC2", 
-            "match": {
-                "end": 8, 
-                "position": 345, 
-                "start": 5
-            }, 
-            "tokens": [
-                {
-                    "lemma": "|befolkningskontrakt|", 
-                    "msd": "NN.NEU.SIN.DEF.NOM", 
-                    "word": "Befolkningskontraktet"
-                }, 
-                {
-                    "lemma": "|ska|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "skall"
-                }, 
-                {
-                    "lemma": "|reglera|", 
-                    "msd": "VB.INF.AKT", 
-                    "word": "reglera"
-                }, 
-                {
-                    "lemma": "|v\u00e5rdcentral|", 
-                    "msd": "NN.UTR.SIN.DEF.GEN", 
-                    "word": "v\u00e5rdcentralens"
-                }, 
-                {
-                    "lemma": "|\u00e5tagande|", 
-                    "msd": "NN.NEU.PLU.IND.NOM", 
-                    "word": "\u00e5taganden"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|den|", 
-                    "msd": "DT.UTR+NEU.PLU.DEF", 
-                    "word": "de"
-                }, 
-                {
-                    "lemma": "|resurs|", 
-                    "msd": "NN.UTR.PLU.IND.NOM", 
-                    "word": "resurser"
-                }, 
-                {
-                    "lemma": "|som|", 
-                    "msd": "HP.-.-.-", 
-                    "word": "som"
-                }, 
-                {
-                    "lemma": "|st\u00e5|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "st\u00e5r"
-                }, 
-                {
-                    "lemma": "|till|", 
-                    "msd": "PP", 
-                    "word": "till"
-                }, 
-                {
-                    "lemma": "|f\u00f6rfogande|", 
-                    "msd": "NN.NEU.SIN.IND.NOM", 
-                    "word": "f\u00f6rfogande"
-                }, 
-                {
-                    "lemma": "|f\u00f6r|", 
-                    "msd": "PP", 
-                    "word": "f\u00f6r"
-                }, 
-                {
-                    "lemma": "|att|", 
-                    "msd": "IE", 
-                    "word": "att"
-                }, 
-                {
-                    "lemma": "|fullg\u00f6ra|", 
-                    "msd": "VB.INF.AKT", 
-                    "word": "fullg\u00f6ra"
-                }, 
-                {
-                    "lemma": "|\u00e5tagande|", 
-                    "msd": "NN.NEU.PLU.DEF.NOM", 
-                    "word": "\u00e5tagandena"
-                }, 
-                {
-                    "lemma": "|.|", 
-                    "msd": "MAD", 
-                    "word": "."
-                }
-            ]
-        }, 
-        {
-            "corpus": "SUC2", 
-            "match": {
-                "end": 13, 
-                "position": 373, 
-                "start": 10
-            }, 
-            "tokens": [
-                {
-                    "lemma": "|den|", 
-                    "msd": "PN.UTR.SIN.DEF.SUB+OBJ", 
-                    "word": "Den"
-                }, 
-                {
-                    "lemma": "|ska|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "skall"
-                }, 
-                {
-                    "lemma": "|vara|", 
-                    "msd": "VB.INF.AKT", 
-                    "word": "vara"
-                }, 
-                {
-                    "lemma": "|av|", 
-                    "msd": "PP", 
-                    "word": "av"
-                }, 
-                {
-                    "lemma": "|h\u00f6g|", 
-                    "msd": "JJ.POS.UTR.SIN.IND.NOM", 
-                    "word": "h\u00f6g"
-                }, 
-                {
-                    "lemma": "|kvalitet|", 
-                    "msd": "NN.UTR.SIN.IND.NOM", 
-                    "word": "kvalitet"
-                }, 
-                {
-                    "lemma": "|,|", 
-                    "msd": "MID", 
-                    "word": ","
-                }, 
-                {
-                    "lemma": "|tillg\u00e4nglig|", 
-                    "msd": "JJ.POS.UTR.SIN.IND.NOM", 
-                    "word": "tillg\u00e4nglig"
-                }, 
-                {
-                    "lemma": "|,|", 
-                    "msd": "MID", 
-                    "word": ","
-                }, 
-                {
-                    "lemma": "|p\u00e5verkbar|", 
-                    "msd": "JJ.POS.UTR.SIN.IND.NOM", 
-                    "word": "p\u00e5verkbar"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|inneh\u00e5lla|", 
-                    "msd": "VB.INF.AKT", 
-                    "word": "inneh\u00e5lla"
-                }, 
-                {
-                    "lemma": "|valfrihet|", 
-                    "msd": "NN.UTR.SIN.IND.NOM", 
-                    "word": "valfrihet"
-                }, 
-                {
-                    "lemma": "|.|", 
-                    "msd": "MAD", 
-                    "word": "."
-                }
-            ]
-        }, 
-        {
-            "corpus": "SUC2", 
-            "match": {
-                "end": 25, 
-                "position": 833, 
-                "start": 22
-            }, 
-            "tokens": [
-                {
-                    "lemma": "|en|", 
-                    "msd": "DT.NEU.SIN.IND", 
-                    "word": "Ett"
-                }, 
-                {
-                    "lemma": "|b\u00e4rande|", 
-                    "msd": "PC.PRS.UTR+NEU.SIN+PLU.IND+DEF.NOM", 
-                    "word": "b\u00e4rande"
-                }, 
-                {
-                    "lemma": "|inslag|", 
-                    "msd": "NN.NEU.SIN.IND.NOM", 
-                    "word": "inslag"
-                }, 
-                {
-                    "lemma": "|i|", 
-                    "msd": "PP", 
-                    "word": "i"
-                }, 
-                {
-                    "lemma": "|dalamodell|", 
-                    "msd": "NN.UTR.SIN.DEF.NOM", 
-                    "word": "Dalamodellen"
-                }, 
-                {
-                    "lemma": "|vara|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "\u00e4r"
-                }, 
-                {
-                    "lemma": "|att|", 
-                    "msd": "SN", 
-                    "word": "att"
-                }, 
-                {
-                    "lemma": "|det|", 
-                    "msd": "PN.NEU.SIN.DEF.SUB+OBJ", 
-                    "word": "det"
-                }, 
-                {
-                    "lemma": "|ska|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "skall"
-                }, 
-                {
-                    "lemma": "|finnas|", 
-                    "msd": "VB.INF.SFO", 
-                    "word": "finnas"
-                }, 
-                {
-                    "lemma": "|l\u00e5ngtg\u00e5ende|", 
-                    "msd": "JJ.POS.UTR+NEU.SIN+PLU.IND+DEF.NOM", 
-                    "word": "l\u00e5ngtg\u00e5ende"
-                }, 
-                {
-                    "lemma": "|m\u00f6jlighet|", 
-                    "msd": "NN.UTR.PLU.IND.NOM", 
-                    "word": "m\u00f6jligheter"
-                }, 
-                {
-                    "lemma": "|att|", 
-                    "msd": "IE", 
-                    "word": "att"
-                }, 
-                {
-                    "lemma": "|delegera|", 
-                    "msd": "VB.INF.AKT", 
-                    "word": "delegera"
-                }, 
-                {
-                    "lemma": "|\u00e4rende|", 
-                    "msd": "NN.NEU.PLU.IND.NOM", 
-                    "word": "\u00e4renden"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|uppgift|", 
-                    "msd": "NN.UTR.PLU.IND.NOM", 
-                    "word": "uppgifter"
-                }, 
-                {
-                    "lemma": "|b\u00e5de|", 
-                    "msd": "KN", 
-                    "word": "b\u00e5de"
-                }, 
-                {
-                    "lemma": "|fr\u00e5n|", 
-                    "msd": "PP", 
-                    "word": "fr\u00e5n"
-                }, 
-                {
-                    "lemma": "|landsting|", 
-                    "msd": "NN.NEU.SIN.DEF.NOM", 
-                    "word": "landstinget"
-                }, 
-                {
-                    "lemma": "|till|", 
-                    "msd": "PP", 
-                    "word": "till"
-                }, 
-                {
-                    "lemma": "|n\u00e4mndniv\u00e5|", 
-                    "msd": "NN.UTR.SIN.IND.NOM", 
-                    "word": "n\u00e4mndniv\u00e5"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|inom|", 
-                    "msd": "PP", 
-                    "word": "inom"
-                }, 
-                {
-                    "lemma": "|n\u00e4mnd|", 
-                    "msd": "NN.UTR.PLU.DEF.NOM", 
-                    "word": "n\u00e4mnderna"
-                }, 
-                {
-                    "lemma": "|till|", 
-                    "msd": "PP", 
-                    "word": "till"
-                }, 
-                {
-                    "lemma": "|den|", 
-                    "msd": "DT.UTR+NEU.PLU.DEF", 
-                    "word": "de"
-                }, 
-                {
-                    "lemma": "|anst\u00e4lld|", 
-                    "msd": "PC.PRF.UTR+NEU.PLU.IND+DEF.NOM", 
-                    "word": "anst\u00e4llda"
-                }, 
-                {
-                    "lemma": "|.|", 
-                    "msd": "MAD", 
-                    "word": "."
-                }
-            ]
-        }, 
-        {
-            "corpus": "SUC2", 
-            "match": {
-                "end": 12, 
-                "position": 879, 
-                "start": 9
-            }, 
-            "tokens": [
-                {
-                    "lemma": "|den|", 
-                    "msd": "DT.UTR.SIN.DEF", 
-                    "word": "Den"
-                }, 
-                {
-                    "lemma": "|t\u00e4nkt|", 
-                    "msd": "PC.PRF.UTR+NEU.SIN.DEF.NOM", 
-                    "word": "t\u00e4nkta"
-                }, 
-                {
-                    "lemma": "|modell|", 
-                    "msd": "NN.UTR.SIN.DEF.NOM", 
-                    "word": "modellen"
-                }, 
-                {
-                    "lemma": "|inneb\u00e4ra|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "inneb\u00e4r"
-                }, 
-                {
-                    "lemma": "|att|", 
-                    "msd": "SN", 
-                    "word": "att"
-                }, 
-                {
-                    "lemma": "|landsting|", 
-                    "msd": "NN.NEU.SIN.DEF.NOM", 
-                    "word": "landstinget"
-                }, 
-                {
-                    "lemma": "|fastst\u00e4lla|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "fastst\u00e4ller"
-                }, 
-                {
-                    "lemma": "|\u00f6vergripande|", 
-                    "msd": "PC.PRS.UTR+NEU.SIN+PLU.IND+DEF.NOM", 
-                    "word": "\u00f6vergripande"
-                }, 
-                {
-                    "lemma": "|sjukv\u00e5rdsm\u00e5l|", 
-                    "msd": "NN.NEU.PLU.IND.NOM", 
-                    "word": "sjukv\u00e5rdsm\u00e5l"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|f\u00f6rdela|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "f\u00f6rdelar"
-                }, 
-                {
-                    "lemma": "|sjukv\u00e5rdsbudget|", 
-                    "msd": "NN.UTR.SIN.DEF.NOM", 
-                    "word": "sjukv\u00e5rdsbudgeten"
-                }, 
-                {
-                    "lemma": "|till|", 
-                    "msd": "PP", 
-                    "word": "till"
-                }, 
-                {
-                    "lemma": "|sjukv\u00e5rdsomr\u00e5de|", 
-                    "msd": "NN.NEU.PLU.DEF.NOM", 
-                    "word": "sjukv\u00e5rdsomr\u00e5dena"
-                }, 
-                {
-                    "lemma": "|,|", 
-                    "msd": "MID", 
-                    "word": ","
-                }, 
-                {
-                    "lemma": "|men|", 
-                    "msd": "KN", 
-                    "word": "men"
-                }, 
-                {
-                    "lemma": "|att|", 
-                    "msd": "SN", 
-                    "word": "att"
-                }, 
-                {
-                    "lemma": "|landsting|", 
-                    "msd": "NN.NEU.SIN.DEF.NOM", 
-                    "word": "landstinget"
-                }, 
-                {
-                    "lemma": "|i|", 
-                    "msd": "PP", 
-                    "word": "i"
-                }, 
-                {
-                    "lemma": "|\u00f6vrigt|", 
-                    "msd": "AB.POS", 
-                    "word": "\u00f6vrigt"
-                }, 
-                {
-                    "lemma": "|delegera|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "delegerar"
-                }, 
-                {
-                    "lemma": "|till|", 
-                    "msd": "PP", 
-                    "word": "till"
-                }, 
-                {
-                    "lemma": "|omr\u00e5desstyrelse|", 
-                    "msd": "NN.UTR.PLU.DEF.NOM", 
-                    "word": "omr\u00e5desstyrelserna"
-                }, 
-                {
-                    "lemma": "|ansvar|", 
-                    "msd": "NN.NEU.SIN.DEF.NOM", 
-                    "word": "ansvaret"
-                }, 
-                {
-                    "lemma": "|f\u00f6r|", 
-                    "msd": "PP", 
-                    "word": "f\u00f6r"
-                }, 
-                {
-                    "lemma": "|att|", 
-                    "msd": "SN", 
-                    "word": "att"
-                }, 
-                {
-                    "lemma": "|befolkning|", 
-                    "msd": "NN.UTR.SIN.DEF.NOM", 
-                    "word": "befolkningen"
-                }, 
-                {
-                    "lemma": "|i|", 
-                    "msd": "PP", 
-                    "word": "i"
-                }, 
-                {
-                    "lemma": "|omr\u00e5de|", 
-                    "msd": "NN.NEU.SIN.DEF.NOM", 
-                    "word": "omr\u00e5det"
-                }, 
-                {
-                    "lemma": "|f\u00e5|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "f\u00e5r"
-                }, 
-                {
-                    "lemma": "|h\u00e4lsa|", 
-                    "msd": "NN.UTR.-.-.SMS", 
-                    "word": "h\u00e4lso-"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|sjukv\u00e5rd|", 
-                    "msd": "NN.UTR.SIN.IND.NOM", 
-                    "word": "sjukv\u00e5rd"
-                }, 
-                {
-                    "lemma": "|i|", 
-                    "msd": "PP", 
-                    "word": "i"
-                }, 
-                {
-                    "lemma": "|enlighet|", 
-                    "msd": "NN.UTR.SIN.IND.NOM", 
-                    "word": "enlighet"
-                }, 
-                {
-                    "lemma": "|med|", 
-                    "msd": "PP", 
-                    "word": "med"
-                }, 
-                {
-                    "lemma": "|den|", 
-                    "msd": "DT.UTR+NEU.PLU.DEF", 
-                    "word": "de"
-                }, 
-                {
-                    "lemma": "|\u00f6vergripande|", 
-                    "msd": "PC.PRS.UTR+NEU.SIN+PLU.IND+DEF.NOM", 
-                    "word": "\u00f6vergripande"
-                }, 
-                {
-                    "lemma": "|riktlinje|", 
-                    "msd": "NN.UTR.PLU.IND.NOM", 
-                    "word": "riktlinjer"
-                }, 
-                {
-                    "lemma": "|som|", 
-                    "msd": "HP.-.-.-", 
-                    "word": "som"
-                }, 
-                {
-                    "lemma": "|landsting|", 
-                    "msd": "NN.NEU.SIN.DEF.NOM", 
-                    "word": "landstinget"
-                }, 
-                {
-                    "lemma": "|ha|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "har"
-                }, 
-                {
-                    "lemma": "|fastst\u00e4lla|", 
-                    "msd": "VB.SUP.AKT", 
-                    "word": "fastst\u00e4llt"
-                }, 
-                {
-                    "lemma": "|.|", 
-                    "msd": "MAD", 
-                    "word": "."
-                }
-            ]
-        }, 
-        {
-            "corpus": "SUC2", 
-            "match": {
-                "end": 9, 
-                "position": 1012, 
-                "start": 6
-            }, 
-            "tokens": [
-                {
-                    "lemma": "|detta|", 
-                    "msd": "PN.NEU.SIN.DEF.SUB+OBJ", 
-                    "word": "Detta"
-                }, 
-                {
-                    "lemma": "|vara|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "\u00e4r"
-                }, 
-                {
-                    "lemma": "|n\u00f6dv\u00e4ndig|", 
-                    "msd": "JJ.POS.NEU.SIN.IND.NOM", 
-                    "word": "n\u00f6dv\u00e4ndigt"
-                }, 
-                {
-                    "lemma": "|b\u00e5de|", 
-                    "msd": "KN", 
-                    "word": "b\u00e5de"
-                }, 
-                {
-                    "lemma": "|av|", 
-                    "msd": "PP", 
-                    "word": "av"
-                }, 
-                {
-                    "lemma": "|konstitutionell|", 
-                    "msd": "JJ.POS.UTR+NEU.PLU.IND+DEF.NOM", 
-                    "word": "konstitutionella"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|kommunaldemokratisk|", 
-                    "msd": "JJ.POS.UTR+NEU.PLU.IND+DEF.NOM", 
-                    "word": "kommunaldemokratiska"
-                }, 
-                {
-                    "lemma": "|sk\u00e4l|", 
-                    "msd": "NN.NEU.PLU.IND.NOM", 
-                    "word": "sk\u00e4l"
-                }, 
-                {
-                    "lemma": "|.|", 
-                    "msd": "MAD", 
-                    "word": "."
-                }
-            ]
-        }, 
-        {
-            "corpus": "SUC2", 
-            "match": {
-                "end": 22, 
-                "position": 1145, 
-                "start": 19
-            }, 
-            "tokens": [
-                {
-                    "lemma": "|den|", 
-                    "msd": "DT.UTR+NEU.PLU.DEF", 
-                    "word": "De"
-                }, 
-                {
-                    "lemma": "|v\u00e5rdcentral|", 
-                    "msd": "NN.UTR.PLU.IND.NOM", 
-                    "word": "v\u00e5rdcentraler"
-                }, 
-                {
-                    "lemma": "|som|", 
-                    "msd": "HP.-.-.-", 
-                    "word": "som"
-                }, 
-                {
-                    "lemma": "|finnas|", 
-                    "msd": "VB.PRS.SFO", 
-                    "word": "finns"
-                }, 
-                {
-                    "lemma": "|i|", 
-                    "msd": "PP", 
-                    "word": "i"
-                }, 
-                {
-                    "lemma": "|omr\u00e5de|", 
-                    "msd": "NN.NEU.SIN.DEF.NOM", 
-                    "word": "omr\u00e5det"
-                }, 
-                {
-                    "lemma": "|ska|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "skall"
-                }, 
-                {
-                    "lemma": "|ansvara|", 
-                    "msd": "VB.INF.AKT", 
-                    "word": "ansvara"
-                }, 
-                {
-                    "lemma": "|f\u00f6r|", 
-                    "msd": "PP", 
-                    "word": "f\u00f6r"
-                }, 
-                {
-                    "lemma": "|att|", 
-                    "msd": "SN", 
-                    "word": "att"
-                }, 
-                {
-                    "lemma": "|befolkning|", 
-                    "msd": "NN.UTR.SIN.DEF.GEN", 
-                    "word": "befolkningens"
-                }, 
-                {
-                    "lemma": "|hel|", 
-                    "msd": "JJ.POS.UTR+NEU.SIN.DEF.NOM", 
-                    "word": "hela"
-                }, 
-                {
-                    "lemma": "|h\u00e4lsa|", 
-                    "msd": "NN.UTR.-.-.SMS", 
-                    "word": "h\u00e4lso-"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|sjukv\u00e5rdsbehov|", 
-                    "msd": "NN.NEU.SIN.IND.NOM", 
-                    "word": "sjukv\u00e5rdsbehov"
-                }, 
-                {
-                    "lemma": "|tillgodose|", 
-                    "msd": "VB.PRS.SFO", 
-                    "word": "tillgodoses"
-                }, 
-                {
-                    "lemma": "|,|", 
-                    "msd": "MID", 
-                    "word": ","
-                }, 
-                {
-                    "lemma": "|\u00e4ven|", 
-                    "msd": "AB", 
-                    "word": "\u00e4ven"
-                }, 
-                {
-                    "lemma": "|specialistv\u00e5rd|", 
-                    "msd": "NN.UTR.SIN.IND.NOM", 
-                    "word": "specialistv\u00e5rd"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|sluten|", 
-                    "msd": "JJ.POS.UTR.SIN.IND.NOM", 
-                    "word": "sluten"
-                }, 
-                {
-                    "lemma": "|akutsjukv\u00e5rd|", 
-                    "msd": "NN.UTR.SIN.IND.NOM", 
-                    "word": "akutsjukv\u00e5rd"
-                }, 
-                {
-                    "lemma": "|.|", 
-                    "msd": "MAD", 
-                    "word": "."
-                }
-            ]
-        }, 
-        {
-            "corpus": "SUC2", 
-            "match": {
-                "end": 12, 
-                "position": 1523, 
-                "start": 9
-            }, 
-            "tokens": [
-                {
-                    "lemma": "|genom|", 
-                    "msd": "PP", 
-                    "word": "Genom"
-                }, 
-                {
-                    "lemma": "|h\u00e4nvisning|", 
-                    "msd": "NN.UTR.PLU.IND.NOM", 
-                    "word": "h\u00e4nvisningar"
-                }, 
-                {
-                    "lemma": "|i|", 
-                    "msd": "PP", 
-                    "word": "i"
-                }, 
-                {
-                    "lemma": "|lag|", 
-                    "msd": "NN.UTR.SIN.DEF.NOM", 
-                    "word": "lagen"
-                }, 
-                {
-                    "lemma": "|om|", 
-                    "msd": "PP", 
-                    "word": "om"
-                }, 
-                {
-                    "lemma": "|s\u00e4rskild|", 
-                    "msd": "JJ.POS.UTR+NEU.PLU.IND+DEF.NOM", 
-                    "word": "s\u00e4rskilda"
-                }, 
-                {
-                    "lemma": "|organ|", 
-                    "msd": "NN.NEU.PLU.IND.NOM", 
-                    "word": "organ"
-                }, 
-                {
-                    "lemma": "|i|", 
-                    "msd": "PP", 
-                    "word": "i"
-                }, 
-                {
-                    "lemma": "|landstingskommun|", 
-                    "msd": "NN.UTR.PLU.DEF.NOM", 
-                    "word": "landstingskommunerna"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|i|", 
-                    "msd": "PP", 
-                    "word": "i"
-                }, 
-                {
-                    "lemma": "|h\u00e4lsa|", 
-                    "msd": "NN.UTR.-.-.SMS", 
-                    "word": "h\u00e4lso-"
-                }, 
-                {
-                    "lemma": "|och|", 
-                    "msd": "KN", 
-                    "word": "och"
-                }, 
-                {
-                    "lemma": "|sjukv\u00e5rdslag|", 
-                    "msd": "NN.UTR.SIN.DEF.NOM", 
-                    "word": "sjukv\u00e5rdslagen"
-                }, 
-                {
-                    "lemma": "|(|", 
-                    "msd": "PAD", 
-                    "word": "("
-                }, 
-                {
-                    "lemma": "|1982:763|", 
-                    "msd": "RG.NOM", 
-                    "word": "1982:763"
-                }, 
-                {
-                    "lemma": "|,|", 
-                    "msd": "MID", 
-                    "word": ","
-                }, 
-                {
-                    "lemma": "|\u00e4ndrad|", 
-                    "msd": "PC.PRF.UTR.SIN.IND.NOM", 
-                    "word": "\u00e4ndrad"
-                }, 
-                {
-                    "lemma": "|senast|", 
-                    "msd": "AB.SUV", 
-                    "word": "senast"
-                }, 
-                {
-                    "lemma": "|1990:601|", 
-                    "msd": "RG.NOM", 
-                    "word": "1990:601"
-                }, 
-                {
-                    "lemma": "|)|", 
-                    "msd": "PAD", 
-                    "word": ")"
-                }, 
-                {
-                    "lemma": "|g\u00e4lla|", 
-                    "msd": "VB.PRS.AKT", 
-                    "word": "g\u00e4ller"
-                }, 
-                {
-                    "lemma": "|best\u00e4mmelse|", 
-                    "msd": "NN.UTR.SIN.DEF.NOM", 
-                    "word": "best\u00e4mmelsen"
-                }, 
-                {
-                    "lemma": "|i|", 
-                    "msd": "PP", 
-                    "word": "i"
-                }, 
-                {
-                    "lemma": "|3|", 
-                    "msd": "RG.NOM", 
-                    "word": "3"
-                }, 
-                {
-                    "lemma": "|kap|", 
-                    "msd": "NN.AN", 
-                    "word": "kap."
-                }, 
-                {
-                    "lemma": "|5|", 
-                    "msd": "RG.NOM", 
-                    "word": "5"
-                }, 
-                {
-                    "lemma": "|\u00a7|", 
-                    "msd": "NN.AN", 
-                    "word": "\u00a7"
-                }, 
-                {
-                    "lemma": "|f\u00f6rsta|", 
-                    "msd": "RO.NOM", 
-                    "word": "f\u00f6rsta"
-                }, 
-                {
-                    "lemma": "|stycke|", 
-                    "msd": "NN.NEU.SIN.DEF.NOM", 
-                    "word": "stycket"
-                }, 
-                {
-                    "lemma": "|KL|", 
-                    "msd": "PM.NOM", 
-                    "word": "KL"
-                }, 
-                {
-                    "lemma": "|.|", 
-                    "msd": "MAD", 
-                    "word": "."
-                }
-            ]
-        }
-    ], 
-    "querydata": "eJwzMjAxtTQ1NzExsja1NDaxDg51NrICsQBF1AWC\n", 
-    "time": 0.7205440998077393
+	"corpus_hits": {
+		"SUC2": 5934
+	},
+	"corpus_order": [
+		"SUC2"
+	],
+	"hits": 5934,
+	"kwic": [
+		{
+			"corpus": "SUC2",
+			"match": {
+				"end": 7,
+				"position": 86,
+				"start": 4
+			},
+			"tokens": [
+				{
+					"lemma": "|f\u00f6r|",
+					"msd": "PP",
+					"word": "F\u00f6r"
+				},
+				{
+					"lemma": "|viss|",
+					"msd": "JJ.POS.UTR+NEU.PLU.IND+DEF.NOM",
+					"word": "vissa"
+				},
+				{
+					"lemma": "|ledande|",
+					"msd": "PC.PRS.UTR+NEU.SIN+PLU.IND+DEF.NOM",
+					"word": "ledande"
+				},
+				{
+					"lemma": "|statlig|",
+					"msd": "JJ.POS.UTR+NEU.PLU.IND+DEF.NOM",
+					"word": "statliga"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|kommunal|",
+					"msd": "JJ.POS.UTR+NEU.PLU.IND+DEF.NOM",
+					"word": "kommunala"
+				},
+				{
+					"lemma": "|tj\u00e4nsteman|",
+					"msd": "NN.UTR.PLU.IND.NOM",
+					"word": "tj\u00e4nstem\u00e4n"
+				},
+				{
+					"lemma": "|f\u00f6religga|",
+					"msd": "VB.PRS.AKT",
+					"word": "f\u00f6religger"
+				},
+				{
+					"lemma": "|det|",
+					"msd": "PN.NEU.SIN.DEF.SUB+OBJ",
+					"word": "det"
+				},
+				{
+					"lemma": "|valbarhetshinder|",
+					"msd": "NN.NEU.SIN.IND.NOM",
+					"word": "valbarhetshinder"
+				},
+				{
+					"lemma": "|.|",
+					"msd": "MAD",
+					"word": "."
+				}
+			]
+		},
+		{
+			"corpus": "SUC2",
+			"match": {
+				"end": 9,
+				"position": 149,
+				"start": 6
+			},
+			"tokens": [
+				{
+					"lemma": "|f\u00f6r|",
+					"msd": "PP",
+					"word": "F\u00f6r"
+				},
+				{
+					"lemma": "|att|",
+					"msd": "IE",
+					"word": "att"
+				},
+				{
+					"lemma": "|f\u00f6rb\u00e4ttra|",
+					"msd": "VB.INF.AKT",
+					"word": "f\u00f6rb\u00e4ttra"
+				},
+				{
+					"lemma": "|service|",
+					"msd": "NN.UTR.SIN.DEF.NOM",
+					"word": "servicen"
+				},
+				{
+					"lemma": "|till|",
+					"msd": "PP",
+					"word": "till"
+				},
+				{
+					"lemma": "|medborgare|",
+					"msd": "NN.UTR.PLU.DEF.NOM",
+					"word": "medborgarna"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|\u00f6ka|",
+					"msd": "VB.INF.AKT",
+					"word": "\u00f6ka"
+				},
+				{
+					"lemma": "|effektivitet|",
+					"msd": "NN.UTR.SIN.DEF.NOM",
+					"word": "effektiviteten"
+				},
+				{
+					"lemma": "|inom|",
+					"msd": "PP",
+					"word": "inom"
+				},
+				{
+					"lemma": "|den|",
+					"msd": "DT.UTR.SIN.DEF",
+					"word": "den"
+				},
+				{
+					"lemma": "|offentlig|",
+					"msd": "JJ.POS.UTR+NEU.SIN.DEF.NOM",
+					"word": "offentliga"
+				},
+				{
+					"lemma": "|sektor|",
+					"msd": "NN.UTR.SIN.DEF.NOM",
+					"word": "sektorn"
+				},
+				{
+					"lemma": "|beh\u00f6va|",
+					"msd": "VB.PRS.SFO",
+					"word": "beh\u00f6vs"
+				},
+				{
+					"lemma": "|en|",
+					"msd": "DT.UTR.SIN.IND",
+					"word": "en"
+				},
+				{
+					"lemma": "|stor|",
+					"msd": "JJ.KOM.UTR+NEU.SIN+PLU.IND+DEF.NOM",
+					"word": "st\u00f6rre"
+				},
+				{
+					"lemma": "|flexibilitet|",
+					"msd": "NN.UTR.SIN.IND.NOM",
+					"word": "flexibilitet"
+				},
+				{
+					"lemma": "|i|",
+					"msd": "PP",
+					"word": "i"
+				},
+				{
+					"lemma": "|fr\u00e5ga|",
+					"msd": "NN.UTR.SIN.IND.NOM",
+					"word": "fr\u00e5ga"
+				},
+				{
+					"lemma": "|om|",
+					"msd": "PP",
+					"word": "om"
+				},
+				{
+					"lemma": "|verksamhetsform|",
+					"msd": "NN.UTR.PLU.IND.NOM",
+					"word": "verksamhetsformer"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|arbetss\u00e4tt|",
+					"msd": "NN.NEU.PLU.IND.NOM",
+					"word": "arbetss\u00e4tt"
+				},
+				{
+					"lemma": "|.|",
+					"msd": "MAD",
+					"word": "."
+				}
+			]
+		},
+		{
+			"corpus": "SUC2",
+			"match": {
+				"end": 11,
+				"position": 203,
+				"start": 8
+			},
+			"tokens": [
+				{
+					"lemma": "|omr\u00e5desstyrelse|",
+					"msd": "NN.UTR.PLU.DEF.NOM",
+					"word": "Omr\u00e5desstyrelserna"
+				},
+				{
+					"lemma": "|f\u00f6ruts\u00e4tta|",
+					"msd": "VB.PRS.SFO",
+					"word": "f\u00f6ruts\u00e4tts"
+				},
+				{
+					"lemma": "|styra|",
+					"msd": "VB.INF.AKT",
+					"word": "styra"
+				},
+				{
+					"lemma": "|mycket|",
+					"msd": "AB.KOM",
+					"word": "mera"
+				},
+				{
+					"lemma": "|med|",
+					"msd": "PP",
+					"word": "med"
+				},
+				{
+					"lemma": "|hj\u00e4lp|",
+					"msd": "NN.UTR.SIN.IND.NOM",
+					"word": "hj\u00e4lp"
+				},
+				{
+					"lemma": "|av|",
+					"msd": "PP",
+					"word": "av"
+				},
+				{
+					"lemma": "|m\u00e5l|",
+					"msd": "NN.NEU.PLU.IND.NOM",
+					"word": "m\u00e5l"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|ekonomisk|",
+					"msd": "JJ.POS.UTR+NEU.PLU.IND+DEF.NOM",
+					"word": "ekonomiska"
+				},
+				{
+					"lemma": "|ram|",
+					"msd": "NN.UTR.PLU.IND.NOM",
+					"word": "ramar"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|liten|",
+					"msd": "JJ.KOM.UTR+NEU.SIN+PLU.IND+DEF.NOM",
+					"word": "mindre"
+				},
+				{
+					"lemma": "|genom|",
+					"msd": "PP",
+					"word": "genom"
+				},
+				{
+					"lemma": "|detaljbeslut|",
+					"msd": "NN.NEU.PLU.IND.NOM",
+					"word": "detaljbeslut"
+				},
+				{
+					"lemma": "|.|",
+					"msd": "MAD",
+					"word": "."
+				}
+			]
+		},
+		{
+			"corpus": "SUC2",
+			"match": {
+				"end": 8,
+				"position": 345,
+				"start": 5
+			},
+			"tokens": [
+				{
+					"lemma": "|befolkningskontrakt|",
+					"msd": "NN.NEU.SIN.DEF.NOM",
+					"word": "Befolkningskontraktet"
+				},
+				{
+					"lemma": "|ska|",
+					"msd": "VB.PRS.AKT",
+					"word": "skall"
+				},
+				{
+					"lemma": "|reglera|",
+					"msd": "VB.INF.AKT",
+					"word": "reglera"
+				},
+				{
+					"lemma": "|v\u00e5rdcentral|",
+					"msd": "NN.UTR.SIN.DEF.GEN",
+					"word": "v\u00e5rdcentralens"
+				},
+				{
+					"lemma": "|\u00e5tagande|",
+					"msd": "NN.NEU.PLU.IND.NOM",
+					"word": "\u00e5taganden"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|den|",
+					"msd": "DT.UTR+NEU.PLU.DEF",
+					"word": "de"
+				},
+				{
+					"lemma": "|resurs|",
+					"msd": "NN.UTR.PLU.IND.NOM",
+					"word": "resurser"
+				},
+				{
+					"lemma": "|som|",
+					"msd": "HP.-.-.-",
+					"word": "som"
+				},
+				{
+					"lemma": "|st\u00e5|",
+					"msd": "VB.PRS.AKT",
+					"word": "st\u00e5r"
+				},
+				{
+					"lemma": "|till|",
+					"msd": "PP",
+					"word": "till"
+				},
+				{
+					"lemma": "|f\u00f6rfogande|",
+					"msd": "NN.NEU.SIN.IND.NOM",
+					"word": "f\u00f6rfogande"
+				},
+				{
+					"lemma": "|f\u00f6r|",
+					"msd": "PP",
+					"word": "f\u00f6r"
+				},
+				{
+					"lemma": "|att|",
+					"msd": "IE",
+					"word": "att"
+				},
+				{
+					"lemma": "|fullg\u00f6ra|",
+					"msd": "VB.INF.AKT",
+					"word": "fullg\u00f6ra"
+				},
+				{
+					"lemma": "|\u00e5tagande|",
+					"msd": "NN.NEU.PLU.DEF.NOM",
+					"word": "\u00e5tagandena"
+				},
+				{
+					"lemma": "|.|",
+					"msd": "MAD",
+					"word": "."
+				}
+			]
+		},
+		{
+			"corpus": "SUC2",
+			"match": {
+				"end": 13,
+				"position": 373,
+				"start": 10
+			},
+			"tokens": [
+				{
+					"lemma": "|den|",
+					"msd": "PN.UTR.SIN.DEF.SUB+OBJ",
+					"word": "Den"
+				},
+				{
+					"lemma": "|ska|",
+					"msd": "VB.PRS.AKT",
+					"word": "skall"
+				},
+				{
+					"lemma": "|vara|",
+					"msd": "VB.INF.AKT",
+					"word": "vara"
+				},
+				{
+					"lemma": "|av|",
+					"msd": "PP",
+					"word": "av"
+				},
+				{
+					"lemma": "|h\u00f6g|",
+					"msd": "JJ.POS.UTR.SIN.IND.NOM",
+					"word": "h\u00f6g"
+				},
+				{
+					"lemma": "|kvalitet|",
+					"msd": "NN.UTR.SIN.IND.NOM",
+					"word": "kvalitet"
+				},
+				{
+					"lemma": "|,|",
+					"msd": "MID",
+					"word": ","
+				},
+				{
+					"lemma": "|tillg\u00e4nglig|",
+					"msd": "JJ.POS.UTR.SIN.IND.NOM",
+					"word": "tillg\u00e4nglig"
+				},
+				{
+					"lemma": "|,|",
+					"msd": "MID",
+					"word": ","
+				},
+				{
+					"lemma": "|p\u00e5verkbar|",
+					"msd": "JJ.POS.UTR.SIN.IND.NOM",
+					"word": "p\u00e5verkbar"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|inneh\u00e5lla|",
+					"msd": "VB.INF.AKT",
+					"word": "inneh\u00e5lla"
+				},
+				{
+					"lemma": "|valfrihet|",
+					"msd": "NN.UTR.SIN.IND.NOM",
+					"word": "valfrihet"
+				},
+				{
+					"lemma": "|.|",
+					"msd": "MAD",
+					"word": "."
+				}
+			]
+		},
+		{
+			"corpus": "SUC2",
+			"match": {
+				"end": 25,
+				"position": 833,
+				"start": 22
+			},
+			"tokens": [
+				{
+					"lemma": "|en|",
+					"msd": "DT.NEU.SIN.IND",
+					"word": "Ett"
+				},
+				{
+					"lemma": "|b\u00e4rande|",
+					"msd": "PC.PRS.UTR+NEU.SIN+PLU.IND+DEF.NOM",
+					"word": "b\u00e4rande"
+				},
+				{
+					"lemma": "|inslag|",
+					"msd": "NN.NEU.SIN.IND.NOM",
+					"word": "inslag"
+				},
+				{
+					"lemma": "|i|",
+					"msd": "PP",
+					"word": "i"
+				},
+				{
+					"lemma": "|dalamodell|",
+					"msd": "NN.UTR.SIN.DEF.NOM",
+					"word": "Dalamodellen"
+				},
+				{
+					"lemma": "|vara|",
+					"msd": "VB.PRS.AKT",
+					"word": "\u00e4r"
+				},
+				{
+					"lemma": "|att|",
+					"msd": "SN",
+					"word": "att"
+				},
+				{
+					"lemma": "|det|",
+					"msd": "PN.NEU.SIN.DEF.SUB+OBJ",
+					"word": "det"
+				},
+				{
+					"lemma": "|ska|",
+					"msd": "VB.PRS.AKT",
+					"word": "skall"
+				},
+				{
+					"lemma": "|finnas|",
+					"msd": "VB.INF.SFO",
+					"word": "finnas"
+				},
+				{
+					"lemma": "|l\u00e5ngtg\u00e5ende|",
+					"msd": "JJ.POS.UTR+NEU.SIN+PLU.IND+DEF.NOM",
+					"word": "l\u00e5ngtg\u00e5ende"
+				},
+				{
+					"lemma": "|m\u00f6jlighet|",
+					"msd": "NN.UTR.PLU.IND.NOM",
+					"word": "m\u00f6jligheter"
+				},
+				{
+					"lemma": "|att|",
+					"msd": "IE",
+					"word": "att"
+				},
+				{
+					"lemma": "|delegera|",
+					"msd": "VB.INF.AKT",
+					"word": "delegera"
+				},
+				{
+					"lemma": "|\u00e4rende|",
+					"msd": "NN.NEU.PLU.IND.NOM",
+					"word": "\u00e4renden"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|uppgift|",
+					"msd": "NN.UTR.PLU.IND.NOM",
+					"word": "uppgifter"
+				},
+				{
+					"lemma": "|b\u00e5de|",
+					"msd": "KN",
+					"word": "b\u00e5de"
+				},
+				{
+					"lemma": "|fr\u00e5n|",
+					"msd": "PP",
+					"word": "fr\u00e5n"
+				},
+				{
+					"lemma": "|landsting|",
+					"msd": "NN.NEU.SIN.DEF.NOM",
+					"word": "landstinget"
+				},
+				{
+					"lemma": "|till|",
+					"msd": "PP",
+					"word": "till"
+				},
+				{
+					"lemma": "|n\u00e4mndniv\u00e5|",
+					"msd": "NN.UTR.SIN.IND.NOM",
+					"word": "n\u00e4mndniv\u00e5"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|inom|",
+					"msd": "PP",
+					"word": "inom"
+				},
+				{
+					"lemma": "|n\u00e4mnd|",
+					"msd": "NN.UTR.PLU.DEF.NOM",
+					"word": "n\u00e4mnderna"
+				},
+				{
+					"lemma": "|till|",
+					"msd": "PP",
+					"word": "till"
+				},
+				{
+					"lemma": "|den|",
+					"msd": "DT.UTR+NEU.PLU.DEF",
+					"word": "de"
+				},
+				{
+					"lemma": "|anst\u00e4lld|",
+					"msd": "PC.PRF.UTR+NEU.PLU.IND+DEF.NOM",
+					"word": "anst\u00e4llda"
+				},
+				{
+					"lemma": "|.|",
+					"msd": "MAD",
+					"word": "."
+				}
+			]
+		},
+		{
+			"corpus": "SUC2",
+			"match": {
+				"end": 12,
+				"position": 879,
+				"start": 9
+			},
+			"tokens": [
+				{
+					"lemma": "|den|",
+					"msd": "DT.UTR.SIN.DEF",
+					"word": "Den"
+				},
+				{
+					"lemma": "|t\u00e4nkt|",
+					"msd": "PC.PRF.UTR+NEU.SIN.DEF.NOM",
+					"word": "t\u00e4nkta"
+				},
+				{
+					"lemma": "|modell|",
+					"msd": "NN.UTR.SIN.DEF.NOM",
+					"word": "modellen"
+				},
+				{
+					"lemma": "|inneb\u00e4ra|",
+					"msd": "VB.PRS.AKT",
+					"word": "inneb\u00e4r"
+				},
+				{
+					"lemma": "|att|",
+					"msd": "SN",
+					"word": "att"
+				},
+				{
+					"lemma": "|landsting|",
+					"msd": "NN.NEU.SIN.DEF.NOM",
+					"word": "landstinget"
+				},
+				{
+					"lemma": "|fastst\u00e4lla|",
+					"msd": "VB.PRS.AKT",
+					"word": "fastst\u00e4ller"
+				},
+				{
+					"lemma": "|\u00f6vergripande|",
+					"msd": "PC.PRS.UTR+NEU.SIN+PLU.IND+DEF.NOM",
+					"word": "\u00f6vergripande"
+				},
+				{
+					"lemma": "|sjukv\u00e5rdsm\u00e5l|",
+					"msd": "NN.NEU.PLU.IND.NOM",
+					"word": "sjukv\u00e5rdsm\u00e5l"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|f\u00f6rdela|",
+					"msd": "VB.PRS.AKT",
+					"word": "f\u00f6rdelar"
+				},
+				{
+					"lemma": "|sjukv\u00e5rdsbudget|",
+					"msd": "NN.UTR.SIN.DEF.NOM",
+					"word": "sjukv\u00e5rdsbudgeten"
+				},
+				{
+					"lemma": "|till|",
+					"msd": "PP",
+					"word": "till"
+				},
+				{
+					"lemma": "|sjukv\u00e5rdsomr\u00e5de|",
+					"msd": "NN.NEU.PLU.DEF.NOM",
+					"word": "sjukv\u00e5rdsomr\u00e5dena"
+				},
+				{
+					"lemma": "|,|",
+					"msd": "MID",
+					"word": ","
+				},
+				{
+					"lemma": "|men|",
+					"msd": "KN",
+					"word": "men"
+				},
+				{
+					"lemma": "|att|",
+					"msd": "SN",
+					"word": "att"
+				},
+				{
+					"lemma": "|landsting|",
+					"msd": "NN.NEU.SIN.DEF.NOM",
+					"word": "landstinget"
+				},
+				{
+					"lemma": "|i|",
+					"msd": "PP",
+					"word": "i"
+				},
+				{
+					"lemma": "|\u00f6vrigt|",
+					"msd": "AB.POS",
+					"word": "\u00f6vrigt"
+				},
+				{
+					"lemma": "|delegera|",
+					"msd": "VB.PRS.AKT",
+					"word": "delegerar"
+				},
+				{
+					"lemma": "|till|",
+					"msd": "PP",
+					"word": "till"
+				},
+				{
+					"lemma": "|omr\u00e5desstyrelse|",
+					"msd": "NN.UTR.PLU.DEF.NOM",
+					"word": "omr\u00e5desstyrelserna"
+				},
+				{
+					"lemma": "|ansvar|",
+					"msd": "NN.NEU.SIN.DEF.NOM",
+					"word": "ansvaret"
+				},
+				{
+					"lemma": "|f\u00f6r|",
+					"msd": "PP",
+					"word": "f\u00f6r"
+				},
+				{
+					"lemma": "|att|",
+					"msd": "SN",
+					"word": "att"
+				},
+				{
+					"lemma": "|befolkning|",
+					"msd": "NN.UTR.SIN.DEF.NOM",
+					"word": "befolkningen"
+				},
+				{
+					"lemma": "|i|",
+					"msd": "PP",
+					"word": "i"
+				},
+				{
+					"lemma": "|omr\u00e5de|",
+					"msd": "NN.NEU.SIN.DEF.NOM",
+					"word": "omr\u00e5det"
+				},
+				{
+					"lemma": "|f\u00e5|",
+					"msd": "VB.PRS.AKT",
+					"word": "f\u00e5r"
+				},
+				{
+					"lemma": "|h\u00e4lsa|",
+					"msd": "NN.UTR.-.-.SMS",
+					"word": "h\u00e4lso-"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|sjukv\u00e5rd|",
+					"msd": "NN.UTR.SIN.IND.NOM",
+					"word": "sjukv\u00e5rd"
+				},
+				{
+					"lemma": "|i|",
+					"msd": "PP",
+					"word": "i"
+				},
+				{
+					"lemma": "|enlighet|",
+					"msd": "NN.UTR.SIN.IND.NOM",
+					"word": "enlighet"
+				},
+				{
+					"lemma": "|med|",
+					"msd": "PP",
+					"word": "med"
+				},
+				{
+					"lemma": "|den|",
+					"msd": "DT.UTR+NEU.PLU.DEF",
+					"word": "de"
+				},
+				{
+					"lemma": "|\u00f6vergripande|",
+					"msd": "PC.PRS.UTR+NEU.SIN+PLU.IND+DEF.NOM",
+					"word": "\u00f6vergripande"
+				},
+				{
+					"lemma": "|riktlinje|",
+					"msd": "NN.UTR.PLU.IND.NOM",
+					"word": "riktlinjer"
+				},
+				{
+					"lemma": "|som|",
+					"msd": "HP.-.-.-",
+					"word": "som"
+				},
+				{
+					"lemma": "|landsting|",
+					"msd": "NN.NEU.SIN.DEF.NOM",
+					"word": "landstinget"
+				},
+				{
+					"lemma": "|ha|",
+					"msd": "VB.PRS.AKT",
+					"word": "har"
+				},
+				{
+					"lemma": "|fastst\u00e4lla|",
+					"msd": "VB.SUP.AKT",
+					"word": "fastst\u00e4llt"
+				},
+				{
+					"lemma": "|.|",
+					"msd": "MAD",
+					"word": "."
+				}
+			]
+		},
+		{
+			"corpus": "SUC2",
+			"match": {
+				"end": 9,
+				"position": 1012,
+				"start": 6
+			},
+			"tokens": [
+				{
+					"lemma": "|detta|",
+					"msd": "PN.NEU.SIN.DEF.SUB+OBJ",
+					"word": "Detta"
+				},
+				{
+					"lemma": "|vara|",
+					"msd": "VB.PRS.AKT",
+					"word": "\u00e4r"
+				},
+				{
+					"lemma": "|n\u00f6dv\u00e4ndig|",
+					"msd": "JJ.POS.NEU.SIN.IND.NOM",
+					"word": "n\u00f6dv\u00e4ndigt"
+				},
+				{
+					"lemma": "|b\u00e5de|",
+					"msd": "KN",
+					"word": "b\u00e5de"
+				},
+				{
+					"lemma": "|av|",
+					"msd": "PP",
+					"word": "av"
+				},
+				{
+					"lemma": "|konstitutionell|",
+					"msd": "JJ.POS.UTR+NEU.PLU.IND+DEF.NOM",
+					"word": "konstitutionella"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|kommunaldemokratisk|",
+					"msd": "JJ.POS.UTR+NEU.PLU.IND+DEF.NOM",
+					"word": "kommunaldemokratiska"
+				},
+				{
+					"lemma": "|sk\u00e4l|",
+					"msd": "NN.NEU.PLU.IND.NOM",
+					"word": "sk\u00e4l"
+				},
+				{
+					"lemma": "|.|",
+					"msd": "MAD",
+					"word": "."
+				}
+			]
+		},
+		{
+			"corpus": "SUC2",
+			"match": {
+				"end": 22,
+				"position": 1145,
+				"start": 19
+			},
+			"tokens": [
+				{
+					"lemma": "|den|",
+					"msd": "DT.UTR+NEU.PLU.DEF",
+					"word": "De"
+				},
+				{
+					"lemma": "|v\u00e5rdcentral|",
+					"msd": "NN.UTR.PLU.IND.NOM",
+					"word": "v\u00e5rdcentraler"
+				},
+				{
+					"lemma": "|som|",
+					"msd": "HP.-.-.-",
+					"word": "som"
+				},
+				{
+					"lemma": "|finnas|",
+					"msd": "VB.PRS.SFO",
+					"word": "finns"
+				},
+				{
+					"lemma": "|i|",
+					"msd": "PP",
+					"word": "i"
+				},
+				{
+					"lemma": "|omr\u00e5de|",
+					"msd": "NN.NEU.SIN.DEF.NOM",
+					"word": "omr\u00e5det"
+				},
+				{
+					"lemma": "|ska|",
+					"msd": "VB.PRS.AKT",
+					"word": "skall"
+				},
+				{
+					"lemma": "|ansvara|",
+					"msd": "VB.INF.AKT",
+					"word": "ansvara"
+				},
+				{
+					"lemma": "|f\u00f6r|",
+					"msd": "PP",
+					"word": "f\u00f6r"
+				},
+				{
+					"lemma": "|att|",
+					"msd": "SN",
+					"word": "att"
+				},
+				{
+					"lemma": "|befolkning|",
+					"msd": "NN.UTR.SIN.DEF.GEN",
+					"word": "befolkningens"
+				},
+				{
+					"lemma": "|hel|",
+					"msd": "JJ.POS.UTR+NEU.SIN.DEF.NOM",
+					"word": "hela"
+				},
+				{
+					"lemma": "|h\u00e4lsa|",
+					"msd": "NN.UTR.-.-.SMS",
+					"word": "h\u00e4lso-"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|sjukv\u00e5rdsbehov|",
+					"msd": "NN.NEU.SIN.IND.NOM",
+					"word": "sjukv\u00e5rdsbehov"
+				},
+				{
+					"lemma": "|tillgodose|",
+					"msd": "VB.PRS.SFO",
+					"word": "tillgodoses"
+				},
+				{
+					"lemma": "|,|",
+					"msd": "MID",
+					"word": ","
+				},
+				{
+					"lemma": "|\u00e4ven|",
+					"msd": "AB",
+					"word": "\u00e4ven"
+				},
+				{
+					"lemma": "|specialistv\u00e5rd|",
+					"msd": "NN.UTR.SIN.IND.NOM",
+					"word": "specialistv\u00e5rd"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|sluten|",
+					"msd": "JJ.POS.UTR.SIN.IND.NOM",
+					"word": "sluten"
+				},
+				{
+					"lemma": "|akutsjukv\u00e5rd|",
+					"msd": "NN.UTR.SIN.IND.NOM",
+					"word": "akutsjukv\u00e5rd"
+				},
+				{
+					"lemma": "|.|",
+					"msd": "MAD",
+					"word": "."
+				}
+			]
+		},
+		{
+			"corpus": "SUC2",
+			"match": {
+				"end": 12,
+				"position": 1523,
+				"start": 9
+			},
+			"tokens": [
+				{
+					"lemma": "|genom|",
+					"msd": "PP",
+					"word": "Genom"
+				},
+				{
+					"lemma": "|h\u00e4nvisning|",
+					"msd": "NN.UTR.PLU.IND.NOM",
+					"word": "h\u00e4nvisningar"
+				},
+				{
+					"lemma": "|i|",
+					"msd": "PP",
+					"word": "i"
+				},
+				{
+					"lemma": "|lag|",
+					"msd": "NN.UTR.SIN.DEF.NOM",
+					"word": "lagen"
+				},
+				{
+					"lemma": "|om|",
+					"msd": "PP",
+					"word": "om"
+				},
+				{
+					"lemma": "|s\u00e4rskild|",
+					"msd": "JJ.POS.UTR+NEU.PLU.IND+DEF.NOM",
+					"word": "s\u00e4rskilda"
+				},
+				{
+					"lemma": "|organ|",
+					"msd": "NN.NEU.PLU.IND.NOM",
+					"word": "organ"
+				},
+				{
+					"lemma": "|i|",
+					"msd": "PP",
+					"word": "i"
+				},
+				{
+					"lemma": "|landstingskommun|",
+					"msd": "NN.UTR.PLU.DEF.NOM",
+					"word": "landstingskommunerna"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|i|",
+					"msd": "PP",
+					"word": "i"
+				},
+				{
+					"lemma": "|h\u00e4lsa|",
+					"msd": "NN.UTR.-.-.SMS",
+					"word": "h\u00e4lso-"
+				},
+				{
+					"lemma": "|och|",
+					"msd": "KN",
+					"word": "och"
+				},
+				{
+					"lemma": "|sjukv\u00e5rdslag|",
+					"msd": "NN.UTR.SIN.DEF.NOM",
+					"word": "sjukv\u00e5rdslagen"
+				},
+				{
+					"lemma": "|(|",
+					"msd": "PAD",
+					"word": "("
+				},
+				{
+					"lemma": "|1982:763|",
+					"msd": "RG.NOM",
+					"word": "1982:763"
+				},
+				{
+					"lemma": "|,|",
+					"msd": "MID",
+					"word": ","
+				},
+				{
+					"lemma": "|\u00e4ndrad|",
+					"msd": "PC.PRF.UTR.SIN.IND.NOM",
+					"word": "\u00e4ndrad"
+				},
+				{
+					"lemma": "|senast|",
+					"msd": "AB.SUV",
+					"word": "senast"
+				},
+				{
+					"lemma": "|1990:601|",
+					"msd": "RG.NOM",
+					"word": "1990:601"
+				},
+				{
+					"lemma": "|)|",
+					"msd": "PAD",
+					"word": ")"
+				},
+				{
+					"lemma": "|g\u00e4lla|",
+					"msd": "VB.PRS.AKT",
+					"word": "g\u00e4ller"
+				},
+				{
+					"lemma": "|best\u00e4mmelse|",
+					"msd": "NN.UTR.SIN.DEF.NOM",
+					"word": "best\u00e4mmelsen"
+				},
+				{
+					"lemma": "|i|",
+					"msd": "PP",
+					"word": "i"
+				},
+				{
+					"lemma": "|3|",
+					"msd": "RG.NOM",
+					"word": "3"
+				},
+				{
+					"lemma": "|kap|",
+					"msd": "NN.AN",
+					"word": "kap."
+				},
+				{
+					"lemma": "|5|",
+					"msd": "RG.NOM",
+					"word": "5"
+				},
+				{
+					"lemma": "|\u00a7|",
+					"msd": "NN.AN",
+					"word": "\u00a7"
+				},
+				{
+					"lemma": "|f\u00f6rsta|",
+					"msd": "RO.NOM",
+					"word": "f\u00f6rsta"
+				},
+				{
+					"lemma": "|stycke|",
+					"msd": "NN.NEU.SIN.DEF.NOM",
+					"word": "stycket"
+				},
+				{
+					"lemma": "|KL|",
+					"msd": "PM.NOM",
+					"word": "KL"
+				},
+				{
+					"lemma": "|.|",
+					"msd": "MAD",
+					"word": "."
+				}
+			]
+		}
+	],
+	"querydata": "eJwzMjAxtTQ1NzExsja1NDaxDg51NrICsQBF1AWC\n",
+	"time": 0.7205440998077393
 }

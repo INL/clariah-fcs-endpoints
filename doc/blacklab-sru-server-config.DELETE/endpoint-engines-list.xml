@@ -1,50 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Engines>
 
-        <Engine>
-            <engine-name>nederlab</engine-name>
-            <engine-type>nederlab</engine-type>
-            <engine-url>http://www.nederlab.nl/testbroker/search/</engine-url>
-            <engine-native-url-template>http://www.nederlab.nl/onderzoeksportaal/?action=results&amp;cql-expert=</engine-native-url-template>
-            <tagset-conversion-table>UD2CGNNederlab</tagset-conversion-table>
-            <nederlab-extra-response-fields>NLCore_NLIdentification_versionID NLCore_NLIdentification_editorialCode</nederlab-extra-response-fields>
-        </Engine>
-        
-        <Engine>
-            <engine-name>opensonar</engine-name>
-            <engine-type>blacklabserver</engine-type>
-            <engine-url>http://opensonar.ato.inl.nl/blacklab-server/</engine-url>
-            <tagset-conversion-table>UD2CGNSonar</tagset-conversion-table>
-        </Engine>
-        
-        <Engine>
-            <engine-name>chn</engine-name>
-            <engine-type>blacklabserver</engine-type>
-            <engine-url>http://chn-i.inl.nl/blacklab-server/</engine-url>
-            <!--engine-native-url-template>http://chn-i.inl.nl/corpora/chn/search?operation=hits&amp;pattern=</engine-native-url-template>-->
-            <engine-native-url-template>http://localhost:8080/corpus-frontend/chn/search/hits?patt=</engine-native-url-template>
-            <tagset-conversion-table>UD2CHN</tagset-conversion-table>
-        </Engine>
-        
-        <Engine>
-            <engine-name>zeebrieven</engine-name>
-            <engine-type>blacklabserver</engine-type>
-            <engine-url>http://idunn:jeugdappels@demo.clariah.ivdnt.org/blacklab-server/</engine-url>
-            <tagset-conversion-table>UD2BaB</tagset-conversion-table>
-        </Engine>
-        
-        <Engine>
-            <engine-name>StatenGeneraal</engine-name>
-            <engine-type>blacklabserver</engine-type>
-            <engine-url>http://svprre02.inl.loc:8080/blacklab-server/</engine-url>
-            <tagset-conversion-table>UD2CHN</tagset-conversion-table>
-        </Engine>
-        
-        <Engine>
-            <engine-name>gysseling</engine-name>
-            <engine-type>blacklabserver</engine-type>
-            <engine-url>http://idunn:jeugdappels@demo.clariah.ivdnt.org/blacklab-server/</engine-url>
-            <tagset-conversion-table>UD2GYS</tagset-conversion-table>
-        </Engine>
-    
+	<Engine>
+		<engine-name>nederlab</engine-name>
+		<engine-type>nederlab</engine-type>
+		<engine-url>http://www.nederlab.nl/testbroker/search/</engine-url>
+		<engine-native-url-template>http://www.nederlab.nl/onderzoeksportaal/?action=results&amp;cql-expert=</engine-native-url-template>
+		<tagset-conversion-table>UD2CGNNederlab</tagset-conversion-table>
+		<nederlab-extra-response-fields>NLCore_NLIdentification_versionID
+			NLCore_NLIdentification_editorialCode</nederlab-extra-response-fields>
+	</Engine>
+
+	<Engine>
+		<engine-name>opensonar</engine-name>
+		<engine-type>blacklabserver</engine-type>
+		<engine-url>http://opensonar.ato.inl.nl/blacklab-server/</engine-url>
+		<tagset-conversion-table>UD2CGNSonar</tagset-conversion-table>
+	</Engine>
+
+	<Engine>
+		<engine-name>chn</engine-name>
+		<engine-type>blacklabserver</engine-type>
+		<engine-url>http://chn-i.inl.nl/blacklab-server/</engine-url>
+		<!--engine-native-url-template>http://chn-i.inl.nl/corpora/chn/search?operation=hits&amp;pattern=</engine-native-url-template> -->
+		<engine-native-url-template>http://localhost:8080/corpus-frontend/chn/search/hits?patt=</engine-native-url-template>
+		<tagset-conversion-table>UD2CHN</tagset-conversion-table>
+	</Engine>
+
+	<Engine>
+		<engine-name>zeebrieven</engine-name>
+		<engine-type>blacklabserver</engine-type>
+		<engine-url>http://idunn:jeugdappels@demo.clariah.ivdnt.org/blacklab-server/</engine-url>
+		<tagset-conversion-table>UD2BaB</tagset-conversion-table>
+	</Engine>
+
+	<Engine>
+		<engine-name>StatenGeneraal</engine-name>
+		<engine-type>blacklabserver</engine-type>
+		<engine-url>http://svprre02.inl.loc:8080/blacklab-server/</engine-url>
+		<tagset-conversion-table>UD2CHN</tagset-conversion-table>
+	</Engine>
+
+	<Engine>
+		<engine-name>gysseling</engine-name>
+		<engine-type>blacklabserver</engine-type>
+		<engine-url>http://idunn:jeugdappels@demo.clariah.ivdnt.org/blacklab-server/</engine-url>
+		<tagset-conversion-table>UD2GYS</tagset-conversion-table>
+	</Engine>
+
 </Engines>

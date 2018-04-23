@@ -2,6 +2,8 @@ package org.ivdnt.fcs.endpoint.nederlab;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.ivdnt.fcs.endpoint.common.BasicEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.nederlab.client.QueryTemplate;
 import org.ivdnt.fcs.mapping.ConversionEngine;
@@ -18,18 +20,22 @@ import eu.clarin.sru.server.SRUServerConfig;
 public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 
 	private QueryTemplate nederlabQueryTemplate;
+	private QueryTemplate nederlabDocumentQueryTemplate;
 	private List<String> nederlabExtraResponseFields;
+	private ServletContext contextCache;
 
 	// ---------------------------------------------------------------------------------
 	// constructors
 
-	public NederlabEndpointSearchEngine(String server, ConversionEngine conversionEngine, String nederlabQueryTemplate,
+	public NederlabEndpointSearchEngine(ServletContext contextCache, String server, ConversionEngine conversionEngine, String nederlabQueryTemplate, String nederlabDocumentQueryTemplate, 
 			String engineNativeUrlTemplate, List<String> nederlabExtraResponseFields) {
 		super(server, conversionEngine, engineNativeUrlTemplate);
 
 		// instantiate a Nederlab query template (needed to post well formed query's to
 		// Nederlab)
+		this.contextCache = contextCache;
 		this.nederlabQueryTemplate = new QueryTemplate(nederlabQueryTemplate);
+		this.nederlabDocumentQueryTemplate = new QueryTemplate(nederlabDocumentQueryTemplate);
 		this.nederlabExtraResponseFields = nederlabExtraResponseFields;
 
 	}
@@ -51,8 +57,8 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 
 		// instantiate the Nederlab query
 
-		NederlabQuery nederlabQuery = new NederlabQuery(this.getServer(), fcsContextCorpus, cqpQuery,
-				this.nederlabQueryTemplate, this.getEngineNativeUrlTemplate(), this.nederlabExtraResponseFields);
+		NederlabQuery nederlabQuery = new NederlabQuery(contextCache, this.getServer(), fcsContextCorpus, cqpQuery,
+				this.nederlabQueryTemplate, this.nederlabDocumentQueryTemplate, this.getEngineNativeUrlTemplate(), this.nederlabExtraResponseFields);
 
 		nederlabQuery.setStartPosition(request.getStartRecord() - 1); // fcs begint bij 1 te tellen, nederlab bij 0 (?)
 		nederlabQuery.setMaximumResults(request.getMaximumRecords());

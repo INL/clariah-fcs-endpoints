@@ -1,785 +1,785 @@
 {
-    "relations": [
-        {
-            "dep": "pappa..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 20, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 22.20880511167489, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:44373"
-            ]
-        }, 
-        {
-            "dep": "order..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 4, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 19.97488421672813, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:645358"
-            ]
-        }, 
-        {
-            "dep": "fysik..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 3, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 19.551849030717136, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:1318728"
-            ]
-        }, 
-        {
-            "dep": "svar..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 7, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 19.230463729826308, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:477177"
-            ]
-        }, 
-        {
-            "dep": "\u00f6vning..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 3, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 17.340952248218517, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:1105947"
-            ]
-        }, 
-        {
-            "dep": "stickl\u00f6nen", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.03456602047809, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:1614588"
-            ]
-        }, 
-        {
-            "dep": "a-akt", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.03456602047809, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:1590846"
-            ]
-        }, 
-        {
-            "dep": "v\u00e4gglampan", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.03456602047809, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:543950"
-            ]
-        }, 
-        {
-            "dep": "r\u00e4kneproblem", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.03456602047809, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:1197122"
-            ]
-        }, 
-        {
-            "dep": "h\u00f6stlandskapet", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.03456602047809, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:1691194"
-            ]
-        }, 
-        {
-            "dep": "portvaktsfrun", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.03456602047809, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:861729"
-            ]
-        }, 
-        {
-            "dep": "polisfruarna", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.03456602047809, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:135603"
-            ]
-        }, 
-        {
-            "dep": "dockmakare", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.03456602047809, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:696359"
-            ]
-        }, 
-        {
-            "dep": "clement", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.03456602047809, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:1654381"
-            ]
-        }, 
-        {
-            "dep": "upphovsr\u00e4ttslagen", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.03456602047809, 
-            "rel": "SS", 
-            "source": [
-                "ROMI:1315971"
-            ]
-        }, 
-        {
-            "dep": "order..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 84, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 500.4996184538067, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:11565"
-            ]
-        }, 
-        {
-            "dep": "blick..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 115, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 384.51885554094395, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:7918"
-            ]
-        }, 
-        {
-            "dep": "fan..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 58, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 365.9775129727326, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:86615"
-            ]
-        }, 
-        {
-            "dep": "fan..nn.2", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 57, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 359.56374735903404, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:87872"
-            ]
-        }, 
-        {
-            "dep": "uttryck..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 64, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 349.66810235949873, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:7803"
-            ]
-        }, 
-        {
-            "dep": "chans..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 60, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 278.28902869076063, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:33806"
-            ]
-        }, 
-        {
-            "dep": "besked..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 47, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 269.49539253901025, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:155409"
-            ]
-        }, 
-        {
-            "dep": "pengar..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 77, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 257.71322873114565, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:15516"
-            ]
-        }, 
-        {
-            "dep": "peng..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 77, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 257.37036574863504, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:16858"
-            ]
-        }, 
-        {
-            "dep": "intryck..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 49, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 227.78953210836477, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:118073"
-            ]
-        }, 
-        {
-            "dep": "svar..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 52, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 221.04791218564463, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:12311"
-            ]
-        }, 
-        {
-            "dep": "r\u00e5d..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 44, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 194.9247872959943, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:95900"
-            ]
-        }, 
-        {
-            "dep": "r\u00e5d..nn.2", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 44, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 194.9247872959943, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:90266"
-            ]
-        }, 
-        {
-            "dep": "hopp..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 37, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 184.1179971155504, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:72868"
-            ]
-        }, 
-        {
-            "dep": "akt..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 27, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 174.74962123196335, 
-            "rel": "OBJ", 
-            "source": [
-                "ROMI:181362"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 2, 
-            "head": "kyrkgolvet", 
-            "headpos": "NN", 
-            "mi": 18.81682461237135, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:620489"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 2, 
-            "head": "karlstadbo", 
-            "headpos": "NN", 
-            "mi": 18.81682461237135, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:423182"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 2, 
-            "head": "aprilsolen", 
-            "headpos": "NN", 
-            "mi": 18.81682461237135, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:1419596"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 2, 
-            "head": "sm\u00e5industrier", 
-            "headpos": "NN", 
-            "mi": 18.81682461237135, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:1685266"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 2, 
-            "head": "j\u00e4rnn\u00e4ve", 
-            "headpos": "NN", 
-            "mi": 18.81682461237135, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:1607492"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 9, 
-            "head": "man..nn.1", 
-            "headpos": "NN", 
-            "mi": 16.838803579923923, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:98039"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 2, 
-            "head": "l\u00e4derp\u00e4rmar", 
-            "headpos": "NN", 
-            "mi": 16.81682461237135, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:700755"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 2, 
-            "head": "entoderm", 
-            "headpos": "NN", 
-            "mi": 16.81682461237135, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:1318561"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 2, 
-            "head": "tvillingsyn", 
-            "headpos": "NN", 
-            "mi": 16.81682461237135, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:1444572"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 2, 
-            "head": "juktl\u00e4der", 
-            "headpos": "NN", 
-            "mi": 16.81682461237135, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:1128658"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 2, 
-            "head": "bomullsvekar", 
-            "headpos": "NN", 
-            "mi": 16.81682461237135, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:1612155"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 2, 
-            "head": "silverslantar", 
-            "headpos": "NN", 
-            "mi": 16.81682461237135, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:1628031"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 2, 
-            "head": "villastadsfruar", 
-            "headpos": "NN", 
-            "mi": 15.646899610929035, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:294767"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 2, 
-            "head": "ged-la-dan", 
-            "headpos": "NN", 
-            "mi": 13.646899610929033, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:861268"
-            ]
-        }, 
-        {
-            "dep": "ge..vb.1", 
-            "depextra": "", 
-            "deppos": "VB", 
-            "freq": 2, 
-            "head": "morfar..nn.1", 
-            "headpos": "NN", 
-            "mi": 12.816824612371347, 
-            "rel": "ET", 
-            "source": [
-                "ROMI:1605729"
-            ]
-        }, 
-        {
-            "dep": "v\u00e4g..nn.1", 
-            "depextra": "i", 
-            "deppos": "NN", 
-            "freq": 172, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 1029.8720627562175, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:237616"
-            ]
-        }, 
-        {
-            "dep": "h\u00e4rifr\u00e5n..ab.1", 
-            "depextra": "", 
-            "deppos": "AB", 
-            "freq": 13, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 52.97132987480067, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:304665"
-            ]
-        }, 
-        {
-            "dep": "f\u00f6delsedagspresent..nn.1", 
-            "depextra": "i", 
-            "deppos": "NN", 
-            "freq": 4, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 29.28278769732415, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:975529"
-            ]
-        }, 
-        {
-            "dep": "tillbaka..ab.1", 
-            "depextra": "", 
-            "deppos": "AB", 
-            "freq": 9, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 21.283001935156392, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:315315"
-            ]
-        }, 
-        {
-            "dep": "tid..nn.1", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 9, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 18.4291058693216, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:133078"
-            ]
-        }, 
-        {
-            "dep": "nu..ab.1", 
-            "depextra": "", 
-            "deppos": "AB", 
-            "freq": 89, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 17.366020796627925, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:48607"
-            ]
-        }, 
-        {
-            "dep": "utbyte..nn.1", 
-            "depextra": "i", 
-            "deppos": "NN", 
-            "freq": 3, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 16.209477253569034, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:323376"
-            ]
-        }, 
-        {
-            "dep": "str\u00f6vturen", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.811318850104389, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:1248957"
-            ]
-        }, 
-        {
-            "dep": "eva-mi", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.811318850104389, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:1031967"
-            ]
-        }, 
-        {
-            "dep": "--", 
-            "depextra": "\u00e5t", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.811318850104389, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:860051"
-            ]
-        }, 
-        {
-            "dep": "sp\u00e4nningsl\u00e4ge", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.811318850104389, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:1242681"
-            ]
-        }, 
-        {
-            "dep": "sedelbunt", 
-            "depextra": "i", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.811318850104389, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:284822"
-            ]
-        }, 
-        {
-            "dep": "paddyn", 
-            "depextra": "", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.811318850104389, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:401633"
-            ]
-        }, 
-        {
-            "dep": "reservtank", 
-            "depextra": "ur", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.811318850104389, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:1559153"
-            ]
-        }, 
-        {
-            "dep": "nittio\u00e5rsdag", 
-            "depextra": "p\u00e5", 
-            "deppos": "NN", 
-            "freq": 2, 
-            "head": "ge..vb.1", 
-            "headpos": "VB", 
-            "mi": 15.811318850104389, 
-            "rel": "ADV", 
-            "source": [
-                "ROMI:1180545"
-            ]
-        }
-    ], 
-    "time": 3.2238359451293945
+	"relations": [
+		{
+			"dep": "pappa..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 20,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 22.20880511167489,
+			"rel": "SS",
+			"source": [
+				"ROMI:44373"
+			]
+		},
+		{
+			"dep": "order..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 4,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 19.97488421672813,
+			"rel": "SS",
+			"source": [
+				"ROMI:645358"
+			]
+		},
+		{
+			"dep": "fysik..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 3,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 19.551849030717136,
+			"rel": "SS",
+			"source": [
+				"ROMI:1318728"
+			]
+		},
+		{
+			"dep": "svar..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 7,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 19.230463729826308,
+			"rel": "SS",
+			"source": [
+				"ROMI:477177"
+			]
+		},
+		{
+			"dep": "\u00f6vning..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 3,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 17.340952248218517,
+			"rel": "SS",
+			"source": [
+				"ROMI:1105947"
+			]
+		},
+		{
+			"dep": "stickl\u00f6nen",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.03456602047809,
+			"rel": "SS",
+			"source": [
+				"ROMI:1614588"
+			]
+		},
+		{
+			"dep": "a-akt",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.03456602047809,
+			"rel": "SS",
+			"source": [
+				"ROMI:1590846"
+			]
+		},
+		{
+			"dep": "v\u00e4gglampan",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.03456602047809,
+			"rel": "SS",
+			"source": [
+				"ROMI:543950"
+			]
+		},
+		{
+			"dep": "r\u00e4kneproblem",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.03456602047809,
+			"rel": "SS",
+			"source": [
+				"ROMI:1197122"
+			]
+		},
+		{
+			"dep": "h\u00f6stlandskapet",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.03456602047809,
+			"rel": "SS",
+			"source": [
+				"ROMI:1691194"
+			]
+		},
+		{
+			"dep": "portvaktsfrun",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.03456602047809,
+			"rel": "SS",
+			"source": [
+				"ROMI:861729"
+			]
+		},
+		{
+			"dep": "polisfruarna",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.03456602047809,
+			"rel": "SS",
+			"source": [
+				"ROMI:135603"
+			]
+		},
+		{
+			"dep": "dockmakare",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.03456602047809,
+			"rel": "SS",
+			"source": [
+				"ROMI:696359"
+			]
+		},
+		{
+			"dep": "clement",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.03456602047809,
+			"rel": "SS",
+			"source": [
+				"ROMI:1654381"
+			]
+		},
+		{
+			"dep": "upphovsr\u00e4ttslagen",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.03456602047809,
+			"rel": "SS",
+			"source": [
+				"ROMI:1315971"
+			]
+		},
+		{
+			"dep": "order..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 84,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 500.4996184538067,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:11565"
+			]
+		},
+		{
+			"dep": "blick..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 115,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 384.51885554094395,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:7918"
+			]
+		},
+		{
+			"dep": "fan..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 58,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 365.9775129727326,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:86615"
+			]
+		},
+		{
+			"dep": "fan..nn.2",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 57,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 359.56374735903404,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:87872"
+			]
+		},
+		{
+			"dep": "uttryck..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 64,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 349.66810235949873,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:7803"
+			]
+		},
+		{
+			"dep": "chans..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 60,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 278.28902869076063,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:33806"
+			]
+		},
+		{
+			"dep": "besked..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 47,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 269.49539253901025,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:155409"
+			]
+		},
+		{
+			"dep": "pengar..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 77,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 257.71322873114565,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:15516"
+			]
+		},
+		{
+			"dep": "peng..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 77,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 257.37036574863504,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:16858"
+			]
+		},
+		{
+			"dep": "intryck..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 49,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 227.78953210836477,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:118073"
+			]
+		},
+		{
+			"dep": "svar..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 52,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 221.04791218564463,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:12311"
+			]
+		},
+		{
+			"dep": "r\u00e5d..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 44,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 194.9247872959943,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:95900"
+			]
+		},
+		{
+			"dep": "r\u00e5d..nn.2",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 44,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 194.9247872959943,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:90266"
+			]
+		},
+		{
+			"dep": "hopp..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 37,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 184.1179971155504,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:72868"
+			]
+		},
+		{
+			"dep": "akt..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 27,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 174.74962123196335,
+			"rel": "OBJ",
+			"source": [
+				"ROMI:181362"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 2,
+			"head": "kyrkgolvet",
+			"headpos": "NN",
+			"mi": 18.81682461237135,
+			"rel": "ET",
+			"source": [
+				"ROMI:620489"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 2,
+			"head": "karlstadbo",
+			"headpos": "NN",
+			"mi": 18.81682461237135,
+			"rel": "ET",
+			"source": [
+				"ROMI:423182"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 2,
+			"head": "aprilsolen",
+			"headpos": "NN",
+			"mi": 18.81682461237135,
+			"rel": "ET",
+			"source": [
+				"ROMI:1419596"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 2,
+			"head": "sm\u00e5industrier",
+			"headpos": "NN",
+			"mi": 18.81682461237135,
+			"rel": "ET",
+			"source": [
+				"ROMI:1685266"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 2,
+			"head": "j\u00e4rnn\u00e4ve",
+			"headpos": "NN",
+			"mi": 18.81682461237135,
+			"rel": "ET",
+			"source": [
+				"ROMI:1607492"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 9,
+			"head": "man..nn.1",
+			"headpos": "NN",
+			"mi": 16.838803579923923,
+			"rel": "ET",
+			"source": [
+				"ROMI:98039"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 2,
+			"head": "l\u00e4derp\u00e4rmar",
+			"headpos": "NN",
+			"mi": 16.81682461237135,
+			"rel": "ET",
+			"source": [
+				"ROMI:700755"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 2,
+			"head": "entoderm",
+			"headpos": "NN",
+			"mi": 16.81682461237135,
+			"rel": "ET",
+			"source": [
+				"ROMI:1318561"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 2,
+			"head": "tvillingsyn",
+			"headpos": "NN",
+			"mi": 16.81682461237135,
+			"rel": "ET",
+			"source": [
+				"ROMI:1444572"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 2,
+			"head": "juktl\u00e4der",
+			"headpos": "NN",
+			"mi": 16.81682461237135,
+			"rel": "ET",
+			"source": [
+				"ROMI:1128658"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 2,
+			"head": "bomullsvekar",
+			"headpos": "NN",
+			"mi": 16.81682461237135,
+			"rel": "ET",
+			"source": [
+				"ROMI:1612155"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 2,
+			"head": "silverslantar",
+			"headpos": "NN",
+			"mi": 16.81682461237135,
+			"rel": "ET",
+			"source": [
+				"ROMI:1628031"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 2,
+			"head": "villastadsfruar",
+			"headpos": "NN",
+			"mi": 15.646899610929035,
+			"rel": "ET",
+			"source": [
+				"ROMI:294767"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 2,
+			"head": "ged-la-dan",
+			"headpos": "NN",
+			"mi": 13.646899610929033,
+			"rel": "ET",
+			"source": [
+				"ROMI:861268"
+			]
+		},
+		{
+			"dep": "ge..vb.1",
+			"depextra": "",
+			"deppos": "VB",
+			"freq": 2,
+			"head": "morfar..nn.1",
+			"headpos": "NN",
+			"mi": 12.816824612371347,
+			"rel": "ET",
+			"source": [
+				"ROMI:1605729"
+			]
+		},
+		{
+			"dep": "v\u00e4g..nn.1",
+			"depextra": "i",
+			"deppos": "NN",
+			"freq": 172,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 1029.8720627562175,
+			"rel": "ADV",
+			"source": [
+				"ROMI:237616"
+			]
+		},
+		{
+			"dep": "h\u00e4rifr\u00e5n..ab.1",
+			"depextra": "",
+			"deppos": "AB",
+			"freq": 13,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 52.97132987480067,
+			"rel": "ADV",
+			"source": [
+				"ROMI:304665"
+			]
+		},
+		{
+			"dep": "f\u00f6delsedagspresent..nn.1",
+			"depextra": "i",
+			"deppos": "NN",
+			"freq": 4,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 29.28278769732415,
+			"rel": "ADV",
+			"source": [
+				"ROMI:975529"
+			]
+		},
+		{
+			"dep": "tillbaka..ab.1",
+			"depextra": "",
+			"deppos": "AB",
+			"freq": 9,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 21.283001935156392,
+			"rel": "ADV",
+			"source": [
+				"ROMI:315315"
+			]
+		},
+		{
+			"dep": "tid..nn.1",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 9,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 18.4291058693216,
+			"rel": "ADV",
+			"source": [
+				"ROMI:133078"
+			]
+		},
+		{
+			"dep": "nu..ab.1",
+			"depextra": "",
+			"deppos": "AB",
+			"freq": 89,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 17.366020796627925,
+			"rel": "ADV",
+			"source": [
+				"ROMI:48607"
+			]
+		},
+		{
+			"dep": "utbyte..nn.1",
+			"depextra": "i",
+			"deppos": "NN",
+			"freq": 3,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 16.209477253569034,
+			"rel": "ADV",
+			"source": [
+				"ROMI:323376"
+			]
+		},
+		{
+			"dep": "str\u00f6vturen",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.811318850104389,
+			"rel": "ADV",
+			"source": [
+				"ROMI:1248957"
+			]
+		},
+		{
+			"dep": "eva-mi",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.811318850104389,
+			"rel": "ADV",
+			"source": [
+				"ROMI:1031967"
+			]
+		},
+		{
+			"dep": "--",
+			"depextra": "\u00e5t",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.811318850104389,
+			"rel": "ADV",
+			"source": [
+				"ROMI:860051"
+			]
+		},
+		{
+			"dep": "sp\u00e4nningsl\u00e4ge",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.811318850104389,
+			"rel": "ADV",
+			"source": [
+				"ROMI:1242681"
+			]
+		},
+		{
+			"dep": "sedelbunt",
+			"depextra": "i",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.811318850104389,
+			"rel": "ADV",
+			"source": [
+				"ROMI:284822"
+			]
+		},
+		{
+			"dep": "paddyn",
+			"depextra": "",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.811318850104389,
+			"rel": "ADV",
+			"source": [
+				"ROMI:401633"
+			]
+		},
+		{
+			"dep": "reservtank",
+			"depextra": "ur",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.811318850104389,
+			"rel": "ADV",
+			"source": [
+				"ROMI:1559153"
+			]
+		},
+		{
+			"dep": "nittio\u00e5rsdag",
+			"depextra": "p\u00e5",
+			"deppos": "NN",
+			"freq": 2,
+			"head": "ge..vb.1",
+			"headpos": "VB",
+			"mi": 15.811318850104389,
+			"rel": "ADV",
+			"source": [
+				"ROMI:1180545"
+			]
+		}
+	],
+	"time": 3.2238359451293945
 }
