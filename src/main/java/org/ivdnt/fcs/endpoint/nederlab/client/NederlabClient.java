@@ -220,11 +220,6 @@ public class NederlabClient {
 			// Parse the list of hits
 
 			Object kwicList = context.read("$['mtas']['list'][0]['list'][*]");
-			
-			// First, go through list of hits to get all document keys
-			// TODO
-			
-			// Make new request to server: get document keys
 
 
 			JSONArray hits = (JSONArray) kwicList;
@@ -248,8 +243,6 @@ public class NederlabClient {
 				for (int l = 0; l < tokens.size(); l++) {
 					@SuppressWarnings("unchecked")
 					Map<String,Object> tok = (Map<String,Object>) (tokens.get(l));
-					//String tokJ = this.mapper.writeValueAsString(tok); // ugly reserialization!!!
-					//TokenProperty t = this.mapper.readValue(tokJ, TokenProperty.class);
 					TokenProperty t = new TokenProperty(tok);
 					tokenProps.add(t);
 				}

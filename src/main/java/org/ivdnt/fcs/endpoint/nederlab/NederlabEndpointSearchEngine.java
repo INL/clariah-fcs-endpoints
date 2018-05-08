@@ -9,6 +9,8 @@ import org.ivdnt.fcs.endpoint.nederlab.client.QueryTemplate;
 import org.ivdnt.fcs.mapping.ConversionEngine;
 import org.ivdnt.fcs.results.FcsSearchResultSet;
 import org.ivdnt.fcs.results.ResultSet;
+import org.ivdnt.util.FileUtils;
+import org.ivdnt.util.TestCgn;
 
 import eu.clarin.sru.server.SRUConstants;
 import eu.clarin.sru.server.SRUDiagnosticList;
@@ -50,6 +52,12 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 	 */
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException {
+		
+		/*TestCgn.testQueries(contextCache, this.getConversionEngine());
+		if (true) {
+			return null;
+		}*/
+		
 		// translate FCS into CQP
 
 		String cqpQuery = BasicEndpointSearchEngine.translateQuery(request, this.getConversionEngine());
@@ -79,6 +87,7 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 					"The query execution failed by this CLARIN-FCS (nederlab) endpoint. " + nederlabQuery);
 		}
 	}
+
 
 	// ---------------------------------------------------------------------------------
 }

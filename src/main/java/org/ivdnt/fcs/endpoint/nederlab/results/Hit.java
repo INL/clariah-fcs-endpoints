@@ -158,12 +158,10 @@ public class Hit {
 		kwic.setHitEnd(this.getHitEnd() + 1); // HM nog even naar kijken, oogt niet helemaal lekker zo
 
 		// System.err.println("Current hit to Kwic: " + this.toString());
-
 		this.knownPrefixes.forEach(pref -> {
 			List<String> content = this.tokens.stream().map(t -> t.getProperty(pref)).collect(Collectors.toList());
 			kwic.setTokenProperties(pref, content);
 		});
-
 		return kwic;
 	}
 }

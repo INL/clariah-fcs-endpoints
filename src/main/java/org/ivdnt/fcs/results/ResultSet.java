@@ -35,9 +35,6 @@ public class ResultSet {
 	// The documents in which the hits were found
 	private Map<String, Document> documents = new ConcurrentHashMap<>();
 
-	// NOT IN USE
-	// private int startPosition;
-	// private int maximumRecords;
 
 	// --------------------------------------------------------------------
 	// getters
