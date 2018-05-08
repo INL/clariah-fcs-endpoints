@@ -12,6 +12,9 @@
 			<field>NLCore_NLIdentification_editorialCode</field>
 			<field>NLCore_NLIdentification_sourceRef</field>
 			<field>NLTitle_yearOfPublicationMax</field>
+			<field>NLTitle_textYearMax</field>
+			<field>NLTitle_textQuality</field>
+			<field>NLDependentTitle_subtitle</field>
 		</nederlab-extra-response-fields>
 		<nederlab-query-template-location>nederlab_query_template.json</nederlab-query-template-location>
 		<nederlab-document-query-template-location>nederlab_document_query_template.json</nederlab-document-query-template-location>

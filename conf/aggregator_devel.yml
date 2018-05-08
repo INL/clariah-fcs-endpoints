@@ -1,7 +1,6 @@
 aggregatorParams:
-  CENTER_REGISTRY_URL: http://localhost:8080/blacklab-sru-server/WEB-INF/clarin_center_list.xml
+  CENTER_REGISTRY_URL: https://centres.clarin.eu/restxml/
   additionalCQLEndpoints:
-    - http://localhost:8080/blacklab-sru-server/sru
     - https://spraakbanken.gu.se/ws/fcs/2.0/endpoint/korp/sru
 
   AGGREGATOR_FILE_PATH: D:/git_projects/SRUAggregator/trunk/fcsAggregatorCorpora.json
