@@ -147,8 +147,9 @@ public class NederlabClient {
 			con.setRequestMethod("POST");
 			// con.setRequestProperty("User-Agent", USER_AGENT);
 			String brokerKey = new FileUtils(contextCache, "key.txt").readConfigFileAsString().trim();
-			con.setRequestProperty("X-Broker-key", brokerKey);
+			con.setRequestProperty("X-API-KEY", brokerKey);
 			con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+			con.setRequestProperty("Accept", "application/json");
 
 			// Send post request
 

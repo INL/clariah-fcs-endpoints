@@ -4,7 +4,7 @@
 	<Engine>
 		<engine-name>nederlab</engine-name>
 		<engine-type>nederlab</engine-type>
-		<engine-url>http://www.nederlab.nl/broker/search/</engine-url>
+		<engine-url>https://www.nederlab.nl/api/mtas</engine-url>
 		<engine-native-url-template>http://www.nederlab.nl/onderzoeksportaal/?action=results&amp;cql-expert=
 		</engine-native-url-template>
 		<tagset-conversion-table>UD2CGNNederlab</tagset-conversion-table>
