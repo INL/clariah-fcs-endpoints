@@ -27,14 +27,6 @@
 				<StrictVersioning>false</StrictVersioning>
 				<AssessmentStatus>Certified</AssessmentStatus>
 				<WebReference>
-					<Website>http://brievenalsbuit.inl.nl/zbsru/</Website>
-					<Description>CQL</Description>
-				</WebReference>
-				<WebReference>
-					<Website>http://gysseling.corpus.taalbanknederlands.inl.nl/gyssru/</Website>
-					<Description>CQL</Description>
-				</WebReference>
-				<WebReference>
 					<Website>http://localhost:8080/blacklab-sru-server/sru</Website>
 					<Description>CQL</Description>
 				</WebReference>
