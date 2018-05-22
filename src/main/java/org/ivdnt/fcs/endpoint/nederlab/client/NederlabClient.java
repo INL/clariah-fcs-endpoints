@@ -15,7 +15,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletContext;
 
-import org.codehaus.plexus.util.CollectionUtils;
 import org.ivdnt.fcs.endpoint.nederlab.objectmapper.Document;
 import org.ivdnt.fcs.endpoint.nederlab.objectmapper.Token;
 import org.ivdnt.fcs.endpoint.nederlab.objectmapper.TokenProperty;

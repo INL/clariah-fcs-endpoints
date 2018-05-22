@@ -9,8 +9,6 @@ import org.ivdnt.fcs.endpoint.nederlab.client.QueryTemplate;
 import org.ivdnt.fcs.mapping.ConversionEngine;
 import org.ivdnt.fcs.results.FcsSearchResultSet;
 import org.ivdnt.fcs.results.ResultSet;
-import org.ivdnt.util.FileUtils;
-//import org.ivdnt.util.TestCgn;
 
 import eu.clarin.sru.server.SRUConstants;
 import eu.clarin.sru.server.SRUDiagnosticList;
