@@ -2,18 +2,17 @@
 <endpoint-config
 	xmlns="http://www.clarin.eu/sru-server/1.0/">
 	<databaseInfo>
-		<title xml:lang="se">Språkbankens korpusar</title>
-		<title xml:lang="en" primary="true">The Språkbanken corpora</title>
-		<description xml:lang="se">Sök i Språkbankens korpusar.</description>
-		<description xml:lang="en" primary="true">Search in the
-			Språkbanken corpora.</description>
-		<author xml:lang="en">Språkbanken (The Swedish Language Bank)</author>
-		<author xml:lang="se" primary="true">Språkbanken</author>
+		<title xml:lang="nl">Federated Content Search van het INT</title>
+		<title xml:lang="en" primary="true">INT Federated content search</title>
+		<description xml:lang="nl">Zoek in verschillende Nederlandse corpora.</description>
+		<description xml:lang="en" primary="true">Search in several Dutch corpora</description>
+		<author xml:lang="en">Dutch Language Institute (INT)</author>
+		<author xml:lang="nl" primary="true">Instituut voor de Nederlandse Taal (INT)</author>
 	</databaseInfo>
 
 	<indexInfo>
 		<set name="fcs" identifier="http://clarin.eu/fcs/resource">
-			<title xml:lang="se">Clarins innehållssökning</title>
+			<title xml:lang="nl">CLARIN content search</title>
 			<title xml:lang="en" primary="true">CLARIN Content Search</title>
 		</set>
 		<index search="true" scan="false" sort="false">
