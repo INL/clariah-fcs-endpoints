@@ -12,7 +12,7 @@
 					"output": "token",
 					"number": _NUMBER_,
 					"start": _START_,
-					"prefix": "t,lemma, pos, entity, feat.tokentype, feat.pos, feat.ntype, feat.getal, feat.graad, feat.genus, feat.naamval, feat.positie, feat.buiging, feat.getal-n, feat.wvorm, feat.pvtijd, feat.pvagr, feat.numtype,feat.vwtype, feat.pdtype, feat.persoon, feat.status, feat.npagr, feat.lwtype, feat.vztype, feat.conjtype, feat.spectype",
+					"prefix": "t,lemma, pos, feat.tokentype, feat.pos, feat.ntype, feat.getal, feat.graad, feat.genus, feat.naamval, feat.positie, feat.buiging, feat.getal-n, feat.wvorm, feat.pvtijd, feat.pvagr, feat.numtype,feat.vwtype, feat.pdtype, feat.persoon, feat.status, feat.npagr, feat.lwtype, feat.vztype, feat.conjtype, feat.spectype",
 					"left": _CONTEXT_,
 					"right": _CONTEXT_
 				}
