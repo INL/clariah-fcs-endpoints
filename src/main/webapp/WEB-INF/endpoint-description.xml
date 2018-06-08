@@ -69,7 +69,7 @@
 			<AvailableLayers ref="word lemma pos" />
 		</Resource>
 
-		<Resource pid="corpusgysseling">
+		<Resource pid="gysseling">
 			<Title xml:lang="nl">Corpus Gysseling</Title>
 			<Title xml:lang="en">Corpus Gysseling</Title>
 			<Description xml:lang="nl">Corpus Gysseling van het INT. 13e-eeuwse Nederlandse documenten.</Description>

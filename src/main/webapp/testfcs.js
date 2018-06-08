@@ -14,8 +14,8 @@ queryField.addEventListener("keyup", function(event) {
 
 function doQuery() {
     var query = queryField.value;
-    
-    var urlTemplate = "http://localhost:8080/blacklab-sru-server/sru?operation=searchRetrieve&queryType=fcs&x-fcs-context=nederlab&maximumRecords=20&query=";
+    var corpus = corpusField.value;
+    var urlTemplate = "http://localhost:8080/clariah-fcs-endpoints/sru?operation=searchRetrieve&queryType=fcs&x-fcs-context=" + corpus + "&maximumRecords=20&query=";
     var queryUrl = urlTemplate+encodeURIComponent(query);
     window.open(queryUrl,'_blank');
 }

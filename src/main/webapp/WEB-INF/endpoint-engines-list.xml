@@ -30,18 +30,17 @@
 	<Engine>
 		<engine-name>chn</engine-name>
 		<engine-type>blacklabserver</engine-type>
-		<engine-url>http://chn-i.inl.nl/blacklab-server/</engine-url>
+		<engine-url>http://svprmc05.inl.nl/blacklab-server/</engine-url>
 		<!--engine-native-url-template>http://chn-i.inl.nl/corpora/chn/search?operation=hits&amp;pattern=</engine-native-url-template> -->
-		<engine-native-url-template>http://localhost:8080/corpus-frontend/chn/search/hits?patt=
-		</engine-native-url-template>
+		<engine-native-url-template>http://chn.inl.nl/corpus-frontend/chn/search/hits?patt=</engine-native-url-template>
 		<tagset-conversion-table>UD2CHN</tagset-conversion-table>
 	</Engine>
 
 	<Engine>
 		<engine-name>zeebrieven</engine-name>
 		<engine-type>blacklabserver</engine-type>
-		<engine-url>http://idunn:jeugdappels@demo.clariah.ivdnt.org/blacklab-server/
-		</engine-url>
+		<engine-url>http://brievenalsbuit.ato.ivdnt.org/blacklab-server/</engine-url>
+		<engine-native-url-template>http://brievenalsbuit.ato.ivdnt.org/corpus-frontend/zeebrieven/search/hits?patt=</engine-native-url-template>
 		<tagset-conversion-table>UD2BaB</tagset-conversion-table>
 	</Engine>
 
@@ -55,8 +54,8 @@
 	<Engine>
 		<engine-name>gysseling</engine-name>
 		<engine-type>blacklabserver</engine-type>
-		<engine-url>http://idunn:jeugdappels@demo.clariah.ivdnt.org/blacklab-server/
-		</engine-url>
+		<engine-url>http://brievenalsbuit.ato.ivdnt.org/blacklab-server/</engine-url>
+		<engine-native-url-template>http://brievenalsbuit.ato.ivdnt.org/corpus-frontend/gysseling/search/hits?patt=</engine-native-url-template>
 		<tagset-conversion-table>UD2GYS</tagset-conversion-table>
 	</Engine>
 

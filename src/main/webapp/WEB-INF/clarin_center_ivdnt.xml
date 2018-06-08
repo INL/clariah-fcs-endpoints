@@ -27,7 +27,7 @@
 				<StrictVersioning>false</StrictVersioning>
 				<AssessmentStatus>Certified</AssessmentStatus>
 				<WebReference>
-					<Website>http://localhost:8080/blacklab-sru-server/sru</Website>
+					<Website>http://localhost:8080/clariah-fcs-endpoints/sru</Website>
 					<Description>CQL</Description>
 				</WebReference>
 				<AAI>
