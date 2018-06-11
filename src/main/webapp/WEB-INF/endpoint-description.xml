@@ -28,8 +28,8 @@
 	<Resources>
 
 		<Resource pid="opensonar">
-			<Title xml:lang="nl">OpenSoNaR (BlackLab server)</Title>
-			<Title xml:lang="en">OpenSoNaR (BlackLab server)</Title>
+			<Title xml:lang="nl">OpenSoNaR</Title>
+			<Title xml:lang="en">OpenSoNaR</Title>
 			<Description xml:lang="nl">Het OpenSonar-corpus van het INT.</Description>
 			<Description xml:lang="en">The OpenSoNaR corpus at INT.</Description>
 			<LandingPageURI>http://opensonar.ato.inl.nl/</LandingPageURI>
@@ -84,8 +84,8 @@
 		</Resource>
 
 		<Resource pid="StatenGeneraal">
-			<Title xml:lang="nl">Staten Generaal (Blacklab)</Title>
-			<Title xml:lang="en">Staten Generaal (Blacklab)</Title>
+			<Title xml:lang="nl">Staten Generaal</Title>
+			<Title xml:lang="en">Staten Generaal</Title>
 			<Description xml:lang="nl">Het Staten Generaal-corpus van het INT. 13e-eeuwse Nederlandse documenten</Description>
 			<Description xml:lang="en">The Staten Generaal corpus at
 				INT. 13th century Dutch documents</Description>
@@ -98,8 +98,8 @@
 		</Resource>
 
 		<Resource pid="nederlab">
-			<Title xml:lang="nl">Nederlab</Title>
-			<Title xml:lang="en">Nederlab</Title>
+			<Title xml:lang="nl">Nederlab (Meertens Instituut)</Title>
+			<Title xml:lang="en">Nederlab (Meertens Institute)</Title>
 			<Description xml:lang="nl">Diachroon corpus van het Nederlands.</Description>
 			<Description xml:lang="en">Diachronic Dutch corpus.</Description>
 			<LandingPageURI>http://www.nederlab.nl/onderzoeksportaal/</LandingPageURI>

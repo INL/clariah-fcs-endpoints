@@ -23,7 +23,7 @@
 	<Engine>
 		<engine-name>opensonar</engine-name>
 		<engine-type>blacklabserver</engine-type>
-		<engine-url>http://opensonar.ato.inl.nl/blacklab-server/</engine-url>
+		<engine-url>http://172.16.10.93:8080/blacklab-server/</engine-url>
 		<tagset-conversion-table>UD2CGNSonar</tagset-conversion-table>
 	</Engine>
 

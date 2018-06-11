@@ -51,13 +51,12 @@
 						<OrganisationName>Instituut voor de Nederlandse Taal</OrganisationName>
 						<Institution>Instituut voor de Nederlandse Taal</Institution>
 						<WorkingUnit>Instituut voor de Nederlandse Taal</WorkingUnit>
-						<Code>IVDNT</Code>
+						<Code>INT</Code>
 						<PostAddress>Rapenburg 61,
                             2311 GJ,
                             Leiden,
-                            
-                                Dutch Language Union
-                            
+                            The Netherlands,
+                            Dutch Language Union
                         </PostAddress>
 						<Expertise>knowledge bank of Dutch vocabulary, the Dutch Language Database, large Dutch corpora, all areas of Dutch linguistics, corpus linguistics, language resource standards, Toolbox for Lexicon Building</Expertise>
 					</ClarinOrganisationInfo>
@@ -71,8 +70,8 @@
 					</AdministrativeContact>
 					<TechnicalContact>
 						<Contact>
-							<Person>N.N. (Systeembeheer) &lt;systeembeheer@inl.nl&gt;</Person>
-							<Email>systeembeheer@inl.nl</Email>
+							<Person>Systeembeheer &lt;systeembeheer@ivdnt.org&gt;</Person>
+							<Email>systeembeheer@ivdnt.org</Email>
 							<Telephone>+31 71 5272481</Telephone>
 							<Website></Website>
 						</Contact>
