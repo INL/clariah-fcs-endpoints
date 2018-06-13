@@ -39,12 +39,9 @@ public class BlacklabServerEndpointSearchEngine extends BasicEndpointSearchEngin
 				BlacklabConstants.DEFAULT_CORPUS);
 
 		// instantiate the Blacklab query
-
-		BlacklabServerQuery blacklabServerQuery = new BlacklabServerQuery(this.getServer(), fcsContextCorpus, query,
+		// bij fcs beginnen ze bij 1 te tellen ?
+		BlacklabServerQuery blacklabServerQuery = new BlacklabServerQuery(this.getServer(), fcsContextCorpus, query, request.getStartRecord() - 1, request.getMaximumRecords(), 
 				this.getEngineNativeUrlTemplate());
-
-		blacklabServerQuery.setStartPosition(request.getStartRecord() - 1); // bij fcs beginnen ze bij 1 te tellen ?
-		blacklabServerQuery.setMaximumResults(request.getMaximumRecords());
 
 		System.err.println("Query to blacklab server: " + blacklabServerQuery);
 

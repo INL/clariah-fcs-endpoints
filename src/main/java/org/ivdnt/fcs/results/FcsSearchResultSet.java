@@ -269,9 +269,12 @@ public class FcsSearchResultSet extends SRUSearchResultSet {
 
 		// Output URL of the native web application where users can
 		// visit the query
-		writer.writeStartElement("", "nativeUrl");
-		writer.writeCharacters(this.query.getEngineNativeUrl());
-		writer.writeEndElement();
+		String engineNativeUrl = this.query.getEngineNativeUrl();
+		if (!engineNativeUrl.isEmpty()) {
+			writer.writeStartElement("", "nativeUrl");
+			writer.writeCharacters(engineNativeUrl);
+			writer.writeEndElement();
+		}
 	}
 
 	// ---------------------------------------------------------------------------------

@@ -62,12 +62,10 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request, "nederlab");
 
 		// instantiate the Nederlab query
-
-		NederlabQuery nederlabQuery = new NederlabQuery(contextCache, this.getServer(), fcsContextCorpus, cqpQuery,
+		// fcs begint bij 1 te tellen, nederlab bij 0 (?)
+		NederlabQuery nederlabQuery = new NederlabQuery(contextCache, this.getServer(), fcsContextCorpus, cqpQuery, request.getStartRecord() - 1, request.getMaximumRecords(),
 				this.nederlabQueryTemplate, this.nederlabDocumentQueryTemplate, this.getEngineNativeUrlTemplate(), this.nederlabExtraResponseFields);
 
-		nederlabQuery.setStartPosition(request.getStartRecord() - 1); // fcs begint bij 1 te tellen, nederlab bij 0 (?)
-		nederlabQuery.setMaximumResults(request.getMaximumRecords());
 
 		// start the search and get the results
 

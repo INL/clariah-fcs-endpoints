@@ -1,7 +1,5 @@
 package org.ivdnt.fcs.client;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 import org.ivdnt.fcs.results.ResultSet;
 
@@ -16,6 +14,7 @@ public abstract class Query {
 	private String server = QueryConstants.DEFAULT_SERVER;
 	private String cqpQuery;
 	private String corpus;
+	private String engineNativeUrlTemplate;
 	private String engineNativeUrl;
 
 	private int startPosition;
@@ -47,17 +46,15 @@ public abstract class Query {
 	 *            a CQL query string like [word="paard"]
 	 * 
 	 */
-	public Query(String server, String corpus, String cqpQuery, String engineNativeUrlTemplate) {
+	public Query(String server, String corpus, String cqpQuery, int startPosition, int maximumResults, String engineNativeUrlTemplate) {
 		this.server = server;
 		this.corpus = corpus;
 		this.cqpQuery = cqpQuery;
+		this.startPosition = startPosition;
+		this.maximumResults = maximumResults;
+		this.setEngineNativeUrlTemplate(engineNativeUrlTemplate);
 
-		// From native URL based on template and URL-encoded query string
-		try {
-			this.engineNativeUrl = engineNativeUrlTemplate + URLEncoder.encode(this.cqpQuery, "utf-8");
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException("Not able to encode query URL " + this.cqpQuery, e);
-		}
+		
 	}
 
 	// --------------------------------------------------------------------------------
@@ -117,6 +114,10 @@ public abstract class Query {
 	public void setTotalNumberOfResults(int totalNumberOfResults) {
 		this.totalNumberOfResults = totalNumberOfResults;
 	}
+	
+	public void setEngineNativeUrl (String engineNativeUrl) {
+		this.engineNativeUrl = engineNativeUrl;
+	}
 
 	// --------------------------------------------------------------------------------
 
@@ -134,6 +135,14 @@ public abstract class Query {
 	 * @throws Exception
 	 */
 	public abstract ResultSet execute() throws Exception;
+
+	public String getEngineNativeUrlTemplate() {
+		return engineNativeUrlTemplate;
+	}
+
+	public void setEngineNativeUrlTemplate(String engineNativeUrlTemplate) {
+		this.engineNativeUrlTemplate = engineNativeUrlTemplate;
+	}
 
 	// --------------------------------------------------------------------------------
 }

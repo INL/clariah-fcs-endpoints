@@ -49,11 +49,21 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 	 *            a query like [word='lopen']
 	 * 
 	 */
-	public BlacklabServerQuery(String server, String corpus, String cqpQuery, String engineNativeUrlTemplate) {
-		super(server, corpus, cqpQuery, engineNativeUrlTemplate);
-		// this.server = server;
-		// this.corpus= corpus;
-		// this.cqpQuery = cqpQuery;
+	public BlacklabServerQuery(String server, String corpus, String cqpQuery, int startPosition, int maximumResults, String engineNativeUrlTemplate) {
+		super(server, corpus, cqpQuery, startPosition, maximumResults, engineNativeUrlTemplate);
+		// Form native URL based on template and URL-encoded query string
+		String engineNativeUrl = "";
+		if (!engineNativeUrlTemplate.isEmpty()) {
+			if (corpus.equals("opensonar")) {
+				engineNativeUrl = this.getEngineNativeUrlTemplate();
+			}
+			else {
+				engineNativeUrl = this.getSruRequestUrl(true);
+			}
+		}
+		this.setEngineNativeUrl(engineNativeUrl);
+		
+		
 	}
 
 	// ------------------------------------------------------------------------------
@@ -65,18 +75,35 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 	 * 
 	 * @return the SRU URL with the CQL in it
 	 */
-	public String getSruRequestUrl() {
+	public String getSruRequestUrl(Boolean returnNativeUrl) {
+		System.out.println("mx rs" + this.getMaximumResults());
+		String url;
 		try {
-			String url = this.getServer();
+			if (returnNativeUrl) {
+				url = this.getEngineNativeUrlTemplate();
+			}
+			else {
+				url = this.getServer();
+			}
 			url += url.endsWith("/") ? "" : "/";
-			url += this.getCorpus() + "/" + "hits?" + "patt=" + URLEncoder.encode(this.getCqpQuery(), "utf-8")
-					+ "&outputformat=json" + "&first=" + this.getStartPosition() + "&number="
+			url += this.getCorpus() + "/";
+			if (returnNativeUrl) {
+				url += "search/";
+			}
+			url += "hits?" + "patt=" + URLEncoder.encode(this.getCqpQuery(), "utf-8")
+					+ "&first=" + this.getStartPosition() + "&number=" 
 					+ this.getMaximumResults();
+			
+			if (!returnNativeUrl) {
+				url += "&outputformat=json";
+			}
 
-			return url;
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException("Exception while encoding query: " + this.getCqpQuery(), e);
 		}
+		
+		
+		return url;
 	}
 
 	/**
@@ -113,7 +140,7 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 	 */
 	private List<Kwic> search(ResultSet blacklabServerResultSet) throws Exception {
 
-		String blackLabSruUrl = this.getSruRequestUrl();
+		String blackLabSruUrl = this.getSruRequestUrl(false);
 
 		System.err.println("URL to blacklab server: " + blackLabSruUrl);
 

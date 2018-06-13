@@ -1,5 +1,7 @@
 package org.ivdnt.fcs.endpoint.nederlab;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -47,9 +49,9 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 	 *            a query like [word='lopen']
 	 * 
 	 */
-	public NederlabQuery(ServletContext contextCache, String server, String corpus, String cqpQuery, QueryTemplate nederlabQueryTemplate,
+	public NederlabQuery(ServletContext contextCache, String server, String corpus, String cqpQuery, int startPosition, int maximumResults, QueryTemplate nederlabQueryTemplate,
 			QueryTemplate nederlabDocumentQueryTemplate, String engineNativeUrlTemplate, List<String> nederlabExtraResponseFields) {
-		super(server, corpus, cqpQuery, engineNativeUrlTemplate);
+		super(server, corpus, cqpQuery, startPosition, maximumResults, engineNativeUrlTemplate);
 		
 		this.contextCache = contextCache;
 		// template to build Nederlab queries
@@ -67,6 +69,18 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 		this.setCqpQuery(cqlQuery);
 
 		System.err.println("CQP to nederlab:" + this.getCqpQuery());
+		
+		// Form native URL based on template and URL-encoded query string
+		String engineNativeUrl = "";
+		if (!engineNativeUrlTemplate.isEmpty()) {
+			engineNativeUrl = engineNativeUrlTemplate;
+			try {
+				engineNativeUrl += URLEncoder.encode(this.getCqpQuery(), "utf-8");
+			} catch (UnsupportedEncodingException e) {
+				throw new RuntimeException("Not able to encode query URL " + this.getCqpQuery(), e);
+			}
+		}
+		this.setEngineNativeUrl(engineNativeUrl);
 	}
 
 	// --------------------------------------------------------------------
