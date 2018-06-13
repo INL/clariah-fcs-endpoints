@@ -1,7 +1,10 @@
 package org.ivdnt.fcs.mapping;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,7 +18,7 @@ import org.ivdnt.util.StringUtils;
  */
 public class CgnFeatureDecoder {
 
-	private static ConcurrentHashMap<String, HashSet<String>> featureName2FeatureValues = new ConcurrentHashMap<String, HashSet<String>>() {
+	public static ConcurrentHashMap<String, HashSet<String>> featureName2FeatureValues = new ConcurrentHashMap<String, HashSet<String>>() {
 		/**
 		 * 
 		 */
@@ -85,11 +88,11 @@ public class CgnFeatureDecoder {
 	 * 
 	 * @param CGN
 	 *            pos tag
-	 * @param CGN
-	 *            feature value
+	 * @parm CGN pdtype feature, used to disambiguate some values for other features
+	 * @param CGN feature value
 	 * @return CGN feature name
 	 */
-	public static String getFeatureName(String posTag, String featureValue) {
+	public static String getFeatureName(String posTag, String pdtype, String featureValue) {
 
 		// At the very first call, convert the data into the needed format:
 		// we have a map from feature names to feature values:
@@ -147,10 +150,37 @@ public class CgnFeatureDecoder {
 
 		Set<String> intersection = new HashSet<String>(featureValue2FeatureNames.get(featureValue));
 		intersection.retainAll(postag2FeatureNames.get(posTag));
+		
+		// If there are multiple options available, disambiguate using pdtype
+		// (Actually, we should have a more complex disambiguating system, taking into account
+		// all other features to determine a feature: http://urd.let.rug.nl/vannoord/Lassy/POS_manual.pdf #4.2)
+		if (intersection.size() > 1) {
+			List<String> npagrGetal = Arrays.asList("npagr","getal");
+			if (intersection.containsAll(npagrGetal)) {
+				if (pdtype.equals("pron")) {
+					intersection.clear();
+					intersection.add("getal");
+				}
+				else {
+					// Actually, when pdtype==det and positie=prenom, pick npagr.
+					// But we do it in all other cases, which is good enough to disambiguate.
+					intersection.clear();
+					intersection.add("npagr");
+				}
+			}
+			else {
+				throw new RuntimeException("Cannot infer CGN feature from value. Feature value " + featureValue + " has multiple possible features: " + intersection);
+			}
+		}
 
-		// normally, the result should contain only one feature name (no join)
-
-		return StringUtils.join(intersection, "|");
+		// Normally, the result should contain one feature. If there is none, return empty string
+		Iterator<String> it = intersection.iterator();
+		String returnFeature = "";
+		if (it.hasNext()) {
+			returnFeature = it.next();
+		}
+		return returnFeature;
+		//return StringUtils.join(intersection, "|");
 	}
 
 	// --------------------------------------------------------------------------
@@ -160,10 +190,10 @@ public class CgnFeatureDecoder {
 	public static void main(String[] args) {
 
 		System.out.println("Expected result: lwtype");
-		System.out.println(getFeatureName("LID", "onbep"));
+		System.out.println(getFeatureName("LID", "", "onbep"));
 
 		System.out.println("Expected result: vwtype");
-		System.out.println(getFeatureName("VNW", "onbep"));
+		System.out.println(getFeatureName("VNW", "", "onbep"));
 
 	}
 

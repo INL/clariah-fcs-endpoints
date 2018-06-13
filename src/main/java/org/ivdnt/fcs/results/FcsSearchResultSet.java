@@ -194,7 +194,6 @@ public class FcsSearchResultSet extends SRUSearchResultSet {
 				long end = start + kwic.getWord(i).length();
 				for (int j = 0; j < kwic.getTokenPropertyNames().size(); j++) {
 					String pname = kwic.getTokenPropertyNames().get(j);
-
 					// show info when debugging
 					// System.err.println(String.format("add to layer: layer: %s, start: %d, end:
 					// %d, value: %s",

@@ -49,7 +49,7 @@ public class FileUtils {
 		this.filePath = filepath;
 		// translate path into the path to the config file
 		String contextpath = this.context.getRealPath(this.filePath);
-		this.userFilePath = contextpath.replace("blacklab-sru-server", "blacklab-sru-server-config");
+		this.userFilePath = contextpath.replace("clariah-fcs-endpoints", "clariah-fcs-endpoints-config");
 		this.warFilePath = File.separator + "WEB-INF" + File.separator + this.filePath;
 
 	}
@@ -185,13 +185,13 @@ public class FileUtils {
 		URL url = null;
 		File file = new File(userFilePath);
 		if (file.exists()) {
-			// Try user-defined config file in blacklab-sru-server-config directory
+			// Try user-defined config file in clariah-fcs-endpoints-config directory
 			try {
 				url = file.toURI().toURL();
 			} catch (MalformedURLException e) {
 				throw new RuntimeException("Could not get URL from path: " + userFilePath, e);
 			}
-			System.err.println("[config] " + filePath + " read from blacklab-sru-server-config/");
+			System.err.println("[config] " + filePath + " read from clariah-fcs-endpoints-config/");
 		} else {
 			// If that fails, read config file from WEB-INF directory in war
 			try {
@@ -236,9 +236,9 @@ public class FileUtils {
 		InputStream in = null;
 		URL url = null;
 		try {
-			// Try user-defined config file in blacklab-sru-server-config directory
+			// Try user-defined config file in clariah-fcs-endpoints-config directory
 			in = createInputStream(userFilePath);
-			System.err.println("[config] " + filePath + " read from blacklab-sru-server-config/");
+			System.err.println("[config] " + filePath + " read from clariah-fcs-endpoints-config/");
 		} catch (FileNotFoundException e) {
 			// If that fails, read config file from WEB-INF directory in war
 			try {

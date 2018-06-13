@@ -1,6 +1,7 @@
 package org.ivdnt.fcs.mapping;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -372,6 +373,15 @@ public class ConversionEngine {
 
 						String featuresStr = posTag.replaceAll("^([A-Z-]+)\\((.+)\\)$", "$2");
 						String[] features = featuresStr.split(",");
+						
+						// Before iterating over features, pick out pdtype feature.
+						// We need to give this to every other feature for some disambiguation cases.
+						String pdtype = "";
+						for (String oneFeature : features) {
+							if (CgnFeatureDecoder.featureName2FeatureValues.get("pdtype").contains(oneFeature)) {
+								pdtype = oneFeature;
+							}
+						}
 
 						for (String oneFeature : features) {
 							String featureName;
@@ -382,7 +392,7 @@ public class ConversionEngine {
 							// In that case, we need to add the feature name ourself.
 
 							if (oneFeature.split("=").length == 1) {
-								featureName = CgnFeatureDecoder.getFeatureName(realPosTag, oneFeature);
+								featureName = CgnFeatureDecoder.getFeatureName(realPosTag, pdtype, oneFeature);
 								featureValue = oneFeature;
 							}
 							// normal case:
