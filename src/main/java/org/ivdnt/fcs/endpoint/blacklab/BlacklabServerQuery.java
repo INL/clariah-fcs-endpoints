@@ -76,7 +76,6 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 	 * @return the SRU URL with the CQL in it
 	 */
 	public String getSruRequestUrl(Boolean returnNativeUrl) {
-		System.out.println("mx rs" + this.getMaximumResults());
 		String url;
 		try {
 			if (returnNativeUrl) {
