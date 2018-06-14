@@ -24,6 +24,7 @@
 		<engine-name>opensonar</engine-name>
 		<engine-type>blacklabserver</engine-type>
 		<engine-url>http://172.16.10.93:8080/blacklab-server/</engine-url>
+		<engine-native-url-template>https://portal.clarin.inl.nl/opensonar_whitelab/search/simple</engine-native-url-template>
 		<tagset-conversion-table>UD2CGNSonar</tagset-conversion-table>
 	</Engine>
 
@@ -32,7 +33,7 @@
 		<engine-type>blacklabserver</engine-type>
 		<engine-url>http://svprmc05.inl.nl/blacklab-server/</engine-url>
 		<!--engine-native-url-template>http://chn-i.inl.nl/corpora/chn/search?operation=hits&amp;pattern=</engine-native-url-template> -->
-		<engine-native-url-template>http://chn.inl.nl/corpus-frontend/chn/search/hits?patt=</engine-native-url-template>
+		<engine-native-url-template>http://chn.inl.nl/corpus-frontend/</engine-native-url-template>
 		<tagset-conversion-table>UD2CHN</tagset-conversion-table>
 	</Engine>
 
@@ -40,7 +41,7 @@
 		<engine-name>zeebrieven</engine-name>
 		<engine-type>blacklabserver</engine-type>
 		<engine-url>http://brievenalsbuit.ato.ivdnt.org/blacklab-server/</engine-url>
-		<engine-native-url-template>http://brievenalsbuit.ato.ivdnt.org/corpus-frontend/zeebrieven/search/hits?patt=</engine-native-url-template>
+		<engine-native-url-template>http://brievenalsbuit.ato.ivdnt.org/corpus-frontend/</engine-native-url-template>
 		<tagset-conversion-table>UD2BaB</tagset-conversion-table>
 	</Engine>
 
@@ -55,7 +56,7 @@
 		<engine-name>gysseling</engine-name>
 		<engine-type>blacklabserver</engine-type>
 		<engine-url>http://brievenalsbuit.ato.ivdnt.org/blacklab-server/</engine-url>
-		<engine-native-url-template>http://brievenalsbuit.ato.ivdnt.org/corpus-frontend/gysseling/search/hits?patt=</engine-native-url-template>
+		<engine-native-url-template>http://brievenalsbuit.ato.ivdnt.org/corpus-frontend/</engine-native-url-template>
 		<tagset-conversion-table>UD2GYS</tagset-conversion-table>
 	</Engine>
 
