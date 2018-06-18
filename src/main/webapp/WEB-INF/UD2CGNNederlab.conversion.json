@@ -81,6 +81,15 @@
 		},
 		{
 			"from": {
+				"pos": "NOUN"
+			},
+			"to": {
+				"pos": "N",
+				"comment":"basisgeval noun, toegevoegd peter"
+			}
+		},
+		{
+			"from": {
 				"pos": "PROPN"
 			},
 			"to": {
@@ -139,6 +148,15 @@
 				"pos": "VNW",
 				"feat.pdtype": "pron",
 				"comment": "HM"
+			}
+		},
+		{
+			"from": {
+				"pos": "PRON"
+			},
+			"to": {
+				"pos": "VNW",
+				"comment": "Algemene regel, toegevoegd Peter"
 			}
 		},
 		{

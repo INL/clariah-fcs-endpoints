@@ -17,6 +17,8 @@ import eu.clarin.sru.server.SRURequest;
 import eu.clarin.sru.server.SRUSearchResultSet;
 import eu.clarin.sru.server.SRUServerConfig;
 
+import org.ivdnt.util.TestCgn;
+
 public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 
 	private QueryTemplate nederlabQueryTemplate;
@@ -51,10 +53,10 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException {
 		
-		/*TestCgn.testQueries(contextCache, this.getConversionEngine());
+		TestCgn.testQueries(contextCache, this.getConversionEngine());
 		if (true) {
 			return null;
-		}*/
+		}
 		
 		// translate FCS into CQP
 

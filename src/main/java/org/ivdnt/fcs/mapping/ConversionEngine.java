@@ -322,7 +322,7 @@ public class ConversionEngine {
 		List<Kwic> kwics = resultSet.getHits();
 		
 		// Compile regex pattern once, to be matched against in the loop:
-		Pattern posTagPattern = Pattern.compile("^[A-Z-]+\\(.+\\)$");
+		Pattern posTagPattern = Pattern.compile("^([A-Z-]+)\\((.*)\\)$");
 
 		// now loop through the results
 
@@ -365,50 +365,52 @@ public class ConversionEngine {
 					if (posTagMatcher.matches()) {
 						// pos tag
 
-						String realPosTag = posTag.replaceAll("^([A-Z-]+)\\((.+)\\)$", "$1");
+						String realPosTag = posTagMatcher.replaceAll("$1");
 
 						oneKeywordAndContext.setTokenPropertyAt("pos", realPosTag, index);
 
 						// features
 
-						String featuresStr = posTag.replaceAll("^([A-Z-]+)\\((.+)\\)$", "$2");
-						String[] features = featuresStr.split(",");
+						String featuresStr = posTagMatcher.replaceAll("$2");
 						
-						// Before iterating over features, pick out pdtype feature.
-						// We need to give this to every other feature for some disambiguation cases.
-						String pdtype = "";
-						for (String oneFeature : features) {
-							if (CgnFeatureDecoder.featureName2FeatureValues.get("pdtype").contains(oneFeature)) {
-								pdtype = oneFeature;
+						if (!featuresStr.isEmpty()) {
+							String[] features = featuresStr.split(",");
+							// Before iterating over features, pick out pdtype feature.
+							// We need to give this to calls of getFeatureName for all other features
+							// for some disambiguation cases.
+							String pdtype = "";
+							for (String oneFeature : features) {
+								if (CgnFeatureDecoder.featureName2FeatureValues.get("pdtype").contains(oneFeature)) {
+									pdtype = oneFeature;
+								}
 							}
-						}
-
-						for (String oneFeature : features) {
-							String featureName;
-							String featureValue;
-
-							// We normally expect a string like 'featureName = featureValue'
-							// but in the case of CGN, we might have feature values only.
-							// In that case, we need to add the feature name ourself.
-
-							if (oneFeature.split("=").length == 1) {
-								featureName = CgnFeatureDecoder.getFeatureName(realPosTag, pdtype, oneFeature);
-								featureValue = oneFeature;
+	
+							for (String oneFeature : features) {
+								String featureName;
+								String featureValue;
+	
+								// We normally expect a string like 'featureName = featureValue'
+								// but in the case of CGN, we might have feature values only.
+								// In that case, we need to add the feature name ourself.
+								if (oneFeature.split("=").length == 1) {
+									featureName = CgnFeatureDecoder.getFeatureName(realPosTag, pdtype, oneFeature);
+									featureValue = oneFeature;
+								}
+								// normal case:
+								// input is a string like 'featureName = featureValue'
+								else {
+									featureName = oneFeature.split("=")[0];
+									featureValue = oneFeature.split("=")[1];
+								}
+	
+								// add the feature to the token properties
+	
+								oneKeywordAndContext.addTokenProperty(featureName);
+								oneKeywordAndContext.setTokenPropertyAt(featureName, featureValue, index);
+	
+								featureNamesOfCurrentToken.add(featureName);
+	
 							}
-							// normal case:
-							// input is a string like 'featureName = featureValue'
-							else {
-								featureName = oneFeature.split("=")[0];
-								featureValue = oneFeature.split("=")[1];
-							}
-
-							// add the feature to the token properties
-
-							oneKeywordAndContext.addTokenProperty(featureName);
-							oneKeywordAndContext.setTokenPropertyAt(featureName, featureValue, index);
-
-							featureNamesOfCurrentToken.add(featureName);
-
 						}
 					}
 
