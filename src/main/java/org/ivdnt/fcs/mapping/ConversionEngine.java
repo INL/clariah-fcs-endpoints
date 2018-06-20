@@ -1,7 +1,6 @@
 package org.ivdnt.fcs.mapping;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -72,15 +71,28 @@ public class ConversionEngine {
 	// cases)
 
 	private ArrayList<FeatureConjunction> sortedFeatureConjunctionsAccording2Complexity = new ArrayList<FeatureConjunction>();
+	
+	
+	private ConcurrentHashMap<String, HashSet<String>> featureName2FeatureValues;
+	private ConcurrentHashMap<String, HashSet<String>> posTag2FeatureNames;
 
 	// ---------------------------------------------------------------------------------------
 
 	// constructor
 
 	public ConversionEngine(ArrayList<ConcurrentHashMap<String, String>> fieldMappingArr,
-			ArrayList<ConcurrentHashMap<String, ConcurrentHashMap<String, String>>> featureMappingArr) {
+			ArrayList<ConcurrentHashMap<String, ConcurrentHashMap<String, String>>> featureMappingArr, String conversionName) {
 		this.fieldMappingArr = fieldMappingArr;
 		this.featureMappingArr = featureMappingArr;
+		if (conversionName.equals("UD2CGNNederlab")) {
+			this.featureName2FeatureValues = CgnMaps.featureName2FeatureValuesNederlab;
+			this.posTag2FeatureNames = CgnMaps.posTag2FeatureNamesNederlab;
+		}
+		else if (conversionName.equals("UD2CGNSonar")) {
+			this.featureName2FeatureValues = CgnMaps.featureName2FeatureValuesSonar;
+			this.posTag2FeatureNames = CgnMaps.posTag2FeatureNamesSonar;
+		}
+		
 		init();
 	}
 
@@ -122,13 +134,24 @@ public class ConversionEngine {
 			// so we'll loop through the keys and values)
 
 			FeatureConjunction featureConjunction = new FeatureConjunction();
-
+			
 			for (String oneKey : toSet.keySet()) {
 				String featureConjFrom = oneKey;
 				String featureConjTo = toSet.get(oneKey);
 
 				featureConjunction.put(featureConjFrom, featureConjTo);
 			}
+			
+			/* TODO: remove old code
+			// featureConjunctionBack is featureConjunction with omitted 'feat.'
+			FeatureConjunction featureConjunctionBack = new FeatureConjunction();
+			for (String oneKey : toSet.keySet()) {
+				String featureConjFrom = removeFeat(oneKey);
+				String featureConjTo = toSet.get(oneKey);
+
+				featureConjunctionBack.put(featureConjFrom, featureConjTo);
+			}*/
+			
 
 			// A set of FeatureConjunction means that we have different
 			// possible translations
@@ -151,7 +174,7 @@ public class ConversionEngine {
 			// the map for translation back into universal dependencies doesn't contain
 			// a set (OR-relation, meaning different possible translations)
 			// but only a featureConjunction (conjunctions of features)
-
+			//
 			Set<Feature> universalDependencies = this.featureBackMap.get(featureConjunction);
 
 			if (universalDependencies == null)
@@ -190,6 +213,13 @@ public class ConversionEngine {
 			}
 		});
 
+	}
+
+	private String removeFeat(String oneKey) {
+		String[] oneKeySplit = oneKey.split("\\.");
+		// Use last element, which removes 'feat.' if present
+		String featureConjFrom = oneKeySplit[oneKeySplit.length-1];
+		return featureConjFrom;
 	}
 
 	// ---------------------------------------------------------------------------------------
@@ -341,7 +371,13 @@ public class ConversionEngine {
 					String propValue = oneKeywordAndContext.get(pname, index);
 
 					if (propValue != null && !propValue.isEmpty()) {
+						//TODO: remove old code
+						//pname = removeFeat(pname);
+						// We removed 'feat.', so add updated feature name
+						//oneKeywordAndContext.addTokenProperty(pname);
+						//oneKeywordAndContext.setTokenPropertyAt(pname, propValue, index);
 						featureNamesOfCurrentToken.add(pname);
+						
 					}
 				}
 
@@ -373,6 +409,7 @@ public class ConversionEngine {
 
 						String featuresStr = posTagMatcher.replaceAll("$2");
 						
+						
 						if (!featuresStr.isEmpty()) {
 							String[] features = featuresStr.split(",");
 							// Before iterating over features, pick out pdtype feature.
@@ -380,7 +417,17 @@ public class ConversionEngine {
 							// for some disambiguation cases.
 							String pdtype = "";
 							for (String oneFeature : features) {
-								if (CgnFeatureDecoder.featureName2FeatureValues.get("pdtype").contains(oneFeature)) {
+								// Get list of feature values belonging to pdtype
+								// We have to do a check here, because pdtype is called feat.pdtype in nederlab
+								HashSet<String> valueList;
+								if (this.featureName2FeatureValues.containsKey("pdtype")) {
+									valueList = this.featureName2FeatureValues.get("pdtype");
+								}
+								else {
+									valueList = this.featureName2FeatureValues.get("feat.pdtype");
+								}
+								
+								if (valueList.contains(oneFeature)) {
 									pdtype = oneFeature;
 								}
 							}
@@ -393,7 +440,7 @@ public class ConversionEngine {
 								// but in the case of CGN, we might have feature values only.
 								// In that case, we need to add the feature name ourself.
 								if (oneFeature.split("=").length == 1) {
-									featureName = CgnFeatureDecoder.getFeatureName(realPosTag, pdtype, oneFeature);
+									featureName = CgnFeatureDecoder.getFeatureName(realPosTag, pdtype, this.featureName2FeatureValues, this.posTag2FeatureNames, oneFeature);
 									featureValue = oneFeature;
 								}
 								// normal case:
@@ -402,9 +449,10 @@ public class ConversionEngine {
 									featureName = oneFeature.split("=")[0];
 									featureValue = oneFeature.split("=")[1];
 								}
-	
+								// TODO: remove old code
+								// Remove 'feat.' from feature names when mapping back
+								//featureName = removeFeat(featureName);
 								// add the feature to the token properties
-	
 								oneKeywordAndContext.addTokenProperty(featureName);
 								oneKeywordAndContext.setTokenPropertyAt(featureName, featureValue, index);
 	
@@ -415,7 +463,7 @@ public class ConversionEngine {
 					}
 
 				}
-
+				
 				// try to match the features of the current token
 				// with our list of known features translations
 
@@ -427,7 +475,8 @@ public class ConversionEngine {
 
 					HashSet<String> keysOfThisKnownFeatureConjunction = this.featureBackMap2KeySet
 							.get(oneKnownFeatureConjunction);
-
+					
+					// 'feat.' has been removed from the current features and the map, so we can compare
 					if (featureNamesOfCurrentToken.containsAll(keysOfThisKnownFeatureConjunction)) {
 
 						// if so, build a feature conjunction representing the token
@@ -443,9 +492,9 @@ public class ConversionEngine {
 						// than, try to find this FeatureConjunction in our list of known
 						// FeatureConjunctions
 						// (t.i. match both feature keys and feature values)
-
+						System.out.println("before");
 						universalDependencyOfCurrentToken = this.featureBackMap.get(featureConjunctionOfToken);
-
+						System.out.println("after");
 						// if translation is found, we are done with this token!
 						if (universalDependencyOfCurrentToken != null) {
 							break;

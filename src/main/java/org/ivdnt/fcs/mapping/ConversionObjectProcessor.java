@@ -23,7 +23,7 @@ public class ConversionObjectProcessor {
 		// generate new conversion engine, containing mapping and such
 
 		ConversionEngine conversionEngine = new ConversionEngine(jsonConfig.getFieldMapping(),
-				jsonConfig.getFeatureMapping());
+				jsonConfig.getFeatureMapping(), conversionName);
 
 		conversionEngine.setUseFeatureRegex(jsonConfig.usesFeatureRegex());
 		conversionEngine.setPosTagField(jsonConfig.getPosTagField());

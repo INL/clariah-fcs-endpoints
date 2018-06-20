@@ -53,10 +53,10 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException {
 		
-		TestCgn.testQueries(contextCache, this.getConversionEngine());
+		/*TestCgn.testQueries(contextCache, this.getConversionEngine());
 		if (true) {
 			return null;
-		}
+		}*/
 		
 		// translate FCS into CQP
 
@@ -82,7 +82,7 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 
 		} catch (Exception e) {
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
-					"The query execution failed by this CLARIN-FCS (nederlab) endpoint. " + nederlabQuery);
+					"The query execution failed by this CLARIN-FCS (nederlab) endpoint. " + nederlabQuery + "\n" + e);
 		}
 	}
 

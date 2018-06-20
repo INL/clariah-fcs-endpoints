@@ -68,7 +68,7 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 		cqlQuery = cqlQuery.replaceAll("'", "\"");
 		this.setCqpQuery(cqlQuery);
 
-		System.err.println("CQP to nederlab:" + this.getCqpQuery());
+		//System.err.println("CQP to nederlab:" + this.getCqpQuery());
 		
 		// Form native URL based on template and URL-encoded query string
 		String engineNativeUrl = "";

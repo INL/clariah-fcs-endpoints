@@ -5,28 +5,28 @@
 	"IncludeFeatureNameInRegex": false,
 	"GrammaticalFeatures": [
 		"feat",
-		"feat.buiging",
-		"feat.conjtype",
-		"feat.dial",
-		"feat.genus",
-		"feat.getal",
-		"feat.getal-n",
-		"feat.graad",
-		"feat.lwtype",
-		"feat.naamval",
-		"feat.npagr",
-		"feat.ntype",
-		"feat.numtype",
-		"feat.pdtype",
-		"feat.persoon",
-		"feat.positie",
-		"feat.pvagr",
-		"feat.pvtijd",
-		"feat.spectype",
-		"feat.status",
-		"feat.vwtype",
-		"feat.vztype",
-		"feat.wvorm"
+		"buiging",
+		"conjtype",
+		"dial",
+		"genus",
+		"getal",
+		"getal-n",
+		"graad",
+		"lwtype",
+		"naamval",
+		"npagr",
+		"ntype",
+		"numtype",
+		"pdtype",
+		"persoon",
+		"positie",
+		"pvagr",
+		"pvtijd",
+		"spectype",
+		"status",
+		"vwtype",
+		"vztype",
+		"wvorm"
 	],
 	"FieldMapping": [
 		{
@@ -66,7 +66,7 @@
 			},
 			"to": {
 				"pos": "N",
-				"feat.ntype": "soort"
+				"ntype": "soort"
 			}
 		},
 		{
@@ -75,8 +75,17 @@
 			},
 			"to": {
 				"pos": "N",
-				"feat.ntype": "eigen",
+				"ntype": "eigen",
 				"comment": "spec(deeleigen nooit te vinden zo...."
+			}
+		},
+		{
+			"from": {
+				"pos": "NOUN"
+			},
+			"to": {
+				"pos": "N",
+				"comment":"basisgeval, toegevoegd peter"
 			}
 		},
 		{
@@ -85,7 +94,7 @@
 			},
 			"to": {
 				"pos": "SPEC",
-				"feat.spectype": "deeleigen"
+				"spectype": "deeleigen"
 			}
 		},
 		{
@@ -128,7 +137,7 @@
 			},
 			"to": {
 				"pos": "VNW",
-				"feat.pdtype": "det"
+				"pdtype": "det"
 			}
 		},
 		{
@@ -137,8 +146,17 @@
 			},
 			"to": {
 				"pos": "VNW",
-				"feat.pdtype": "pron",
+				"pdtype": "pron",
 				"comment": "HM"
+			}
+		},
+		{
+			"from": {
+				"pos": "PRON"
+			},
+			"to": {
+				"pos": "VNW",
+				"comment": "basisgeval, toegevoegd Peter"
 			}
 		},
 		{
@@ -155,7 +173,7 @@
 			},
 			"to": {
 				"pos": "VG",
-				"feat.conjtype": "neven",
+				"conjtype": "neven",
 				"comment": "HM"
 			}
 		},
@@ -165,7 +183,7 @@
 			},
 			"to": {
 				"pos": "VG",
-				"feat.conjtype": "onder",
+				"conjtype": "onder",
 				"comment": "HM"
 			}
 		},
@@ -200,7 +218,7 @@
 				"AdpType": "Comprep"
 			},
 			"to": {
-				"feat.vztype": "versm"
+				"vztype": "versm"
 			}
 		},
 		{
@@ -208,7 +226,7 @@
 				"AdpType": "Prep"
 			},
 			"to": {
-				"feat.vztype": "init"
+				"vztype": "init"
 			}
 		},
 		{
@@ -216,7 +234,7 @@
 				"AdpType": "Post"
 			},
 			"to": {
-				"feat.vztype": "fin"
+				"vztype": "fin"
 			}
 		},
 		{
@@ -224,7 +242,7 @@
 				"Number": "Plur"
 			},
 			"to": {
-				"feat.getal": "mv"
+				"getal": "mv"
 			}
 		},
 		{
@@ -232,7 +250,7 @@
 				"Number": "Sing"
 			},
 			"to": {
-				"feat.getal": "ev"
+				"getal": "ev"
 			}
 		},
 		{
@@ -240,7 +258,7 @@
 				"Gender": "Fem"
 			},
 			"to": {
-				"feat.genus": "fem"
+				"genus": "fem"
 			}
 		},
 		{
@@ -248,7 +266,7 @@
 				"Gender": "Fem"
 			},
 			"to": {
-				"feat.npagr": "evf"
+				"npagr": "evf"
 			}
 		},
 		{
@@ -256,7 +274,7 @@
 				"Gender": "Fem"
 			},
 			"to": {
-				"feat.persoon": "2v|3v"
+				"persoon": "2v|3v"
 			}
 		},
 		{
@@ -264,7 +282,7 @@
 				"Gender": "Masc"
 			},
 			"to": {
-				"feat.genus": "masc"
+				"genus": "masc"
 			}
 		},
 		{
@@ -272,7 +290,7 @@
 				"Gender": "Masc"
 			},
 			"to": {
-				"feat.persoon": "3m"
+				"persoon": "3m"
 			}
 		},
 		{
@@ -280,7 +298,7 @@
 				"Gender": "Neut"
 			},
 			"to": {
-				"feat.genus": "onz"
+				"genus": "onz"
 			}
 		},
 		{
@@ -288,7 +306,7 @@
 				"Gender": "Neut"
 			},
 			"to": {
-				"feat.npagr": "evon"
+				"npagr": "evon"
 			}
 		},
 		{
@@ -296,7 +314,7 @@
 				"Gender": "Neut"
 			},
 			"to": {
-				"feat.graad": "dim",
+				"graad": "dim",
 				"pos": "N"
 			}
 		},
@@ -305,7 +323,7 @@
 				"Gender": "Com"
 			},
 			"to": {
-				"feat.genus": "zijd"
+				"genus": "zijd"
 			}
 		},
 		{
@@ -313,7 +331,7 @@
 				"Degree": "Pos"
 			},
 			"to": {
-				"feat.graad": "basis"
+				"graad": "basis"
 			}
 		},
 		{
@@ -321,7 +339,7 @@
 				"Degree": "Cmp"
 			},
 			"to": {
-				"feat.graad": "comp"
+				"graad": "comp"
 			}
 		},
 		{
@@ -329,7 +347,7 @@
 				"Degree": "Sup"
 			},
 			"to": {
-				"feat.graad": "sup"
+				"graad": "sup"
 			}
 		},
 		{
@@ -337,7 +355,7 @@
 				"Degree": "Dim"
 			},
 			"to": {
-				"feat.graad": "dim"
+				"graad": "dim"
 			}
 		},
 		{
@@ -345,7 +363,7 @@
 				"Position": "Nom"
 			},
 			"to": {
-				"feat.positie": "nom"
+				"positie": "nom"
 			}
 		},
 		{
@@ -353,7 +371,7 @@
 				"Position": "Postnom"
 			},
 			"to": {
-				"feat.positie": "postnom"
+				"positie": "postnom"
 			}
 		},
 		{
@@ -361,7 +379,7 @@
 				"Position": "Prenom"
 			},
 			"to": {
-				"feat.positie": "prenom"
+				"positie": "prenom"
 			}
 		},
 		{
@@ -369,7 +387,7 @@
 				"Position": "Free"
 			},
 			"to": {
-				"feat.positie": "vrij"
+				"positie": "vrij"
 			}
 		},
 		{
@@ -377,7 +395,7 @@
 				"Case": "Gen"
 			},
 			"to": {
-				"feat.naamval": "gen",
+				"naamval": "gen",
 				"pos": "ADJ|N|VNW"
 			}
 		},
@@ -386,7 +404,7 @@
 				"Case": "Acc"
 			},
 			"to": {
-				"feat.naamval": "obl"
+				"naamval": "obl"
 			}
 		},
 		{
@@ -394,7 +412,7 @@
 				"Case": "Dat"
 			},
 			"to": {
-				"feat.naamval": "dat"
+				"naamval": "dat"
 			}
 		},
 		{
@@ -402,7 +420,7 @@
 				"Case": "Nom"
 			},
 			"to": {
-				"feat.naamval": "nomin"
+				"naamval": "nomin"
 			}
 		},
 		{
@@ -410,7 +428,7 @@
 				"NumType": "Card"
 			},
 			"to": {
-				"feat.numtype": "hoofd"
+				"numtype": "hoofd"
 			}
 		},
 		{
@@ -418,7 +436,7 @@
 				"NumType": "Ord"
 			},
 			"to": {
-				"feat.numtype": "rang"
+				"numtype": "rang"
 			}
 		},
 		{
@@ -426,7 +444,7 @@
 				"Aspect": "Imp"
 			},
 			"to": {
-				"feat.wvorm": "od"
+				"wvorm": "od"
 			}
 		},
 		{
@@ -434,7 +452,7 @@
 				"Aspect": "Perf"
 			},
 			"to": {
-				"feat.wvorm": "vd"
+				"wvorm": "vd"
 			}
 		},
 		{
@@ -442,8 +460,8 @@
 				"Mood": "Ind"
 			},
 			"to": {
-				"feat.wvorm": "pv",
-				"feat.pvtijd": "verl"
+				"wvorm": "pv",
+				"pvtijd": "verl"
 			}
 		},
 		{
@@ -451,9 +469,9 @@
 				"Mood": "Ind"
 			},
 			"to": {
-				"feat.wvorm": "pv",
-				"feat.pvtijd": "tgw",
-				"feat.persoon": "1|3|3p|3v|3m|3o"
+				"wvorm": "pv",
+				"pvtijd": "tgw",
+				"persoon": "1|3|3p|3v|3m|3o"
 			}
 		},
 		{
@@ -461,8 +479,8 @@
 				"Mood": "Imp,Ind"
 			},
 			"to": {
-				"feat.wvorm": "pv",
-				"feat.pvtijd": "tgw"
+				"wvorm": "pv",
+				"pvtijd": "tgw"
 			}
 		},
 		{
@@ -470,8 +488,8 @@
 				"Mood": "Sub"
 			},
 			"to": {
-				"feat.wvorm": "pv",
-				"feat.pvtijd": "conj"
+				"wvorm": "pv",
+				"pvtijd": "conj"
 			}
 		},
 		{
@@ -479,7 +497,7 @@
 				"VerbForm": "Fin"
 			},
 			"to": {
-				"feat.wvorm": "pv"
+				"wvorm": "pv"
 			}
 		},
 		{
@@ -487,7 +505,7 @@
 				"VerbForm": "Inf"
 			},
 			"to": {
-				"feat.wvorm": "inf"
+				"wvorm": "inf"
 			}
 		},
 		{
@@ -495,7 +513,7 @@
 				"VerbForm": "Part"
 			},
 			"to": {
-				"feat.wvorm": "od"
+				"wvorm": "od"
 			}
 		},
 		{
@@ -503,7 +521,7 @@
 				"VerbForm": "Part"
 			},
 			"to": {
-				"feat.wvorm": "vd"
+				"wvorm": "vd"
 			}
 		},
 		{
@@ -511,7 +529,7 @@
 				"Person": "1"
 			},
 			"to": {
-				"feat.persoon": "1"
+				"persoon": "1"
 			}
 		},
 		{
@@ -519,7 +537,7 @@
 				"Person": "2"
 			},
 			"to": {
-				"feat.persoon": "2|2v|2b"
+				"persoon": "2|2v|2b"
 			}
 		},
 		{
@@ -527,7 +545,7 @@
 				"Person": "3"
 			},
 			"to": {
-				"feat.persoon": "3|3p|3v|3m|3o"
+				"persoon": "3|3p|3v|3m|3o"
 			}
 		},
 		{
@@ -535,7 +553,7 @@
 				"Tense": "Past"
 			},
 			"to": {
-				"feat.pvtijd": "verl",
+				"pvtijd": "verl",
 				"comment": "Maar: NIET als het een deelwoord is Dus deze manier van converteren werkt niet; je hebt ook nog condities nodig"
 			}
 		},
@@ -544,7 +562,7 @@
 				"Tense": "Pres"
 			},
 			"to": {
-				"feat.pvtijd": "tgw"
+				"pvtijd": "tgw"
 			}
 		},
 		{
@@ -552,7 +570,7 @@
 				"Tense": "Past"
 			},
 			"to": {
-				"feat.wvorm": "vd",
+				"wvorm": "vd",
 				"comment": "eigenlijk niet goed? in UD geen past maar perf?"
 			}
 		},
@@ -561,7 +579,7 @@
 				"Tense": "Pres"
 			},
 			"to": {
-				"feat.wvorm": "od"
+				"wvorm": "od"
 			}
 		},
 		{
@@ -569,7 +587,7 @@
 				"Polite": "Inf"
 			},
 			"to": {
-				"feat.persoon": "2v"
+				"persoon": "2v"
 			}
 		},
 		{
@@ -585,7 +603,7 @@
 				"Definite": "Def"
 			},
 			"to": {
-				"feat.lwtype": "bep"
+				"lwtype": "bep"
 			}
 		},
 		{
@@ -593,7 +611,7 @@
 				"Definite": "Ind"
 			},
 			"to": {
-				"feat.lwtype": "onbep"
+				"lwtype": "onbep"
 			}
 		},
 		{
@@ -601,7 +619,7 @@
 				"Definite": "Def"
 			},
 			"to": {
-				"feat.vwtype": "bep"
+				"vwtype": "bep"
 			}
 		},
 		{
@@ -609,7 +627,7 @@
 				"Definite": "Ind"
 			},
 			"to": {
-				"feat.vwtype": "onbep"
+				"vwtype": "onbep"
 			}
 		},
 		{
@@ -625,7 +643,7 @@
 				"PronType": "Exc"
 			},
 			"to": {
-				"feat.vwtype": "excl",
+				"vwtype": "excl",
 				"comment": "misnomer: zou vnwtype moeten zijn?"
 			}
 		},
@@ -634,7 +652,7 @@
 				"PronType": "Dem"
 			},
 			"to": {
-				"feat.vwtype": "aanw",
+				"vwtype": "aanw",
 				"comment": "in welk feat zit PronType????"
 			}
 		},
@@ -643,7 +661,7 @@
 				"PronType": "Prs"
 			},
 			"to": {
-				"feat.vwtype": "pers"
+				"vwtype": "pers"
 			}
 		},
 		{
@@ -651,7 +669,7 @@
 				"PronType": "Rel"
 			},
 			"to": {
-				"feat.vwtype": "betr"
+				"vwtype": "betr"
 			}
 		},
 		{
@@ -659,7 +677,7 @@
 				"PronType": "Int"
 			},
 			"to": {
-				"feat.vwtype": "vrag",
+				"vwtype": "vrag",
 				"comment": "wanneer precies vb? Alleen bij wie/wat enz?"
 			}
 		},
@@ -668,7 +686,7 @@
 				"PronType": "Rcp"
 			},
 			"to": {
-				"feat.vwtype": "recip"
+				"vwtype": "recip"
 			}
 		},
 		{
@@ -676,7 +694,7 @@
 				"PronType": "Ind"
 			},
 			"to": {
-				"feat.lwtype": "onbep"
+				"lwtype": "onbep"
 			}
 		},
 		{
@@ -684,7 +702,7 @@
 				"PronType": "Ind"
 			},
 			"to": {
-				"feat.vwtype": "onbep"
+				"vwtype": "onbep"
 			}
 		},
 		{
@@ -692,7 +710,7 @@
 				"PronType": "Tot"
 			},
 			"to": {
-				"feat.lwtype": "onbep",
+				"lwtype": "onbep",
 				"lemma": "iedereen|ieder|al|alles|elk|elke"
 			}
 		},
@@ -701,7 +719,7 @@
 				"PronType": "Neg,Tot"
 			},
 			"to": {
-				"feat.lwtype": "onbep",
+				"lwtype": "onbep",
 				"lemma": "geen"
 			}
 		},
@@ -710,7 +728,7 @@
 				"Poss": "Yes"
 			},
 			"to": {
-				"feat.vwtype": "bez"
+				"vwtype": "bez"
 			}
 		},
 		{
@@ -718,7 +736,7 @@
 				"Reflex": "Yes"
 			},
 			"to": {
-				"feat.vwtype": "refl"
+				"vwtype": "refl"
 			}
 		},
 		{
@@ -726,7 +744,7 @@
 				"Reflex": "Yes"
 			},
 			"to": {
-				"feat.vwtype": "pr"
+				"vwtype": "pr"
 			}
 		},
 		{
@@ -734,7 +752,7 @@
 				"Variant": "Long"
 			},
 			"to": {
-				"feat.status": "vol"
+				"status": "vol"
 			}
 		},
 		{
@@ -742,7 +760,7 @@
 				"Variant": "Short"
 			},
 			"to": {
-				"feat.status": "red"
+				"status": "red"
 			}
 		}
 	]
