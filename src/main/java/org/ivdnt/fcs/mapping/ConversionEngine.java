@@ -369,7 +369,6 @@ public class ConversionEngine {
 				for (String pname : oneKeywordAndContext.getTokenPropertyNames()) {
 
 					String propValue = oneKeywordAndContext.get(pname, index);
-
 					if (propValue != null && !propValue.isEmpty()) {
 						//TODO: remove old code
 						//pname = removeFeat(pname);
@@ -425,8 +424,7 @@ public class ConversionEngine {
 								}
 								else {
 									valueList = this.featureName2FeatureValues.get("feat.pdtype");
-								}
-								
+								}								
 								if (valueList.contains(oneFeature)) {
 									pdtype = oneFeature;
 								}
@@ -492,9 +490,7 @@ public class ConversionEngine {
 						// than, try to find this FeatureConjunction in our list of known
 						// FeatureConjunctions
 						// (t.i. match both feature keys and feature values)
-						System.out.println("before");
 						universalDependencyOfCurrentToken = this.featureBackMap.get(featureConjunctionOfToken);
-						System.out.println("after");
 						// if translation is found, we are done with this token!
 						if (universalDependencyOfCurrentToken != null) {
 							break;

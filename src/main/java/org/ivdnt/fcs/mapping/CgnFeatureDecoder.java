@@ -47,11 +47,10 @@ public class CgnFeatureDecoder {
 		// (the reason why we need this become clear in the following comments)
 		
 		ConcurrentHashMap<String, HashSet<String>> featureValue2FeatureNames = new ConcurrentHashMap<String, HashSet<String>>();
-		
 		for (String oneFeatureName : featureName2FeatureValues.keySet()) {
 			// first get the [feature values] attached to this [feature name]
 			HashSet<String> featureValues = featureName2FeatureValues.get(oneFeatureName);
-
+			
 			// now each of these [feature values] must become a key in the hash we are
 			// building
 
@@ -61,17 +60,15 @@ public class CgnFeatureDecoder {
 				// loop, then get the set of [feature names] we already attached to it: we will
 				// extend
 				// this set
-
 				HashSet<String> featureNamesWeAlreadyHave = featureValue2FeatureNames.get(oneFeatureValue);
 				if (featureNamesWeAlreadyHave == null)
 					featureNamesWeAlreadyHave = new HashSet<String>();
 
 				// now add the [feature name] to the set of [feature names] already attached to
 				// this value
-
 				featureNamesWeAlreadyHave.add(oneFeatureName);
-
 				featureValue2FeatureNames.put(oneFeatureValue, featureNamesWeAlreadyHave);
+
 			}
 		}
 
@@ -85,9 +82,17 @@ public class CgnFeatureDecoder {
 		// So, feature value "onbep" will give feature names {"lwtype", "vwtype"}
 		// and pos tag "LID" will give feature names {"lwtype", "naamval", "npagr"}.
 		// The intersection {"lwtype"} is the result we need.
-
-		Set<String> intersection = new HashSet<String>(featureValue2FeatureNames.get(featureValue));
+		Set<String> intersection;
+		if (featureValue2FeatureNames.containsKey(featureValue)) {
+			intersection = new HashSet<String>(featureValue2FeatureNames.get(featureValue));
+		}
+		else {
+			System.err.println("CGN feature value not available in CGN feature-value map: " + featureValue);
+			intersection = new HashSet<String>();
+			
+		}
 		intersection.retainAll(posTag2FeatureNames.get(posTag));
+
 		
 		// If there are multiple options available, disambiguate using pdtype
 		// (Actually, we should have a more complex disambiguating system, taking into account
