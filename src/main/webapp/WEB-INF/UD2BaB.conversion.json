@@ -22,6 +22,10 @@
 		{
 			"from": "lemma",
 			"to": "lemma"
+		},
+		{
+			"from": "word",
+			"to": "word"
 		}
 	],
 	"PosTagField": "pos",
