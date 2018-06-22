@@ -205,12 +205,6 @@ public class ConversionEngine {
 
 	}
 
-	private String removeFeat(String oneKey) {
-		String[] oneKeySplit = oneKey.split("\\.");
-		// Use last element, which removes 'feat.' if present
-		String featureConjFrom = oneKeySplit[oneKeySplit.length-1];
-		return featureConjFrom;
-	}
 
 	// ---------------------------------------------------------------------------------------
 
@@ -315,6 +309,9 @@ public class ConversionEngine {
 	public Set<FeatureConjunction> translateFeature(String feature, String value) {
 		Set<FeatureConjunction> destination;
 		
+		// Convert feature to lowercase
+		feature = feature.toLowerCase();
+		
 		// First, try to translate via field map:
 		// eg. always translate feature into feature, regardless of value
 		if (this.fieldMap.containsKey(feature)) {
@@ -328,6 +325,11 @@ public class ConversionEngine {
 		else {
 			// If feature is not available in field map,
 			// translate combination of feature and value via feature map
+			
+			// Convert POS value to uppercase
+			if (feature.equals("pos")) {
+				value = value.toUpperCase();
+			}
 			Feature source = new Feature(feature, value);
 			destination = this.featureMap.get(source);
 		}
