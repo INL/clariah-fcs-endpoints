@@ -320,7 +320,7 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 			/*
 			 * Got something else we don't support. Send error ...
 			 */
-			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN, "Queries with queryType '"
+			throw new SRUException(SRUConstants.SRU_UNSUPPORTED_PARAMETER, "Queries with queryType '"
 					+ request.getQueryType() + "' are not supported by this CLARIN-FCS Endpoint.");
 		}
 		return query;

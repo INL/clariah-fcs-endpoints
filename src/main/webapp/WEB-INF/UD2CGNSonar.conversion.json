@@ -34,6 +34,10 @@
 			"to": "t_lc"
 		},
 		{
+			"from": "lemma",
+			"to": "lemma"
+		},
+		{
 			"from": "word",
 			"to": "word"
 		}

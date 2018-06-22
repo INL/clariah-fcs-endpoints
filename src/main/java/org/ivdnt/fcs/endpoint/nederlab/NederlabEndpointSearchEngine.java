@@ -58,9 +58,17 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 			return null;
 		}*/
 		
+		
+		String cqpQuery = "";
 		// translate FCS into CQP
-
-		String cqpQuery = BasicEndpointSearchEngine.translateQuery(request, this.getConversionEngine());
+		try {
+			cqpQuery = BasicEndpointSearchEngine.translateQuery(request, this.getConversionEngine());
+		}
+		catch (Exception e) {
+			System.err.println("Rethrowing as SRU exception:" + e);
+			throw new SRUException(SRUConstants.SRU_UNSUPPORTED_PARAMETER,
+					"The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage());
+		}
 		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request, "nederlab");
 
 		// instantiate the Nederlab query

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,6 +25,7 @@ import org.ivdnt.fcs.endpoint.nederlab.results.NederlabResultSet;
 import org.ivdnt.fcs.mapping.ConversionEngine;
 import org.ivdnt.fcs.results.Kwic;
 import org.ivdnt.fcs.results.ResultSet;
+import org.json.simple.JSONObject;
 
 public class TestCgn {
 	
@@ -145,6 +147,88 @@ public class TestCgn {
 		fcsResultSet.setTotalNumberOfResults(nederlabResultSet.getTotalNumberOfHits());
 		return fcsResultSet;
 	}
+	
+	/*private static ResultSet createResultSetBlackLab(String tag, ServletContext context) {
+		ResultSet resultSet = new ResultSet();
+		List<Kwic> results = new ArrayList<Kwic>();
+
+		for (int i = 0; i < hits.size(); i++) {
+			try {
+				Kwic kwic = new Kwic();
+				results.add(kwic);
+
+				JSONObject hit = (JSONObject) hits.get(i);
+				@SuppressWarnings("unchecked")
+				HashMap<String,Object> doc = (HashMap<String,Object>) docs.get((String) hit.get("docPid"));
+
+				doc.forEach((k, v) -> kwic.getMetadata().put(k.toString(), v.toString()));
+				// or put this in separate document info objects?
+
+				// the results consist of 3 distinct parts:
+				// the match, its context to the left, and its context to the right
+
+				JSONObject leftContext = (JSONObject) hit.get("left");
+				JSONObject match = (JSONObject) hit.get("match");
+				JSONObject rightContext = (JSONObject) hit.get("right");
+
+				// initialize details about matched token
+
+				@SuppressWarnings("unchecked")
+				Set<String> matchedTokenProperties = (Set<String>) match.keySet();
+				int hitStart = 0;
+				int hitEnd = 0;
+
+				// now build tokens list
+				// with [1] left context, [2] match, and [3] right context
+
+				for (String pname : matchedTokenProperties) {
+					List<String> tokensList = new ArrayList<String>();
+
+					// [1] -----------------------------
+
+					// add LEFT context
+					tokensList.addAll(JsonUtils.getProperty(leftContext, pname));
+
+					// [2] -----------------------------
+
+					// add MATCH
+					// and note the start and end position of it
+					if (pname.equals("word"))
+						hitStart = tokensList.size();
+					tokensList.addAll(JsonUtils.getProperty(match, pname));
+					if (pname.equals("word"))
+						hitEnd = tokensList.size();
+
+					// [3] -----------------------------
+
+					// add RIGHT context
+					tokensList.addAll(JsonUtils.getProperty(rightContext, pname));
+
+					// add keyword in context (Kwic)
+					// NB: the tokensList is sorted, so each property has the same index
+					// as the token it represents!
+
+					kwic.addTokenPropertyName(pname);
+					kwic.setTokenProperties(pname, tokensList);
+				}
+
+				// store the start and end position of the matched token (=part [2] hereabove)
+				// (= token that meets the query)
+				kwic.setHitStart(hitStart);
+				kwic.setHitEnd(hitEnd);
+
+			} catch (Exception e) {
+				throw new RuntimeException("Exception while parsing results.", e);
+			}
+		}
+
+		// build a resultSet
+
+		resultSet.setHits(results);
+		//resultSet.setQuery(this);
+		resultSet.setTotalNumberOfResults(100);
+		return resultSet;
+	}*/
 	
 
 }

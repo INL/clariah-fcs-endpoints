@@ -32,9 +32,17 @@ public class BlacklabServerEndpointSearchEngine extends BasicEndpointSearchEngin
 	 */
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException {
+		String query;
 		// translate FCS into CQP
-
-		String query = BasicEndpointSearchEngine.translateQuery(request, this.getConversionEngine());
+		try {
+			query = BasicEndpointSearchEngine.translateQuery(request, this.getConversionEngine());
+		}
+		catch (Exception e) {
+			System.err.println("Rethrowing as SRU exception:" + e);
+			throw new SRUException(SRUConstants.SRU_UNSUPPORTED_PARAMETER,
+					"The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage());
+		}
+		
 		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request,
 				BlacklabConstants.DEFAULT_CORPUS);
 

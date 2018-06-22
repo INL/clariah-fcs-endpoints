@@ -20,7 +20,7 @@ import eu.clarin.sru.server.fcs.parser.QueryNode;
 import eu.clarin.sru.server.fcs.parser.QueryProcessor;
 
 /**
- * This class stores the tag set conversion tables and holds methods for
+ * This class holds methods for
  * translating annotations written in a given tag set into another.
  * 
  * 
@@ -335,7 +335,7 @@ public class ConversionEngine {
 		}
 
 		if (destination == null) {
-			throw new NullPointerException("Mapping not found for feature '" + feature + "' with value '" + value +"'");
+			throw new NullPointerException("Unknown feature-value combination: feature '" + feature + "' with value '" + value +"'");
 			/*FeatureConjunction fc = new FeatureConjunction();
 			fc.put(source.getFeatureName(), source.getValues());
 			destination = new HashSet<>();
@@ -477,7 +477,6 @@ public class ConversionEngine {
 					HashSet<String> keysOfThisKnownFeatureConjunction = this.featureBackMap2KeySet
 							.get(oneKnownFeatureConjunction);
 					
-					// 'feat.' has been removed from the current features and the map, so we can compare
 					if (featureNamesOfCurrentToken.containsAll(keysOfThisKnownFeatureConjunction)) {
 
 						// if so, build a feature conjunction representing the token
