@@ -142,16 +142,6 @@ public class ConversionEngine {
 				featureConjunction.put(featureConjFrom, featureConjTo);
 			}
 			
-			/* TODO: remove old code
-			// featureConjunctionBack is featureConjunction with omitted 'feat.'
-			FeatureConjunction featureConjunctionBack = new FeatureConjunction();
-			for (String oneKey : toSet.keySet()) {
-				String featureConjFrom = removeFeat(oneKey);
-				String featureConjTo = toSet.get(oneKey);
-
-				featureConjunctionBack.put(featureConjFrom, featureConjTo);
-			}*/
-			
 
 			// A set of FeatureConjunction means that we have different
 			// possible translations
@@ -323,16 +313,31 @@ public class ConversionEngine {
 	 * @return
 	 */
 	public Set<FeatureConjunction> translateFeature(String feature, String value) {
-
-		Feature source = new Feature(feature, value);
-		Set<FeatureConjunction> destination = this.featureMap.get(source);
-
-		if (destination == null) {
-			//throw new NullPointerException("Mapping not found for feature " + feature + " with value " + value);
+		Set<FeatureConjunction> destination;
+		
+		// First, try to translate via field map:
+		// eg. always translate feature into feature, regardless of value
+		if (this.fieldMap.containsKey(feature)) {
+			String featureTranslated = this.fieldMap.get(feature);
 			FeatureConjunction fc = new FeatureConjunction();
-			fc.put(source.getFeatureName(), source.getValues()); // TODO geen pass-through meer als niet gemapt
+			// Add translated feature name with current value to map
+			fc.put(featureTranslated, value);
 			destination = new HashSet<>();
 			destination.add(fc);
+		}
+		else {
+			// If feature is not available in field map,
+			// translate combination of feature and value via feature map
+			Feature source = new Feature(feature, value);
+			destination = this.featureMap.get(source);
+		}
+
+		if (destination == null) {
+			throw new NullPointerException("Mapping not found for feature '" + feature + "' with value '" + value +"'");
+			/*FeatureConjunction fc = new FeatureConjunction();
+			fc.put(source.getFeatureName(), source.getValues());
+			destination = new HashSet<>();
+			destination.add(fc);*/
 		}
 
 		return destination;
@@ -370,11 +375,6 @@ public class ConversionEngine {
 
 					String propValue = oneKeywordAndContext.get(pname, index);
 					if (propValue != null && !propValue.isEmpty()) {
-						//TODO: remove old code
-						//pname = removeFeat(pname);
-						// We removed 'feat.', so add updated feature name
-						//oneKeywordAndContext.addTokenProperty(pname);
-						//oneKeywordAndContext.setTokenPropertyAt(pname, propValue, index);
 						featureNamesOfCurrentToken.add(pname);
 						
 					}
@@ -411,25 +411,29 @@ public class ConversionEngine {
 						
 						if (!featuresStr.isEmpty()) {
 							String[] features = featuresStr.split(",");
-							// Before iterating over features, pick out pdtype feature.
-							// We need to give this to calls of getFeatureName for all other features
-							// for some disambiguation cases.
 							String pdtype = "";
-							for (String oneFeature : features) {
-								// Get list of feature values belonging to pdtype
-								// We have to do a check here, because pdtype is called feat.pdtype in nederlab
-								HashSet<String> valueList;
-								if (this.featureName2FeatureValues.containsKey("pdtype")) {
-									valueList = this.featureName2FeatureValues.get("pdtype");
-								}
-								else {
-									valueList = this.featureName2FeatureValues.get("feat.pdtype");
-								}								
-								if (valueList.contains(oneFeature)) {
-									pdtype = oneFeature;
+							
+							// Only for corpora with CGN tags, feature inference is performed.
+							// featureName2FeatureValues table is not loaded for other corpora.
+							if (this.featureName2FeatureValues != null) {
+								// Before iterating over features, pick out pdtype feature.
+								// We need to give this to calls of getFeatureName for all other features
+								// for some feature inference cases.
+								for (String oneFeature : features) {
+									// Get list of feature values belonging to pdtype
+									// We have to do a check here, because pdtype is called feat.pdtype in nederlab
+									HashSet<String> valueList;
+									if (this.featureName2FeatureValues.containsKey("pdtype")) {
+										valueList = this.featureName2FeatureValues.get("pdtype");
+									}
+									else {
+										valueList = this.featureName2FeatureValues.get("feat.pdtype");
+									}								
+									if (valueList.contains(oneFeature)) {
+										pdtype = oneFeature;
+									}
 								}
 							}
-	
 							for (String oneFeature : features) {
 								String featureName;
 								String featureValue;
@@ -447,9 +451,6 @@ public class ConversionEngine {
 									featureName = oneFeature.split("=")[0];
 									featureValue = oneFeature.split("=")[1];
 								}
-								// TODO: remove old code
-								// Remove 'feat.' from feature names when mapping back
-								//featureName = removeFeat(featureName);
 								// add the feature to the token properties
 								oneKeywordAndContext.addTokenProperty(featureName);
 								oneKeywordAndContext.setTokenPropertyAt(featureName, featureValue, index);

@@ -32,6 +32,10 @@
 		{
 			"from": "xxword",
 			"to": "t_lc"
+		},
+		{
+			"from": "lemma",
+			"to": "lemma"
 		}
 	],
 	"PosTagField": "pos",

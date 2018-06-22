@@ -1,6 +1,7 @@
 {
 	"ConversionTable": "UD2CHN",
 	"UseFeatureRegex": true,
+	"IncludeFeatureNameInRegex": true,
 	"GrammaticalFeatures": [
 		"number",
 		"tense",
@@ -18,6 +19,10 @@
 		{
 			"from": "xxword",
 			"to": "t_lc"
+		},
+		{
+			"from": "lemma",
+			"to": "lemma"
 		}
 	],
 	"PosTagField": "pos",

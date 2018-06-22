@@ -113,7 +113,7 @@ public class CgnFeatureDecoder {
 				}
 			}
 			else {
-				throw new RuntimeException("Cannot infer CGN feature from value. Feature value " + featureValue + " has multiple possible features: " + intersection);
+				throw new NullPointerException("Cannot infer CGN feature from value. Feature value " + featureValue + " has multiple possible features: " + intersection);
 			}
 		}
 
