@@ -4,68 +4,72 @@
 <!-- xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" -->
 <!-- xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" -->
 <!-- id="SB_KORP_SRU_SERVER" version="2.5"> -->
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	id="SB_KORP_SRU_SERVER" version="3.0">
-
-
-	<display-name>INT-SRU/CQL-Service</display-name>
-
-	<servlet>
-		<display-name>INT's SRU/CQL Service (HTTP Interface)</display-name>
-		<servlet-name>IvdntSRUServlet</servlet-name>
-		<servlet-class>eu.clarin.sru.server.utils.SRUServerServlet</servlet-class>
-		<init-param>
-			<param-name>eu.clarin.sru.server.numberOfRecords</param-name>
-			<param-value>250</param-value>
-		</init-param>
-		<init-param>
-			<param-name>eu.clarin.sru.server.maximumRecords</param-name>
-			<param-value>1000</param-value>
-		</init-param>
-		<init-param>
-			<param-name>eu.clarin.sru.server.allowOverrideMaximumRecords</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>eu.clarin.sru.server.allowOverrideIndentResponse</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<!-- To enable SRU 2.0 for FCS 2.0 -->
-		<init-param>
-			<param-name>eu.clarin.sru.server.sruSupportedVersionMax</param-name>
-			<param-value>2.0</param-value>
-		</init-param>
-		<init-param>
-			<param-name>eu.clarin.sru.server.legacyNamespaceMode</param-name>
-			<param-value>loc</param-value>
-		</init-param>
-
-		<init-param>
-			<param-name>eu.clarin.sru.server.utils.sruServerSearchEngineClass</param-name>
-			<param-value>org.ivdnt.fcs.endpoint.corpusdependent.CorpusDependentEngine</param-value>
-		</init-param>
-
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-	<servlet>
-		<display-name>IvdntConfig</display-name>
-		<servlet-name>IvdntConfig</servlet-name>
-		<servlet-class>org.ivdnt.fcs.endpoint.common.ClarinCenterList</servlet-class>
-
-		<load-on-startup>2</load-on-startup>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>IvdntSRUServlet</servlet-name>
-		<url-pattern>/sru</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>IvdntConfig</servlet-name>
-		<url-pattern>/get_registry</url-pattern>
-	</servlet-mapping>
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="SB_KORP_SRU_SERVER" version="3.0">
+  <display-name>INT-SRU/CQL-Service</display-name>
+  <servlet>
+    <display-name>INT's SRU/CQL Service (HTTP Interface)</display-name>
+    <servlet-name>IvdntSRUServlet</servlet-name>
+    <servlet-class>eu.clarin.sru.server.utils.SRUServerServlet</servlet-class>
+    <init-param>
+      <param-name>eu.clarin.sru.server.numberOfRecords</param-name>
+      <param-value>250</param-value>
+    </init-param>
+    <init-param>
+      <param-name>eu.clarin.sru.server.maximumRecords</param-name>
+      <param-value>1000</param-value>
+    </init-param>
+    <init-param>
+      <param-name>eu.clarin.sru.server.allowOverrideMaximumRecords</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>eu.clarin.sru.server.allowOverrideIndentResponse</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>eu.clarin.sru.server.sruSupportedVersionMax</param-name>
+      <param-value>2.0</param-value>
+    </init-param>
+    <init-param>
+      <param-name>eu.clarin.sru.server.legacyNamespaceMode</param-name>
+      <param-value>loc</param-value>
+    </init-param>
+    <init-param>
+      <param-name>eu.clarin.sru.server.utils.sruServerSearchEngineClass</param-name>
+      <param-value>org.ivdnt.fcs.endpoint.corpusdependent.CorpusDependentEngine</param-value>
+    </init-param>
+    <!-- Following parameters contain default values, have been added for completion -->
+    <init-param>
+      <param-name>eu.clarin.sru.server.transport</param-name>
+      <param-value>http</param-value>
+    </init-param>
+    <init-param>
+      <param-name>eu.clarin.sru.server.host</param-name>
+      <param-value>127.0.0.1</param-value>
+    </init-param>
+    <init-param>
+      <param-name>eu.clarin.sru.server.port</param-name>
+      <param-value>8080</param-value>
+    </init-param>
+    <init-param>
+      <param-name>eu.clarin.sru.server.database</param-name>
+      <param-value>/clariah-fcs-endpoints</param-value>
+    </init-param>
+    <!--  -->
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <display-name>IvdntConfig</display-name>
+    <servlet-name>IvdntConfig</servlet-name>
+    <servlet-class>org.ivdnt.fcs.endpoint.common.ClarinCenterList</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IvdntSRUServlet</servlet-name>
+    <url-pattern>/sru</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>IvdntConfig</servlet-name>
+    <url-pattern>/get_registry</url-pattern>
+  </servlet-mapping>
 </web-app>
