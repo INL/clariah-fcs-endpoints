@@ -1,5 +1,5 @@
 aggregatorParams:
-  CENTER_REGISTRY_URL: http://localhost:8080/blacklab-sru-server/clarin_center_list.xml
+  CENTER_REGISTRY_URL: http://localhost:8080/clariah-fcs-endpoints/clarin_center_list.xml
 
   AGGREGATOR_FILE_PATH: D:/git_projects/SRUAggregator/trunk/fcsAggregatorCorpora.json
   AGGREGATOR_FILE_PATH_BACKUP: D:/git_projects/SRUAggregator/trunk/fcsAggregatorCorpora.backup.json
@@ -16,7 +16,7 @@ aggregatorParams:
     - http://cqlservlet.mpi.nl/
 
   ENDPOINTS_SCAN_TIMEOUT_MS: 60000
-  ENDPOINTS_SEARCH_TIMEOUT_MS: 30000
+  ENDPOINTS_SEARCH_TIMEOUT_MS: 90000
   EXECUTOR_SHUTDOWN_TIMEOUT_MS: 1000
 
   weblichtConfig:
@@ -42,10 +42,15 @@ server:
 logging:
   # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
   level: WARN
+  appenders:
+    - type: file
+      currentLogFilename: aggregator.log
+      archivedLogFilenamePattern: aggregator-%d.log
+      archivedFileCount: 5
   # Logger-specific levels.
   loggers:
     eu.clarin.sru.fcs.aggregator: INFO
     eu.clarin.sru.client: WARN
 
-  appenders:
-    - type: console
+#  appenders:
+#    - type: console
