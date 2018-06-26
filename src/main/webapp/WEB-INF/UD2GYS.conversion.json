@@ -1,6 +1,7 @@
 {
 	"ConversionTable": "UD2GYS",
 	"UseFeatureRegex": true,
+	"IncludeFeatureNameInRegex": true,
 	"GrammaticalFeatures": [
 		"number",
 		"tense",

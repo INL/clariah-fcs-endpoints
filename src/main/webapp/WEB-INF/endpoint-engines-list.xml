@@ -38,23 +38,25 @@
 	<Engine>
 		<engine-name>zeebrieven</engine-name>
 		<engine-type>blacklabserver</engine-type>
-		<engine-url>http://brievenalsbuit.ato.ivdnt.org/blacklab-server/</engine-url>
-		<engine-native-url-template>http://brievenalsbuit.ato.ivdnt.org/corpus-frontend/</engine-native-url-template>
+		<engine-url>http://svprmc20.ivdnt.org/blacklab-server/</engine-url>
+		<engine-native-url-template>http://brievenalsbuit.inl.nl/zeebrieven/page/search</engine-native-url-template>
 		<tagset-conversion-table>UD2BaB</tagset-conversion-table>
 	</Engine>
-
+	
+	<!--
 	<Engine>
 		<engine-name>StatenGeneraal</engine-name>
 		<engine-type>blacklabserver</engine-type>
 		<engine-url>http://svprre02.inl.loc:8080/blacklab-server/</engine-url>
 		<tagset-conversion-table>UD2CHN</tagset-conversion-table>
 	</Engine>
+	-->
 
 	<Engine>
 		<engine-name>gysseling</engine-name>
 		<engine-type>blacklabserver</engine-type>
-		<engine-url>http://brievenalsbuit.ato.ivdnt.org/blacklab-server/</engine-url>
-		<engine-native-url-template>http://brievenalsbuit.ato.ivdnt.org/corpus-frontend/</engine-native-url-template>
+		<engine-url>http://svprmc20.ivdnt.org/blacklab-server/</engine-url>
+		<engine-native-url-template>http://gysseling.corpus.taalbanknederlands.inl.nl/gysseling/page/search</engine-native-url-template>
 		<tagset-conversion-table>UD2GYS</tagset-conversion-table>
 	</Engine>
 

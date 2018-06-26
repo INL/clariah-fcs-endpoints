@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,10 +55,13 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 		// Form native URL based on template and URL-encoded query string
 		String engineNativeUrl = "";
 		if (!engineNativeUrlTemplate.isEmpty()) {
-			if (corpus.equals("opensonar")) {
+			// From some corpora, do not add request parameters
+			List<String> noParamsCorpora = Arrays.asList("opensonar","zeebrieven", "gysseling");
+			if (noParamsCorpora.contains(corpus)) {
 				engineNativeUrl = this.getEngineNativeUrlTemplate();
 			}
 			else {
+				// For other corpora, add request parameters
 				engineNativeUrl = this.getSruRequestUrl(true);
 			}
 		}
