@@ -52,6 +52,7 @@ public class FileUtils {
 		this.userFilePath = contextpath.replace("clariah-fcs-endpoints", "clariah-fcs-endpoints-config");
 		this.warFilePath = File.separator + "WEB-INF" + File.separator + this.filePath;
 
+
 	}
 
 	private DataInputStream createInputStream(String filepath) throws FileNotFoundException {
@@ -189,9 +190,9 @@ public class FileUtils {
 			try {
 				url = file.toURI().toURL();
 			} catch (MalformedURLException e) {
-				throw new RuntimeException("Could not get URL from path: " + userFilePath, e);
+				throw new RuntimeException("[config] Reading URL from config dir failed: " + userFilePath, e);
 			}
-			System.err.println("[config] " + filePath + " read from clariah-fcs-endpoints-config/");
+			System.err.println("[config] URL read from config dir: " + this.userFilePath);
 		} else {
 			// If that fails, read config file from WEB-INF directory in war
 			try {
@@ -200,9 +201,9 @@ public class FileUtils {
 					throw new FileNotFoundException();
 				}
 			} catch (IOException e) {
-				throw new RuntimeException("Not able to get resource from war file: " + warFilePath, e);
+				throw new RuntimeException("[config] Reading from war file failed: " + this.warFilePath, e);
 			}
-			System.err.println("[config] " + filePath + " read from WEB-INF");
+			System.err.println("[config] File read from war file: " + this.warFilePath);
 		}
 
 		return url;
@@ -238,19 +239,20 @@ public class FileUtils {
 		try {
 			// Try user-defined config file in clariah-fcs-endpoints-config directory
 			in = createInputStream(userFilePath);
-			System.err.println("[config] " + filePath + " read from clariah-fcs-endpoints-config/");
+			System.err.println("[config] File read from config dir: " + this.userFilePath);
 		} catch (FileNotFoundException e) {
 			// If that fails, read config file from WEB-INF directory in war
+			System.out.println("[config] Reading from config dir failed: " + this.userFilePath);
 			try {
 				url = context.getResource(warFilePath);
 				if (url == null) {
 					throw new FileNotFoundException();
 				}
 				in = url.openStream();
-			} catch (IOException e1) {
-				throw new RuntimeException("Not able to get resource from war file: " + warFilePath, e1);
+			} catch (IOException e) {
+				throw new RuntimeException("[config] Reading from war file failed: " + this.warFilePath, e);
 			}
-			System.err.println("[config] " + filePath + " read from WEB-INF");
+			System.err.println("[config] File read from war file: " + this.warFilePath);
 		}
 		return in;
 	}
