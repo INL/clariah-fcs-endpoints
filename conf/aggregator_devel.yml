@@ -1,8 +1,9 @@
 aggregatorParams:
   CENTER_REGISTRY_URL: http://localhost:8080/clariah-fcs-endpoints/clarin_center_list.xml
-
-  AGGREGATOR_FILE_PATH: D:/git_projects/SRUAggregator/trunk/fcsAggregatorCorpora.json
-  AGGREGATOR_FILE_PATH_BACKUP: D:/git_projects/SRUAggregator/trunk/fcsAggregatorCorpora.backup.json
+  
+  # These files serve as a cache of the list of corpora
+  AGGREGATOR_FILE_PATH: fcsAggregatorCorpora.json
+  AGGREGATOR_FILE_PATH_BACKUP: fcsAggregatorCorpora.backup.json
 
   SCAN_MAX_DEPTH: 1 # recommended 3
   SCAN_TASK_INITIAL_DELAY: 0
