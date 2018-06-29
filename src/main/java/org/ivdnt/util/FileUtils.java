@@ -249,8 +249,8 @@ public class FileUtils {
 					throw new FileNotFoundException();
 				}
 				in = url.openStream();
-			} catch (IOException e) {
-				throw new RuntimeException("[config] Reading from war file failed: " + this.warFilePath, e);
+			} catch (IOException e1) {
+				throw new RuntimeException("[config] Reading from war file failed: " + this.warFilePath, e1);
 			}
 			System.err.println("[config] File read from war file: " + this.warFilePath);
 		}
