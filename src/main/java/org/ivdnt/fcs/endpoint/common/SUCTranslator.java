@@ -73,23 +73,6 @@ public class SUCTranslator {
 	}
 
 	/*
-	 * @param ud17Pos The UD-17 PoS code
-	 * 
-	 * @return A list of translated codes in SUC PoS.
-	 *
-	 */
-	public static List<String> toSUC(final String ud17Pos) throws SRUException {
-		List<String> res = null;
-
-		res = TO_SUC.get(ud17Pos.toUpperCase());
-
-		if (res == null) {
-			throw new SRUException(SRUConstants.SRU_QUERY_SYNTAX_ERROR, "unknown UD-17 PoS code in query: " + ud17Pos);
-		}
-		return res;
-	}
-
-	/*
 	 * @param sucPos The SUC PoS code
 	 * 
 	 * @return A list of translated codes in UD-17 PoS.
@@ -103,6 +86,23 @@ public class SUCTranslator {
 		if (res == null) {
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
 					"unknown PoS code from search engine: " + (iop != -1 ? sucPos.substring(0, iop) : sucPos));
+		}
+		return res;
+	}
+
+	/*
+	 * @param ud17Pos The UD-17 PoS code
+	 * 
+	 * @return A list of translated codes in SUC PoS.
+	 *
+	 */
+	public static List<String> toSUC(final String ud17Pos) throws SRUException {
+		List<String> res = null;
+
+		res = TO_SUC.get(ud17Pos.toUpperCase());
+
+		if (res == null) {
+			throw new SRUException(SRUConstants.SRU_QUERY_SYNTAX_ERROR, "unknown UD-17 PoS code in query: " + ud17Pos);
 		}
 		return res;
 	}

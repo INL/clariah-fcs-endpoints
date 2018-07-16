@@ -18,6 +18,21 @@ public class ConversionObjectProcessor {
 	// --------------------------------------------------------------------------
 	// setters
 
+	public static ConversionEngine getConversionEngine(String name) {
+
+		return conversionsMap.get(name);
+
+	}
+
+	// --------------------------------------------------------------------------
+	// getters
+
+	public static ConcurrentHashMap<String, ConversionEngine> getConversionEngines() {
+
+		return conversionsMap;
+
+	}
+
 	public static void processConversionTable(String conversionName, ConversionObject jsonConfig) {
 
 		// generate new conversion engine, containing mapping and such
@@ -35,21 +50,6 @@ public class ConversionObjectProcessor {
 		// store this new conversion map
 
 		conversionsMap.put(conversionName, conversionEngine);
-	}
-
-	// --------------------------------------------------------------------------
-	// getters
-
-	public static ConversionEngine getConversionEngine(String name) {
-
-		return conversionsMap.get(name);
-
-	}
-
-	public static ConcurrentHashMap<String, ConversionEngine> getConversionEngines() {
-
-		return conversionsMap;
-
 	}
 
 }

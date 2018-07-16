@@ -38,16 +38,6 @@ public class Feature {
 	// -----------------------------------------------------------------------
 	// getters
 
-	public String getFeatureName() {
-		return this.name;
-	}
-
-	public Set<String> getValues() {
-		return this.values;
-	}
-
-	// -----------------------------------------------------------------------
-
 	/**
 	 * Get an equality expression string for the current feature and all its values
 	 * joined into a Regex string
@@ -87,6 +77,8 @@ public class Feature {
 			return String.format("%s='.*%s\\s*=(%s).*'", CQLTagField, this.name, pipeSeparatedValues);
 	}
 
+	// -----------------------------------------------------------------------
+
 	/**
 	 * Test equality of current feature with another
 	 */
@@ -99,6 +91,14 @@ public class Feature {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	public String getFeatureName() {
+		return this.name;
+	}
+
+	public Set<String> getValues() {
+		return this.values;
 	}
 
 	public int hashCode() {

@@ -20,20 +20,8 @@ public class Token {
 	// -----------------------------------------------------------------
 	// getters
 
-	public int getStartPosition() {
-		return this.startPosition;
-	}
-
 	public int getEndPosition() {
 		return this.endPosition;
-	}
-
-	public List<TokenProperty> getTokenProperties() {
-		return this.tokenProperties;
-	}
-
-	public boolean isContentToken() {
-		return this.contentToken;
 	}
 
 	public String getProperty(String propertyName) {
@@ -44,23 +32,35 @@ public class Token {
 		return "";
 	}
 
+	public int getStartPosition() {
+		return this.startPosition;
+	}
+
+	public List<TokenProperty> getTokenProperties() {
+		return this.tokenProperties;
+	}
+
+	public boolean isContentToken() {
+		return this.contentToken;
+	}
+
 	// -----------------------------------------------------------------
 	// setters
 
-	public void setStartPosition(int startPosition) {
-		this.startPosition = startPosition;
+	public void setContentToken(boolean contentToken) {
+		this.contentToken = contentToken;
 	}
 
 	public void setEndPosition(int endPosition) {
 		this.endPosition = endPosition;
 	}
 
-	public void setTokenProperties(List<TokenProperty> tokenProperties) {
-		this.tokenProperties = tokenProperties;
+	public void setStartPosition(int startPosition) {
+		this.startPosition = startPosition;
 	}
 
-	public void setContentToken(boolean contentToken) {
-		this.contentToken = contentToken;
+	public void setTokenProperties(List<TokenProperty> tokenProperties) {
+		this.tokenProperties = tokenProperties;
 	}
 
 	// -----------------------------------------------------------------

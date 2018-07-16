@@ -1,5 +1,6 @@
 package org.ivdnt.fcs.mapping;
 
+import java.lang.invoke.MethodHandles;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -7,6 +8,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.ivdnt.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is an extension of the ConcurrentHashMap class with some extra get
@@ -17,6 +20,9 @@ import org.ivdnt.util.StringUtils;
  */
 public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 
+	// logger
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
 	// ------------------------------------------------
 	// setter
 
@@ -25,90 +31,17 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 	 */
 	private static final long serialVersionUID = -815788743698217044L;
 
-	/**
-	 * Store a feature as a hash mapping a feature name to a feature value
-	 * 
-	 * @param name
-	 * @param newValue
-	 * 
-	 */
-	public void put(String name, String newValue) {
-		Set<String> values = this.get(name);
+	public static void main(String[] args) {
 
-		if (values == null || values.isEmpty())
-			super.put(name, values = new HashSet<String>());
+		FeatureConjunction fc = new FeatureConjunction();
+		fc.put("pos", "RES");
+		fc.put("type", "sym");
+		logger.info(fc.asCQL());
 
-		values.add(newValue);
 	}
 
 	// ------------------------------------------------
 	// getters
-
-	/**
-	 * Get the set of values of a feature, given its name
-	 * 
-	 */
-	@Override
-	public Set<String> get(Object s) // oho this is silly..
-	{
-		Set<String> r = super.get(s);
-
-		if (r != null)
-			return r;
-
-		// if feature is unknown, return empty set
-		else
-			return new HashSet<String>();
-	}
-
-	/**
-	 * Join the values of a feature, given its name
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public String getJoinedValues(String name) {
-		return StringUtils.join(get(name), MappingConstants.MULTIVALUE_JOINER);
-	}
-
-	/**
-	 * Get all the features of the conjunction of features stored in this class
-	 * 
-	 * @return
-	 */
-	public Stream<Feature> getFeatures() {
-		return this.keySet().stream().map(
-
-				k -> new Feature(k, get(k))
-
-		);
-	}
-
-	/**
-	 * Check if the conjunction stored in this class contains a given feature
-	 * 
-	 * @param featureName
-	 * @return
-	 */
-	public boolean hasFeature(String featureName) {
-		return this.containsKey(featureName) || !this.get(featureName).isEmpty();
-	}
-
-	/**
-	 * Check if the conjunction stored in this class contains a feature with a given
-	 * value
-	 * 
-	 * @param featureName
-	 * @param featureValue
-	 * @return
-	 */
-	public boolean hasFeatureWithValue(String featureName, String featureValue) {
-
-		return this.hasFeature(featureName) && this.get(featureName).contains(featureValue);
-	}
-
-	// ------------------------------------------------
-	// kind of toString() methods
 
 	/**
 	 * Write the conjunction of features stored in this class as a string with an
@@ -157,19 +90,74 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 		return "[" + StringUtils.join(clauses, " & ") + "]";
 	}
 
-	// ---------------------------------
-	// NOT IN USE
+	/**
+	 * Get the set of values of a feature, given its name
+	 * 
+	 */
+	@Override
+	public Set<String> get(Object s) // oho this is silly..
+	{
+		Set<String> r = super.get(s);
 
-	public static void main(String[] args) {
+		if (r != null)
+			return r;
 
-		FeatureConjunction fc = new FeatureConjunction();
-		fc.put("pos", "RES");
-		fc.put("type", "sym");
-		System.out.println(fc.asCQL());
+		// if feature is unknown, return empty set
+		else
+			return new HashSet<String>();
+	}
 
+	/**
+	 * Get all the features of the conjunction of features stored in this class
+	 * 
+	 * @return
+	 */
+	public Stream<Feature> getFeatures() {
+		return this.keySet().stream().map(
+
+				k -> new Feature(k, get(k))
+
+		);
+	}
+
+	/**
+	 * Join the values of a feature, given its name
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public String getJoinedValues(String name) {
+		return StringUtils.join(get(name), MappingConstants.MULTIVALUE_JOINER);
+	}
+
+	// ------------------------------------------------
+	// kind of toString() methods
+
+	/**
+	 * Check if the conjunction stored in this class contains a given feature
+	 * 
+	 * @param featureName
+	 * @return
+	 */
+	public boolean hasFeature(String featureName) {
+		return this.containsKey(featureName) || !this.get(featureName).isEmpty();
+	}
+
+	/**
+	 * Check if the conjunction stored in this class contains a feature with a given
+	 * value
+	 * 
+	 * @param featureName
+	 * @param featureValue
+	 * @return
+	 */
+	public boolean hasFeatureWithValue(String featureName, String featureValue) {
+
+		return this.hasFeature(featureName) && this.get(featureName).contains(featureValue);
 	}
 
 	// ---------------------------------
+	// NOT IN USE
 
 	public Set<String> keySetX() {
 		Set<String> Z = new HashSet<String>();
@@ -177,5 +165,23 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 			Z.add(s);
 		}
 		return Z;
+	}
+
+	// ---------------------------------
+
+	/**
+	 * Store a feature as a hash mapping a feature name to a feature value
+	 * 
+	 * @param name
+	 * @param newValue
+	 * 
+	 */
+	public void put(String name, String newValue) {
+		Set<String> values = this.get(name);
+
+		if (values == null || values.isEmpty())
+			super.put(name, values = new HashSet<String>());
+
+		values.add(newValue);
 	}
 }

@@ -60,114 +60,6 @@ public class Kwic {
 
 	// -----------------------------------------------------------------------------------
 
-	public Kwic translatePrefixes(Map<String, String> map) {
-		map.forEach((k, v) -> {
-			this.tokenProperties.put(v, this.tokenProperties.get(k));
-			this.tokenProperties.remove(k);
-		});
-
-		this.tokenPropertyNames = this.tokenPropertyNames.stream().map(p -> map.containsKey(p) ? map.get(p) : p)
-				.collect(Collectors.toList());
-		return this;
-	}
-
-	// -----------------------------------------------------------------------------------
-	// getters
-
-	public String getDefaultProperty() {
-		return this.defaultProperty;
-	}
-
-	public List<String> getLayer(String propertyName) {
-		return this.tokenProperties.get(propertyName);
-	}
-
-	// synonym of getLayer
-	public List<String> getPropertyValues(String propertyName) {
-		return getLayer(propertyName);
-	}
-
-	public String getWord(int i) {
-		return this.tokenProperties.get(defaultProperty).get(i);
-	}
-
-	public List<String> words() {
-		return this.tokenProperties.get(defaultProperty);
-	}
-
-	public int size() {
-		return words().size();
-	}
-
-	public String get(String pname, int i) {
-		return getLayer(pname).get(i);
-	}
-
-	public URI getLayerURL(String pname) {
-		try {
-			return new URI("http://www.ivdnt.org/annotation-layers/" + pname);
-		} catch (Exception e) {
-			throw new RuntimeException("Unable to get layer URL for " + pname, e);
-		}
-	}
-
-	public Map<String, String> getMetadata() {
-		return this.metadata;
-	}
-
-	public int getHitStart() {
-		return this.hitStart;
-	}
-
-	public int getHitEnd() {
-		return this.hitEnd;
-	}
-
-	public List<String> getTokenPropertyNames() {
-
-		return this.tokenPropertyNames;
-	}
-
-	// -----------------------------------------------------------------------------------
-	// setters
-
-	public void setMetadata(Map<String, String> metadata) {
-		this.metadata = metadata;
-	}
-
-	public void setHitStart(int hitStart) {
-		this.hitStart = hitStart;
-	}
-
-	public void setHitEnd(int hitEnd) {
-		this.hitEnd = hitEnd;
-	}
-
-	public void addTokenPropertyName(String pname) {
-		this.tokenPropertyNames.add(pname);
-	}
-
-	public void addTokenPropertyNames(Set<String> pnames) {
-		this.tokenPropertyNames.addAll(pnames);
-	}
-
-	// set one property for all tokens at once
-	// eg. the pos-tag of all tokens of a sentence
-	public void setTokenProperties(String pname, List<String> properties) {
-		this.tokenProperties.put(pname, properties);
-	}
-
-	// modify the value of a property for token at position X
-	public void setTokenPropertyAt(String propertyName, String property, int index) {
-		List<String> propertyValues = this.getLayer(propertyName);
-
-		if (propertyValues.size() == 0)
-			propertyValues = new ArrayList<>(this.getTokenPropertyNames().size());
-
-		propertyValues.set(index, property);
-		this.setTokenProperties(propertyName, propertyValues);
-	}
-
 	// add a new property name to all tokens
 	public void addTokenProperty(String propertyName) {
 
@@ -187,6 +79,97 @@ public class Kwic {
 	}
 
 	// -----------------------------------------------------------------------------------
+	// getters
+
+	public void addTokenPropertyName(String pname) {
+		this.tokenPropertyNames.add(pname);
+	}
+
+	public void addTokenPropertyNames(Set<String> pnames) {
+		this.tokenPropertyNames.addAll(pnames);
+	}
+
+	public String get(String pname, int i) {
+		return getLayer(pname).get(i);
+	}
+
+	public String getDefaultProperty() {
+		return this.defaultProperty;
+	}
+
+	public int getHitEnd() {
+		return this.hitEnd;
+	}
+
+	public int getHitStart() {
+		return this.hitStart;
+	}
+
+	public List<String> getLayer(String propertyName) {
+		return this.tokenProperties.get(propertyName);
+	}
+
+	public URI getLayerURL(String pname) {
+		try {
+			return new URI("http://www.ivdnt.org/annotation-layers/" + pname);
+		} catch (Exception e) {
+			throw new NullPointerException("Unable to get layer URL for " + pname + ". " + e);
+		}
+	}
+
+	public Map<String, String> getMetadata() {
+		return this.metadata;
+	}
+
+	// synonym of getLayer
+	public List<String> getPropertyValues(String propertyName) {
+		return getLayer(propertyName);
+	}
+
+	public List<String> getTokenPropertyNames() {
+
+		return this.tokenPropertyNames;
+	}
+
+	public String getWord(int i) {
+		return this.tokenProperties.get(defaultProperty).get(i);
+	}
+
+	// -----------------------------------------------------------------------------------
+	// setters
+
+	public void setHitEnd(int hitEnd) {
+		this.hitEnd = hitEnd;
+	}
+
+	public void setHitStart(int hitStart) {
+		this.hitStart = hitStart;
+	}
+
+	public void setMetadata(Map<String, String> metadata) {
+		this.metadata = metadata;
+	}
+
+	// set one property for all tokens at once
+	// eg. the pos-tag of all tokens of a sentence
+	public void setTokenProperties(String pname, List<String> properties) {
+		this.tokenProperties.put(pname, properties);
+	}
+
+	// modify the value of a property for token at position X
+	public void setTokenPropertyAt(String propertyName, String property, int index) {
+		List<String> propertyValues = this.getLayer(propertyName);
+
+		if (propertyValues.size() == 0)
+			propertyValues = new ArrayList<>(this.getTokenPropertyNames().size());
+
+		propertyValues.set(index, property);
+		this.setTokenProperties(propertyName, propertyValues);
+	}
+
+	public int size() {
+		return words().size();
+	}
 
 	public String toString() {
 		List<String> tokens = new ArrayList<String>();
@@ -197,6 +180,23 @@ public class Kwic {
 		}
 		String s = String.format("Kwic(%d,%d):", this.hitStart, this.hitEnd);
 		return s + tokens.toString();
+	}
+
+	public Kwic translatePrefixes(Map<String, String> map) {
+		map.forEach((k, v) -> {
+			this.tokenProperties.put(v, this.tokenProperties.get(k));
+			this.tokenProperties.remove(k);
+		});
+
+		this.tokenPropertyNames = this.tokenPropertyNames.stream().map(p -> map.containsKey(p) ? map.get(p) : p)
+				.collect(Collectors.toList());
+		return this;
+	}
+
+	// -----------------------------------------------------------------------------------
+
+	public List<String> words() {
+		return this.tokenProperties.get(defaultProperty);
 	}
 
 	// -----------------------------------------------------------------------------------

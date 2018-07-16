@@ -66,7 +66,7 @@ public class CgnMaps {
 			put("RES", new HashSet<String>(Arrays.asList("type")));
 		}
 	};
-	
+
 	public static ConcurrentHashMap<String, HashSet<String>> featureName2FeatureValuesNederlab = new ConcurrentHashMap<String, HashSet<String>>() {
 		/**
 		 * 
@@ -106,26 +106,32 @@ public class CgnMaps {
 	};
 
 	public static ConcurrentHashMap<String, HashSet<String>> posTag2FeatureNamesNederlab = new ConcurrentHashMap<String, HashSet<String>>() {
-	    /**
-	     * 
-	     */
-	    private static final long serialVersionUID = -6260445263371236442L;
-	
-	    {
-	        put("N", new HashSet<String>(Arrays.asList("feat.ntype", "feat.getal", "feat.graad", "feat.genus", "feat.naamval")));
-	        put("ADJ", new HashSet<String>(Arrays.asList("feat.positie", "feat.graad", "feat.buiging", "feat.getal-n", "feat.naamval")));
-	        put("WW", new HashSet<String>(Arrays.asList("feat.wvorm", "feat.pvtijd", "feat.pvagr", "feat.positie", "feat.buiging", "feat.getal-n")));
-	        put("NUM", new HashSet<String>(Arrays.asList("feat.numtype", "feat.positie", "feat.graad", "feat.getal-n", "feat.naamval")));
-	        put("VNW", new HashSet<String>(Arrays.asList("feat.vwtype", "feat.pdtype", "feat.naamval", "feat.status", "feat.persoon", "feat.getal",
-	                "feat.genus", "feat.positie", "feat.buiging", "feat.npagr", "feat.getal-n", "feat.graad")));
-	        put("LID", new HashSet<String>(Arrays.asList("feat.lwtype", "feat.naamval", "feat.npagr")));
-	        put("VZ", new HashSet<String>(Arrays.asList("feat.vztype")));
-	        put("VG", new HashSet<String>(Arrays.asList("feat.conjtype")));
-	        put("BW", new HashSet<String>());
-	        put("TSW", new HashSet<String>());
-	        put("TW", new HashSet<String>(Arrays.asList("feat.numtype", "feat.graad", "feat.positie")));
-	        put("SPEC", new HashSet<String>(Arrays.asList("feat.spectype")));
-	        put("RES", new HashSet<String>(Arrays.asList("feat.type")));
-	    }
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -6260445263371236442L;
+
+		{
+			put("N", new HashSet<String>(
+					Arrays.asList("feat.ntype", "feat.getal", "feat.graad", "feat.genus", "feat.naamval")));
+			put("ADJ", new HashSet<String>(
+					Arrays.asList("feat.positie", "feat.graad", "feat.buiging", "feat.getal-n", "feat.naamval")));
+			put("WW", new HashSet<String>(Arrays.asList("feat.wvorm", "feat.pvtijd", "feat.pvagr", "feat.positie",
+					"feat.buiging", "feat.getal-n")));
+			put("NUM", new HashSet<String>(
+					Arrays.asList("feat.numtype", "feat.positie", "feat.graad", "feat.getal-n", "feat.naamval")));
+			put("VNW",
+					new HashSet<String>(Arrays.asList("feat.vwtype", "feat.pdtype", "feat.naamval", "feat.status",
+							"feat.persoon", "feat.getal", "feat.genus", "feat.positie", "feat.buiging", "feat.npagr",
+							"feat.getal-n", "feat.graad")));
+			put("LID", new HashSet<String>(Arrays.asList("feat.lwtype", "feat.naamval", "feat.npagr")));
+			put("VZ", new HashSet<String>(Arrays.asList("feat.vztype")));
+			put("VG", new HashSet<String>(Arrays.asList("feat.conjtype")));
+			put("BW", new HashSet<String>());
+			put("TSW", new HashSet<String>());
+			put("TW", new HashSet<String>(Arrays.asList("feat.numtype", "feat.graad", "feat.positie")));
+			put("SPEC", new HashSet<String>(Arrays.asList("feat.spectype")));
+			put("RES", new HashSet<String>(Arrays.asList("feat.type")));
+		}
 	};
 }

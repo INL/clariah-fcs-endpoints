@@ -16,8 +16,8 @@ public class Document {
 	// ---------------------------------------------------------------------------
 	// getters
 
-	public String getPid() {
-		return pid;
+	public void addMetadata(String a, String b) {
+		this.metadata.put(a, b);
 	}
 
 	public Map<String, String> getMetadata() {
@@ -27,16 +27,16 @@ public class Document {
 	// ---------------------------------------------------------------------------
 	// setters
 
-	public void setPid(String pid) {
-		this.pid = pid;
+	public String getPid() {
+		return pid;
 	}
 
 	public void setMetadata(Map<String, String> metadata) {
 		this.metadata = metadata;
 	}
 
-	public void addMetadata(String a, String b) {
-		this.metadata.put(a, b);
+	public void setPid(String pid) {
+		this.pid = pid;
 	}
 
 }

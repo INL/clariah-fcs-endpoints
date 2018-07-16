@@ -8,38 +8,38 @@ import java.util.Map;
  * response from Nederlab into Java objects (here: Document, Token,
  * TokenPropery, ...)
  * 
- * @author jesse, peter 
+ * @author jesse, peter
  * 
- * { "NLProfile_name": "nederlabTitleProfile",
+ *         { "NLProfile_name": "nederlabTitleProfile",
  *         "NLCore_NLIdentification_nederlabID":
  *         "c277847b-1264-4980-9b94-4350f5c43056", "NLTitle_title":
  *         "Notificatie." },
  */
 public class Document {
-	/*public String NLCore_NLIdentification_nederlabID;
-	public String NLTitle_title;
-	public String NLTitle_yearOfPublicationMin;
-	public String NLTitle_yearOfPublicationMax;
-	public String NLProfile_name;
-	public String NLCore_NLAdministrative_sourceCollection; // of NLCore_NLExternalReference_collectionName
-*/
-	
-	private Map<String,String> data =new HashMap<String,String>();
-	
-	public Document(Map<String,Object> obj) {
+	/*
+	 * public String NLCore_NLIdentification_nederlabID; public String
+	 * NLTitle_title; public String NLTitle_yearOfPublicationMin; public String
+	 * NLTitle_yearOfPublicationMax; public String NLProfile_name; public String
+	 * NLCore_NLAdministrative_sourceCollection; // of
+	 * NLCore_NLExternalReference_collectionName
+	 */
+
+	private Map<String, String> data = new HashMap<String, String>();
+
+	public Document(Map<String, Object> obj) {
 		// Map values are converted from Object (text or number) to String
 		for (Map.Entry<String, Object> entry : obj.entrySet()) {
 			data.put(entry.getKey(), entry.getValue().toString());
-		 }
+		}
 	}
-	
+
 	public String getField(String fieldName) {
 		if (!data.containsKey(fieldName)) {
 			throw new NullPointerException("Key " + fieldName + " does not exist in Document object.");
 		}
 		return data.get(fieldName);
 	}
-	
+
 	public Map<String, String> getMetadata() {
 		return data;
 	}

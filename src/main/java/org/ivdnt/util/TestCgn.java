@@ -3,13 +3,13 @@ package org.ivdnt.util;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,48 +25,13 @@ import org.ivdnt.fcs.endpoint.nederlab.results.NederlabResultSet;
 import org.ivdnt.fcs.mapping.ConversionEngine;
 import org.ivdnt.fcs.results.Kwic;
 import org.ivdnt.fcs.results.ResultSet;
-import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestCgn {
-	
-	
-	public static void testQueries(ServletContext contextCache, ConversionEngine convEng) {
-		String tagsFileContents = new FileUtils(contextCache, "cgn.tagset").readConfigFileAsString();
-		Scanner scanner = new Scanner(tagsFileContents);
-		PrintWriter writer = null;
-		try {
-			writer = new PrintWriter("tags-converted.txt", "UTF-8");
-		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			scanner.close();
-			throw new RuntimeException("Unable to open file to write query test query results to. ", e);
-		}
-		while (scanner.hasNextLine()) {
-			String tag = scanner.nextLine().trim();
-			ResultSet r = createResultSet(tag, contextCache);
-			convEng.translateIntoUniversalDependencies(r);
-			
-			String udTag = extractUniversalTag(r);
-			writer.println(tag + "\t" + udTag);
-			
-		}
-		scanner.close();
-		writer.close();
-	}
-	
-	private static String extractUniversalTag(ResultSet r) {
-		List<Kwic> hits = r.getHits();
-		Kwic hit = hits.get(0);
-		List<String> ud = hit.getPropertyValues("universal_dependency");
-		String udString = StringUtils.join(ud, ",");
-		udString = "";
-		List<String> propNames = hit.getTokenPropertyNames();
-		for (String propName : propNames) {
-			udString += propName + ":" + hit.getPropertyValues(propName);
-		}
-		return udString;
-		
-		
-	}
+
+	// logger
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	private static ResultSet createResultSet(String tag, ServletContext contextCache) {
 		ConcurrentHashMap<String, String> prefixMapping = new ConcurrentHashMap<String, String>() {
@@ -79,12 +44,12 @@ public class TestCgn {
 				put("t", "word");
 			}
 		};
-		
+
 		// Build NederlabResultSet with hits
 		NederlabResultSet nederlabResultSet = new NederlabResultSet();
 		List<TokenProperty> tokenProps = new ArrayList<>();
-		
-		Map<String,Object> posTokMap = new HashMap<String,Object>();
+
+		Map<String, Object> posTokMap = new HashMap<String, Object>();
 		posTokMap.put("mtasId", 144546);
 		posTokMap.put("prefix", "pos");
 		posTokMap.put("value", tag);
@@ -92,8 +57,8 @@ public class TestCgn {
 		posTokMap.put("positionEnd", 21714);
 		TokenProperty tPos = new TokenProperty(posTokMap);
 		tokenProps.add(tPos);
-		
-		Map<String,Object> wordTokMap = new HashMap<String,Object>();
+
+		Map<String, Object> wordTokMap = new HashMap<String, Object>();
 		wordTokMap.put("mtasId", 144547);
 		wordTokMap.put("prefix", "t");
 		wordTokMap.put("value", "testwoord");
@@ -101,16 +66,15 @@ public class TestCgn {
 		wordTokMap.put("positionEnd", 21714);
 		TokenProperty tWord = new TokenProperty(wordTokMap);
 		tokenProps.add(tWord);
-		
-		String documentKey = "testdoc";
 
+		String documentKey = "testdoc";
 
 		// build a Hit object
 		// t.i.: a document with tokens (which form a context)
 		// and some start/end position for the hit within that context
 
 		Hit h = new Hit(tokenProps);
-		Map<String,Object> dm = new HashMap<String,Object>();
+		Map<String, Object> dm = new HashMap<String, Object>();
 		dm.put("NLCore_NLIdentification_nederlabID", "testid0000");
 		dm.put("NLTitle_title", "testtitle");
 		Document doc = new Document(dm);
@@ -133,8 +97,8 @@ public class TestCgn {
 		}
 
 		nederlabResultSet.addResult(h);
-		
-		//------
+
+		// ------
 		Stream<org.ivdnt.fcs.results.Kwic> results = nederlabResultSet.getResults().stream()
 				.map(z -> z.toKwic().translatePrefixes(prefixMapping)); // another ugly hack
 		List<org.ivdnt.fcs.results.Kwic> hitsConverted = results.collect(Collectors.toList());
@@ -142,93 +106,118 @@ public class TestCgn {
 
 		ResultSet fcsResultSet = new ResultSet();
 		fcsResultSet.setHits(hitsConverted);
-		NederlabQuery q = new NederlabQuery(contextCache, "testserver", "testcorpus", "testquery", 0,20,null, null, "testenginenativeurltemplate", Collections.emptyList());
+		NederlabQuery q = new NederlabQuery(contextCache, "testserver", "testcorpus", "testquery", 0, 20, null, null,
+				"testenginenativeurltemplate", Collections.emptyList());
 		fcsResultSet.setQuery(q);
 		fcsResultSet.setTotalNumberOfResults(nederlabResultSet.getTotalNumberOfHits());
 		return fcsResultSet;
 	}
-	
-	/*private static ResultSet createResultSetBlackLab(String tag, ServletContext context) {
-		ResultSet resultSet = new ResultSet();
-		List<Kwic> results = new ArrayList<Kwic>();
 
-		for (int i = 0; i < hits.size(); i++) {
-			try {
-				Kwic kwic = new Kwic();
-				results.add(kwic);
-
-				JSONObject hit = (JSONObject) hits.get(i);
-				@SuppressWarnings("unchecked")
-				HashMap<String,Object> doc = (HashMap<String,Object>) docs.get((String) hit.get("docPid"));
-
-				doc.forEach((k, v) -> kwic.getMetadata().put(k.toString(), v.toString()));
-				// or put this in separate document info objects?
-
-				// the results consist of 3 distinct parts:
-				// the match, its context to the left, and its context to the right
-
-				JSONObject leftContext = (JSONObject) hit.get("left");
-				JSONObject match = (JSONObject) hit.get("match");
-				JSONObject rightContext = (JSONObject) hit.get("right");
-
-				// initialize details about matched token
-
-				@SuppressWarnings("unchecked")
-				Set<String> matchedTokenProperties = (Set<String>) match.keySet();
-				int hitStart = 0;
-				int hitEnd = 0;
-
-				// now build tokens list
-				// with [1] left context, [2] match, and [3] right context
-
-				for (String pname : matchedTokenProperties) {
-					List<String> tokensList = new ArrayList<String>();
-
-					// [1] -----------------------------
-
-					// add LEFT context
-					tokensList.addAll(JsonUtils.getProperty(leftContext, pname));
-
-					// [2] -----------------------------
-
-					// add MATCH
-					// and note the start and end position of it
-					if (pname.equals("word"))
-						hitStart = tokensList.size();
-					tokensList.addAll(JsonUtils.getProperty(match, pname));
-					if (pname.equals("word"))
-						hitEnd = tokensList.size();
-
-					// [3] -----------------------------
-
-					// add RIGHT context
-					tokensList.addAll(JsonUtils.getProperty(rightContext, pname));
-
-					// add keyword in context (Kwic)
-					// NB: the tokensList is sorted, so each property has the same index
-					// as the token it represents!
-
-					kwic.addTokenPropertyName(pname);
-					kwic.setTokenProperties(pname, tokensList);
-				}
-
-				// store the start and end position of the matched token (=part [2] hereabove)
-				// (= token that meets the query)
-				kwic.setHitStart(hitStart);
-				kwic.setHitEnd(hitEnd);
-
-			} catch (Exception e) {
-				throw new RuntimeException("Exception while parsing results.", e);
-			}
+	private static String extractUniversalTag(ResultSet r) {
+		List<Kwic> hits = r.getHits();
+		Kwic hit = hits.get(0);
+		List<String> ud = hit.getPropertyValues("universal_dependency");
+		String udString = StringUtils.join(ud, ",");
+		udString = "";
+		List<String> propNames = hit.getTokenPropertyNames();
+		for (String propName : propNames) {
+			udString += propName + ":" + hit.getPropertyValues(propName);
 		}
+		return udString;
 
-		// build a resultSet
+	}
 
-		resultSet.setHits(results);
-		//resultSet.setQuery(this);
-		resultSet.setTotalNumberOfResults(100);
-		return resultSet;
-	}*/
-	
+	public static void testQueries(ServletContext contextCache, ConversionEngine convEng) {
+		String tagsFileContents = new FileUtils(contextCache, "cgn.tagset").readConfigFileAsString();
+		Scanner scanner = new Scanner(tagsFileContents);
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter("tags-converted.txt", "UTF-8");
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			scanner.close();
+			throw new RuntimeException("Unable to open file to write query test query results to. ", e);
+		}
+		while (scanner.hasNextLine()) {
+			String tag = scanner.nextLine().trim();
+			ResultSet r = createResultSet(tag, contextCache);
+			convEng.translateIntoUniversalDependencies(r);
+
+			String udTag = extractUniversalTag(r);
+			writer.println(tag + "\t" + udTag);
+
+		}
+		scanner.close();
+		writer.close();
+	}
+
+	/*
+	 * private static ResultSet createResultSetBlackLab(String tag, ServletContext
+	 * context) { ResultSet resultSet = new ResultSet(); List<Kwic> results = new
+	 * ArrayList<Kwic>();
+	 * 
+	 * for (int i = 0; i < hits.size(); i++) { try { Kwic kwic = new Kwic();
+	 * results.add(kwic);
+	 * 
+	 * JSONObject hit = (JSONObject) hits.get(i);
+	 * 
+	 * @SuppressWarnings("unchecked") HashMap<String,Object> doc =
+	 * (HashMap<String,Object>) docs.get((String) hit.get("docPid"));
+	 * 
+	 * doc.forEach((k, v) -> kwic.getMetadata().put(k.toString(), v.toString())); //
+	 * or put this in separate document info objects?
+	 * 
+	 * // the results consist of 3 distinct parts: // the match, its context to the
+	 * left, and its context to the right
+	 * 
+	 * JSONObject leftContext = (JSONObject) hit.get("left"); JSONObject match =
+	 * (JSONObject) hit.get("match"); JSONObject rightContext = (JSONObject)
+	 * hit.get("right");
+	 * 
+	 * // initialize details about matched token
+	 * 
+	 * @SuppressWarnings("unchecked") Set<String> matchedTokenProperties =
+	 * (Set<String>) match.keySet(); int hitStart = 0; int hitEnd = 0;
+	 * 
+	 * // now build tokens list // with [1] left context, [2] match, and [3] right
+	 * context
+	 * 
+	 * for (String pname : matchedTokenProperties) { List<String> tokensList = new
+	 * ArrayList<String>();
+	 * 
+	 * // [1] -----------------------------
+	 * 
+	 * // add LEFT context tokensList.addAll(JsonUtils.getProperty(leftContext,
+	 * pname));
+	 * 
+	 * // [2] -----------------------------
+	 * 
+	 * // add MATCH // and note the start and end position of it if
+	 * (pname.equals("word")) hitStart = tokensList.size();
+	 * tokensList.addAll(JsonUtils.getProperty(match, pname)); if
+	 * (pname.equals("word")) hitEnd = tokensList.size();
+	 * 
+	 * // [3] -----------------------------
+	 * 
+	 * // add RIGHT context tokensList.addAll(JsonUtils.getProperty(rightContext,
+	 * pname));
+	 * 
+	 * // add keyword in context (Kwic) // NB: the tokensList is sorted, so each
+	 * property has the same index // as the token it represents!
+	 * 
+	 * kwic.addTokenPropertyName(pname); kwic.setTokenProperties(pname, tokensList);
+	 * }
+	 * 
+	 * // store the start and end position of the matched token (=part [2]
+	 * hereabove) // (= token that meets the query) kwic.setHitStart(hitStart);
+	 * kwic.setHitEnd(hitEnd);
+	 * 
+	 * } catch (Exception e) { throw new
+	 * RuntimeException("Exception while parsing results.", e); } }
+	 * 
+	 * // build a resultSet
+	 * 
+	 * resultSet.setHits(results); //resultSet.setQuery(this);
+	 * resultSet.setTotalNumberOfResults(100); return resultSet; }
+	 */
 
 }

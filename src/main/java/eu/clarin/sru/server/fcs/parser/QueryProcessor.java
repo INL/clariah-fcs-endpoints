@@ -1,9 +1,12 @@
 package eu.clarin.sru.server.fcs.parser;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.ivdnt.fcs.mapping.ConversionEngine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is about converting a FSC-QL query (as a string or as a node) into
@@ -18,20 +21,43 @@ import org.ivdnt.fcs.mapping.ConversionEngine;
  *
  */
 public class QueryProcessor {
+
+	// logger
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
 	private ExpressionRewriter expressionRewriter;
 
 	// ---------------------------------------------------------------------------------
 	// constructors
 
-	public QueryProcessor(ExpressionRewriter expressionRewriter) {
-		this.expressionRewriter = expressionRewriter;
-	}
-
 	public QueryProcessor(ConversionEngine conversion) {
 		this.expressionRewriter = new ExpressionConverter(conversion);
 	}
 
+	public QueryProcessor(ExpressionRewriter expressionRewriter) {
+		this.expressionRewriter = expressionRewriter;
+	}
+
 	// ---------------------------------------------------------------------------------
+
+	/**
+	 * Rewrite a list of FSC-QL query nodes (which we have when dealing with AND,
+	 * OR, etc.; that consists of at least 2 nodes).
+	 * 
+	 * In particular convert the universal dependencies into the tag set given in
+	 * the constructor
+	 * 
+	 * @param list
+	 *            of nodes
+	 * @return a list of rewritten nodes
+	 */
+	private List<QueryNode> mapRewrite(List<QueryNode> nodesList) {
+		return nodesList.stream().map(
+
+				node -> rewriteNode(node)
+
+		).collect(Collectors.toList());
+	}
 
 	/**
 	 * Rewrite a FSC-QL query string (in particular convert the universal
@@ -53,10 +79,41 @@ public class QueryProcessor {
 			throw new RuntimeException("Not able to parse query: " + cqp, e);
 		}
 
-		System.err.println("qn.toString() = " + qn.toString());
+		logger.info("qn.toString() = " + qn.toString());
 
 		// now rewrite the node!
 		return rewriteNode(qn);
+	}
+
+	@SuppressWarnings("unused")
+	private QueryNode rewriteExpression(Expression node) {
+		Expression e = new Expression(node.getLayerQualifier(), node.getLayerIdentifier(), node.getOperator(),
+				node.getRegexValue(), node.getRegexFlags());
+		return e;
+	}
+
+	// ------------------------------------------------------------------------
+	// special cases
+
+	private QueryNode rewriteExpressionAnd(ExpressionAnd node) {
+		return new ExpressionAnd(mapRewrite(node.getChildren()));
+	}
+
+	private QueryNode rewriteExpressionGroup(ExpressionGroup node) {
+		return new ExpressionGroup(rewriteNode(node.getFirstChild()));
+	}
+
+	private QueryNode rewriteExpressionNot(ExpressionNot node) {
+		return new ExpressionNot(rewriteNode(node.getFirstChild()));
+	}
+
+	private QueryNode rewriteExpressionOr(ExpressionOr node) {
+
+		return new ExpressionOr(mapRewrite(node.getOperands()));
+	}
+
+	private QueryNode rewriteExpressionWildcard(ExpressionWildcard node) {
+		return new ExpressionWildcard();
 	}
 
 	/**
@@ -102,27 +159,21 @@ public class QueryProcessor {
 		return n1;
 	}
 
-	/**
-	 * Rewrite a list of FSC-QL query nodes (which we have when dealing with AND,
-	 * OR, etc.; that consists of at least 2 nodes).
-	 * 
-	 * In particular convert the universal dependencies into the tag set given in
-	 * the constructor
-	 * 
-	 * @param list
-	 *            of nodes
-	 * @return a list of rewritten nodes
-	 */
-	private List<QueryNode> mapRewrite(List<QueryNode> nodesList) {
-		return nodesList.stream().map(
-
-				node -> rewriteNode(node)
-
-		).collect(Collectors.toList());
+	private QueryNode rewriteQueryDisjunction(QueryDisjunction node) {
+		return new QueryDisjunction(mapRewrite(node.getChildren()));
 	}
 
-	// ------------------------------------------------------------------------
-	// special cases
+	private QueryNode rewriteQueryGroup(QueryGroup node) {
+		return new QueryGroup(rewriteNode(node.getContent()), node.getMinOccurs(), node.getMaxOccurs());
+	}
+
+	private QueryNode rewriteQuerySegment(QuerySegment node) {
+		return new QuerySegment(rewriteNode(node.getExpression()), node.getMinOccurs(), node.getMaxOccurs());
+	}
+
+	private QueryNode rewriteQuerySequence(QuerySequence node) {
+		return new QuerySequence(mapRewrite(node.getChildren()));
+	}
 
 	private QueryNode rewriteQueryWithWithin(QueryWithWithin node) {
 		return new QueryWithWithin(rewriteNode(node.getFirstChild()), rewriteNode(node.getChildren().get(1)));
@@ -131,49 +182,5 @@ public class QueryProcessor {
 	private QueryNode rewriteSimpleWithin(SimpleWithin node) {
 		SimpleWithin sw = new SimpleWithin(node.getScope());
 		return sw;
-	}
-
-	private QueryNode rewriteExpressionWildcard(ExpressionWildcard node) {
-		return new ExpressionWildcard();
-	}
-
-	private QueryNode rewriteExpressionOr(ExpressionOr node) {
-
-		return new ExpressionOr(mapRewrite(node.getOperands()));
-	}
-
-	private QueryNode rewriteExpressionNot(ExpressionNot node) {
-		return new ExpressionNot(rewriteNode(node.getFirstChild()));
-	}
-
-	private QueryNode rewriteExpressionGroup(ExpressionGroup node) {
-		return new ExpressionGroup(rewriteNode(node.getFirstChild()));
-	}
-
-	@SuppressWarnings("unused")
-	private QueryNode rewriteExpression(Expression node) {
-		Expression e = new Expression(node.getLayerQualifier(), node.getLayerIdentifier(), node.getOperator(),
-				node.getRegexValue(), node.getRegexFlags());
-		return e;
-	}
-
-	private QueryNode rewriteExpressionAnd(ExpressionAnd node) {
-		return new ExpressionAnd(mapRewrite(node.getChildren()));
-	}
-
-	private QueryNode rewriteQuerySequence(QuerySequence node) {
-		return new QuerySequence(mapRewrite(node.getChildren()));
-	}
-
-	private QueryNode rewriteQuerySegment(QuerySegment node) {
-		return new QuerySegment(rewriteNode(node.getExpression()), node.getMinOccurs(), node.getMaxOccurs());
-	}
-
-	private QueryNode rewriteQueryGroup(QueryGroup node) {
-		return new QueryGroup(rewriteNode(node.getContent()), node.getMinOccurs(), node.getMaxOccurs());
-	}
-
-	private QueryNode rewriteQueryDisjunction(QueryDisjunction node) {
-		return new QueryDisjunction(mapRewrite(node.getChildren()));
 	}
 }

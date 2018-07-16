@@ -1,9 +1,12 @@
 package org.ivdnt.fcs.mapping;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.ivdnt.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class parses parole-style tags, type NOU(number=sg), etc.
@@ -12,21 +15,16 @@ import org.ivdnt.util.StringUtils;
  */
 
 public class TagWithFeatures extends FeatureConjunction {
-	/**
-	 * 
-	 */
+
+	// logger
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
 	private static final long serialVersionUID = 1L;
 
-	public String toString() {
-		String pos = this.getJoinedValues("pos");
-
-		List<String> l = new ArrayList<String>();
-		for (String name : super.keySet()) {
-			if (!name.equals("pos")) {
-				l.add(name + "=" + getJoinedValues(name));
-			}
-		}
-		return pos + "(" + StringUtils.join(l, ",") + ")";
+	public static void main(String[] args) {
+		String t = "VRB(tense=past,number=sg|pl)";
+		TagWithFeatures twf = TagWithFeatures.parseParoleStyleTag(t);
+		logger.info(t + " " + twf.asCQL() + " " + twf.asRegexInTag());
 	}
 
 	public static TagWithFeatures parseParoleStyleTag(String tag) {
@@ -65,9 +63,15 @@ public class TagWithFeatures extends FeatureConjunction {
 	// --------------------------------------------------------------------
 	// test only
 
-	public static void main(String[] args) {
-		String t = "VRB(tense=past,number=sg|pl)";
-		TagWithFeatures twf = TagWithFeatures.parseParoleStyleTag(t);
-		System.out.println(t + " " + twf.asCQL() + " " + twf.asRegexInTag());
+	public String toString() {
+		String pos = this.getJoinedValues("pos");
+
+		List<String> l = new ArrayList<String>();
+		for (String name : super.keySet()) {
+			if (!name.equals("pos")) {
+				l.add(name + "=" + getJoinedValues(name));
+			}
+		}
+		return pos + "(" + StringUtils.join(l, ",") + ")";
 	}
 }

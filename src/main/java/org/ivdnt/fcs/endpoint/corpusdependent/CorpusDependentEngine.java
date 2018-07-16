@@ -1,11 +1,14 @@
 package org.ivdnt.fcs.endpoint.corpusdependent;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletContext;
 
 import org.ivdnt.fcs.endpoint.common.BasicEndpointSearchEngine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import eu.clarin.sru.server.SRUConfigException;
 import eu.clarin.sru.server.SRUDiagnosticList;
@@ -24,9 +27,12 @@ import eu.clarin.sru.server.fcs.SimpleEndpointSearchEngineBase;
  *
  */
 public class CorpusDependentEngine extends BasicEndpointSearchEngine {
+
+	// logger
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
 	SimpleEndpointSearchEngineBase engine;
 	ServletContext contextCache;
-
 
 	Map<String, SimpleEndpointSearchEngineBase> engineMap = new ConcurrentHashMap<String, SimpleEndpointSearchEngineBase>();
 
@@ -45,27 +51,27 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine {
 		// in each thread, which malfunction as a consequence. One single
 		// initialisation in the very first thread is enough.
 
-		/*// FIRST CALL:
-		// ----------
-		// fill tag sets conversion maps
-
-		if ((ConversionObjectProcessor.getConversionEngines()).size() == 0) {
-			System.err.println(">> loading tagsets conversion tables...");
-
-			enginebuilder.fillTagSetsConversionMap();
-
-			System.err.println(">> " + (ConversionObjectProcessor.getConversionEngines()).size()
-					+ " tagsets conversion tables loaded");
-		}*/
+		/*
+		 * // FIRST CALL: // ---------- // fill tag sets conversion maps
+		 * 
+		 * if ((ConversionObjectProcessor.getConversionEngines()).size() == 0) {
+		 * System.err.println(">> loading tagsets conversion tables...");
+		 * 
+		 * enginebuilder.fillTagSetsConversionMap();
+		 * 
+		 * System.err.println(">> " +
+		 * (ConversionObjectProcessor.getConversionEngines()).size() +
+		 * " tagsets conversion tables loaded"); }
+		 */
 
 		// fill engine map
 
 		if (this.engineMap.size() == 0) {
-			System.err.println(">> loading engines...");
+			logger.info(">> loading engines...");
 
 			enginebuilder.fillEngineMap(this.engineMap);
 
-			System.err.println(">> " + this.engineMap.size() + " engines loaded");
+			logger.info(">> " + this.engineMap.size() + " engines loaded");
 		}
 
 		// now pick up the engine we need
@@ -76,7 +82,7 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine {
 				return this.engineMap.get(k);
 			}
 
-		System.err.println("Could not find engine for corpus: " + corpusId);
+		logger.error("Could not find engine for corpus: " + corpusId);
 		return null;
 	}
 

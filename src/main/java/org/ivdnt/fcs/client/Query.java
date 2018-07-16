@@ -1,6 +1,5 @@
 package org.ivdnt.fcs.client;
 
-
 import org.ivdnt.fcs.results.ResultSet;
 
 /**
@@ -46,7 +45,8 @@ public abstract class Query {
 	 *            a CQL query string like [word="paard"]
 	 * 
 	 */
-	public Query(String server, String corpus, String cqpQuery, int startPosition, int maximumResults, String engineNativeUrlTemplate) {
+	public Query(String server, String corpus, String cqpQuery, int startPosition, int maximumResults,
+			String engineNativeUrlTemplate) {
 		this.server = server;
 		this.corpus = corpus;
 		this.cqpQuery = cqpQuery;
@@ -54,78 +54,10 @@ public abstract class Query {
 		this.maximumResults = maximumResults;
 		this.setEngineNativeUrlTemplate(engineNativeUrlTemplate);
 
-		
 	}
 
 	// --------------------------------------------------------------------------------
 	// getters
-
-	public String getServer() {
-		return this.server;
-	}
-
-	public String getCorpus() {
-		return this.corpus;
-	}
-
-	public String getCqpQuery() {
-		return this.cqpQuery;
-	}
-
-	public int getStartPosition() {
-		return this.startPosition;
-	}
-
-	public int getMaximumResults() {
-		return this.maximumResults;
-	}
-
-	public int getTotalNumberOfResults() {
-		return this.totalNumberOfResults;
-	}
-
-	public String getEngineNativeUrl() {
-		return engineNativeUrl;
-	}
-
-	// --------------------------------------------------------------------------------
-	// setters
-
-	public void setServer(String server) {
-		this.server = server;
-	}
-
-	public void setCorpus(String corpus) {
-		this.corpus = corpus;
-	}
-
-	public void setCqpQuery(String cqpQuery) {
-		this.cqpQuery = cqpQuery;
-	}
-
-	public void setStartPosition(int startPosition) {
-		this.startPosition = startPosition;
-	}
-
-	public void setMaximumResults(int maximumResults) {
-		this.maximumResults = maximumResults;
-	}
-
-	public void setTotalNumberOfResults(int totalNumberOfResults) {
-		this.totalNumberOfResults = totalNumberOfResults;
-	}
-	
-	public void setEngineNativeUrl (String engineNativeUrl) {
-		this.engineNativeUrl = engineNativeUrl;
-	}
-
-	// --------------------------------------------------------------------------------
-
-	public String toString() {
-		return String.format("Query(cqp=%s,server=%s,corpus=%s)", cqpQuery, server, corpus);
-	}
-
-	// --------------------------------------------------------------------------------
 
 	/**
 	 * Start a search query (which as been prepared in the search() method of the
@@ -136,12 +68,79 @@ public abstract class Query {
 	 */
 	public abstract ResultSet execute() throws Exception;
 
+	public String getCorpus() {
+		return this.corpus;
+	}
+
+	public String getCqpQuery() {
+		return this.cqpQuery;
+	}
+
+	public String getEngineNativeUrl() {
+		return engineNativeUrl;
+	}
+
 	public String getEngineNativeUrlTemplate() {
 		return engineNativeUrlTemplate;
 	}
 
+	public int getMaximumResults() {
+		return this.maximumResults;
+	}
+
+	public String getServer() {
+		return this.server;
+	}
+
+	// --------------------------------------------------------------------------------
+	// setters
+
+	public int getStartPosition() {
+		return this.startPosition;
+	}
+
+	public int getTotalNumberOfResults() {
+		return this.totalNumberOfResults;
+	}
+
+	public void setCorpus(String corpus) {
+		this.corpus = corpus;
+	}
+
+	public void setCqpQuery(String cqpQuery) {
+		this.cqpQuery = cqpQuery;
+	}
+
+	public void setEngineNativeUrl(String engineNativeUrl) {
+		this.engineNativeUrl = engineNativeUrl;
+	}
+
 	public void setEngineNativeUrlTemplate(String engineNativeUrlTemplate) {
 		this.engineNativeUrlTemplate = engineNativeUrlTemplate;
+	}
+
+	public void setMaximumResults(int maximumResults) {
+		this.maximumResults = maximumResults;
+	}
+
+	// --------------------------------------------------------------------------------
+
+	public void setServer(String server) {
+		this.server = server;
+	}
+
+	// --------------------------------------------------------------------------------
+
+	public void setStartPosition(int startPosition) {
+		this.startPosition = startPosition;
+	}
+
+	public void setTotalNumberOfResults(int totalNumberOfResults) {
+		this.totalNumberOfResults = totalNumberOfResults;
+	}
+
+	public String toString() {
+		return String.format("Query(cqp=%s,server=%s,corpus=%s)", cqpQuery, server, corpus);
 	}
 
 	// --------------------------------------------------------------------------------

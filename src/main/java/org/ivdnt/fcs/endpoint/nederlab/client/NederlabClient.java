@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.invoke.MethodHandles;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ import org.ivdnt.fcs.endpoint.nederlab.objectmapper.TokenProperty;
 import org.ivdnt.fcs.endpoint.nederlab.results.Hit;
 import org.ivdnt.fcs.endpoint.nederlab.results.NederlabResultSet;
 import org.ivdnt.util.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
@@ -37,9 +40,12 @@ import net.minidev.json.JSONArray;
 
 public class NederlabClient {
 
+	// logger
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	// Variable to store server URL, initialized by constructor
-	private String server;
+	public static <T> boolean equalsSet(HashSet<T> set1, List<T> list2) {
+		return set1.equals(new HashSet<>(list2));
+	}
 
 	// When searching Nederlab for a word, we want to get results
 	// in context, t.i. not only the word, but also a part of the text
@@ -49,24 +55,31 @@ public class NederlabClient {
 	// and the same number of words on its right side.
 	// This number is:
 
-	private int contextSize = 8;
+	// Variable to store server URL, initialized by constructor
+	private String server;
 
+	private int contextSize = 8;
 	// The Nederlab query template set for this client
 	private QueryTemplate nederlabQueryTemplate;
+
 	private QueryTemplate nederlabDocumentQueryTemplate;
-	
-	// Extra response fields, are send with query, to ask Nederlab to return these fields
+
+	// Extra response fields, are send with query, to ask Nederlab to return these
+	// fields
 	private List<String> nederlabExtraResponseFields;
-	
+
 	private ServletContext contextCache;
-	
-	private ObjectMapper mapper;
-	
+
 	// ------------------------------------------------------------------
 
 	// Constructor
 
-	public NederlabClient(ServletContext contextCache, QueryTemplate nederlabQueryTemplate, QueryTemplate nederlabDocumentQueryTemplate, String server, List<String> nederlabExtraResponseFields) {
+	private ObjectMapper mapper;
+
+	// ------------------------------------------------------------------
+
+	public NederlabClient(ServletContext contextCache, QueryTemplate nederlabQueryTemplate,
+			QueryTemplate nederlabDocumentQueryTemplate, String server, List<String> nederlabExtraResponseFields) {
 		this.contextCache = contextCache;
 		this.nederlabQueryTemplate = nederlabQueryTemplate;
 		this.nederlabDocumentQueryTemplate = nederlabDocumentQueryTemplate;
@@ -75,7 +88,13 @@ public class NederlabClient {
 		this.mapper = new ObjectMapper();
 	}
 
-	// ------------------------------------------------------------------
+	private String addResponseFieldsToQuery(String jsonQuery, List<String> extraResponseFields) {
+		DocumentContext dc = JsonPath.parse(jsonQuery);
+		for (String f : extraResponseFields) {
+			dc = dc.add("$.response.documents.fields", f);
+		}
+		return dc.jsonString();
+	}
 
 	/**
 	 * perform a complete Nederlab search: build a query, send it, and parse the
@@ -88,96 +107,81 @@ public class NederlabClient {
 	 */
 	public NederlabResultSet doSearch(String CQL, int start, int number) {
 		String jsonHits = requestHits(CQL, start, number);
-		// Parse the document keys from the response, and send new query, requesting document information
-		Map<String,Document> docMap = parseAndRequestDocuments(jsonHits);
-		
+		// Parse the document keys from the response, and send new query, requesting
+		// document information
+		Map<String, Document> docMap = parseAndRequestDocuments(jsonHits);
+
 		// parse the response
 		NederlabResultSet results = parseResults(jsonHits, docMap);
 		return results;
 	}
 
-	private String requestHits(String CQL, int start, int number) {
-		String cqlQuery = CQL.replaceAll("\"", "\\\\\\\\" + "\"");
-
-		// fill in some values in the Query
-
-		Map<String, String> queryTemplateValues = new ConcurrentHashMap<>();
-		queryTemplateValues.put("_START_", new Integer(start).toString());
-		queryTemplateValues.put("_NUMBER_", new Integer(number).toString());
-		queryTemplateValues.put("_CONTEXT_", new Integer(this.contextSize).toString());
-		queryTemplateValues.put("_QUERY_", cqlQuery);
-		
-		// Add extra response fields to query, so we ask Nederlab server to return these fields
-		String jsonQuery = this.nederlabQueryTemplate.expandTemplate(queryTemplateValues);
-		
-		// send the query
-		final long sendStartTime = System.currentTimeMillis();
-		String jsonResults = sendQuery(jsonQuery);
-		final long sendEndTime = System.currentTimeMillis();
-		System.err.println("Request hits: " + (sendEndTime - sendStartTime) + " ms.");
-		return jsonResults;
-	}
-
-	private String addResponseFieldsToQuery(String jsonQuery, List<String> extraResponseFields) {
-		DocumentContext dc = JsonPath.parse(jsonQuery);
-		for (String f : extraResponseFields) {
-			dc = dc.add("$.response.documents.fields", f);
-		}
-		return dc.jsonString();
-	}
-
 	// ------------------------------------------------------------------
 
 	/**
-	 * post a query string to Nederlab
+	 * Parse the document keys from the response, and send new query, requesting
+	 * document information
 	 * 
-	 * @param query
-	 * @return
+	 * @param jsonResult,
+	 *            as a String
+	 * @param documentQueryTemplate,
+	 *            String
+	 * @return a NederlabResultSet object
+	 * @throws IOException
 	 */
-	public String sendQuery(String query) {
-		StringBuilder response = new StringBuilder();
+	public Map<String, Document> parseAndRequestDocuments(String jsonHits) {
+
+		DocumentContext hitsContext = JsonPath.parse(jsonHits);
+		HashSet<String> documentKeysSet = new HashSet<String>();
+		String documentKeysString = "";
+
 		try {
-			System.err.println("Now connecting to server to send POST request: " + this.server);
-			URL obj = new URL(this.server);
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			// Parse the list of hits
+			List<String> documentKeys = hitsContext.read("$['mtas']['list'][0]['list'][*]['documentKey']");
+			documentKeysSet = new HashSet<>(documentKeys);
+			documentKeysString = mapper.writeValueAsString(documentKeysSet);
 
-			// add request header
-
-			con.setRequestMethod("POST");
-			// con.setRequestProperty("User-Agent", USER_AGENT);
-			String brokerKey = new FileUtils(contextCache, "key.txt").readConfigFileAsString().trim();
-			con.setRequestProperty("X-API-KEY", brokerKey);
-			con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-			con.setRequestProperty("Accept", "application/json");
-
-			// Send post request
-
-			con.setDoOutput(true);
-			OutputStream os = con.getOutputStream();
-			OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
-
-			osw.write(query);
-			osw.flush();
-			osw.close();
-
-			int responseCode = con.getResponseCode();
-
-			System.err.println("Query : " + query);
-			System.err.println("Response Code : " + responseCode);
-
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			String inputLine;
-
-			while ((inputLine = in.readLine()) != null) {
-				response.append(inputLine);
-			}
-			in.close();
+		} catch (Exception e) {
+			throw new RuntimeException("Exception while parsing json: " + hitsContext, e);
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("Exception while sending query " + query, e);
+
+		// Create new request and send
+		// fill in some values in the Query
+		Map<String, String> queryTemplateValues = new ConcurrentHashMap<>();
+		queryTemplateValues.put("_DOCKEY_", documentKeysString);
+		// Set number of doc keys, so we get back all documents in one response
+		queryTemplateValues.put("_NUMBERDOC_", new Integer(documentKeysSet.size()).toString());
+
+		// Add extra response fields to query, so we ask Nederlab server to return these
+		// fields
+		String jsonQuery = this.nederlabDocumentQueryTemplate.expandTemplate(queryTemplateValues);
+		String jsonQueryUpdated = addResponseFieldsToQuery(jsonQuery, nederlabExtraResponseFields);
+
+		// send the query
+		final long sendStartTime = System.currentTimeMillis();
+		String jsonDocs = sendQuery(jsonQueryUpdated);
+		final long sendEndTime = System.currentTimeMillis();
+		logger.info("Request documents: " + (sendEndTime - sendStartTime) + " ms.");
+
+		// Process the 'docs' part of the JSON response
+		DocumentContext docsContext = JsonPath.parse(jsonDocs);
+		// First, check if documents for all keys have been returned
+		List<String> documentKeysRetrieved = docsContext
+				.read("$['response']['docs'][*]['NLCore_NLIdentification_nederlabID']");
+		if (!equalsSet(documentKeysSet, documentKeysRetrieved)) {
+			throw new RuntimeException("Documents returned by server do not match document keys from hits query!");
 		}
-		return response.toString();
+		// Now, really retrieve documents
+		JSONArray documents = docsContext.read("$['response']['docs'][*]");
+		Map<String, Document> docMap = new ConcurrentHashMap<>();
+
+		for (Object d : documents) {
+			@SuppressWarnings("unchecked")
+			Map<String, Object> dm = (Map<String, Object>) d;
+			Document doc = new Document(dm);
+			docMap.put(doc.getField("NLCore_NLIdentification_nederlabID"), doc);
+		}
+		return docMap;
 	}
 
 	/**
@@ -194,10 +198,10 @@ public class NederlabClient {
 		// in which each text result is split up into its separate tokens,
 		// with pos-tag details, positionStart, positionEnd, etc. etc...
 
-		System.err.println(">>> result string length = " + jsonResult.length());
+		logger.info(">>> result string length = " + jsonResult.length());
 
 		// the response looks like this:
-		// TODO 
+		// TODO
 
 		// we will store the response in a NederlabResultSet object
 
@@ -214,23 +218,20 @@ public class NederlabClient {
 			String totalNrOfHits = (context.read("$['mtas']['list'][0]['total']")).toString();
 			nederlabResultSet.setTotalNumberOfHits(Integer.parseInt(totalNrOfHits));
 
-			System.err.println(">>> total number of hits = " + nederlabResultSet.getTotalNumberOfHits());
-
+			logger.info(">>> total number of hits = " + nederlabResultSet.getTotalNumberOfHits());
 
 			// Parse the list of hits
 
 			Object kwicList = context.read("$['mtas']['list'][0]['list'][*]");
 
-
 			JSONArray hits = (JSONArray) kwicList;
-			System.err.println(
-					">>> number of hits in current resultset = " + hits.size());
+			logger.info(">>> number of hits in current resultset = " + hits.size());
 			for (int k = 0; k < hits.size(); k++) {
-				
+
 				Object hit = hits.get(k);
 				List<TokenProperty> tokenProps = new ArrayList<>();
 				@SuppressWarnings("unchecked")
-				Map<String,Object> hitMap = (Map<String,Object>) hit;
+				Map<String, Object> hitMap = (Map<String, Object>) hit;
 				String documentKey = (String) hitMap.get("documentKey");
 				JSONArray tokens = (JSONArray) hitMap.get("tokens");
 				// a hit contains a list of tokens:
@@ -242,7 +243,7 @@ public class NederlabClient {
 				// with X being the value of NederlabClient.contextSize
 				for (int l = 0; l < tokens.size(); l++) {
 					@SuppressWarnings("unchecked")
-					Map<String,Object> tok = (Map<String,Object>) (tokens.get(l));
+					Map<String, Object> tok = (Map<String, Object>) (tokens.get(l));
 					TokenProperty t = new TokenProperty(tok);
 					tokenProps.add(t);
 				}
@@ -278,72 +279,79 @@ public class NederlabClient {
 		}
 		return nederlabResultSet;
 	}
-	
-	/**
-	 * Parse the document keys from the response, and send new query, requesting document information
-	 * 
-	 * @param jsonResult,
-	 *            as a String
-	 * @param documentQueryTemplate, String
-	 * @return a NederlabResultSet object
-	 * @throws IOException 
-	 */
-	public Map<String,Document> parseAndRequestDocuments(String jsonHits) {
 
-		DocumentContext hitsContext = JsonPath.parse(jsonHits);
-		HashSet<String> documentKeysSet = new HashSet<String>();
-		String documentKeysString = "";
+	private String requestHits(String CQL, int start, int number) {
+		String cqlQuery = CQL.replaceAll("\"", "\\\\\\\\" + "\"");
 
-		try {
-			// Parse the list of hits
-			List<String> documentKeys = hitsContext.read("$['mtas']['list'][0]['list'][*]['documentKey']");
-			documentKeysSet = new HashSet<>(documentKeys);
-			documentKeysString = mapper.writeValueAsString(documentKeysSet);
-				
-		}
-		catch (Exception e) {
-			throw new RuntimeException("Exception while parsing json: " + hitsContext, e);
-		}
-		
-		// Create new request and send
 		// fill in some values in the Query
+
 		Map<String, String> queryTemplateValues = new ConcurrentHashMap<>();
-		queryTemplateValues.put("_DOCKEY_", documentKeysString);
-		// Set number of doc keys, so we get back all documents in one response
-		queryTemplateValues.put("_NUMBERDOC_", new Integer(documentKeysSet.size()).toString());
-		
-		// Add extra response fields to query, so we ask Nederlab server to return these fields
-		String jsonQuery = this.nederlabDocumentQueryTemplate.expandTemplate(queryTemplateValues);
-		String jsonQueryUpdated = addResponseFieldsToQuery(jsonQuery, nederlabExtraResponseFields);
-		
+		queryTemplateValues.put("_START_", new Integer(start).toString());
+		queryTemplateValues.put("_NUMBER_", new Integer(number).toString());
+		queryTemplateValues.put("_CONTEXT_", new Integer(this.contextSize).toString());
+		queryTemplateValues.put("_QUERY_", cqlQuery);
+
+		// Add extra response fields to query, so we ask Nederlab server to return these
+		// fields
+		String jsonQuery = this.nederlabQueryTemplate.expandTemplate(queryTemplateValues);
+
 		// send the query
 		final long sendStartTime = System.currentTimeMillis();
-		String jsonDocs= sendQuery(jsonQueryUpdated);
+		String jsonResults = sendQuery(jsonQuery);
 		final long sendEndTime = System.currentTimeMillis();
-		System.err.println("Request documents: " + (sendEndTime - sendStartTime) + " ms.");
-		
-		// Process the 'docs' part of the JSON response
-		DocumentContext docsContext = JsonPath.parse(jsonDocs);
-		// First, check if documents for all keys have been returned
-		List<String> documentKeysRetrieved = docsContext.read("$['response']['docs'][*]['NLCore_NLIdentification_nederlabID']");
-		if(!equalsSet(documentKeysSet,documentKeysRetrieved)) {
-			throw new RuntimeException("Documents returned by server do not match document keys from hits query!");
-		}
-		// Now, really retrieve documents
-		JSONArray documents = docsContext.read("$['response']['docs'][*]");
-		Map<String, Document> docMap = new ConcurrentHashMap<>();
-
-		for (Object d: documents) {
-			@SuppressWarnings("unchecked")
-			Map<String,Object> dm = (Map<String,Object>) d;
-			Document doc = new Document(dm);
-			docMap.put(doc.getField("NLCore_NLIdentification_nederlabID"), doc);
-		}
-		return docMap;
+		logger.info("Request hits: " + (sendEndTime - sendStartTime) + " ms.");
+		return jsonResults;
 	}
-	
-	public static <T> boolean equalsSet(HashSet<T> set1, List<T> list2) {
-	    return set1.equals(new HashSet<>(list2));
+
+	/**
+	 * post a query string to Nederlab
+	 * 
+	 * @param query
+	 * @return
+	 */
+	public String sendQuery(String query) {
+		StringBuilder response = new StringBuilder();
+		try {
+			logger.info("Now connecting to server to send POST request: " + this.server);
+			URL obj = new URL(this.server);
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+			// add request header
+
+			con.setRequestMethod("POST");
+			// con.setRequestProperty("User-Agent", USER_AGENT);
+			String brokerKey = new FileUtils(contextCache, "key.txt").readConfigFileAsString().trim();
+			con.setRequestProperty("X-API-KEY", brokerKey);
+			con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+			con.setRequestProperty("Accept", "application/json");
+
+			// Send post request
+
+			con.setDoOutput(true);
+			OutputStream os = con.getOutputStream();
+			OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+
+			osw.write(query);
+			osw.flush();
+			osw.close();
+
+			int responseCode = con.getResponseCode();
+
+			logger.info("Query : " + query);
+			logger.info("Response Code : " + responseCode);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String inputLine;
+
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("Exception while sending query " + query, e);
+		}
+		return response.toString();
 	}
 
 }

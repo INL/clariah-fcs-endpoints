@@ -5,6 +5,7 @@
  */
 package org.ivdnt.fcs.endpoint.common;
 
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.util.Map;
 
@@ -43,156 +44,7 @@ import eu.clarin.sru.server.fcs.utils.SimpleEndpointDescriptionParser;
 public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 
 	// logger
-	private static final Logger LOG = LoggerFactory.getLogger(BasicEndpointSearchEngine.class);
-
-	private String server = BlacklabConstants.DEFAULT_SERVER;
-	private ConversionEngine conversionEngine = null;
-	private String engineNativeUrlTemplate;
-
-	// Object to store the endpoint description into
-	protected EndpointDescription endpointDescription;
-
-	// Empty constructor, needed by CorpusDependentEngine subclass
-	public BasicEndpointSearchEngine() {
-
-	}
-
-	// Constructor with arguments, called by BlacklabServerEndpointSearchEngine and
-	// NederlabEndpointSearchEngine subclasses
-	public BasicEndpointSearchEngine(String server, ConversionEngine conversionEngine, String engineNativeUrlTemplate) {
-		this.server = server;
-		this.conversionEngine = conversionEngine;
-		this.engineNativeUrlTemplate = engineNativeUrlTemplate;
-	}
-
-	public String getServer() {
-		return server;
-	}
-
-	public void setServer(String server) {
-		this.server = server;
-	}
-
-	public ConversionEngine getConversionEngine() {
-		return conversionEngine;
-	}
-
-	public void setConversionEngine(ConversionEngine conversionEngine) {
-		this.conversionEngine = conversionEngine;
-	}
-
-	public String getEngineNativeUrlTemplate() {
-		return engineNativeUrlTemplate;
-	}
-
-	public void setEngineNativeUrlTemplate(String engineNativeUrlTemplate) {
-		this.engineNativeUrlTemplate = engineNativeUrlTemplate;
-	}
-
-	protected EndpointDescription createEndpointDescription(ServletContext context, SRUServerConfig config,
-			Map<String, String> params) throws SRUConfigException {
-
-		URL url = new FileUtils(context, "endpoint-description.xml").readConfigFileAsURL();
-		return SimpleEndpointDescriptionParser.parse(url);
-	}
-
-	/**
-	 * Initialize the search engine. This initialization should be tailored towards
-	 * your environment and needs.
-	 *
-	 * @param context
-	 *            the {@link ServletContext} for the Servlet
-	 * @param config
-	 *            the {@link SRUServerConfig} object for this search engine
-	 * @param queryParserBuilder
-	 *            the {@link SRUQueryParserRegistry.Builder} object to be used for
-	 *            this search engine. Use to register additional query parsers with
-	 *            the SRUServer.
-	 * @param params
-	 *            additional parameters gathered from the Servlet configuration and
-	 *            Servlet context.
-	 * @throws SRUConfigException
-	 *             if an error occurred
-	 */
-	protected void doInit(ServletContext context, SRUServerConfig config,
-			SRUQueryParserRegistry.Builder queryParserBuilder, Map<String, String> params) throws SRUConfigException {
-
-		doInit(config, queryParserBuilder, params);
-	}
-
-	protected void doInit(SRUServerConfig config, SRUQueryParserRegistry.Builder queryParserBuilder,
-			Map<String, String> params) throws SRUConfigException {
-
-		LOG.info("KorpEndpointSearchEngine::doInit {}", config.getPort());
-		// List<String> openCorpora = ServiceInfo.getModernCorpora();
-		// openCorporaInfo = CorporaInfo.getCorporaInfo(openCorpora);
-	}
-
-	/**
-	 * Destroy the search engine. Override this method for any cleanup the search
-	 * engine needs to perform upon termination.
-	 */
-	protected void doDestroy() {
-
-	}
-
-	/**
-	 * Handle a <em>scan</em> operation. The default implementation is a no-op.
-	 * Override this method, if you want to provide a custom behavior.
-	 *
-	 * @param config
-	 *            the <code>SRUEndpointConfig</code> object that contains the
-	 *            endpoint configuration
-	 * @param request
-	 *            the <code>SRURequest</code> object that contains the request made
-	 *            to the endpoint
-	 * @param diagnostics
-	 *            the <code>SRUDiagnosticList</code> object for storing non-fatal
-	 *            diagnostics
-	 * @return a <code>SRUScanResultSet</code> object or <code>null</code> if this
-	 *         operation is not supported by this search engine
-	 * @throws SRUException
-	 *             if an fatal error occurred
-	 */
-	@Override
-	protected SRUScanResultSet doScan(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
-			throws SRUException {
-		// final CQLNode scanClause = request.getScanClause();
-		// if (scanClause instanceof CQLTermNode) {
-		// final CQLTermNode root = (CQLTermNode) scanClause;
-		// final String index = root.getIndex();
-		// throw new SRUException(SRUConstants.SRU_UNSUPPORTED_INDEX, index,
-		// "scan operation on index '" + index + "' is not supported");
-		// } else {
-		// throw new SRUException(SRUConstants.SRU_QUERY_FEATURE_UNSUPPORTED,
-		// "Scan clause too complex.");
-		// }
-		return null;
-	}
-
-	/**
-	 * Convenience method for parsing a string to boolean. Values <code>1</code>,
-	 * <code>true</code>, <code>yes</code> yield a <em>true</em> boolean value as a
-	 * result, all others (including <code>null</code>) a <em>false</em> boolean
-	 * value.
-	 *
-	 * @param value
-	 *            the string to parse
-	 * @return <code>true</code> if the supplied string was considered something
-	 *         representing a <em>true</em> boolean value, <code>false</code>
-	 *         otherwise
-	 */
-	protected static boolean parseBoolean(String value) {
-		if (value != null) {
-			return value.equals("1") || Boolean.parseBoolean(value);
-		}
-		return false;
-	}
-
-	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
-			throws SRUException {
-		return null;
-	}
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
 	 * New method (no part of SimpleEndpointSearchEngineBase)
@@ -213,6 +65,25 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 			}
 		}
 		return fcsContextCorpus;
+	}
+
+	/**
+	 * Convenience method for parsing a string to boolean. Values <code>1</code>,
+	 * <code>true</code>, <code>yes</code> yield a <em>true</em> boolean value as a
+	 * result, all others (including <code>null</code>) a <em>false</em> boolean
+	 * value.
+	 *
+	 * @param value
+	 *            the string to parse
+	 * @return <code>true</code> if the supplied string was considered something
+	 *         representing a <em>true</em> boolean value, <code>false</code>
+	 *         otherwise
+	 */
+	protected static boolean parseBoolean(String value) {
+		if (value != null) {
+			return value.equals("1") || Boolean.parseBoolean(value);
+		}
+		return false;
 	}
 
 	/**
@@ -305,16 +176,16 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 
 			// get the query part out of the whole FSC request
 
-			System.err.println(String.format("FCSQuery %s: raw %s", q, q.getRawQuery()));
+			logger.info(String.format("FCSQuery %s: raw %s", q, q.getRawQuery()));
 			query = q.getRawQuery();
 
 			if (conversion != null) {
-				System.err.println(String.format("Before conversion with %s: %s", conversion, query));
+				logger.info(String.format("Before conversion with %s: %s", conversion, query));
 				final long translationStartTime = System.currentTimeMillis();
 				query = conversion.translateQuery(query);
 				final long translationEndTime = System.currentTimeMillis();
-				System.err.println("Translation: " + (translationEndTime-translationStartTime) + " ms.");
-				System.err.println(String.format("After conversion with %s: %s", conversion, query));
+				logger.info("Translation: " + (translationEndTime - translationStartTime) + " ms.");
+				logger.info(String.format("After conversion with %s: %s", conversion, query));
 			}
 		} else {
 			/*
@@ -324,5 +195,137 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 					+ request.getQueryType() + "' are not supported by this CLARIN-FCS Endpoint.");
 		}
 		return query;
+	}
+
+	private String server = BlacklabConstants.DEFAULT_SERVER;
+
+	private ConversionEngine conversionEngine = null;
+
+	private String engineNativeUrlTemplate;
+
+	// Object to store the endpoint description into
+	protected EndpointDescription endpointDescription;
+
+	// Empty constructor, needed by CorpusDependentEngine subclass
+	public BasicEndpointSearchEngine() {
+
+	}
+
+	// Constructor with arguments, called by BlacklabServerEndpointSearchEngine and
+	// NederlabEndpointSearchEngine subclasses
+	public BasicEndpointSearchEngine(String server, ConversionEngine conversionEngine, String engineNativeUrlTemplate) {
+		this.server = server;
+		this.conversionEngine = conversionEngine;
+		this.engineNativeUrlTemplate = engineNativeUrlTemplate;
+	}
+
+	protected EndpointDescription createEndpointDescription(ServletContext context, SRUServerConfig config,
+			Map<String, String> params) throws SRUConfigException {
+
+		URL url = new FileUtils(context, "endpoint-description.xml").readConfigFileAsURL();
+		return SimpleEndpointDescriptionParser.parse(url);
+	}
+
+	/**
+	 * Destroy the search engine. Override this method for any cleanup the search
+	 * engine needs to perform upon termination.
+	 */
+	protected void doDestroy() {
+
+	}
+
+	/**
+	 * Initialize the search engine. This initialization should be tailored towards
+	 * your environment and needs.
+	 *
+	 * @param context
+	 *            the {@link ServletContext} for the Servlet
+	 * @param config
+	 *            the {@link SRUServerConfig} object for this search engine
+	 * @param queryParserBuilder
+	 *            the {@link SRUQueryParserRegistry.Builder} object to be used for
+	 *            this search engine. Use to register additional query parsers with
+	 *            the SRUServer.
+	 * @param params
+	 *            additional parameters gathered from the Servlet configuration and
+	 *            Servlet context.
+	 * @throws SRUConfigException
+	 *             if an error occurred
+	 */
+	protected void doInit(ServletContext context, SRUServerConfig config,
+			SRUQueryParserRegistry.Builder queryParserBuilder, Map<String, String> params) throws SRUConfigException {
+
+		doInit(config, queryParserBuilder, params);
+	}
+
+	protected void doInit(SRUServerConfig config, SRUQueryParserRegistry.Builder queryParserBuilder,
+			Map<String, String> params) throws SRUConfigException {
+
+		logger.info("KorpEndpointSearchEngine::doInit {}", config.getPort());
+		// List<String> openCorpora = ServiceInfo.getModernCorpora();
+		// openCorporaInfo = CorporaInfo.getCorporaInfo(openCorpora);
+	}
+
+	/**
+	 * Handle a <em>scan</em> operation. The default implementation is a no-op.
+	 * Override this method, if you want to provide a custom behavior.
+	 *
+	 * @param config
+	 *            the <code>SRUEndpointConfig</code> object that contains the
+	 *            endpoint configuration
+	 * @param request
+	 *            the <code>SRURequest</code> object that contains the request made
+	 *            to the endpoint
+	 * @param diagnostics
+	 *            the <code>SRUDiagnosticList</code> object for storing non-fatal
+	 *            diagnostics
+	 * @return a <code>SRUScanResultSet</code> object or <code>null</code> if this
+	 *         operation is not supported by this search engine
+	 * @throws SRUException
+	 *             if an fatal error occurred
+	 */
+	@Override
+	protected SRUScanResultSet doScan(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
+			throws SRUException {
+		// final CQLNode scanClause = request.getScanClause();
+		// if (scanClause instanceof CQLTermNode) {
+		// final CQLTermNode root = (CQLTermNode) scanClause;
+		// final String index = root.getIndex();
+		// throw new SRUException(SRUConstants.SRU_UNSUPPORTED_INDEX, index,
+		// "scan operation on index '" + index + "' is not supported");
+		// } else {
+		// throw new SRUException(SRUConstants.SRU_QUERY_FEATURE_UNSUPPORTED,
+		// "Scan clause too complex.");
+		// }
+		return null;
+	}
+
+	public ConversionEngine getConversionEngine() {
+		return conversionEngine;
+	}
+
+	public String getEngineNativeUrlTemplate() {
+		return engineNativeUrlTemplate;
+	}
+
+	public String getServer() {
+		return server;
+	}
+
+	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
+			throws SRUException {
+		return null;
+	}
+
+	public void setConversionEngine(ConversionEngine conversionEngine) {
+		this.conversionEngine = conversionEngine;
+	}
+
+	public void setEngineNativeUrlTemplate(String engineNativeUrlTemplate) {
+		this.engineNativeUrlTemplate = engineNativeUrlTemplate;
+	}
+
+	public void setServer(String server) {
+		this.server = server;
 	}
 }

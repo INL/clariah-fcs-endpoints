@@ -50,69 +50,69 @@ public class ConversionObject {
 	// --------------------------------------------------------------------
 	// getters and setters
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getQuote() {
-		return this.quote;
-	}
-
-	public void setQuote(String quote) {
-		this.quote = quote;
-	}
-
-	public boolean hasIncludedFeatureNameInRegex() {
-		return includeFeatureNameInRegex;
-	}
-
-	public void setIncludeFeatureNameInRegex(boolean includeFeatureNameInRegex) {
-		this.includeFeatureNameInRegex = includeFeatureNameInRegex;
-	}
-
-	public boolean usesFeatureRegex() {
-		return useFeatureRegex;
-	}
-
-	public void setUseFeatureRegex(boolean useFeatureRegex) {
-		this.useFeatureRegex = useFeatureRegex;
-	}
-
-	public String[] getGrammaticalFeatures() {
-		return grammaticalFeatures;
-	}
-
-	public void setGrammaticalFeatures(String[] grammaticalFeatures) {
-		this.grammaticalFeatures = grammaticalFeatures;
-	}
-
-	public String getPosTagField() {
-		return posTagField;
-	}
-
-	public void setPosTagField(String posTagField) {
-		this.posTagField = posTagField;
+	public ArrayList<ConcurrentHashMap<String, ConcurrentHashMap<String, String>>> getFeatureMapping() {
+		return featureMapping;
 	}
 
 	public ArrayList<ConcurrentHashMap<String, String>> getFieldMapping() {
 		return fieldMapping;
 	}
 
-	public void setFieldMapping(ArrayList<ConcurrentHashMap<String, String>> fieldMapping) {
-		this.fieldMapping = fieldMapping;
+	public String[] getGrammaticalFeatures() {
+		return grammaticalFeatures;
 	}
 
-	public ArrayList<ConcurrentHashMap<String, ConcurrentHashMap<String, String>>> getFeatureMapping() {
-		return featureMapping;
+	public String getName() {
+		return name;
+	}
+
+	public String getPosTagField() {
+		return posTagField;
+	}
+
+	public String getQuote() {
+		return this.quote;
+	}
+
+	public boolean hasIncludedFeatureNameInRegex() {
+		return includeFeatureNameInRegex;
 	}
 
 	public void setFeatureMapping(
 			ArrayList<ConcurrentHashMap<String, ConcurrentHashMap<String, String>>> featureMapping) {
 		this.featureMapping = featureMapping;
+	}
+
+	public void setFieldMapping(ArrayList<ConcurrentHashMap<String, String>> fieldMapping) {
+		this.fieldMapping = fieldMapping;
+	}
+
+	public void setGrammaticalFeatures(String[] grammaticalFeatures) {
+		this.grammaticalFeatures = grammaticalFeatures;
+	}
+
+	public void setIncludeFeatureNameInRegex(boolean includeFeatureNameInRegex) {
+		this.includeFeatureNameInRegex = includeFeatureNameInRegex;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPosTagField(String posTagField) {
+		this.posTagField = posTagField;
+	}
+
+	public void setQuote(String quote) {
+		this.quote = quote;
+	}
+
+	public void setUseFeatureRegex(boolean useFeatureRegex) {
+		this.useFeatureRegex = useFeatureRegex;
+	}
+
+	public boolean usesFeatureRegex() {
+		return useFeatureRegex;
 	}
 
 	// --------------------------------------------------------------------

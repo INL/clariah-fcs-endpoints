@@ -1,5 +1,6 @@
 package org.ivdnt.fcs.endpoint.nederlab.results;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,6 +15,8 @@ import org.ivdnt.fcs.endpoint.nederlab.objectmapper.Document;
 import org.ivdnt.fcs.endpoint.nederlab.objectmapper.Token;
 import org.ivdnt.fcs.endpoint.nederlab.objectmapper.TokenProperty;
 import org.ivdnt.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class stores the hits of a Nederlab query, as part of the Nederlab
@@ -24,6 +27,10 @@ import org.ivdnt.util.StringUtils;
  *         TODO: als s bij de output zit, gaan de offsets fout
  */
 public class Hit {
+
+	// logger
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
 	private int startPosition;
 	private int endPosition;
 	private List<Token> tokens = new ArrayList<>();
@@ -93,6 +100,14 @@ public class Hit {
 	// ------------------------------------------------------------------------
 	// getters
 
+	public void addAndSortTokens(Collection<Token> tokens) {
+		// add tokens to our list of tokens
+		// and sort them according to their start index (= same order as in the corpus)
+
+		this.tokens.addAll(tokens);
+		Collections.sort(this.tokens, (t1, t2) -> Integer.compare(t1.getStartPosition(), t2.getStartPosition()));
+	}
+
 	public Document getDocument() {
 		return document;
 	}
@@ -101,20 +116,20 @@ public class Hit {
 		return documentKey;
 	}
 
-	public int getHitStart() {
-		return this.startPosition;
-	}
-
 	public int getHitEnd() {
 		return this.endPosition;
 	}
 
-	public List<Token> getTokens() {
-		return this.tokens;
+	public int getHitStart() {
+		return this.startPosition;
 	}
 
 	// ------------------------------------------------------------------------
 	// setters
+
+	public List<Token> getTokens() {
+		return this.tokens;
+	}
 
 	public void setDocument(Document document) {
 		this.document = document;
@@ -124,29 +139,15 @@ public class Hit {
 		this.documentKey = documentKey;
 	}
 
-	public void setHitStart(int startPosition) {
-		this.startPosition = startPosition;
-	}
-
 	public void setHitEnd(int endPosition) {
 		this.endPosition = endPosition;
 	}
 
-	public void addAndSortTokens(Collection<Token> tokens) {
-		// add tokens to our list of tokens
-		// and sort them according to their start index (= same order as in the corpus)
-
-		this.tokens.addAll(tokens);
-		Collections.sort(this.tokens, (t1, t2) -> Integer.compare(t1.getStartPosition(), t2.getStartPosition()));
+	public void setHitStart(int startPosition) {
+		this.startPosition = startPosition;
 	}
 
 	// ------------------------------------------------------------------------
-
-	public String toString() {
-		List<String> lines = tokens.stream().map(t -> t.toString()).collect(Collectors.toList());
-		return "(" + this.startPosition + "-" + this.endPosition + ") " + this.document.getField("NLTitle_title") + "\n"
-				+ StringUtils.join(lines, "; ");
-	}
 
 	public org.ivdnt.fcs.results.Kwic toKwic() {
 		org.ivdnt.fcs.results.Kwic kwic = new org.ivdnt.fcs.results.Kwic();
@@ -163,5 +164,11 @@ public class Hit {
 			kwic.setTokenProperties(pref, content);
 		});
 		return kwic;
+	}
+
+	public String toString() {
+		List<String> lines = tokens.stream().map(t -> t.toString()).collect(Collectors.toList());
+		return "(" + this.startPosition + "-" + this.endPosition + ") " + this.document.getField("NLTitle_title") + "\n"
+				+ StringUtils.join(lines, "; ");
 	}
 }

@@ -1,6 +1,7 @@
 package org.ivdnt.fcs.endpoint.nederlab;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.invoke.MethodHandles;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,8 +13,13 @@ import org.ivdnt.fcs.endpoint.nederlab.client.NederlabClient;
 import org.ivdnt.fcs.endpoint.nederlab.client.QueryTemplate;
 import org.ivdnt.fcs.endpoint.nederlab.results.NederlabResultSet;
 import org.ivdnt.fcs.results.ResultSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class NederlabQuery extends org.ivdnt.fcs.client.Query {
+
+	// logger
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	// template needed to build a well formed Nederlab query
 
@@ -49,15 +55,16 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 	 *            a query like [word='lopen']
 	 * 
 	 */
-	public NederlabQuery(ServletContext contextCache, String server, String corpus, String cqpQuery, int startPosition, int maximumResults, QueryTemplate nederlabQueryTemplate,
-			QueryTemplate nederlabDocumentQueryTemplate, String engineNativeUrlTemplate, List<String> nederlabExtraResponseFields) {
+	public NederlabQuery(ServletContext contextCache, String server, String corpus, String cqpQuery, int startPosition,
+			int maximumResults, QueryTemplate nederlabQueryTemplate, QueryTemplate nederlabDocumentQueryTemplate,
+			String engineNativeUrlTemplate, List<String> nederlabExtraResponseFields) {
 		super(server, corpus, cqpQuery, startPosition, maximumResults, engineNativeUrlTemplate);
-		
+
 		this.contextCache = contextCache;
 		// template to build Nederlab queries
 		this.nederlabQueryTemplate = nederlabQueryTemplate;
 		this.nederlabDocumentQueryTemplate = nederlabDocumentQueryTemplate;
-		
+
 		this.nederlabExtraResponseFields = nederlabExtraResponseFields;
 
 		// make sure the CQL query
@@ -68,8 +75,8 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 		cqlQuery = cqlQuery.replaceAll("'", "\"");
 		this.setCqpQuery(cqlQuery);
 
-		//System.err.println("CQP to nederlab:" + this.getCqpQuery());
-		
+		// System.err.println("CQP to nederlab:" + this.getCqpQuery());
+
 		// Form native URL based on template and URL-encoded query string
 		String engineNativeUrl = "";
 		if (!engineNativeUrlTemplate.isEmpty()) {
@@ -93,7 +100,8 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 
 		// search
 
-		NederlabClient nederlabClient = new NederlabClient(this.contextCache, this.nederlabQueryTemplate, this.nederlabDocumentQueryTemplate, this.getServer(), this.nederlabExtraResponseFields);
+		NederlabClient nederlabClient = new NederlabClient(this.contextCache, this.nederlabQueryTemplate,
+				this.nederlabDocumentQueryTemplate, this.getServer(), this.nederlabExtraResponseFields);
 
 		NederlabResultSet nederlabResultSet = nederlabClient.doSearch(this.getCqpQuery(), this.getStartPosition(),
 				this.getMaximumResults());
@@ -111,7 +119,7 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 		fcsResultSet.setQuery(this);
 		fcsResultSet.setTotalNumberOfResults(nederlabResultSet.getTotalNumberOfHits());
 
-		System.err.println("Result set determined " + fcsResultSet.toString());
+		logger.info("Result set determined " + fcsResultSet.toString());
 		return fcsResultSet;
 	}
 

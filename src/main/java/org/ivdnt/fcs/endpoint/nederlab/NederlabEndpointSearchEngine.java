@@ -1,5 +1,6 @@
 package org.ivdnt.fcs.endpoint.nederlab;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -9,6 +10,8 @@ import org.ivdnt.fcs.endpoint.nederlab.client.QueryTemplate;
 import org.ivdnt.fcs.mapping.ConversionEngine;
 import org.ivdnt.fcs.results.FcsSearchResultSet;
 import org.ivdnt.fcs.results.ResultSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import eu.clarin.sru.server.SRUConstants;
 import eu.clarin.sru.server.SRUDiagnosticList;
@@ -17,9 +20,10 @@ import eu.clarin.sru.server.SRURequest;
 import eu.clarin.sru.server.SRUSearchResultSet;
 import eu.clarin.sru.server.SRUServerConfig;
 
-import org.ivdnt.util.TestCgn;
-
 public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
+
+	// logger
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	private QueryTemplate nederlabQueryTemplate;
 	private QueryTemplate nederlabDocumentQueryTemplate;
@@ -29,8 +33,9 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 	// ---------------------------------------------------------------------------------
 	// constructors
 
-	public NederlabEndpointSearchEngine(ServletContext contextCache, String server, ConversionEngine conversionEngine, String nederlabQueryTemplate, String nederlabDocumentQueryTemplate, 
-			String engineNativeUrlTemplate, List<String> nederlabExtraResponseFields) {
+	public NederlabEndpointSearchEngine(ServletContext contextCache, String server, ConversionEngine conversionEngine,
+			String nederlabQueryTemplate, String nederlabDocumentQueryTemplate, String engineNativeUrlTemplate,
+			List<String> nederlabExtraResponseFields) {
 		super(server, conversionEngine, engineNativeUrlTemplate);
 
 		// instantiate a Nederlab query template (needed to post well formed query's to
@@ -52,20 +57,18 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 	 */
 	public SRUSearchResultSet search(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics)
 			throws SRUException {
-		
-		/*TestCgn.testQueries(contextCache, this.getConversionEngine());
-		if (true) {
-			return null;
-		}*/
-		
-		
+
+		/*
+		 * TestCgn.testQueries(contextCache, this.getConversionEngine()); if (true) {
+		 * return null; }
+		 */
+
 		String cqpQuery = "";
 		// translate FCS into CQP
 		try {
 			cqpQuery = BasicEndpointSearchEngine.translateQuery(request, this.getConversionEngine());
-		}
-		catch (Exception e) {
-			System.err.println("Rethrowing as SRU exception:" + e);
+		} catch (Exception e) {
+			logger.error("Rethrowing as SRU exception:" + e);
 			throw new SRUException(SRUConstants.SRU_UNSUPPORTED_PARAMETER,
 					"The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage());
 		}
@@ -73,9 +76,10 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 
 		// instantiate the Nederlab query
 		// fcs begint bij 1 te tellen, nederlab bij 0 (?)
-		NederlabQuery nederlabQuery = new NederlabQuery(contextCache, this.getServer(), fcsContextCorpus, cqpQuery, request.getStartRecord() - 1, request.getMaximumRecords(),
-				this.nederlabQueryTemplate, this.nederlabDocumentQueryTemplate, this.getEngineNativeUrlTemplate(), this.nederlabExtraResponseFields);
-
+		NederlabQuery nederlabQuery = new NederlabQuery(contextCache, this.getServer(), fcsContextCorpus, cqpQuery,
+				request.getStartRecord() - 1, request.getMaximumRecords(), this.nederlabQueryTemplate,
+				this.nederlabDocumentQueryTemplate, this.getEngineNativeUrlTemplate(),
+				this.nederlabExtraResponseFields);
 
 		// start the search and get the results
 
@@ -93,7 +97,6 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 					"The query execution failed by this CLARIN-FCS (nederlab) endpoint. " + nederlabQuery + "\n" + e);
 		}
 	}
-
 
 	// ---------------------------------------------------------------------------------
 }

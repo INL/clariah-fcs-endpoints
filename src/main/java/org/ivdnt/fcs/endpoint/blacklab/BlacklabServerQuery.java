@@ -20,6 +20,8 @@ import org.ivdnt.fcs.results.ResultSet;
 import org.ivdnt.util.JsonUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is about sending a query to the BlacklabServer and collect its
@@ -29,6 +31,8 @@ import org.json.simple.JSONObject;
  *
  */
 public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
+
+	private final static Logger logger = LoggerFactory.getLogger(BlacklabServerQuery.class);
 
 	// private String server = BlacklabConstants.DEFAULT_SERVER;
 	// private String corpus = BlacklabConstants.DEFAULT_CORPUS;
@@ -50,64 +54,26 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 	 *            a query like [word='lopen']
 	 * 
 	 */
-	public BlacklabServerQuery(String server, String corpus, String cqpQuery, int startPosition, int maximumResults, String engineNativeUrlTemplate) {
+	public BlacklabServerQuery(String server, String corpus, String cqpQuery, int startPosition, int maximumResults,
+			String engineNativeUrlTemplate) {
 		super(server, corpus, cqpQuery, startPosition, maximumResults, engineNativeUrlTemplate);
 		// Form native URL based on template and URL-encoded query string
 		String engineNativeUrl = "";
 		if (!engineNativeUrlTemplate.isEmpty()) {
 			// From some corpora, do not add request parameters
-			List<String> noParamsCorpora = Arrays.asList("opensonar","zeebrieven", "gysseling");
+			List<String> noParamsCorpora = Arrays.asList("opensonar", "zeebrieven", "gysseling");
 			if (noParamsCorpora.contains(corpus)) {
 				engineNativeUrl = this.getEngineNativeUrlTemplate();
-			}
-			else {
+			} else {
 				// For other corpora, add request parameters
 				engineNativeUrl = this.getSruRequestUrl(true);
 			}
 		}
 		this.setEngineNativeUrl(engineNativeUrl);
-		
-		
+
 	}
 
 	// ------------------------------------------------------------------------------
-
-	/**
-	 * Build a SRU request URL to be able to send some CQL query.
-	 * 
-	 * The CQL query will be put into the 'patt' parameter of the SRU request.
-	 * 
-	 * @return the SRU URL with the CQL in it
-	 */
-	public String getSruRequestUrl(Boolean returnNativeUrl) {
-		String url;
-		try {
-			if (returnNativeUrl) {
-				url = this.getEngineNativeUrlTemplate();
-			}
-			else {
-				url = this.getServer();
-			}
-			url += url.endsWith("/") ? "" : "/";
-			url += this.getCorpus() + "/";
-			if (returnNativeUrl) {
-				url += "search/";
-			}
-			url += "hits?" + "patt=" + URLEncoder.encode(this.getCqpQuery(), "utf-8")
-					+ "&first=" + this.getStartPosition() + "&number=" 
-					+ this.getMaximumResults();
-			
-			if (!returnNativeUrl) {
-				url += "&outputformat=json";
-			}
-
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException("Exception while encoding query: " + this.getCqpQuery(), e);
-		}
-		
-		
-		return url;
-	}
 
 	/**
 	 * Execute a prepared search (prepared in
@@ -126,74 +92,47 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 		resultSet.setQuery(this);
 		resultSet.setTotalNumberOfResults(this.getTotalNumberOfResults());
 
-		System.err.println("execute OK: result set " + resultSet);
+		logger.info("execute OK: result set " + resultSet);
 		return resultSet;
+	}
+
+	/**
+	 * Build a SRU request URL to be able to send some CQL query.
+	 * 
+	 * The CQL query will be put into the 'patt' parameter of the SRU request.
+	 * 
+	 * @return the SRU URL with the CQL in it
+	 */
+	public String getSruRequestUrl(Boolean returnNativeUrl) {
+		String url;
+		try {
+			if (returnNativeUrl) {
+				url = this.getEngineNativeUrlTemplate();
+			} else {
+				url = this.getServer();
+			}
+			url += url.endsWith("/") ? "" : "/";
+			url += this.getCorpus() + "/";
+			if (returnNativeUrl) {
+				url += "search/";
+			}
+			url += "hits?" + "patt=" + URLEncoder.encode(this.getCqpQuery(), "utf-8") + "&first="
+					+ this.getStartPosition() + "&number=" + this.getMaximumResults();
+
+			if (!returnNativeUrl) {
+				url += "&outputformat=json";
+			}
+
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException("Exception while encoding query: " + this.getCqpQuery(), e);
+		}
+
+		return url;
 	}
 
 	// ---------------------------------------------------------------------------------------
 
 	// private methods, which are sub-routines of the execute() method
-
-	/**
-	 * Send a query to Blacklab and get the response
-	 * 
-	 * @param blacklabServerResultSet
-	 * @return List of keywords in context (Kwic)
-	 * @throws Exception
-	 */
-	private List<Kwic> search(ResultSet blacklabServerResultSet) throws Exception {
-
-		String blackLabSruUrl = this.getSruRequestUrl(false);
-
-		System.err.println("URL to blacklab server: " + blackLabSruUrl);
-
-		// send a query to Blacklab and get the response
-
-		JSONObject jsonObjResponse = this.sendQuery(blackLabSruUrl);
-
-		// parse the response
-
-		JSONObject summary = (JSONObject) jsonObjResponse.get("summary");
-		JSONArray hits = (JSONArray) jsonObjResponse.get("hits");
-		JSONObject docs = (JSONObject) jsonObjResponse.get("docInfos");
-
-		if (summary == null) {
-			System.err.println("!Error: no summary in response " + jsonObjResponse);
-		}
-
-		@SuppressWarnings("unchecked")
-		Set<String> docsKeySet = docs.keySet();
-		docsKeySet.forEach(docId -> {
-			Document d = new Document();
-			@SuppressWarnings("unchecked")
-			Map<String, Object> doc = (Map<String, Object>) docs.get(docId);
-			doc.forEach((k, v) -> d.addMetadata(k.toString(), v.toString()));
-
-			blacklabServerResultSet.addDocument(docId.toString(), d);
-		});
-
-		// Set total number of hits, can be more than the number of hits returned
-		// by this API call, which is thresholded by maximumRecords
-		Object nof = summary.get("numberOfHits");
-		if (nof instanceof Integer) {
-			this.setTotalNumberOfResults((Integer) nof);
-		} else if (nof instanceof Long) {
-			this.setTotalNumberOfResults(((Long) nof).intValue());
-		}
-
-		// process the hits:
-		//
-		// for each hit, we will build a list of token
-		// consisting of the match and its left and right context
-
-		List<Kwic> results = parseResults(hits, docs);
-
-		// Print number of hits returned by this API call,
-		// determined by maximumRecords, can be equal or less than total
-		// number of hits.
-		System.err.printf("Loop completed, %d hits !\n", results.size());
-		return results;
-	}
 
 	/**
 	 * Parse the hits and documents returned by Blacklab
@@ -213,7 +152,7 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 
 				JSONObject hit = (JSONObject) hits.get(i);
 				@SuppressWarnings("unchecked")
-				HashMap<String,Object> doc = (HashMap<String,Object>) docs.get((String) hit.get("docPid"));
+				HashMap<String, Object> doc = (HashMap<String, Object>) docs.get((String) hit.get("docPid"));
 
 				doc.forEach((k, v) -> kwic.getMetadata().put(k.toString(), v.toString()));
 				// or put this in separate document info objects?
@@ -280,6 +219,67 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 	}
 
 	/**
+	 * Send a query to Blacklab and get the response
+	 * 
+	 * @param blacklabServerResultSet
+	 * @return List of keywords in context (Kwic)
+	 * @throws Exception
+	 */
+	private List<Kwic> search(ResultSet blacklabServerResultSet) throws Exception {
+
+		String blackLabSruUrl = this.getSruRequestUrl(false);
+
+		logger.info("URL to blacklab server: " + blackLabSruUrl);
+
+		// send a query to Blacklab and get the response
+
+		JSONObject jsonObjResponse = this.sendQuery(blackLabSruUrl);
+
+		// parse the response
+
+		JSONObject summary = (JSONObject) jsonObjResponse.get("summary");
+		JSONArray hits = (JSONArray) jsonObjResponse.get("hits");
+		JSONObject docs = (JSONObject) jsonObjResponse.get("docInfos");
+
+		if (summary == null) {
+			logger.error("!Error: no summary in response " + jsonObjResponse);
+		}
+
+		@SuppressWarnings("unchecked")
+		Set<String> docsKeySet = docs.keySet();
+		docsKeySet.forEach(docId -> {
+			Document d = new Document();
+			@SuppressWarnings("unchecked")
+			Map<String, Object> doc = (Map<String, Object>) docs.get(docId);
+			doc.forEach((k, v) -> d.addMetadata(k.toString(), v.toString()));
+
+			blacklabServerResultSet.addDocument(docId.toString(), d);
+		});
+
+		// Set total number of hits, can be more than the number of hits returned
+		// by this API call, which is thresholded by maximumRecords
+		Object nof = summary.get("numberOfHits");
+		if (nof instanceof Integer) {
+			this.setTotalNumberOfResults((Integer) nof);
+		} else if (nof instanceof Long) {
+			this.setTotalNumberOfResults(((Long) nof).intValue());
+		}
+
+		// process the hits:
+		//
+		// for each hit, we will build a list of token
+		// consisting of the match and its left and right context
+
+		List<Kwic> results = parseResults(hits, docs);
+
+		// Print number of hits returned by this API call,
+		// determined by maximumRecords, can be equal or less than total
+		// number of hits.
+		System.err.printf("Loop completed, %d hits !\n", results.size());
+		return results;
+	}
+
+	/**
 	 * Send an http request to Blacklab, and return the JSON output
 	 * 
 	 * @param url
@@ -309,7 +309,7 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 
 			try {
 				JSONObject errorObject = JsonUtils.getJsonFromStream(input);
-				System.err.println("Error: " + errorObject.toJSONString());
+				logger.error("Error: " + errorObject.toJSONString());
 				throw new Exception(errorObject.toJSONString());
 			} catch (Exception e1) {
 				throw e1;

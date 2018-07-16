@@ -26,23 +26,23 @@ public class NederlabResultSet {
 	// -----------------------------------------------------------------------------
 	// getters
 
-	public List<Hit> getResults() {
-		return results;
+	public void addResult(Hit oneHit) {
+		this.results.add(oneHit);
 	}
 
-	public int getTotalNumberOfHits() {
-		return totalNumberOfHits;
+	public List<Hit> getResults() {
+		return results;
 	}
 
 	// -----------------------------------------------------------------------------
 	// setters
 
-	public void setResults(List<Hit> results) {
-		this.results = results;
+	public int getTotalNumberOfHits() {
+		return totalNumberOfHits;
 	}
 
-	public void addResult(Hit oneHit) {
-		this.results.add(oneHit);
+	public void setResults(List<Hit> results) {
+		this.results = results;
 	}
 
 	public void setTotalNumberOfHits(int totalNumberOfHits) {

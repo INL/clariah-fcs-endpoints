@@ -24,29 +24,26 @@ import java.util.Map;
  *
  */
 public class TokenProperty {
-	/*// see explanation above
+	/*
+	 * // see explanation above
+	 * 
+	 * private String prefix; // this can have value 't'=token, or 'pos', or 'lemma'
+	 * private String value; private int positionStart; private int positionEnd;
+	 * 
+	 * // these variables are not processed in the java code, // but they are needed
+	 * for the Json ObjectMapper to work properly // (so it's able to map a Json
+	 * property to a Java variable) // so don't remove these variables...
+	 * 
+	 * public int mtasId; public String valueposition; public int parentMtasId;
+	 */
 
-	private String prefix; // this can have value 't'=token, or 'pos', or 'lemma'
-	private String value;
-	private int positionStart;
-	private int positionEnd;
+	private Map<String, Object> data;
 
-	// these variables are not processed in the java code,
-	// but they are needed for the Json ObjectMapper to work properly
-	// (so it's able to map a Json property to a Java variable)
-	// so don't remove these variables...
-
-	public int mtasId;
-	public String valueposition;
-	public int parentMtasId;*/
-	
-	private Map<String,Object> data;
-	
-	public TokenProperty(Map<String,Object> obj) {
+	public TokenProperty(Map<String, Object> obj) {
 		// Map values stay Object (text or number): no conversion to string performed
 		data = obj;
 	}
-	
+
 	public Object getField(String fieldName) {
 		if (!data.containsKey(fieldName)) {
 			throw new NullPointerException("Key " + fieldName + " does not exist in TokenProperty object.");
@@ -57,6 +54,14 @@ public class TokenProperty {
 	// -----------------------------------------------------------------------------
 	// getters
 
+	public int getPositionEnd() {
+		return (int) getField("positionEnd");
+	}
+
+	public int getPositionStart() {
+		return (int) getField("positionStart");
+	}
+
 	public String getPrefix() {
 		return (String) getField("prefix");
 	}
@@ -64,14 +69,5 @@ public class TokenProperty {
 	public String getValue() {
 		return (String) getField("value");
 	}
-
-	public int getPositionStart() {
-		return (int) getField("positionStart");
-	}
-
-	public int getPositionEnd() {
-		return (int) getField("positionEnd");
-	}
-
 
 };

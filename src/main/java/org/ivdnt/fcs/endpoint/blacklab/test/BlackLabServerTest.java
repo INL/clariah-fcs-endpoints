@@ -1,10 +1,17 @@
 package org.ivdnt.fcs.endpoint.blacklab.test;
 
+import java.lang.invoke.MethodHandles;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BlackLabServerTest {
-	// http://localhost:8080/blacklab-server-1.6.0/ezel/hits?patt=%22ezel%22
+
+	// logger
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
 	/** The BlackLab Server url for searching "mycorpus" (not a real URL) */
 	final static String BASE_URL = "http://localhost:8080/blacklab-server-1.6.0/ezel/";
 
@@ -15,27 +22,6 @@ public class BlackLabServerTest {
 	 *            the url to fetch
 	 * @return the page fetched
 	 */
-
-	/**
-	 * Context of the hit is passed in arrays, per property (word/lemma/PoS). Right
-	 * now we only want to display the words. This is how we join the word array to
-	 * a string.
-	 * 
-	 * @param context
-	 *            context structure containing word, lemma, PoS.
-	 * @return the words joined together with spaces.
-	 */
-	static String words(JSONObject context) {
-		System.err.println("context key set:" + context.keySet());
-		JSONArray words = (JSONArray) context.get("word");
-		StringBuilder b = new StringBuilder();
-		for (int i = 0; i < words.size(); i++) {
-			if (b.length() > 0)
-				b.append(" ");
-			b.append((String) words.get(i));
-		}
-		return b.toString();
-	}
 
 	/**
 	 * Show an array of hits in an HTML table.
@@ -69,7 +55,28 @@ public class BlackLabServerTest {
 					+ "</td></tr>\n");
 		}
 		html.append("</table>\n");
-		System.out.println(html.toString()); // Join lines and output
+		logger.info(html.toString()); // Join lines and output
+	}
+
+	/**
+	 * Context of the hit is passed in arrays, per property (word/lemma/PoS). Right
+	 * now we only want to display the words. This is how we join the word array to
+	 * a string.
+	 * 
+	 * @param context
+	 *            context structure containing word, lemma, PoS.
+	 * @return the words joined together with spaces.
+	 */
+	static String words(JSONObject context) {
+		logger.info("context key set:" + context.keySet());
+		JSONArray words = (JSONArray) context.get("word");
+		StringBuilder b = new StringBuilder();
+		for (int i = 0; i < words.size(); i++) {
+			if (b.length() > 0)
+				b.append(" ");
+			b.append((String) words.get(i));
+		}
+		return b.toString();
 	}
 
 	/**

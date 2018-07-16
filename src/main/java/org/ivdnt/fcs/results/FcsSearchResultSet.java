@@ -1,5 +1,6 @@
 package org.ivdnt.fcs.results;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -7,6 +8,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
 import org.ivdnt.fcs.client.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import eu.clarin.sru.server.SRUDiagnosticList;
 import eu.clarin.sru.server.SRUException;
@@ -33,9 +36,14 @@ public class FcsSearchResultSet extends SRUSearchResultSet {
 	// is packed into a bigger result object FcsSearchResultSet
 	// which the extra information Jesse wanted to be able to send
 
+	// logger
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+	public static final String CLARIN_FCS_RECORD_SCHEMA = "http://clarin.eu/fcs/resource";
 	SRURequest request;
 	String corpus;
 	ResultSet resultSet;
+
 	Query query;
 
 	// list of text results, t.i. keywords in context (Kwic)
@@ -43,8 +51,6 @@ public class FcsSearchResultSet extends SRUSearchResultSet {
 
 	// instantiate current record number
 	int currentRecordNr = -1;
-
-	public static final String CLARIN_FCS_RECORD_SCHEMA = "http://clarin.eu/fcs/resource";
 
 	// ---------------------------------------------------------------------------------
 
@@ -79,31 +85,8 @@ public class FcsSearchResultSet extends SRUSearchResultSet {
 	// getters
 
 	@Override
-	public int getTotalRecordCount() {
-		return this.resultSet.getTotalNumberOfResults();
-	}
-
-	@Override
 	public int getRecordCount() {
 		return this.hits.size();
-	}
-
-	@Override
-	public String getRecordSchemaIdentifier() {
-
-		return this.request.getRecordSchemaIdentifier() != null ?
-
-				this.request.getRecordSchemaIdentifier() : CLARIN_FCS_RECORD_SCHEMA;
-	}
-
-	@Override
-	public boolean nextRecord() throws SRUException {
-
-		if (currentRecordNr + 1 < hits.size()) {
-			currentRecordNr++;
-			return true;
-		}
-		return false;
 	}
 
 	/**
@@ -119,6 +102,19 @@ public class FcsSearchResultSet extends SRUSearchResultSet {
 		// return "rid:" + currentRecord;
 	}
 
+	@Override
+	public String getRecordSchemaIdentifier() {
+
+		return this.request.getRecordSchemaIdentifier() != null ?
+
+				this.request.getRecordSchemaIdentifier() : CLARIN_FCS_RECORD_SCHEMA;
+	}
+
+	@Override
+	public int getTotalRecordCount() {
+		return this.resultSet.getTotalNumberOfResults();
+	}
+
 	/**
 	 * Check, if extra record data should be serialized for the current record.
 	 * Return true, since we have extra record data: the converted query.
@@ -132,8 +128,48 @@ public class FcsSearchResultSet extends SRUSearchResultSet {
 		return true;
 	}
 
+	@Override
+	public boolean nextRecord() throws SRUException {
+
+		if (currentRecordNr + 1 < hits.size()) {
+			currentRecordNr++;
+			return true;
+		}
+		return false;
+	}
+
 	// ---------------------------------------------------------------------------------
 	// setters / writers
+
+	/**
+	 * Serialize extra record data for the current record. In our case, we write the
+	 * converted query. In fact, it is redundant to return the same converted query
+	 * for every hit, but this is the only allowed way to add extra information to
+	 * the XML in the current framework.
+	 *
+	 * @param writer
+	 *            the {@link XMLStreamException} instance to be used
+	 * @throws XMLStreamException
+	 *             an error occurred while serializing the result extra data
+	 * @throws NoSuchElementException
+	 *             result set past already advanced past all records
+	 * @see #hasExtraRecordData()
+	 */
+	public void writeExtraRecordData(XMLStreamWriter writer) throws XMLStreamException {
+		// Output query, converted to the format of the target corpus
+		writer.writeStartElement("", "convertedQuery");
+		writer.writeCharacters(this.query.getCqpQuery());
+		writer.writeEndElement();
+
+		// Output URL of the native web application where users can
+		// visit the query
+		String engineNativeUrl = this.query.getEngineNativeUrl();
+		if (!engineNativeUrl.isEmpty()) {
+			writer.writeStartElement("", "nativeUrl");
+			writer.writeCharacters(engineNativeUrl);
+			writer.writeEndElement();
+		}
+	}
 
 	/**
 	 * Write the results (keywords in context) as a value of the 'kwic' key in the
@@ -245,36 +281,6 @@ public class FcsSearchResultSet extends SRUSearchResultSet {
 			throw new XMLStreamException(e.getMessage());
 		}
 
-	}
-
-	/**
-	 * Serialize extra record data for the current record. In our case, we write the
-	 * converted query. In fact, it is redundant to return the same converted query
-	 * for every hit, but this is the only allowed way to add extra information to
-	 * the XML in the current framework.
-	 *
-	 * @param writer
-	 *            the {@link XMLStreamException} instance to be used
-	 * @throws XMLStreamException
-	 *             an error occurred while serializing the result extra data
-	 * @throws NoSuchElementException
-	 *             result set past already advanced past all records
-	 * @see #hasExtraRecordData()
-	 */
-	public void writeExtraRecordData(XMLStreamWriter writer) throws XMLStreamException {
-		// Output query, converted to the format of the target corpus
-		writer.writeStartElement("", "convertedQuery");
-		writer.writeCharacters(this.query.getCqpQuery());
-		writer.writeEndElement();
-
-		// Output URL of the native web application where users can
-		// visit the query
-		String engineNativeUrl = this.query.getEngineNativeUrl();
-		if (!engineNativeUrl.isEmpty()) {
-			writer.writeStartElement("", "nativeUrl");
-			writer.writeCharacters(engineNativeUrl);
-			writer.writeEndElement();
-		}
 	}
 
 	// ---------------------------------------------------------------------------------

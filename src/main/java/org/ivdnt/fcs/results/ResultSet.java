@@ -35,47 +35,46 @@ public class ResultSet {
 	// The documents in which the hits were found
 	private Map<String, Document> documents = new ConcurrentHashMap<>();
 
-
 	// --------------------------------------------------------------------
 	// getters
 
-	public Query getQuery() {
-		return query;
-	}
-
-	public int getTotalNumberOfResults() {
-		return totalNumberOfResults;
-	}
-
-	public List<Kwic> getHits() {
-		return hits;
+	public void addDocument(String id, Document document) {
+		this.documents.put(id, document);
 	}
 
 	public Map<String, Document> getDocuments() {
 		return documents;
 	}
 
+	public List<Kwic> getHits() {
+		return hits;
+	}
+
+	public Query getQuery() {
+		return query;
+	}
+
 	// --------------------------------------------------------------------
 	// setters
 
-	public void setTotalNumberOfResults(int totalNumberOfResults) {
-		this.totalNumberOfResults = totalNumberOfResults;
-	}
-
-	public void setQuery(Query query) {
-		this.query = query;
-	}
-
-	public void setHits(List<Kwic> hits) {
-		this.hits = hits;
+	public int getTotalNumberOfResults() {
+		return totalNumberOfResults;
 	}
 
 	public void setDocuments(Map<String, Document> documents) {
 		this.documents = documents;
 	}
 
-	public void addDocument(String id, Document document) {
-		this.documents.put(id, document);
+	public void setHits(List<Kwic> hits) {
+		this.hits = hits;
+	}
+
+	public void setQuery(Query query) {
+		this.query = query;
+	}
+
+	public void setTotalNumberOfResults(int totalNumberOfResults) {
+		this.totalNumberOfResults = totalNumberOfResults;
 	}
 
 	// --------------------------------------------------------------------
