@@ -43,7 +43,7 @@ public class BlacklabServerEndpointSearchEngine extends BasicEndpointSearchEngin
 		} catch (Exception e) {
 			logger.error("Rethrowing as SRU exception:" + e);
 			throw new SRUException(SRUConstants.SRU_UNSUPPORTED_PARAMETER,
-					"The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage());
+					"Error during translation of query from UD to corpus-specific tagset. The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage());
 		}
 
 		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request,
@@ -70,7 +70,7 @@ public class BlacklabServerEndpointSearchEngine extends BasicEndpointSearchEngin
 		} catch (Exception e) {
 			logger.error("Rethrowing as SRU exception:" + e);
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
-					"The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage()
+					"Error during execution of query or back-translation to UD. The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage()
 							+ "; Query: " + blacklabServerQuery.toString());
 		}
 	}

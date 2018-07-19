@@ -70,7 +70,7 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 		} catch (Exception e) {
 			logger.error("Rethrowing as SRU exception:" + e);
 			throw new SRUException(SRUConstants.SRU_UNSUPPORTED_PARAMETER,
-					"The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage());
+					"Error during translation of query from UD to corpus-specific tagset. The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage());
 		}
 		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request, "nederlab");
 
@@ -94,7 +94,7 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 
 		} catch (Exception e) {
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
-					"The query execution failed by this CLARIN-FCS (nederlab) endpoint. " + nederlabQuery + "\n" + e);
+					"Error during execution of query or back-translation to UD. The query execution failed by this CLARIN-FCS (nederlab) endpoint. " + nederlabQuery + "\n" + e);
 		}
 	}
 
