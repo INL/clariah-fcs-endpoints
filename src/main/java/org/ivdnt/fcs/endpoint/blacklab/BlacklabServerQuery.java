@@ -186,10 +186,13 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 
 					// add MATCH
 					// and note the start and end position of it
-					if (pname.equals("word"))
+					String pnameLc = pname.toLowerCase();
+					
+					// Use lower case property name to match to 'word'
+					if (pnameLc.equals("word"))
 						hitStart = tokensList.size();
 					tokensList.addAll(JsonUtils.getProperty(match, pname));
-					if (pname.equals("word"))
+					if (pnameLc.equals("word"))
 						hitEnd = tokensList.size();
 
 					// [3] -----------------------------
@@ -200,9 +203,9 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 					// add keyword in context (Kwic)
 					// NB: the tokensList is sorted, so each property has the same index
 					// as the token it represents!
-
-					kwic.addTokenPropertyName(pname);
-					kwic.setTokenProperties(pname, tokensList);
+					// Use lower case property name to store the token
+					kwic.addTokenPropertyName(pnameLc);
+					kwic.setTokenProperties(pnameLc, tokensList);
 				}
 
 				// store the start and end position of the matched token (=part [2] hereabove)

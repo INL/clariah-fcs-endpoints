@@ -244,6 +244,8 @@ public class NederlabClient {
 				for (int l = 0; l < tokens.size(); l++) {
 					@SuppressWarnings("unchecked")
 					Map<String, Object> tok = (Map<String, Object>) (tokens.get(l));
+					String propLc = ((String) tok.get("prefix")).toLowerCase();
+					tok.put("prefix", propLc);
 					TokenProperty t = new TokenProperty(tok);
 					tokenProps.add(t);
 				}

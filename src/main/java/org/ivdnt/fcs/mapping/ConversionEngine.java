@@ -169,10 +169,12 @@ public class ConversionEngine {
 	}
 
 	private void init() {
+		
+		// All feature names are converted to lower case
 
 		for (int i = 0; i < this.fieldMappingArr.size(); i++) {
 			ConcurrentHashMap<String, String> onePair = this.fieldMappingArr.get(i);
-			this.fieldMap.put(onePair.get("from"), onePair.get("to"));
+			this.fieldMap.put(onePair.get("from").toLowerCase(), onePair.get("to").toLowerCase());
 		}
 
 		// this part is about pos tags translation
@@ -193,7 +195,7 @@ public class ConversionEngine {
 			// https://stackoverflow.com/questions/26230225/hashmap-getting-first-key-value
 
 			Map.Entry<String, String> entry = fromSet.entrySet().iterator().next();
-			String featureFrom = entry.getKey();
+			String featureFrom = entry.getKey().toLowerCase();
 			String featureTo = entry.getValue();
 
 			Feature sourceFeature = new Feature(featureFrom, featureTo);
@@ -206,7 +208,7 @@ public class ConversionEngine {
 			FeatureConjunction featureConjunction = new FeatureConjunction();
 
 			for (String oneKey : toSet.keySet()) {
-				String featureConjFrom = oneKey;
+				String featureConjFrom = oneKey.toLowerCase();
 				String featureConjTo = toSet.get(oneKey);
 
 				featureConjunction.put(featureConjFrom, featureConjTo);
@@ -457,7 +459,7 @@ public class ConversionEngine {
 								// normal case:
 								// input is a string like 'featureName = featureValue'
 								else {
-									featureName = oneFeature.split("=")[0];
+									featureName = oneFeature.split("=")[0].toLowerCase();
 									featureValue = oneFeature.split("=")[1];
 								}
 								// add the feature to the token properties
