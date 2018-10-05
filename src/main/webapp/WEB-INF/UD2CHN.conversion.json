@@ -106,15 +106,6 @@
 		},
 		{
 			"from": {
-				"pos": "AUX"
-			},
-			"to": {
-				"pos": "VRB",
-				"comment": "HM"
-			}
-		},
-		{
-			"from": {
 				"pos": "DET"
 			},
 			"to": {
@@ -167,15 +158,6 @@
 				"pos": "CONJ",
 				"type": "sub",
 				"comment": "HM"
-			}
-		},
-		{
-			"from": {
-				"pos": "PUNCT"
-			},
-			"to": {
-				"pos": "RES",
-				"comment": "HM hebben we niet"
 			}
 		},
 		{

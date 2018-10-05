@@ -195,10 +195,10 @@ public class ConversionEngine {
 			// https://stackoverflow.com/questions/26230225/hashmap-getting-first-key-value
 
 			Map.Entry<String, String> entry = fromSet.entrySet().iterator().next();
-			String featureFrom = entry.getKey().toLowerCase();
-			String featureTo = entry.getValue();
+			String sourceFeatureName = entry.getKey().toLowerCase();
+			String sourceFeatureValue = entry.getValue();
 
-			Feature sourceFeature = new Feature(featureFrom, featureTo);
+			Feature sourceFeature = new Feature(sourceFeatureName, sourceFeatureValue);
 
 			// Destination tag
 			// ---------------
@@ -208,10 +208,10 @@ public class ConversionEngine {
 			FeatureConjunction featureConjunction = new FeatureConjunction();
 
 			for (String oneKey : toSet.keySet()) {
-				String featureConjFrom = oneKey.toLowerCase();
-				String featureConjTo = toSet.get(oneKey);
+				String destFeatureName = oneKey.toLowerCase();
+				String destFeatureValue = toSet.get(oneKey);
 
-				featureConjunction.put(featureConjFrom, featureConjTo);
+				featureConjunction.put(destFeatureName, destFeatureValue);
 			}
 
 			// A set of FeatureConjunction means that we have different
@@ -236,14 +236,19 @@ public class ConversionEngine {
 			// a set (OR-relation, meaning different possible translations)
 			// but only a featureConjunction (conjunctions of features)
 			//
-			Set<Feature> universalDependencies = this.featureBackMap.get(featureConjunction);
-
-			if (universalDependencies == null)
-				universalDependencies = new HashSet<Feature>();
-
-			universalDependencies.add(sourceFeature);
-
-			this.featureBackMap.put(featureConjunction, universalDependencies);
+			
+			// Only add features which translate back to a POS tag in UD:
+			// TODO in the future: applying multiple rules, also non-POS tag rules, should be applied
+			if (sourceFeatureName=="pos") {
+				Set<Feature> universalDependencies = this.featureBackMap.get(featureConjunction);
+	
+				if (universalDependencies == null)
+					universalDependencies = new HashSet<Feature>();
+	
+				universalDependencies.add(sourceFeature);
+	
+				this.featureBackMap.put(featureConjunction, universalDependencies);
+			}
 
 		}
 
@@ -257,9 +262,9 @@ public class ConversionEngine {
 		// [which is the only correct way to do it]
 
 		for (FeatureConjunction oneConjunction : this.featureBackMap.keySet()) {
-			HashSet<String> releventKeys = new HashSet<String>();
-			releventKeys.addAll(oneConjunction.keySet());
-			this.featureBackMap2KeySet.put(oneConjunction, releventKeys);
+			HashSet<String> relevantKeys = new HashSet<String>();
+			relevantKeys.addAll(oneConjunction.keySet());
+			this.featureBackMap2KeySet.put(oneConjunction, relevantKeys);
 		}
 
 		// build a list of the FeatureConjunction
@@ -384,7 +389,6 @@ public class ConversionEngine {
 				HashSet<String> featureNamesOfCurrentToken = new HashSet<String>();
 
 				for (String pname : oneKeywordAndContext.getTokenPropertyNames()) {
-
 					String propValue = oneKeywordAndContext.get(pname, index);
 					if (propValue != null && !propValue.isEmpty()) {
 						featureNamesOfCurrentToken.add(pname);
@@ -485,7 +489,7 @@ public class ConversionEngine {
 
 					HashSet<String> keysOfThisKnownFeatureConjunction = this.featureBackMap2KeySet
 							.get(oneKnownFeatureConjunction);
-
+					
 					if (featureNamesOfCurrentToken.containsAll(keysOfThisKnownFeatureConjunction)) {
 
 						// if so, build a feature conjunction representing the token
@@ -497,7 +501,6 @@ public class ConversionEngine {
 							if (featureValue != null)
 								featureConjunctionOfToken.put(onePropertyName, featureValue);
 						}
-
 						// than, try to find this FeatureConjunction in our list of known
 						// FeatureConjunctions
 						// (t.i. match both feature keys and feature values)
@@ -509,7 +512,8 @@ public class ConversionEngine {
 
 					}
 				}
-
+				
+				
 				// now, if we have found a translation for the current token
 				// add this to the properties we already have
 
