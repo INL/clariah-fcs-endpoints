@@ -106,7 +106,7 @@ public class TestCgn {
 
 		ResultSet fcsResultSet = new ResultSet();
 		fcsResultSet.setHits(hitsConverted);
-		NederlabQuery q = new NederlabQuery(contextCache, "testserver", "testcorpus", "testquery", 0, 20, null, null,
+		NederlabQuery q = new NederlabQuery(contextCache, "testserver", "testcorpus", "testquery", 0, 20, 0, null, null,
 				"testenginenativeurltemplate", Collections.emptyList());
 		fcsResultSet.setQuery(q);
 		fcsResultSet.setTotalNumberOfResults(nederlabResultSet.getTotalNumberOfHits());

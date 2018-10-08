@@ -23,6 +23,14 @@ public abstract class Query {
 	// number of results returned by one API call, which is thresholded by
 	// maximumResults (maximumRecords argument in query)
 	private int totalNumberOfResults;
+	
+	
+	// This variable restricts the total number of results that can ever be retrieved
+	// for a query, regardless of which page you are on.
+	// Restrictions are applied on the get functions of start position, max results and total results,
+	// so query to server is changed accordingly.
+	private boolean restrict;
+	private int restrictTotalNumberOfResults;
 
 	// Abstract classes allow basic constructor and getters/setters implementation
 	//
@@ -45,7 +53,7 @@ public abstract class Query {
 	 *            a CQL query string like [word="paard"]
 	 * 
 	 */
-	public Query(String server, String corpus, String cqpQuery, int startPosition, int maximumResults,
+	public Query(String server, String corpus, String cqpQuery, int startPosition, int maximumResults, int restrictTotalNumberOfResults, 
 			String engineNativeUrlTemplate) {
 		this.server = server;
 		this.corpus = corpus;
@@ -53,6 +61,9 @@ public abstract class Query {
 		this.startPosition = startPosition;
 		this.maximumResults = maximumResults;
 		this.setEngineNativeUrlTemplate(engineNativeUrlTemplate);
+		
+		this.restrictTotalNumberOfResults = restrictTotalNumberOfResults;
+		this.restrict = this.restrictTotalNumberOfResults != 0 ? true : false;
 
 	}
 
@@ -85,7 +96,12 @@ public abstract class Query {
 	}
 
 	public int getMaximumResults() {
-		return this.maximumResults;
+		if (this.restrict && (this.startPosition + this.maximumResults > this.restrictTotalNumberOfResults)) {
+			return restrictTotalNumberOfResults - this.startPosition;
+		}
+		else {
+			return this.maximumResults;
+		}
 	}
 
 	public String getServer() {
@@ -96,11 +112,21 @@ public abstract class Query {
 	// setters
 
 	public int getStartPosition() {
-		return this.startPosition;
+		if (this.restrict && (this.startPosition > this.restrictTotalNumberOfResults)) {
+			return restrictTotalNumberOfResults;
+		}
+		else {
+			return this.startPosition;
+		}
 	}
 
 	public int getTotalNumberOfResults() {
-		return this.totalNumberOfResults;
+		if (this.restrict && (this.totalNumberOfResults > this.restrictTotalNumberOfResults)) {
+			return restrictTotalNumberOfResults;
+		}
+		else {
+			return this.totalNumberOfResults;
+		}
 	}
 
 	public void setCorpus(String corpus) {

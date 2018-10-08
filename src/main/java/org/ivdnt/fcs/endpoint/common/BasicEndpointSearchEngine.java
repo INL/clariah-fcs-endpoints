@@ -42,6 +42,8 @@ import eu.clarin.sru.server.fcs.utils.SimpleEndpointDescriptionParser;
  *
  */
 public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
+		
+	protected int restrictTotalNumberOfResults;
 
 	// logger
 	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -213,9 +215,11 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 
 	// Constructor with arguments, called by BlacklabServerEndpointSearchEngine and
 	// NederlabEndpointSearchEngine subclasses
-	public BasicEndpointSearchEngine(String server, ConversionEngine conversionEngine, String engineNativeUrlTemplate) {
+	public BasicEndpointSearchEngine(String server, ConversionEngine conversionEngine, 
+			int restrictTotalNumberOfResults, String engineNativeUrlTemplate) {
 		this.server = server;
 		this.conversionEngine = conversionEngine;
+		this.restrictTotalNumberOfResults = restrictTotalNumberOfResults;
 		this.engineNativeUrlTemplate = engineNativeUrlTemplate;
 	}
 

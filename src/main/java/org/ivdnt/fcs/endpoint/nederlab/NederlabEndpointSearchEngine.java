@@ -34,9 +34,9 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 	// constructors
 
 	public NederlabEndpointSearchEngine(ServletContext contextCache, String server, ConversionEngine conversionEngine,
-			String nederlabQueryTemplate, String nederlabDocumentQueryTemplate, String engineNativeUrlTemplate,
-			List<String> nederlabExtraResponseFields) {
-		super(server, conversionEngine, engineNativeUrlTemplate);
+			int restrictTotalNumberOfResults, String nederlabQueryTemplate, String nederlabDocumentQueryTemplate,
+			String engineNativeUrlTemplate,	List<String> nederlabExtraResponseFields) {
+		super(server, conversionEngine, restrictTotalNumberOfResults, engineNativeUrlTemplate);
 
 		// instantiate a Nederlab query template (needed to post well formed query's to
 		// Nederlab)
@@ -77,7 +77,7 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 		// instantiate the Nederlab query
 		// fcs begint bij 1 te tellen, nederlab bij 0 (?)
 		NederlabQuery nederlabQuery = new NederlabQuery(contextCache, this.getServer(), fcsContextCorpus, cqpQuery,
-				request.getStartRecord() - 1, request.getMaximumRecords(), this.nederlabQueryTemplate,
+				request.getStartRecord() - 1, request.getMaximumRecords(), this.restrictTotalNumberOfResults, this.nederlabQueryTemplate,
 				this.nederlabDocumentQueryTemplate, this.getEngineNativeUrlTemplate(),
 				this.nederlabExtraResponseFields);
 

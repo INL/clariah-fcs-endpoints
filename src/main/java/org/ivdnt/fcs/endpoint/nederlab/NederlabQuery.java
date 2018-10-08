@@ -56,9 +56,9 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 	 * 
 	 */
 	public NederlabQuery(ServletContext contextCache, String server, String corpus, String cqpQuery, int startPosition,
-			int maximumResults, QueryTemplate nederlabQueryTemplate, QueryTemplate nederlabDocumentQueryTemplate,
+			int maximumResults, int restrictTotalNumberOfResults, QueryTemplate nederlabQueryTemplate, QueryTemplate nederlabDocumentQueryTemplate,
 			String engineNativeUrlTemplate, List<String> nederlabExtraResponseFields) {
-		super(server, corpus, cqpQuery, startPosition, maximumResults, engineNativeUrlTemplate);
+		super(server, corpus, cqpQuery, startPosition, maximumResults, restrictTotalNumberOfResults, engineNativeUrlTemplate);
 
 		this.contextCache = contextCache;
 		// template to build Nederlab queries

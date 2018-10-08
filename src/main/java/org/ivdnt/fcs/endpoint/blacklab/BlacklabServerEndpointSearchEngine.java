@@ -22,8 +22,8 @@ public class BlacklabServerEndpointSearchEngine extends BasicEndpointSearchEngin
 	// constructors
 
 	public BlacklabServerEndpointSearchEngine(String server, ConversionEngine conversionEngine,
-			String engineNativeUrlTemplate) {
-		super(server, conversionEngine, engineNativeUrlTemplate);
+			int restrictTotalNumberOfResults, String engineNativeUrlTemplate) {
+		super(server, conversionEngine, restrictTotalNumberOfResults, engineNativeUrlTemplate);
 	}
 
 	// -----------------------------------------------------------------------
@@ -52,7 +52,7 @@ public class BlacklabServerEndpointSearchEngine extends BasicEndpointSearchEngin
 		// instantiate the Blacklab query
 		// bij fcs beginnen ze bij 1 te tellen ?
 		BlacklabServerQuery blacklabServerQuery = new BlacklabServerQuery(this.getServer(), fcsContextCorpus, query,
-				request.getStartRecord() - 1, request.getMaximumRecords(), this.getEngineNativeUrlTemplate());
+				request.getStartRecord() - 1, request.getMaximumRecords(), this.restrictTotalNumberOfResults, this.getEngineNativeUrlTemplate());
 
 		logger.info("Query to blacklab server: " + blacklabServerQuery);
 

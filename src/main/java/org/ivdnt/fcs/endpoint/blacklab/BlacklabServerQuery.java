@@ -54,9 +54,9 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 	 *            a query like [word='lopen']
 	 * 
 	 */
-	public BlacklabServerQuery(String server, String corpus, String cqpQuery, int startPosition, int maximumResults,
+	public BlacklabServerQuery(String server, String corpus, String cqpQuery, int startPosition, int maximumResults, int restrictTotalNumberOfResults, 
 			String engineNativeUrlTemplate) {
-		super(server, corpus, cqpQuery, startPosition, maximumResults, engineNativeUrlTemplate);
+		super(server, corpus, cqpQuery, startPosition, maximumResults, restrictTotalNumberOfResults, engineNativeUrlTemplate);
 		// Form native URL based on template and URL-encoded query string
 		String engineNativeUrl = "";
 		if (!engineNativeUrlTemplate.isEmpty()) {

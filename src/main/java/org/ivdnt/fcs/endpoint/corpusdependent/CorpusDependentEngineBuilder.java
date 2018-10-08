@@ -98,12 +98,20 @@ public class CorpusDependentEngineBuilder {
 				XPathExpression engineNameExpr = xpath.compile(".//engine-name");
 				XPathExpression engineTypeExpr = xpath.compile(".//engine-type");
 				XPathExpression engineClassExpr = xpath.compile(".//engine-url");
+				XPathExpression restrictTotalNumberOfResultsExpr = xpath.compile(".//restrict-total-number-of-results");
 				XPathExpression engineNativeUrlTemplateExpr = xpath.compile(".//engine-native-url-template");
 				XPathExpression tagSetConversionTableExpr = xpath.compile(".//tagset-conversion-table");
 
 				String engineName = engineNameExpr.evaluate(oneEngine);
 				String engineType = engineTypeExpr.evaluate(oneEngine);
 				String engineUrl = engineClassExpr.evaluate(oneEngine);
+				int restrictTotalNumberOfResults = 0;
+				try {
+					restrictTotalNumberOfResults = Integer.parseInt(restrictTotalNumberOfResultsExpr.evaluate(oneEngine));
+				}
+				catch (NumberFormatException e) {
+					logger.warn("No valid number given for restrict-total-number-of-results, defaulting to 0.");
+				}
 				String engineNativeUrlTemplate = engineNativeUrlTemplateExpr.evaluate(oneEngine);
 				String tagSetConversionTable = tagSetConversionTableExpr.evaluate(oneEngine);
 
@@ -146,7 +154,7 @@ public class CorpusDependentEngineBuilder {
 					String queryTemplate = readQueryTemplate(nederlabQueryTemplateLocation);
 					String documentQueryTemplate = readQueryTemplate(nederlabDocumentQueryTemplateLocation);
 					engineMap.put(engineName,
-							new NederlabEndpointSearchEngine(contextCache, engineUrl, conversionEngine, queryTemplate,
+							new NederlabEndpointSearchEngine(contextCache, engineUrl, conversionEngine, restrictTotalNumberOfResults, queryTemplate,
 									documentQueryTemplate, engineNativeUrlTemplate, nederlabExtraResponseFields));
 				}
 
@@ -154,7 +162,7 @@ public class CorpusDependentEngineBuilder {
 
 				else {
 					engineMap.put(engineName, new BlacklabServerEndpointSearchEngine(engineUrl, conversionEngine,
-							engineNativeUrlTemplate));
+							restrictTotalNumberOfResults, engineNativeUrlTemplate));
 				}
 
 			}

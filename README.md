@@ -102,7 +102,7 @@ The aggregator depends on the following resources
 
 #### The Clarin eu center list 
 
-(for testing, http://localhost:8080/blacklab-sru-server/registry/clarin_center_list.xml)
+(for testing, http://localhost:8080/clariah-fcs-endpoints/registry/clarin_center_list.xml)
 
 The official location for this is https://centres.clarin.eu/restxml/ 
 A testing version is at src/main/webapp/registry/clarin_center_list.xml
@@ -120,7 +120,7 @@ We are number 22:
 
 Official location for INT:  https://centres.clarin.eu/restxml/22 (We need to update this if we want to make resources visible for the aggregator running at Spr�kbanken)
 
-Testing location: http://localhost:8080/blacklab-sru-server/registry/clarin_center_ivdnt.xml
+Testing location: http://localhost:8080/clariah-fcs-endpoints/registry/clarin_center_ivdnt.xml
 
 (again, source is in src/main/webapp/registry)
 
@@ -128,7 +128,7 @@ This should contain something like
 
 <pre>
 &lt;WebReference>
-  &lt;Website>http://localhost:8080/blacklab-sru-server/sru&lt;/Website>
+  &lt;Website>http://localhost:8080/clariah-fcs-endpoints/sru&lt;/Website>
   &lt;Description>CQL&lt;/Description>
 &lt;/WebReference>
 </pre>
