@@ -105,19 +105,25 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 
 		NederlabResultSet nederlabResultSet = nederlabClient.doSearch(this.getCqpQuery(), this.getStartPosition(),
 				this.getMaximumResults());
+		
+		// We first set total number of results
+		this.setTotalNumberOfResults(nederlabResultSet.getTotalNumberOfHits());
 
 		// get results
 
 		List<org.ivdnt.fcs.results.Kwic> hits = nederlabResultSet.getResults().stream()
 				.map(h -> h.toKwic().translatePrefixes(this.prefixMapping)) // another ugly hack
 				.collect(Collectors.toList());
+		
 
 		// build FCS ResultSet
 
 		ResultSet fcsResultSet = new ResultSet();
 		fcsResultSet.setHits(hits);
 		fcsResultSet.setQuery(this);
-		fcsResultSet.setTotalNumberOfResults(nederlabResultSet.getTotalNumberOfHits());
+		
+		// We not get total number of results, where it can be restricted by a threshold.
+		fcsResultSet.setTotalNumberOfResults(this.getTotalNumberOfResults());
 
 		logger.info("Result set determined " + fcsResultSet.toString());
 		return fcsResultSet;

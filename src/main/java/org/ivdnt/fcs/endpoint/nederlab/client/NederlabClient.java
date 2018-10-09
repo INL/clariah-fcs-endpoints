@@ -130,7 +130,7 @@ public class NederlabClient {
 	 * @throws IOException
 	 */
 	public Map<String, Document> parseAndRequestDocuments(String jsonHits) {
-
+		Map<String, Document> docMap = new ConcurrentHashMap<>();
 		DocumentContext hitsContext = JsonPath.parse(jsonHits);
 		HashSet<String> documentKeysSet = new HashSet<String>();
 		String documentKeysString = "";
@@ -138,6 +138,12 @@ public class NederlabClient {
 		try {
 			// Parse the list of hits
 			List<String> documentKeys = hitsContext.read("$['mtas']['list'][0]['list'][*]['documentKey']");
+			// Break from function (do not request document info) if there are no documents
+			if (documentKeys.size() == 0) {
+				logger.info("No documents found, not performing second request.");
+				return docMap;
+			}
+			
 			documentKeysSet = new HashSet<>(documentKeys);
 			documentKeysString = mapper.writeValueAsString(documentKeysSet);
 
@@ -159,6 +165,7 @@ public class NederlabClient {
 
 		// send the query
 		final long sendStartTime = System.currentTimeMillis();
+		logger.info("Send second query to request document info.");
 		String jsonDocs = sendQuery(jsonQueryUpdated);
 		final long sendEndTime = System.currentTimeMillis();
 		logger.info("Request documents: " + (sendEndTime - sendStartTime) + " ms.");
@@ -173,7 +180,6 @@ public class NederlabClient {
 		}
 		// Now, really retrieve documents
 		JSONArray documents = docsContext.read("$['response']['docs'][*]");
-		Map<String, Document> docMap = new ConcurrentHashMap<>();
 
 		for (Object d : documents) {
 			@SuppressWarnings("unchecked")
