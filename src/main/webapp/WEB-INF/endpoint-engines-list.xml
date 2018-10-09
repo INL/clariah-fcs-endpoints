@@ -45,13 +45,6 @@
 		<engine-native-url-template>http://brievenalsbuit.inl.nl/zeebrieven/page/search</engine-native-url-template>
 		<tagset-conversion-table>UD2BaB</tagset-conversion-table>
 	</Engine>
-	
-	<Engine>
-		<engine-name>StatenGeneraal</engine-name>
-		<engine-type>blacklabserver</engine-type>
-		<engine-url>http://svprre02.inl.loc:8080/blacklab-server/</engine-url>
-		<tagset-conversion-table>UD2CHN</tagset-conversion-table>
-	</Engine>
 
 	<Engine>
 		<engine-name>gysseling</engine-name>

@@ -82,20 +82,6 @@
 			<AvailableDataViews ref="hits adv" />
 			<AvailableLayers ref="word lemma pos" />
 		</Resource>
-		
-		<Resource pid="StatenGeneraal">
-			<Title xml:lang="nl">Staten Generaal</Title>
-			<Title xml:lang="en">Staten Generaal</Title>
-			<Description xml:lang="nl">Het Staten Generaal-corpus van het INT. 13e-eeuwse Nederlandse documenten</Description>
-			<Description xml:lang="en">The Staten Generaal corpus at
-				INT. 13th century Dutch documents</Description>
-			<LandingPageURI>http://gysseling.corpus.taalbanknederlands.inl.nl/</LandingPageURI>
-			<Languages>
-				<Language>nld</Language>
-			</Languages>
-			<AvailableDataViews ref="hits adv" />
-			<AvailableLayers ref="word lemma pos" />
-		</Resource>
 
 		<Resource pid="nederlab">
 			<Title xml:lang="nl">Nederlab (Meertens Instituut)</Title>
