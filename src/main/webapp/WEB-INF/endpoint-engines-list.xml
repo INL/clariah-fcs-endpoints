@@ -15,6 +15,7 @@
 			<field>NLTitle_textQuality</field>
 			<field>NLDependentTitle_subtitle</field>
 		</nederlab-extra-response-fields>
+		<restrict-total-number-of-results>10</restrict-total-number-of-results>
 		<nederlab-query-template-location>nederlab_query_template.json</nederlab-query-template-location>
 		<nederlab-document-query-template-location>nederlab_document_query_template.json</nederlab-document-query-template-location>
 	</Engine>
@@ -23,6 +24,7 @@
 		<engine-name>opensonar</engine-name>
 		<engine-type>blacklabserver</engine-type>
 		<engine-url>http://172.16.10.93:8080/blacklab-server/</engine-url>
+		<restrict-total-number-of-results>10</restrict-total-number-of-results>
 		<engine-native-url-template>https://portal.clarin.inl.nl/opensonar_whitelab/search/simple</engine-native-url-template>
 		<tagset-conversion-table>UD2CGNSonar</tagset-conversion-table>
 	</Engine>
@@ -31,6 +33,7 @@
 		<engine-name>chn</engine-name>
 		<engine-type>blacklabserver</engine-type>
 		<engine-url>http://svprmc05.inl.nl/blacklab-server/</engine-url>
+		<restrict-total-number-of-results>10</restrict-total-number-of-results>
 		<engine-native-url-template>http://chn.inl.nl/corpus-frontend/</engine-native-url-template>
 		<tagset-conversion-table>UD2CHN</tagset-conversion-table>
 	</Engine>
@@ -43,14 +46,12 @@
 		<tagset-conversion-table>UD2BaB</tagset-conversion-table>
 	</Engine>
 	
-	<!--
 	<Engine>
 		<engine-name>StatenGeneraal</engine-name>
 		<engine-type>blacklabserver</engine-type>
 		<engine-url>http://svprre02.inl.loc:8080/blacklab-server/</engine-url>
 		<tagset-conversion-table>UD2CHN</tagset-conversion-table>
 	</Engine>
-	-->
 
 	<Engine>
 		<engine-name>gysseling</engine-name>

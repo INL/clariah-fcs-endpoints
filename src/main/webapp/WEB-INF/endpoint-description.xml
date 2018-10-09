@@ -83,7 +83,6 @@
 			<AvailableLayers ref="word lemma pos" />
 		</Resource>
 		
-		<!--
 		<Resource pid="StatenGeneraal">
 			<Title xml:lang="nl">Staten Generaal</Title>
 			<Title xml:lang="en">Staten Generaal</Title>
@@ -97,7 +96,6 @@
 			<AvailableDataViews ref="hits adv" />
 			<AvailableLayers ref="word lemma pos" />
 		</Resource>
-		-->
 
 		<Resource pid="nederlab">
 			<Title xml:lang="nl">Nederlab (Meertens Instituut)</Title>
