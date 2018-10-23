@@ -62,15 +62,15 @@
 					</ClarinOrganisationInfo>
 					<AdministrativeContact>
 						<Contact>
-							<Person>Frieda Steurs &lt;Frieda.Steurs@ivdnt.org&gt;</Person>
-							<Email>Frieda.Steurs@ivdnt.org</Email>
-							<Telephone></Telephone>
+							<Person>Secretariaat</Person>
+							<Email>secretariaat@ivdnt.org</Email>
+							<Telephone>+31 71 5141648</Telephone>
 							<Website></Website>
 						</Contact>
 					</AdministrativeContact>
 					<TechnicalContact>
 						<Contact>
-							<Person>Systeembeheer &lt;systeembeheer@ivdnt.org&gt;</Person>
+							<Person>Systeembeheer</Person>
 							<Email>systeembeheer@ivdnt.org</Email>
 							<Telephone>+31 71 5272481</Telephone>
 							<Website></Website>
