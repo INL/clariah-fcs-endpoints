@@ -11,7 +11,8 @@
 	<Components>
 		<CenterProfile>
 			<CenterBasicInformation>
-				<Name>Instituut voor de Nederlandse Taal</Name>
+				<Name xml:lang="nl">Instituut voor de Nederlandse Taal</Name>
+				<Name xml:lang="en">Dutch Language Institute</Name>
 				<Type>B</Type>
 				<Status>Certified</Status>
 				<Description></Description>
@@ -48,9 +49,12 @@
 
 				<OrganisationalInformation>
 					<ClarinOrganisationInfo>
-						<OrganisationName>Instituut voor de Nederlandse Taal</OrganisationName>
-						<Institution>Instituut voor de Nederlandse Taal</Institution>
-						<WorkingUnit>Instituut voor de Nederlandse Taal</WorkingUnit>
+						<OrganisationName xml:lang="nl">Instituut voor de Nederlandse Taal</OrganisationName>
+						<OrganisationName xml:lang="en">Dutch Language Institute</OrganisationName>
+						<Institution xml:lang="nl">Instituut voor de Nederlandse Taal</Institution>
+						<Institution xml:lang="en">Dutch Language Institute</Institution>
+						<WorkingUnit xml:lang="nl">Instituut voor de Nederlandse Taal</WorkingUnit>
+						<WorkingUnit xml:lang="en">Dutch Language Institute</WorkingUnit>
 						<Code>INT</Code>
 						<PostAddress>Rapenburg 61,
                             2311 GJ,

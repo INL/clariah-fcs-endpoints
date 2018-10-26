@@ -54,7 +54,7 @@
 		<Center_id>10</Center_id> <Center_id_link>https://centres.clarin.eu/restxml/10</Center_id_link> 
 		</CenterProfile> -->
 	<CenterProfile>
-		<Centername>Instituut voor de Nederlandse Taal</Centername>
+		<Centername>Dutch Language Institute (Instituut voor de Nederlandse Taal)</Centername>
 		<Center_id>22</Center_id>
 		<Center_id_link>http://localhost:8080/clariah-fcs-endpoints/get_registry</Center_id_link>
 	</CenterProfile>
