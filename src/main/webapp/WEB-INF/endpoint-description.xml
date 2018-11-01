@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<EndpointDescription
-	xmlns="http://clarin.eu/fcs/endpoint-description"
+<EndpointDescription xmlns="http://clarin.eu/fcs/endpoint-description"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://clarin.eu/fcs/endpoint-description ../../schema/Core_2/Endpoint-Description.xsd"
 	version="2">
@@ -9,20 +8,20 @@
 		<Capability>http://clarin.eu/fcs/capability/advanced-search</Capability>
 	</Capabilities>
 	<SupportedDataViews>
-		<SupportedDataView id="hits"
-			delivery-policy="send-by-default">application/x-clarin-fcs-hits+xml</SupportedDataView>
-		<SupportedDataView id="adv"
-			delivery-policy="send-by-default">application/x-clarin-fcs-adv+xml</SupportedDataView>
-		<SupportedDataView id="cmdi"
-			delivery-policy="need-to-request">application/x-cmdi+xml</SupportedDataView>
+		<SupportedDataView id="hits" delivery-policy="send-by-default"
+			>application/x-clarin-fcs-hits+xml</SupportedDataView>
+		<SupportedDataView id="adv" delivery-policy="send-by-default"
+			>application/x-clarin-fcs-adv+xml</SupportedDataView>
+		<SupportedDataView id="cmdi" delivery-policy="need-to-request"
+			>application/x-cmdi+xml</SupportedDataView>
 	</SupportedDataViews>
 	<SupportedLayers>
-		<SupportedLayer id="word"
-			result-id="http://spraakbanken.gu.se/ns/fcs/layer/word">text</SupportedLayer>
-		<SupportedLayer id="lemma"
-			result-id="http://spraakbanken.gu.se/ns/fcs/layer/lemma">lemma</SupportedLayer>
-		<SupportedLayer id="pos"
-			result-id="http://spraakbanken.gu.se/ns/fcs/layer/pos">pos</SupportedLayer>
+		<SupportedLayer id="word" result-id="http://spraakbanken.gu.se/ns/fcs/layer/word"
+			>text</SupportedLayer>
+		<SupportedLayer id="lemma" result-id="http://spraakbanken.gu.se/ns/fcs/layer/lemma"
+			>lemma</SupportedLayer>
+		<SupportedLayer id="pos" result-id="http://spraakbanken.gu.se/ns/fcs/layer/pos"
+			>pos</SupportedLayer>
 	</SupportedLayers>
 
 	<Resources>
@@ -30,70 +29,109 @@
 		<Resource pid="opensonar">
 			<Title xml:lang="nl">OpenSoNaR</Title>
 			<Title xml:lang="en">OpenSoNaR</Title>
-			<Description xml:lang="nl">Het OpenSonar-corpus van het INT.</Description>
-			<Description xml:lang="en">The OpenSoNaR corpus at INT.</Description>
+			<Description xml:lang="nl">Het meer dan 500 miljoen woorden bevattende
+				SoNAR-referentiecorpus, ontwikkeld in het STEVIN-programma onder auspiciën van de
+				Nederlandse Taalunie</Description>
+			<Description xml:lang="en">The over 500 million word Dutch reference corpus SoNaR
+				developed within the STEVIN programme under the aegis of the Dutch Language
+				Union.</Description>
 			<LandingPageURI>http://opensonar.ato.inl.nl/</LandingPageURI>
 			<Languages>
 				<Language>nld</Language>
 			</Languages>
-			<AvailableDataViews ref="hits adv" />
-			<AvailableLayers ref="word lemma pos" />
+			<AvailableDataViews ref="hits adv"/>
+			<AvailableLayers ref="word lemma pos"/>
 		</Resource>
 
 		<Resource pid="chn">
 			<Title xml:lang="nl">Corpus Hedendaags Nederlands</Title>
 			<Title xml:lang="en">Corpus of Contemporary Dutch</Title>
 			<Description xml:lang="nl">Het Corpus Hedendaags Nederlands van het INT.</Description>
-			<Description xml:lang="en">The Corpus of Contemporary Dutch.</Description>
+			<Description xml:lang="en">A corpus of modern Dutch, containing more than 800,000 texts
+				taken from newspapers, books, magazines, news broadcasts and legal writings. The
+				corpus is a combination of the 5, 27 and 38 Million Words Corpora and the PAROLE
+				Corpus, supplemented with more recent material from the Netherlands, Flanders,
+				Surinam and the Netherlands Antilles. </Description>
 			<LandingPageURI>http://corpushedendaagsnederlands.inl.nl/</LandingPageURI>
 			<Languages>
 				<Language>nld</Language>
 			</Languages>
-			<AvailableDataViews ref="hits adv" />
-			<AvailableLayers ref="word lemma pos" />
+			<AvailableDataViews ref="hits adv"/>
+			<AvailableLayers ref="word lemma pos"/>
 		</Resource>
 
 		<Resource pid="zeebrieven">
 			<Title xml:lang="nl">Brieven als Buit</Title>
 			<Title xml:lang="en">Letters as Loot</Title>
-			<Description xml:lang="nl">Het Brieven als Buit-corpus van het INT.
-			17e- en 18e-eeuwse Nederlandse brieven geschreven door of aan zeelieden.</Description>
-			<Description xml:lang="en">The Letters as Loot corpus at
-				INT. 17th and 18th century Dutch letters written by, or
-				addressed to sailors.</Description>
+			<Description xml:lang="nl">Dit corpus bevat brieven uit de 17e en 18e eeuw, geschreven
+				door zeevarenden en hun familie en bekenden, maar terechtgekomen bij de Engelsen na
+				kaping van de schepen in een van de vier oorlogen die Groot-Brittanië en de
+				Republiek der Zeven Verenigde Nederlanden in de 17e en 18e eeuw hebben gevoerd. Het
+				corpus bevat een selectie uit deze brieven, ook wel als Sailing Letters of Prize
+				Papers bekend, en is gemaakt in het Letters as Loot project o.l.v. Prof. dr. M. van
+				der Wal.</Description>
+			<Description xml:lang="en">This corpus contains letters from the 17th and 18th century,
+				written by sailors, their relatives and acquaintances. They were taken as loot by
+				privateers during one of the four wars between Great Britain and the Dutch Republic
+				in the 17th and 18th Century and ended up in the National Archives in Kew. This
+				corpus contains a selection of these letters and was built in the Letters as Loot
+				project of Prof. dr. M. van der Wal.</Description>
 			<LandingPageURI>http://brievenalsbuit.inl.nl/</LandingPageURI>
 			<Languages>
 				<Language>nld</Language>
 			</Languages>
-			<AvailableDataViews ref="hits adv" />
-			<AvailableLayers ref="word lemma pos" />
+			<AvailableDataViews ref="hits adv"/>
+			<AvailableLayers ref="word lemma pos"/>
 		</Resource>
 
 		<Resource pid="gysseling">
 			<Title xml:lang="nl">Corpus Gysseling</Title>
 			<Title xml:lang="en">Corpus Gysseling</Title>
-			<Description xml:lang="nl">Corpus Gysseling van het INT. 13e-eeuwse Nederlandse documenten.</Description>
-			<Description xml:lang="en">Corpus Gysseling at INT.
-				13th century Dutch documents</Description>
+			<Description xml:lang="nl">Het Corpus Gysseling bestaat uit de verzameling van alle
+				dertiende-eeuwse teksten die als bronmateriaal voor het Vroegmiddelnederlands
+				woordenboek hebben gediend. Het is de digitale editie, verrijkt met woord en lemma,
+				van het dertiende-eeuwse materiaal uit het Corpus van de Middelnederlandse teksten
+				(tot het jaar 1300), uitgegeven in de periode van 1977 tot 1987 door de Gentse
+				taalkundige Maurits Gysseling.</Description>
+			<Description xml:lang="en">The Corpus Gysseling consists of the collection of all
+				thirteenth-century texts that have served as source material for the Early Middle
+				Dutch Dictionary. It is the digital edition, enriched with part of speech and lemma,
+				of the thirteenth-century material from the Corpus of Middle Dutch texts (until the
+				year 1300), issued in the period from 1977 to 1987 by the Ghent linguist Maurits
+				Gysseling.</Description>
 			<LandingPageURI>http://gysseling.corpus.taalbanknederlands.inl.nl/</LandingPageURI>
 			<Languages>
 				<Language>nld</Language>
 			</Languages>
-			<AvailableDataViews ref="hits adv" />
-			<AvailableLayers ref="word lemma pos" />
+			<AvailableDataViews ref="hits adv"/>
+			<AvailableLayers ref="word lemma pos"/>
 		</Resource>
 
 		<Resource pid="nederlab">
 			<Title xml:lang="nl">Nederlab (Meertens Instituut)</Title>
 			<Title xml:lang="en">Nederlab (Meertens Institute)</Title>
-			<Description xml:lang="nl">Diachroon corpus van het Nederlands.</Description>
-			<Description xml:lang="en">Diachronic Dutch corpus.</Description>
+			<Description xml:lang="nl">Van het vroegste Middelnederlands tot Nederlands uit de
+				eenentwintigste eeuw. In onderzoeksportaal Nederlab zijn miljoenen oude en nieuwe
+				teksten voor het eerst op één plek doorzoekbaar gemaakt voor taalkundigen,
+				letterkundigen, historici en cultuurwetenschappers. 41 miljoen tekstdocumenten, 18
+				miljard woorden; op uniforme wijze beschikbaar Kranten, romans, bijbelteksten,
+				dagboek- fragmenten, briefwisselingen, oorkonden, gebeden en meer. De teksten zijn
+				taalkundig verrijkt en doorzoekbaar op onder meer lemma en woordsoort.</Description>
+			<Description xml:lang="en">From the earliest Middle Dutch to Dutch from the twenty-first
+				century. In the Nederlab research portal, millions of old and new texts have been
+				made searchable for linguists, literary experts, historians and cultural scientists
+				for the first time in one place. 41 million text documents, 18 billion words;
+				Newspapers, novels, biblical texts, diary fragments,
+				correspondence, charters, prayers and more. From the collections of scientific and
+				heritage institutions Advanced search and analysis options, statistics and
+				visualisations. The texts are linguistically annotated and can be search, a.o.,
+				on lemma and part of speech.</Description>
 			<LandingPageURI>http://www.nederlab.nl/onderzoeksportaal/</LandingPageURI>
 			<Languages>
 				<Language>nld</Language>
 			</Languages>
-			<AvailableDataViews ref="hits adv" />
-			<AvailableLayers ref="word lemma pos" />
+			<AvailableDataViews ref="hits adv"/>
+			<AvailableLayers ref="word lemma pos"/>
 		</Resource>
 	</Resources>
 </EndpointDescription>
