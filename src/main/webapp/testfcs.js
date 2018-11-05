@@ -15,9 +15,10 @@ queryField.addEventListener("keyup", function(event) {
 function doQuery() {
     var query = queryField.value;
     var corpus = corpusField.value;
-    var getUrl = window.location;
-    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-    var urlTemplate = "/sru?operation=searchRetrieve&queryType=fcs&x-fcs-context=" + corpus + "&maximumRecords=20&query=";
+    var getUrl = window.location.href;
+    console.log(getUrl);
+    var baseUrl = getUrl.replace("testfcs.html","");//getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+    var urlTemplate = "sru?operation=searchRetrieve&queryType=fcs&x-fcs-context=" + corpus + "&maximumRecords=20&query=";
     var queryUrl = baseUrl + urlTemplate+encodeURIComponent(query);
     window.open(queryUrl,'_blank');
 }

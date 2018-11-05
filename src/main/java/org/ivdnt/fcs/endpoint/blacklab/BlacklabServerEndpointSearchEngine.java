@@ -57,21 +57,28 @@ public class BlacklabServerEndpointSearchEngine extends BasicEndpointSearchEngin
 		logger.info("Query to blacklab server: " + blacklabServerQuery);
 
 		// start the search and get the results
-
+		ResultSet resultSet;
 		try {
-			ResultSet resultSet = blacklabServerQuery.execute();
+			resultSet = blacklabServerQuery.execute();
+		}
+		catch (Exception e) {
+			logger.error("Rethrowing as SRU exception:" + e);
+			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
+					"Error during execution of query. The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage()
+							+ "; Query: " + blacklabServerQuery.toString());
+		}
 
 			// translate the results POS back into universal dependencies
-
+		try {
 			this.getConversionEngine().translateIntoUniversalDependencies(resultSet);
-
-			return new FcsSearchResultSet(config, request, diagnostics, resultSet);
-
 		} catch (Exception e) {
 			logger.error("Rethrowing as SRU exception:" + e);
 			throw new SRUException(SRUConstants.SRU_CANNOT_PROCESS_QUERY_REASON_UNKNOWN,
-					"Error during execution of query or back-translation to UD. The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage()
+					"Error during back-translation to UD. The query execution failed by this CLARIN-FCS (Blacklab Server) endpoint: " + e.getMessage()
 							+ "; Query: " + blacklabServerQuery.toString());
 		}
+
+			return new FcsSearchResultSet(config, request, diagnostics, resultSet);
+
 	}
 }
