@@ -47,7 +47,7 @@ public class BlacklabServerEndpointSearchEngine extends BasicEndpointSearchEngin
 		}
 
 		String fcsContextCorpus = BasicEndpointSearchEngine.getCorpusNameFromRequest(request,
-				BlacklabConstants.DEFAULT_CORPUS);
+				"");
 
 		// instantiate the Blacklab query
 		// bij fcs beginnen ze bij 1 te tellen ?

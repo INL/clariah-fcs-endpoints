@@ -10,7 +10,7 @@ import org.ivdnt.fcs.results.ResultSet;
  */
 public abstract class Query {
 
-	private String server = QueryConstants.DEFAULT_SERVER;
+	private String server;
 	private String cqpQuery;
 	private String corpus;
 	private String engineNativeUrlTemplate;

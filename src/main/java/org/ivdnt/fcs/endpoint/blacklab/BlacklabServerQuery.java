@@ -34,10 +34,6 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 
 	private final static Logger logger = LoggerFactory.getLogger(BlacklabServerQuery.class);
 
-	// private String server = BlacklabConstants.DEFAULT_SERVER;
-	// private String corpus = BlacklabConstants.DEFAULT_CORPUS;
-	// private String cqpQuery = BlacklabConstants.cqpQueryExample;
-
 	// ------------------------------------------------------------------------------
 
 	/**

@@ -11,7 +11,6 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 
-import org.ivdnt.fcs.endpoint.blacklab.BlacklabConstants;
 import org.ivdnt.fcs.mapping.ConversionEngine;
 import org.ivdnt.util.FileUtils;
 import org.slf4j.Logger;
@@ -199,7 +198,7 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 		return query;
 	}
 
-	private String server = BlacklabConstants.DEFAULT_SERVER;
+	private String server;
 
 	private ConversionEngine conversionEngine = null;
 

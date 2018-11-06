@@ -28,7 +28,7 @@
 				<StrictVersioning>false</StrictVersioning>
 				<AssessmentStatus>Certified</AssessmentStatus>
 				<WebReference>
-					<Website>http://localhost:8080/clariah-fcs-endpoints/sru</Website>
+					<Website>https://portal.clarin.inl.nl/fcscorpora/clariah-fcs-endpoints/sru</Website>
 					<Description>CQL</Description>
 				</WebReference>
 				<AAI>
