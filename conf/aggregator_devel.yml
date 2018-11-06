@@ -1,5 +1,5 @@
 aggregatorParams:
-  CENTER_REGISTRY_URL: https://portal.clarin.inl.nl/fcscorpora/clariah-fcs-endpoints/clarin_center_list.xml
+  CENTER_REGISTRY_URL: https://localhost:8080/clariah-fcs-endpoints/clarin_center_list.xml
   
   # These files serve as a cache of the list of corpora
   AGGREGATOR_FILE_PATH: fcsAggregatorCorpora.json
