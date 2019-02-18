@@ -453,7 +453,6 @@ public class ConversionEngine {
 							for (String oneFeature : features) {
 								String featureName;
 								String featureValue;
-								System.out.println("-" + oneFeature);
 								// We normally expect a string like 'featureName = featureValue'
 								// but in the case of CGN, we might have feature values only.
 								// In that case, we need to add the feature name ourself.
