@@ -58,6 +58,7 @@ public class CgnFeatureDecoder {
 		// (the reason why we need this become clear in the following comments)
 
 		ConcurrentHashMap<String, HashSet<String>> featureValue2FeatureNames = new ConcurrentHashMap<String, HashSet<String>>();
+		System.out.println("*" + featureName2FeatureValues);
 		for (String oneFeatureName : featureName2FeatureValues.keySet()) {
 			// first get the [feature values] attached to this [feature name]
 			HashSet<String> featureValues = featureName2FeatureValues.get(oneFeatureName);

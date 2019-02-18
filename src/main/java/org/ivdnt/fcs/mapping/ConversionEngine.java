@@ -412,6 +412,8 @@ public class ConversionEngine {
 
 				if (featureNamesOfCurrentToken.contains("pos")) {
 					String posTag = oneKeywordAndContext.get("pos", index);
+					// In some corpora (Gysseling), tag contains two tags. Discard second tag
+					posTag = posTag.split("\\+")[0];
 					Matcher posTagMatcher = posTagPattern.matcher(posTag);
 					if (posTagMatcher.matches()) {
 						// pos tag
@@ -451,14 +453,21 @@ public class ConversionEngine {
 							for (String oneFeature : features) {
 								String featureName;
 								String featureValue;
-
+								System.out.println("-" + oneFeature);
 								// We normally expect a string like 'featureName = featureValue'
 								// but in the case of CGN, we might have feature values only.
 								// In that case, we need to add the feature name ourself.
 								if (oneFeature.split("=").length == 1) {
-									featureName = CgnFeatureDecoder.getFeatureName(realPosTag, pdtype,
-											this.featureName2FeatureValues, this.posTag2FeatureNames, oneFeature);
-									featureValue = oneFeature;
+									// If CGN-based corpus, there is a table from which we can infer feature name
+									if (this.featureName2FeatureValues != null) {
+										featureName = CgnFeatureDecoder.getFeatureName(realPosTag, pdtype,
+												this.featureName2FeatureValues, this.posTag2FeatureNames, oneFeature);
+										featureValue = oneFeature;
+									}
+									else {
+										// In all other cases: just skip this feature
+										continue;
+									}
 								}
 								// normal case:
 								// input is a string like 'featureName = featureValue'
