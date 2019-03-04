@@ -59,7 +59,7 @@ public class Kwic {
 	// private Document document = null;
 
 	// -----------------------------------------------------------------------------------
-
+	
 	// add a new property name to all tokens
 	public void addTokenProperty(String propertyName) {
 

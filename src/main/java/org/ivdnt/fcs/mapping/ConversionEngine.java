@@ -2,6 +2,7 @@ package org.ivdnt.fcs.mapping;
 
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import org.ivdnt.fcs.results.Kwic;
 import org.ivdnt.fcs.results.ResultSet;
@@ -409,87 +411,103 @@ public class ConversionEngine {
 				// pos = NOU-C
 				// gender= n
 				// number= sg
-
+				int nPosParts = 1;
 				if (featureNamesOfCurrentToken.contains("pos")) {
 					String posTag = oneKeywordAndContext.get("pos", index);
-					// In some corpora (Gysseling), tag contains two tags. Discard second tag
-					posTag = posTag.split("\\+")[0];
-					Matcher posTagMatcher = posTagPattern.matcher(posTag);
-					if (posTagMatcher.matches()) {
-						// pos tag
-
-						String realPosTag = posTagMatcher.replaceAll("$1");
-
-						oneKeywordAndContext.setTokenPropertyAt("pos", realPosTag, index);
-
-						// features
-
-						String featuresStr = posTagMatcher.replaceAll("$2");
-
-						if (!featuresStr.isEmpty()) {
-							String[] features = featuresStr.split(",");
-							String pdtype = "";
-
-							// Only for corpora with CGN tags, feature inference is performed.
-							// featureName2FeatureValues table is not loaded for other corpora.
-							if (this.featureName2FeatureValues != null) {
-								// Before iterating over features, pick out pdtype feature.
-								// We need to give this to calls of getFeatureName for all other features
-								// for some feature inference cases.
-								for (String oneFeature : features) {
-									// Get list of feature values belonging to pdtype
-									// We have to do a check here, because pdtype is called feat.pdtype in nederlab
-									HashSet<String> valueList;
-									if (this.featureName2FeatureValues.containsKey("pdtype")) {
-										valueList = this.featureName2FeatureValues.get("pdtype");
-									} else {
-										valueList = this.featureName2FeatureValues.get("feat.pdtype");
-									}
-									if (valueList.contains(oneFeature)) {
-										pdtype = oneFeature;
+					// In some corpora (Gysseling), POS tag field contains two tags:
+					// eg. VRB(type=main,finiteness=finite,tense=present,inflection=0)+PD(type=pers,other)
+					// Keep track of length, all features will now consist of two parts, separated by +
+					String[] posParts = posTag.split("\\+");
+					nPosParts = posParts.length;
+					// We run the steps for every part of the POS tag.
+					// If there are multiple parts, the first run of the loop will save the values,
+					// the next runs will concatenate to the existing values with +
+					for (String posPart : posParts) {
+						Matcher posTagMatcher = posTagPattern.matcher(posPart);
+						if (posTagMatcher.matches()) {
+							
+							// pos tag
+	
+							String realPosTag = posTagMatcher.replaceAll("$1");
+	
+							oneKeywordAndContext.setTokenPropertyAt("pos", realPosTag, index);
+	
+							// features
+	
+							String featuresStr = posTagMatcher.replaceAll("$2");
+	
+							if (!featuresStr.isEmpty()) {
+								String[] features = featuresStr.split(",");
+								String pdtype = "";
+	
+								// Only for corpora with CGN tags, feature inference is performed.
+								// featureName2FeatureValues table is not loaded for other corpora.
+								if (this.featureName2FeatureValues != null) {
+									// Before iterating over features, pick out pdtype feature.
+									// We need to give this to calls of getFeatureName for all other features
+									// for some feature inference cases.
+									for (String oneFeature : features) {
+										// Get list of feature values belonging to pdtype
+										// We have to do a check here, because pdtype is called feat.pdtype in nederlab
+										HashSet<String> valueList;
+										if (this.featureName2FeatureValues.containsKey("pdtype")) {
+											valueList = this.featureName2FeatureValues.get("pdtype");
+										} else {
+											valueList = this.featureName2FeatureValues.get("feat.pdtype");
+										}
+										if (valueList.contains(oneFeature)) {
+											pdtype = oneFeature;
+										}
 									}
 								}
-							}
-							for (String oneFeature : features) {
-								String featureName;
-								String featureValue;
-								// We normally expect a string like 'featureName = featureValue'
-								// but in the case of CGN, we might have feature values only.
-								// In that case, we need to add the feature name ourself.
-								if (oneFeature.split("=").length == 1) {
-									// If CGN-based corpus, there is a table from which we can infer feature name
-									if (this.featureName2FeatureValues != null) {
-										featureName = CgnFeatureDecoder.getFeatureName(realPosTag, pdtype,
-												this.featureName2FeatureValues, this.posTag2FeatureNames, oneFeature);
-										featureValue = oneFeature;
+								for (String oneFeature : features) {
+									String featureName;
+									String featureValue;
+									// We normally expect a string like 'featureName = featureValue'
+									// but in the case of CGN, we might have feature values only.
+									// In that case, we need to add the feature name ourself.
+									if (oneFeature.split("=").length == 1) {
+										// If CGN-based corpus, there is a table from which we can infer feature name
+										if (this.featureName2FeatureValues != null) {
+											featureName = CgnFeatureDecoder.getFeatureName(realPosTag, pdtype,
+													this.featureName2FeatureValues, this.posTag2FeatureNames, oneFeature);
+											featureValue = oneFeature;
+										}
+										else {
+											// In all other cases: just skip this feature
+											continue;
+										}
+									}
+									// normal case:
+									// input is a string like 'featureName = featureValue'
+									else {
+										featureName = oneFeature.split("=")[0].toLowerCase();
+										featureValue = oneFeature.split("=")[1];
+									}
+									// add the feature to the token properties
+									// If there is already a POS (in case of two POS per word), concatenate
+									// existing and new value with +
+									String existingValue = oneKeywordAndContext.get(featureName,  index);
+									if(existingValue == null || existingValue.isEmpty()) {
+										oneKeywordAndContext.addTokenProperty(featureName);
+										featureNamesOfCurrentToken.add(featureName);
+										oneKeywordAndContext.setTokenPropertyAt(featureName, featureValue, index);
 									}
 									else {
-										// In all other cases: just skip this feature
-										continue;
+										String newValue = existingValue+"+"+featureValue;
+										oneKeywordAndContext.setTokenPropertyAt(featureName, newValue, index);
 									}
+	
 								}
-								// normal case:
-								// input is a string like 'featureName = featureValue'
-								else {
-									featureName = oneFeature.split("=")[0].toLowerCase();
-									featureValue = oneFeature.split("=")[1];
-								}
-								// add the feature to the token properties
-								oneKeywordAndContext.addTokenProperty(featureName);
-								oneKeywordAndContext.setTokenPropertyAt(featureName, featureValue, index);
-
-								featureNamesOfCurrentToken.add(featureName);
-
 							}
 						}
-					}
-
+					} // end for loop
 				}
 
 				// try to match the features of the current token
 				// with our list of known features translations
 
-				Set<Feature> universalDependencyOfCurrentToken = null;
+				ArrayList<Set<Feature>> universalDependencyOfCurrentTokenMultiple = null;
 
 				for (FeatureConjunction oneKnownFeatureConjunction : this.sortedFeatureConjunctionsAccording2Complexity) {
 					// does the current token contain this known feature conjunction?
@@ -503,18 +521,28 @@ public class ConversionEngine {
 						// if so, build a feature conjunction representing the token
 						// with the same set of properties as our know FeatureConjunction
 
-						FeatureConjunction featureConjunctionOfToken = new FeatureConjunction();
+						ArrayList<FeatureConjunction> featureConjunctionOfTokenMultiple = new ArrayList<FeatureConjunction>(nPosParts);
 						for (String onePropertyName : keysOfThisKnownFeatureConjunction) {
 							String featureValue = oneKeywordAndContext.get(onePropertyName, index);
-							if (featureValue != null)
-								featureConjunctionOfToken.put(onePropertyName, featureValue);
+							if (featureValue != null) {
+								String[] featureValueParts = featureValue.split("\\+");
+								for (int i = 0; i<nPosParts;i++) {
+									FeatureConjunction fc = featureConjunctionOfTokenMultiple.get(i);
+									fc.put(onePropertyName, featureValueParts[i]);
+									featureConjunctionOfTokenMultiple.set(i, fc);
+								}
+							}
 						}
-						// than, try to find this FeatureConjunction in our list of known
+						// then, try to find this FeatureConjunction in our list of known
 						// FeatureConjunctions
 						// (t.i. match both feature keys and feature values)
-						universalDependencyOfCurrentToken = this.featureBackMap.get(featureConjunctionOfToken);
+						for (int i = 0; i<nPosParts;i++) {
+							FeatureConjunction fc = featureConjunctionOfTokenMultiple.get(i);
+							universalDependencyOfCurrentTokenMultiple.set(i, this.featureBackMap.get(fc));
+						}
 						// if translation is found, we are done with this token!
-						if (universalDependencyOfCurrentToken != null) {
+						Stream<Set<Feature>> udStream = universalDependencyOfCurrentTokenMultiple.stream();
+						if (udStream.anyMatch(i -> i != null)) {
 							break;
 						}
 
@@ -524,15 +552,17 @@ public class ConversionEngine {
 				
 				// now, if we have found a translation for the current token
 				// add this to the properties we already have
-
+				
 				ArrayList<String> universalDependenciesOfCurrentToken = new ArrayList<String>();
-				if (universalDependencyOfCurrentToken != null) {
-					for (Feature oneFeature : universalDependencyOfCurrentToken) {
-						universalDependenciesOfCurrentToken.add(StringUtils.join(oneFeature.getValues(), "|"));
+				for (Set<Feature> universalDependencyOfCurrentToken : universalDependencyOfCurrentTokenMultiple) {
+					// TODO: WORK FURTHER HERE
+					if (universalDependencyOfCurrentToken != null) {
+						for (Feature oneFeature : universalDependencyOfCurrentToken) {
+							universalDependenciesOfCurrentToken.add(StringUtils.join(oneFeature.getValues(), "|"));
+						}
+	
 					}
-
 				}
-
 				universalDependencies.add(StringUtils.join(universalDependenciesOfCurrentToken, " OR "));
 
 			} // end of loop through tokens
