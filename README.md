@@ -1,15 +1,26 @@
-# clariah-fcs-endpoints
+# CLARIAH Federated content search corpora
+CLARIAH Federated content search corpora, developed by the [Dutch Language Institute (INT)](https://github.com/INL), is a service to enable searching in multiple Dutch corpora at the same time. This application implements the [CLARIN FCS specification](https://office.clarin.eu/v/CE-2017-1046-FCS-Specification.pdf). This repository hosts the source code.
 
-Endpoints for fcs 2.0 federated corpus search in CLARIAH.
 
-Currently has initial basic support for blacklab server and the Nederlab portal.
+## Using CLARIAH FCS corpora
+* A web interface for only the Dutch corpora is available here: https://portal.clarin.inl.nl/fcscorporav2
+* The CLARIN FCS web interface, consisting of all European corpora, also features access to the Dutch FCS corpora:  https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/#
 
+## Corpora
+CLARIAH FCS Corpora currently has initial basic support for corpora based on [Blacklab Server](https://inl.github.io/blacklab) (INT corpora) and [MTAS](https://meertensinstituut.github.io/mtas/) (Nederlab). The following corpora are included:
+ * Letters as Loot (Brieven als Buit, 17th and 18th century sailors' letters)
+ * [Corpus Gysseling (13th century)](http://gysseling.corpus.taalbanknederlands.inl.nl/gysseling/page/search)
+ * [OpenSoNaR](https://portal.clarin.inl.nl/opensonar_frontend/opensonar/search)
+ * [Corpus of Contemporary Dutch (Corpus Hedendaags Nederlands, CHN)](http://corpushedendaagsnederlands.inl.nl/)
+ * Nederlab (Meertens Institute)
+
+
+## Architecture
+CLARIAH FCS Corpora consists of a backend and a webinterface (aggregator). The backend is based on a CLARIN backend implementation, extended with many specificalities for the Dutch corpora. The aggregator is more or less a copy of the CLARIN aggregator.
+
+## Backend
 Based on the fhe Korp fcs 2.0 reference endpoint implementation (https://github.com/clarin-eric/fcs-korp-endpoint), which in turn builds on https://svn.clarin.eu/FCSSimpleEndpoint/
 
-We test by running the 'clarin fcs aggregator' (cf below) locally.
-
-
-## Clarin Federated Content Search
 Code of dependencies of this project:
 * https://svn.clarin.eu/FCSSimpleEndpoint/ (reference endpoint implementation)  
 * https://svn.clarin.eu/FCS-QL/ (dependency of this project)
@@ -21,56 +32,32 @@ Cf:
 * https://www.clarin.eu/sites/default/files/CE-2015-0629-FCS-2-workplan.pdf
 * published FCS 2.0 specification at https://office.clarin.eu/v/CE-2017-1046-FCS-Specification.pdf
 * On dataviews cf. https://www.clarin.eu/sites/default/files/CE-2014-0317-CLARIN_FCS_Specification_DataViews_1_0.pdf, met name CMDI data view. 
-* Zie ook https://office.clarin.eu/v/CE-2017-1035-CLARINPLUS-D2_9.pdf voor aggregator. 
-* Aggregator code: https://svn.clarin.eu/SRUAggregator; zie ook https://www.clarin.eu/content/clarin-plus-supplemental-material. 
 * Also (alternative endpoint) https://github.com/KorAP/KorapSRU 
 
 
-### The aggregator
+The backend communicates with Blacklab Server for the INT corpora ([documentation here](http://inl.github.io/BlackLab/blacklab-server-overview.html)). For Nederlab, the backend communicates not directly with MTAS, but with an intermediate layer, which restricts access to the corpus, but accepts the same MTAS queries. Cf https://github.com/meertensinstituut/mtas and https://meertensinstituut.github.io/mtas/
 
-Is a simple portal for federated search. It is still alpha software.
+### Agregator
+
+Is a simple web interface for federated search. It is still alpha software.
 
 https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/# for a running version; source at https://svn.clarin.eu/SRUAggregator/
+
+* Aggregator code: https://svn.clarin.eu/SRUAggregator; see also https://www.clarin.eu/content/clarin-plus-supplemental-material
+* See also https://office.clarin.eu/v/CE-2017-1035-CLARINPLUS-D2_9.pdf
  
 ## Quick start
 
-Call 'mvn package' to create a war file; deploy it, and start the aggregator to test. 
+Call `mvn package` to create a war file, deploy it on Tomcat to start the backend. To start the aggregator, start `conf/start_aggregator.sh` and browse to http://localhost:4019/Aggregator
 
-Configuration is described below.
-
-### Running with the aggregator (rekenserver only)
-
-start conf/start_aggregator.sh and browse to http://localhost:4019/Aggregator
-
-## Endpoint implementations
-
-### Blacklab Server
-
-Documentation at http://inl.github.io/BlackLab/blacklab-server-overview.html.
-
-Is the response format described?
- 
-
-### Nederlab portal
-
-Cf https://github.com/meertensinstituut/mtas and https://meertensinstituut.github.io/mtas/
-
-We use the Nederlab test broker, http://www.nederlab.nl/testbroker/search/#examples
-
-Issues:
-* JSON response difficult to understand
-* JSON query options also not so obvious
-* Cannot get kwics for PoS queries
-
-### Corpusdependent
-
-Chooses one of the above dependent on the corpus.
 
 ## Configuration
 
-### web.xml
+### Backend configuration
 
-The servlet WEB-INF/web.xml should specify which engine class (extending extends SimpleEndpointSearchEngineBase from the FCSSimpleEndpoint implementation) handles the search requests.
+#### web.xml
+
+The servlet `WEB-INF/web.xml` should specify which engine class (extending extends SimpleEndpointSearchEngineBase from the FCSSimpleEndpoint implementation) handles the search requests.
 
 Currently
 
@@ -81,24 +68,16 @@ Currently
 &lt;/init-param>
 </pre>
 
-### The resource description
+#### The resource description
 
-This lists the corpora the endpoint gives access to
-
-Source file is src/main/webapp/WEB-INF/endpoint-description.xml
-
-### Configuration in the source
-
-* Some defaults 
-* The Corpus dependent endpoint contains a mapping from corpus names to Engine class. This should move to a file.
-
+This lists the corpora the endpoint gives access to: `src/main/webapp/WEB-INF/endpoint-description.xml`
 
 ### Aggregator configuration
 The aggregator depends on the following resources
 
 #### yaml file 
 
-(for us, conf/aggregator_devel.yml)
+(for us, `conf/aggregator_devel.yml`)
 
 #### The Clarin eu center list 
 
@@ -132,22 +111,3 @@ This should contain something like
   &lt;Description>CQL&lt;/Description>
 &lt;/WebReference>
 </pre>
-
-
-## Mapping
-
-The federated queries are supposed to be in Universal Dependencies.
-
-There is a simple mapping mechanism from UD to
-
-* CGN tagset, with variant dialects for Nederlab and Opensonar (Nederlab has feature names, Opensonar uses regexes to search for features)
-* CHN tagset
-* Letters as Loot tagset
-
-##
-
-Als alles meezit krijg je er zoiets uit:
-
-![alt text](https://github.com/INL/clariah-fcs-endpoints/raw/master/doc/aggregator-collections.png "Collection dialog")
-
-![alt text](https://github.com/INL/clariah-fcs-endpoints/raw/master/doc/aggregator-results.png "Search results")
