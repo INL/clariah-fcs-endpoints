@@ -32,21 +32,17 @@ Cf:
 * https://www.clarin.eu/content/federated-content-search-clarin-fcs
 * https://www.clarin.eu/sites/default/files/CE-2015-0629-FCS-2-workplan.pdf
 * published FCS 2.0 specification at https://office.clarin.eu/v/CE-2017-1046-FCS-Specification.pdf
-* On dataviews cf. https://www.clarin.eu/sites/default/files/CE-2014-0317-CLARIN_FCS_Specification_DataViews_1_0.pdf, met name CMDI data view. 
+* On dataviews cf. https://www.clarin.eu/sites/default/files/CE-2014-0317-CLARIN_FCS_Specification_DataViews_1_0.pdf, specifically CMDI data view
 * Also (alternative endpoint) https://github.com/KorAP/KorapSRU 
 
 
-The backend communicates with Blacklab Server for the INT corpora ([documentation here](http://inl.github.io/BlackLab/blacklab-server-overview.html)). For Nederlab, the backend communicates not directly with MTAS, but with an intermediate layer, which restricts access to the corpus, but accepts the same MTAS queries. Cf https://github.com/meertensinstituut/mtas and https://meertensinstituut.github.io/mtas/
+The backend communicates with Blacklab Server for the INT corpora ([BlackLab Server documentation here](http://inl.github.io/BlackLab/blacklab-server-overview.html)). For Nederlab, the backend communicates not directly with [https://meertensinstituut.github.io/mtas/](MTAS), but with an intermediate layer, which restricts access to the corpus, but accepts the same MTAS queries. For more about MTAS, see also the [GitHub repository](https://github.com/meertensinstituut/mtas).
 
 ### Aggregator
 
-Is a simple web interface for federated search. It is still alpha software.
-
-https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/# for a running version; source at https://svn.clarin.eu/SRUAggregator/
+The aggregator is simple web interface for federated search, developed by CLARIN. It is still alpha software. The `lib` directory of this repository contains a version (not necessarily the latest) of the Aggregator.
 
 * Aggregator code: https://svn.clarin.eu/SRUAggregator; see also https://www.clarin.eu/content/clarin-plus-supplemental-material
 * See also https://office.clarin.eu/v/CE-2017-1035-CLARINPLUS-D2_9.pdf
+* See https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/# for a running version of the aggregator at the Swedish Language Bank.
  
-## Installation on own computer
-
-Call `mvn package` to create a war file, deploy it on Tomcat to start the backend. To start the aggregator, start `conf/start_aggregator.sh` and browse to http://localhost:4019/Aggregator
