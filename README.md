@@ -71,7 +71,9 @@ Currently
 
 #### Resource description (adding corpora)
 
-This lists the corpora the endpoint gives access to: `src/main/webapp/WEB-INF/endpoint-description.xml`. The same corpora, with the same names, also have to be added to `src/main/webapp/WEB-INF/endpoint-engines-list.xml`. So, when adding a new corpus, both files should be edited.
+Corpora have to be added to two files, to be included in FCS. `src/main/webapp/WEB-INF/endpoint-description.xml` contains information targeted at users: the corpus name, a description, and a link to the original search engine (web interface, where users can visit it).
+
+The same corpora, with the same names, also have to be added to `src/main/webapp/WEB-INF/endpoint-engines-list.xml`, which contains information on how FCS can access and use the corpus. Here is an example entry:
 
 <pre>
 &lt;Engine>
