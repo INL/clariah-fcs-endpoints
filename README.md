@@ -12,13 +12,13 @@ CLARIAH FCS Corpora currently has initial basic support for corpora based on [Bl
  * [Corpus Gysseling (13th century)](http://gysseling.corpus.taalbanknederlands.inl.nl/gysseling/page/search)
  * [OpenSoNaR](https://portal.clarin.inl.nl/opensonar_frontend/opensonar/search)
  * [Corpus of Contemporary Dutch (Corpus Hedendaags Nederlands, CHN)](http://corpushedendaagsnederlands.inl.nl/)
- * Nederlab (Meertens Institute)
+ * [Nederlab (Meertens Institute)](https://www.nederlab.nl/onderzoeksportaal/?action=verkennen)
 
 
 ## Architecture
 CLARIAH FCS Corpora consists of a backend and a webinterface (aggregator). The backend is based on a CLARIN backend implementation, extended with many specificalities for the Dutch corpora. The aggregator is more or less a copy of the CLARIN aggregator.
 
-## Backend
+### Backend
 Based on the fhe Korp fcs 2.0 reference endpoint implementation (https://github.com/clarin-eric/fcs-korp-endpoint), which in turn builds on https://svn.clarin.eu/FCSSimpleEndpoint/
 
 Code of dependencies of this project:
@@ -46,7 +46,7 @@ https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/# for a running version; source
 * Aggregator code: https://svn.clarin.eu/SRUAggregator; see also https://www.clarin.eu/content/clarin-plus-supplemental-material
 * See also https://office.clarin.eu/v/CE-2017-1035-CLARINPLUS-D2_9.pdf
  
-## Quick start
+## Getting started
 
 Call `mvn package` to create a war file, deploy it on Tomcat to start the backend. To start the aggregator, start `conf/start_aggregator.sh` and browse to http://localhost:4019/Aggregator
 
