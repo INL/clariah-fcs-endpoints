@@ -4,7 +4,8 @@ CLARIAH Federated content search corpora, developed by the [Dutch Language Insti
 
 ## Using CLARIAH FCS corpora
 * A web interface for only the Dutch corpora is available here: https://portal.clarin.inl.nl/fcscorporav2
-* The CLARIN FCS web interface, consisting of all European corpora, also features access to the Dutch FCS corpora:  https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/#
+* The CLARIN FCS web interface, consisting of all European corpora, also features access to the Dutch FCS corpora:  https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/# . For this, it utilizes the backend hosted at the INT: https://portal.clarin.inl.nl/fcscorpora/clariah-fcs-endpoints/sru
+
 
 ## Corpora
 CLARIAH FCS Corpora currently has initial basic support for corpora based on [Blacklab Server](https://inl.github.io/blacklab) (INT corpora) and [MTAS](https://meertensinstituut.github.io/mtas/) (Nederlab). The following corpora are included:
@@ -37,7 +38,7 @@ Cf:
 
 The backend communicates with Blacklab Server for the INT corpora ([documentation here](http://inl.github.io/BlackLab/blacklab-server-overview.html)). For Nederlab, the backend communicates not directly with MTAS, but with an intermediate layer, which restricts access to the corpus, but accepts the same MTAS queries. Cf https://github.com/meertensinstituut/mtas and https://meertensinstituut.github.io/mtas/
 
-### Agregator
+### Aggregator
 
 Is a simple web interface for federated search. It is still alpha software.
 
@@ -46,7 +47,7 @@ https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/# for a running version; source
 * Aggregator code: https://svn.clarin.eu/SRUAggregator; see also https://www.clarin.eu/content/clarin-plus-supplemental-material
 * See also https://office.clarin.eu/v/CE-2017-1035-CLARINPLUS-D2_9.pdf
  
-## Getting started
+## Installation on own computer
 
 Call `mvn package` to create a war file, deploy it on Tomcat to start the backend. To start the aggregator, start `conf/start_aggregator.sh` and browse to http://localhost:4019/Aggregator
 
@@ -68,10 +69,25 @@ Currently
 &lt;/init-param>
 </pre>
 
-#### The resource description
+#### Resource description (adding corpora)
 
-This lists the corpora the endpoint gives access to: `src/main/webapp/WEB-INF/endpoint-description.xml`
+This lists the corpora the endpoint gives access to: `src/main/webapp/WEB-INF/endpoint-description.xml`. The same corpora, with the same names, also have to be added to `src/main/webapp/WEB-INF/endpoint-engines-list.xml`. So, when adding a new corpus, both files should be edited.
 
+<pre>
+&lt;Engine>
+		&lt;engine-name>zeebrieven&lt;/engine-name>
+		&lt;engine-type>blacklabserver&lt;/engine-type>
+		&lt;engine-url>http://svprmc20.ivdnt.org/blacklab-server/&lt;/engine-url>
+		&lt;engine-native-url-template>http://brievenalsbuit.inl.nl/zeebrieven/page/search&lt;/engine-native-url-template>
+		&lt;tagset-conversion-table>UD2BaB&lt;/tagset-conversion-table>
+	&lt;/Engine>
+</pre>
+
+ * `engine-name` is the corpus name, should be the same name as in `endpoint-description.xml`.
+ * `engine-type` is the type of corpus protocol, `blacklabserver` or `nederlab`.
+ * `engine-url` is the address where the server instance for this corpus is located.
+ * `engine-native-url-template` is the template of the location (just a template, arguments are added by FCS) where users can visit the original corpus search engine to search further. This URL is returned in the backend output.
+ * `tagset-conversion-table` is the tagset conversion table used. Only tables for which a `.conversion.json` file exists in `src/main/webapp/WEB-INF/` can be supplied.
 ### Aggregator configuration
 The aggregator depends on the following resources
 
@@ -81,10 +97,8 @@ The aggregator depends on the following resources
 
 #### The Clarin eu center list 
 
-(for testing, http://localhost:8080/clariah-fcs-endpoints/registry/clarin_center_list.xml)
-
-The official location for this is https://centres.clarin.eu/restxml/ 
-A testing version is at src/main/webapp/registry/clarin_center_list.xml
+The official location for this is https://centres.clarin.eu/restxml/ .
+A testing version is at `src/main/webapp/clarin_center_list.xml`.
 
 We are number 22:
 <pre>
@@ -94,20 +108,20 @@ We are number 22:
 	&lt;Center_id_link>https://centres.clarin.eu/restxml/22&lt;/Center_id_link>
 &lt;/CenterProfile>
 </pre>
+From the `Center_id_link` in the center list, the INT center profile is opened.
 
 #### The center profile 
 
-Official location for INT:  https://centres.clarin.eu/restxml/22 (We need to update this if we want to make resources visible for the aggregator running at Spr�kbanken)
+Official location for INT:  https://centres.clarin.eu/restxml/22 .
+A testing version is at: `src/main/webapp/WEB-INF/clarin_center_ivdnt.xml`
 
-Testing location: http://localhost:8080/clariah-fcs-endpoints/registry/clarin_center_ivdnt.xml
-
-(again, source is in src/main/webapp/registry)
-
-This should contain something like
+This should contain something like:
 
 <pre>
 &lt;WebReference>
-  &lt;Website>http://localhost:8080/clariah-fcs-endpoints/sru&lt;/Website>
+  &lt;Website>https://portal.clarin.inl.nl/fcscorpora/clariah-fcs-endpoints/sru&lt;/Website>
   &lt;Description>CQL&lt;/Description>
 &lt;/WebReference>
 </pre>
+
+The aggregator will now connect to the backend that is running at the URL supplied inside the `Website` tag in `WebReference`.
