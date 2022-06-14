@@ -35,7 +35,7 @@
 			<Description xml:lang="en">The over 500 million word Dutch reference corpus SoNaR
 				developed within the STEVIN programme under the aegis of the Dutch Language
 				Union.</Description>
-			<LandingPageURI>http://opensonar.ato.inl.nl/</LandingPageURI>
+			<LandingPageURI>https://opensonar.ivdnt.org/</LandingPageURI>
 			<Languages>
 				<Language>nld</Language>
 			</Languages>
@@ -52,7 +52,7 @@
 				corpus is a combination of the 5, 27 and 38 Million Words Corpora and the PAROLE
 				Corpus, supplemented with more recent material from the Netherlands, Flanders,
 				Surinam and the Netherlands Antilles. </Description>
-			<LandingPageURI>http://corpushedendaagsnederlands.inl.nl/</LandingPageURI>
+			<LandingPageURI>https://chn.ivdnt.org/</LandingPageURI>
 			<Languages>
 				<Language>nld</Language>
 			</Languages>
@@ -76,7 +76,7 @@
 				in the 17th and 18th Century and ended up in the National Archives in Kew. This
 				corpus contains a selection of these letters and was built in the Letters as Loot
 				project of Prof. dr. M. van der Wal.</Description>
-			<LandingPageURI>http://brievenalsbuit.inl.nl/</LandingPageURI>
+			<LandingPageURI>https://brievenalsbuit.ivdnt.org/</LandingPageURI>
 			<Languages>
 				<Language>nld</Language>
 			</Languages>
@@ -99,7 +99,7 @@
 				of the thirteenth-century material from the Corpus of Middle Dutch texts (until the
 				year 1300), issued in the period from 1977 to 1987 by the Ghent linguist Maurits
 				Gysseling.</Description>
-			<LandingPageURI>http://gysseling.corpus.taalbanknederlands.inl.nl/</LandingPageURI>
+			<LandingPageURI>https://corpusgysseling.ivdnt.org/</LandingPageURI>
 			<Languages>
 				<Language>nld</Language>
 			</Languages>

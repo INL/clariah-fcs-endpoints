@@ -108,7 +108,8 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 				url = this.getServer();
 			}
 			url += url.endsWith("/") ? "" : "/";
-			url += this.getCorpus() + "/";
+			// JN 2022-06-14: include corpus name in URL for BLS because it's not always same as resource name
+			//url += this.getCorpus() + "/";
 			if (returnNativeUrl) {
 				url += "search/";
 			}

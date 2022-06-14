@@ -51,8 +51,8 @@ public class BlacklabServerEndpointSearchEngine extends BasicEndpointSearchEngin
 
 		// instantiate the Blacklab query
 		// bij fcs beginnen ze bij 1 te tellen ?
-		BlacklabServerQuery blacklabServerQuery = new BlacklabServerQuery(this.getServer(), fcsContextCorpus, query,
-				request.getStartRecord() - 1, request.getMaximumRecords(), this.restrictTotalNumberOfResults, this.getEngineNativeUrlTemplate());
+		BlacklabServerQuery blacklabServerQuery = new BlacklabServerQuery(getServer(), fcsContextCorpus, query,
+				request.getStartRecord() - 1, request.getMaximumRecords(), restrictTotalNumberOfResults, getEngineNativeUrlTemplate());
 
 		logger.info("Query to blacklab server: " + blacklabServerQuery);
 

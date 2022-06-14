@@ -5,7 +5,7 @@
 		<engine-name>nederlab</engine-name>
 		<engine-type>nederlab</engine-type>
 		<engine-url>https://www.nederlab.nl/api/mtas</engine-url>
-		<engine-native-url-template>http://www.nederlab.nl/onderzoeksportaal/?action=results&amp;cql-expert=</engine-native-url-template>
+		<engine-native-url-template>https://www.nederlab.nl/onderzoeksportaal/?action=results&amp;cql-expert=</engine-native-url-template>
 		<tagset-conversion-table>UD2CGNNederlab</tagset-conversion-table>
 		<nederlab-extra-response-fields>
 			<field>NLCore_NLIdentification_editorialCode</field>
@@ -23,34 +23,34 @@
 	<Engine>
 		<engine-name>opensonar</engine-name>
 		<engine-type>blacklabserver</engine-type>
-		<engine-url>http://172.16.10.93:8080/blacklab-server/</engine-url>
+		<engine-url>http://svprmc13.ivdnt.org:8080/blacklab-server/opensonar</engine-url>
 		<restrict-total-number-of-results>10</restrict-total-number-of-results>
-		<engine-native-url-template>https://portal.clarin.inl.nl/opensonar_whitelab/search/simple</engine-native-url-template>
+		<engine-native-url-template>https://portal.clarin.inl.nl/opensonar_frontend/opensonar</engine-native-url-template>
 		<tagset-conversion-table>UD2CGNSonar</tagset-conversion-table>
 	</Engine>
 
 	<Engine>
 		<engine-name>chn</engine-name>
 		<engine-type>blacklabserver</engine-type>
-		<engine-url>http://svprmc05.inl.nl/blacklab-server/</engine-url>
+		<engine-url>http://svprec10.ivdnt.loc/blacklab-server-chn/chn-extern</engine-url>
 		<restrict-total-number-of-results>10</restrict-total-number-of-results>
-		<engine-native-url-template>http://chn.inl.nl/corpus-frontend/</engine-native-url-template>
-		<tagset-conversion-table>UD2CHN</tagset-conversion-table>
+		<engine-native-url-template>https://portal.clarin.inl.nl/corpus-frontend-chn/chn-extern</engine-native-url-template>
+	<tagset-conversion-table>UD2CHN</tagset-conversion-table>
 	</Engine>
 
 	<Engine>
 		<engine-name>zeebrieven</engine-name>
 		<engine-type>blacklabserver</engine-type>
-		<engine-url>http://svprmc20.ivdnt.org/blacklab-server/</engine-url>
-		<engine-native-url-template>http://brievenalsbuit.inl.nl/zeebrieven/page/search</engine-native-url-template>
+		<engine-url>http://svprmc12.ivdnt.org/blacklab-server/BaB</engine-url>
+		<engine-native-url-template>https://brievenalsbuit.ivdnt.org/corpus-frontend/BaB</engine-native-url-template>
 		<tagset-conversion-table>UD2BaB</tagset-conversion-table>
 	</Engine>
 
 	<Engine>
 		<engine-name>gysseling</engine-name>
 		<engine-type>blacklabserver</engine-type>
-		<engine-url>http://svprmc20.ivdnt.org/blacklab-server/</engine-url>
-		<engine-native-url-template>http://gysseling.corpus.taalbanknederlands.inl.nl/gysseling/page/search</engine-native-url-template>
+		<engine-url>http://svprmc12.ivdnt.org/blacklab-server/Gysseling</engine-url>
+		<engine-native-url-template>https://corpusgysseling.ivdnt.org/corpus-frontend/Gysseling</engine-native-url-template>
 		<tagset-conversion-table>UD2GYS</tagset-conversion-table>
 	</Engine>
 

@@ -145,22 +145,6 @@ public abstract class Query {
 		this.engineNativeUrlTemplate = engineNativeUrlTemplate;
 	}
 
-	public void setMaximumResults(int maximumResults) {
-		this.maximumResults = maximumResults;
-	}
-
-	// --------------------------------------------------------------------------------
-
-	public void setServer(String server) {
-		this.server = server;
-	}
-
-	// --------------------------------------------------------------------------------
-
-	public void setStartPosition(int startPosition) {
-		this.startPosition = startPosition;
-	}
-
 	public void setTotalNumberOfResults(int totalNumberOfResults) {
 		this.totalNumberOfResults = totalNumberOfResults;
 	}

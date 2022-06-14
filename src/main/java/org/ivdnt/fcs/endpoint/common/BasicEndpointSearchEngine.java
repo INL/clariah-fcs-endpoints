@@ -327,8 +327,4 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	public void setEngineNativeUrlTemplate(String engineNativeUrlTemplate) {
 		this.engineNativeUrlTemplate = engineNativeUrlTemplate;
 	}
-
-	public void setServer(String server) {
-		this.server = server;
-	}
 }
