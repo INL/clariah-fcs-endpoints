@@ -9,33 +9,33 @@
     "@type": "SoftwareSourceCode",
     "author": [
         {
-            "@id": "/person/mathieu-fannee",
-            "@type": "Person",
-            "familyName": "Fannee",
-            "givenName": "Mathieu",
-            "url": "https://www.ivdnt.org/"
-        },
-        {
             "@id": "/person/jesse-de-does",
             "@type": "Person",
             "familyName": "de Does",
             "givenName": "Jesse",
+            "url": "https://www.ivdnt.org/"
+        },
+        {
+            "@id": "/person/mathieu-fannee",
+            "@type": "Person",
+            "familyName": "Fannee",
+            "givenName": "Mathieu",
             "url": "https://www.ivdnt.org/"
         }
     ],
     "contributor": [
         {
-            "@id": "/person/mathieu-fannee",
-            "@type": "Person",
-            "familyName": "Fannee",
-            "givenName": "Mathieu",
-            "url": "https://www.ivdnt.org/"
-        },
-        {
             "@id": "/person/jesse-de-does",
             "@type": "Person",
             "familyName": "de Does",
             "givenName": "Jesse",
+            "url": "https://www.ivdnt.org/"
+        },
+        {
+            "@id": "/person/mathieu-fannee",
+            "@type": "Person",
+            "familyName": "Fannee",
+            "givenName": "Mathieu",
             "url": "https://www.ivdnt.org/"
         }
     ],

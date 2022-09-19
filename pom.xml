@@ -8,7 +8,9 @@
 	<version>0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>A Blacklab Server CLARIN FCS 2.0 endpoint</name>
-	<description>A Blacklab Server CLARIN FCS endpoint implementation as an example of a CLARIN FCS 2.0 endpoint.</description>
+	<description>
+    A Blacklab Server CLARIN FCS endpoint implementation as an example of a CLARIN FCS 2.0 endpoint.
+  </description>
 
 	<properties>
 		<!-- project settings -->
@@ -26,25 +28,17 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-<!--
 	<scm>
 		<connection>scm:svn:https://svn.clarin.eu/browser/FCS-Korp-Endpoint</connection>
 		<developerConnection>scm:svn:https://svn.clarin.eu/FCS-Korp-Endpoint</developerConnection>
 		<url>https://svn.clarin.eu/FCS-Korp-Endpoint</url>
 	</scm>
--->
 	<developers>
 		<developer>
-			<id>mf</id>
-			<name>Mathieu Fannee</name>
-			<organization>INT</organization>
-			<url>https://www.ivdnt.org/</url>
-		</developer>
-		<developer>
-			<id>jdd</id>
-			<name>Jesse de Does</name>
-			<organization>INT</organization>
-			<url>https://www.ivdnt.org/</url>
+			<id>ljo</id>
+			<name>Leif-Jöran Olsson</name>
+			<organization>Språkbanken</organization>
+			<url>https://spraakbanken.gu.se/</url>
 		</developer>
 	</developers>
 	<dependencies>
@@ -175,12 +169,33 @@
 
 	<repositories>
 		<repository>
-			<id>INT</id>
-			<name>INT github repository</name>
-			<url>https://github.com/INL</url>
+			<id>CLARIN</id>
+			<name>CLARIN Repository</name>
+			<url>https://nexus.clarin.eu/content/repositories/Clarin</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+
+		<repository>
+			<id>CLARIN-snapshot</id>
+			<name>CLARIN Snapshot Repository</name>
+			<url>https://nexus.clarin.eu/content/repositories/clarin-snapshot</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>CLARIN-snapshot</id>
+			<url>https://nexus.clarin.eu/content/repositories/clarin-snapshot</url>
+		</snapshotRepository>
+
+		<repository>
+			<id>CLARIN</id>
+			<url>https://nexus.clarin.eu/content/repositories/Clarin</url>
+		</repository>
+	</distributionManagement>
 </project>
