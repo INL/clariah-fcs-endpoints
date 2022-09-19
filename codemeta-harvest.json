@@ -4,15 +4,16 @@
     "targetProduct": [
         {
             "@type": "WebService",
-            "name": "Dutch FCS endpoints hosted at INT"
+            "name": "Dutch FCS endpoints hosted at INT",
+            "url": "https://portal.clarin.inl.nl/fcscorpora/clariah-fcs-endpoints/sru"
         }
    ],
-     "producer": {
+   "producer": {
         "@type": "Organization",
         "name": "INT",
         "url": "https://www.ivdnt.org"
    },
-    "maintainer": [
+   "maintainer": [
         {
             "@id": "/person/mathieu-fannee",
             "@type": "Person",
@@ -20,7 +21,7 @@
             "givenName": "Mathieu",
             "url": "https://www.ivdnt.org/"
         }
-    ],
+   ],
    "developmentStatus": "https://www.repostatus.org/#inactive",
    "keywords": [ "corpus search", "Federated Content Search", "FCS 2.0", "CLARIN", "BlackLab", "Nederlab" ],
    "funding": [{
