@@ -1,0 +1,126 @@
+{
+    "@context": [
+        "https://raw.githubusercontent.com/codemeta/codemeta/2.0/codemeta.jsonld",
+        "https://w3id.org/software-iodata",
+        "https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/13.0/schemaorgcontext.jsonld",
+        "https://w3id.org/software-types"
+    ],
+    "@id": "https://github.com/INL",
+    "@type": "SoftwareSourceCode",
+    "author": [
+        {
+            "@id": "/person/mathieu-fannee",
+            "@type": "Person",
+            "familyName": "Fannee",
+            "givenName": "Mathieu",
+            "url": "https://www.ivdnt.org/"
+        },
+        {
+            "@id": "/person/jesse-de-does",
+            "@type": "Person",
+            "familyName": "de Does",
+            "givenName": "Jesse",
+            "url": "https://www.ivdnt.org/"
+        }
+    ],
+    "contributor": [
+        {
+            "@id": "/person/mathieu-fannee",
+            "@type": "Person",
+            "familyName": "Fannee",
+            "givenName": "Mathieu",
+            "url": "https://www.ivdnt.org/"
+        },
+        {
+            "@id": "/person/jesse-de-does",
+            "@type": "Person",
+            "familyName": "de Does",
+            "givenName": "Jesse",
+            "url": "https://www.ivdnt.org/"
+        }
+    ],
+    "description": "A Blacklab Server CLARIN FCS endpoint implementation as an example of a CLARIN FCS 2.0 endpoint.",
+    "identifier": "data",
+    "license": [
+        "http://spdx.org/licenses/GPL-3.0-only",
+        "http://www.gnu.org/licenses/gpl.txt"
+    ],
+    "name": "A Blacklab Server CLARIN FCS 2.0 endpoint",
+    "programmingLanguage": "Java",
+    "readme": "/blob/README.md",
+    "repository": "https://github.com/INL",
+    "runtimePlatform": "Java",
+    "softwareRequirements": [
+        {
+            "@id": "/dependency/eu.clarin.sru.fcs.fcs-simple-endpoint.1.4.0",
+            "@type": "SoftwareApplication",
+            "identifier": "eu.clarin.sru.fcs.fcs-simple-endpoint",
+            "name": "fcs-simple-endpoint",
+            "version": "1.4.0"
+        },
+        {
+            "@id": "/dependency/com.fasterxml.jackson.core.jackson-databind.2.12.6.1",
+            "@type": "SoftwareApplication",
+            "identifier": "com.fasterxml.jackson.core.jackson-databind",
+            "name": "jackson-databind",
+            "version": "2.12.6.1"
+        },
+        {
+            "@id": "/dependency/com.jayway.jsonpath.json-path.2.1.0",
+            "@type": "SoftwareApplication",
+            "identifier": "com.jayway.jsonpath.json-path",
+            "name": "json-path",
+            "version": "2.1.0"
+        },
+        {
+            "@id": "/dependency/com.googlecode.json-simple.json-simple.1.1.1",
+            "@type": "SoftwareApplication",
+            "identifier": "com.googlecode.json-simple.json-simple",
+            "name": "json-simple",
+            "version": "1.1.1"
+        },
+        {
+            "@id": "/dependency/junit.junit.4.13.1",
+            "@type": "SoftwareApplication",
+            "identifier": "junit.junit",
+            "name": "junit",
+            "version": "4.13.1"
+        },
+        {
+            "@id": "/dependency/org.apache.logging.log4j.log4j-core.2.17.1",
+            "@type": "SoftwareApplication",
+            "identifier": "org.apache.logging.log4j.log4j-core",
+            "name": "log4j-core",
+            "version": "2.17.1"
+        },
+        {
+            "@id": "/dependency/org.apache.logging.log4j.log4j-slf4j-impl.2.15.0",
+            "@type": "SoftwareApplication",
+            "identifier": "org.apache.logging.log4j.log4j-slf4j-impl",
+            "name": "log4j-slf4j-impl",
+            "version": "2.15.0"
+        },
+        {
+            "@id": "/dependency/org.apache.maven.plugin-testing.maven-plugin-testing-harness.3.3.0",
+            "@type": "SoftwareApplication",
+            "identifier": "org.apache.maven.plugin-testing.maven-plugin-testing-harness",
+            "name": "maven-plugin-testing-harness",
+            "version": "3.3.0"
+        },
+        {
+            "@id": "/dependency/javax.servlet.servlet-api.2.5",
+            "@type": "SoftwareApplication",
+            "identifier": "javax.servlet.servlet-api",
+            "name": "servlet-api",
+            "version": "2.5"
+        },
+        {
+            "@id": "/dependency/org.eclipse.jetty.test-jetty-servlet.8.1.19.v20160209",
+            "@type": "SoftwareApplication",
+            "identifier": "org.eclipse.jetty.test-jetty-servlet",
+            "name": "test-jetty-servlet",
+            "version": "8.1.19.v20160209"
+        }
+    ],
+    "version": "0.1-SNAPSHOT"
+}
