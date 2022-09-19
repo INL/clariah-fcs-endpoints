@@ -1,5 +1,5 @@
 {
-   "description": "CLARIAH Federated content search corpora, developed by the Dutch Language Institute (INT), is a service to enable searching in multiple Dutch corpora at the same time. This application implements the CLARIN FCS 2.0 specification on top of Dutch language corpora. This repository hosts the source code.",    
+    "description": "CLARIAH Federated content search corpora, developed by the Dutch Language Institute (INT), is a service to enable searching in multiple Dutch corpora at the same time. This application implements the CLARIN FCS 2.0 specification on top of Dutch language corpora. This repository hosts the source code.",    
     "license": "https://www.gnu.org/licenses/gpl-3.0.html",
     "targetProduct": [
         {
@@ -12,16 +12,15 @@
         "name": "INT",
         "url": "https://www.ivdnt.org"
    },
-   {
-    "developmentStatus": "https://www.repostatus.org/#inactive"
-   },
-      "funding": {
+   "developmentStatus": "https://www.repostatus.org/#inactive",
+   "keywords": [ "corpus search", "Federated Content Search", "FCS 2.0", "CLARIN", "BlackLab", "Nederlab" ],
+   "funding": [{
         "@type": "Grant",
-        "name": "CLARIAH-CORE",
+        "name": "CLARIAH-CORE (NWO grant 184.034.023)",
         "funder": {
             "@type": "Organization",
             "name": "NWO", 
             "url": "https://www.nwo.nl"
         }
-    }
+    }]
 }

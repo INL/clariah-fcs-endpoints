@@ -9,11 +9,11 @@
     "@type": "SoftwareSourceCode",
     "author": [
         {
-            "@id": "/person/jesse-de-does",
+            "@id": "/person/leif-jöran-olsson",
             "@type": "Person",
-            "familyName": "de Does",
-            "givenName": "Jesse",
-            "url": "https://www.ivdnt.org/"
+            "familyName": "Olsson",
+            "givenName": "Leif-Jöran",
+            "url": "https://spraakbanken.gu.se/"
         },
         {
             "@id": "/person/mathieu-fannee",
@@ -23,21 +23,21 @@
             "url": "https://www.ivdnt.org/"
         },
         {
-            "@id": "/person/leif-jöran-olsson",
+            "@id": "/person/jesse-de-does",
             "@type": "Person",
-            "familyName": "Olsson",
-            "givenName": "Leif-Jöran",
-            "url": "https://spraakbanken.gu.se/"
+            "familyName": "de Does",
+            "givenName": "Jesse",
+            "url": "https://www.ivdnt.org/"
         }
     ],
     "codeRepository": "https://github.com/INL/clariah-fcs-endpoints",
     "contributor": [
         {
-            "@id": "/person/jesse-de-does",
+            "@id": "/person/leif-jöran-olsson",
             "@type": "Person",
-            "familyName": "de Does",
-            "givenName": "Jesse",
-            "url": "https://www.ivdnt.org/"
+            "familyName": "Olsson",
+            "givenName": "Leif-Jöran",
+            "url": "https://spraakbanken.gu.se/"
         },
         {
             "@id": "/person/mathieu-fannee",
@@ -47,20 +47,47 @@
             "url": "https://www.ivdnt.org/"
         },
         {
-            "@id": "/person/leif-jöran-olsson",
+            "@id": "/person/jesse-de-does",
             "@type": "Person",
-            "familyName": "Olsson",
-            "givenName": "Leif-Jöran",
-            "url": "https://spraakbanken.gu.se/"
+            "familyName": "de Does",
+            "givenName": "Jesse",
+            "url": "https://www.ivdnt.org/"
         }
     ],
-    "description": "CLARIAH Federated content search for Dutch corpora, developed by the Dutch Language Institute (INT), is a service to enable searching in multiple Dutch corpora at the same time according to the CLARIN FCS 2.0 specification on top of Dutch language corpora. This repository hosts the source code.",
+    "description": "CLARIAH Federated content search corpora, developed by the Dutch Language Institute (INT), is a service to enable searching in multiple Dutch corpora at the same time. This application implements the CLARIN FCS 2.0 specification on top of Dutch language corpora. This repository hosts the source code.",
+    "developmentStatus": "https://www.repostatus.org/#inactive",
+    "funding": {
+        "@id": "/stub/N07d40824f0184707bf0a0e235c65b043",
+        "@type": "Grant",
+        "funder": {
+            "@id": "/stub/N4667d60d82f24008be9bacabe4218ade",
+            "@type": "Organization",
+            "name": "NWO",
+            "url": "https://www.nwo.nl"
+        },
+        "name": "CLARIAH-CORE (NWO grant 184.034.023)"
+    },
     "identifier": "data",
+    "keywords": [
+        "BlackLab",
+        "CLARIN",
+        "FCS 2.0",
+        "Federated Content Search",
+        "Nederlab",
+        "corpus search"
+    ],
     "license": [
         "http://spdx.org/licenses/GPL-3.0-only",
-        "http://www.gnu.org/licenses/gpl.txt"
+        "http://www.gnu.org/licenses/gpl.txt",
+        "https://www.gnu.org/licenses/gpl-3.0.html"
     ],
     "name": "A Blacklab Server CLARIN FCS 2.0 endpoint",
+    "producer": {
+        "@id": "/stub/Na0975839c3934fed942d9fb1457ac3bf",
+        "@type": "Organization",
+        "name": "INT",
+        "url": "https://www.ivdnt.org"
+    },
     "programmingLanguage": "Java",
     "readme": "/blob/README.md",
     "repository": [
@@ -140,5 +167,10 @@
             "version": "8.1.19.v20160209"
         }
     ],
+    "targetProduct": {
+        "@id": "/stub/N35b780628eea468eb03a3e1045f77bfd",
+        "@type": "WebService",
+        "name": "Dutch FCS endpoints hosted at INT"
+    },
     "version": "0.1"
 }
