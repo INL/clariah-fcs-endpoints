@@ -5,7 +5,7 @@
         "https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/13.0/schemaorgcontext.jsonld",
         "https://w3id.org/software-types"
     ],
-    "@id": "https://github.com/INL",
+    "@id": "https://nexus.clarin.eu/content/repositories/clarin-snapshot",
     "@type": "SoftwareSourceCode",
     "author": [
         {
@@ -21,8 +21,16 @@
             "familyName": "Fannee",
             "givenName": "Mathieu",
             "url": "https://www.ivdnt.org/"
+        },
+        {
+            "@id": "/person/leif-jöran-olsson",
+            "@type": "Person",
+            "familyName": "Olsson",
+            "givenName": "Leif-Jöran",
+            "url": "https://spraakbanken.gu.se/"
         }
     ],
+    "codeRepository": "https://github.com/INL/clariah-fcs-endpoints",
     "contributor": [
         {
             "@id": "/person/jesse-de-does",
@@ -37,9 +45,16 @@
             "familyName": "Fannee",
             "givenName": "Mathieu",
             "url": "https://www.ivdnt.org/"
+        },
+        {
+            "@id": "/person/leif-jöran-olsson",
+            "@type": "Person",
+            "familyName": "Olsson",
+            "givenName": "Leif-Jöran",
+            "url": "https://spraakbanken.gu.se/"
         }
     ],
-    "description": "A Blacklab Server CLARIN FCS endpoint implementation as an example of a CLARIN FCS 2.0 endpoint.",
+    "description": "CLARIAH Federated content search for Dutch corpora, developed by the Dutch Language Institute (INT), is a service to enable searching in multiple Dutch corpora at the same time according to the CLARIN FCS 2.0 specification on top of Dutch language corpora. This repository hosts the source code.",
     "identifier": "data",
     "license": [
         "http://spdx.org/licenses/GPL-3.0-only",
@@ -48,7 +63,10 @@
     "name": "A Blacklab Server CLARIN FCS 2.0 endpoint",
     "programmingLanguage": "Java",
     "readme": "/blob/README.md",
-    "repository": "https://github.com/INL",
+    "repository": [
+        "https://nexus.clarin.eu/content/repositories/Clarin",
+        "https://nexus.clarin.eu/content/repositories/clarin-snapshot"
+    ],
     "runtimePlatform": "Java",
     "softwareRequirements": [
         {
@@ -122,5 +140,5 @@
             "version": "8.1.19.v20160209"
         }
     ],
-    "version": "0.1-SNAPSHOT"
+    "version": "0.1"
 }

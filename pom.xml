@@ -5,12 +5,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ivdnt.fcs.endpoint</groupId>
 	<artifactId>clariah-fcs-endpoints</artifactId>
-	<version>0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<packaging>war</packaging>
 	<name>A Blacklab Server CLARIN FCS 2.0 endpoint</name>
-	<description>
-    A Blacklab Server CLARIN FCS endpoint implementation as an example of a CLARIN FCS 2.0 endpoint.
-  </description>
+	<description>CLARIAH Federated content search for Dutch corpora, developed by the Dutch Language Institute (INT), is a service to enable searching in multiple Dutch corpora at the same time according to the CLARIN FCS 2.0 specification on top of Dutch language corpora. This repository hosts the source code.</description>
 
 	<properties>
 		<!-- project settings -->
@@ -31,7 +29,7 @@
 	<scm>
 		<connection>scm:svn:https://svn.clarin.eu/browser/FCS-Korp-Endpoint</connection>
 		<developerConnection>scm:svn:https://svn.clarin.eu/FCS-Korp-Endpoint</developerConnection>
-		<url>https://svn.clarin.eu/FCS-Korp-Endpoint</url>
+		<url>https://github.com/INL/clariah-fcs-endpoints</url>
 	</scm>
 	<developers>
 		<developer>
@@ -40,6 +38,18 @@
 			<organization>Språkbanken</organization>
 			<url>https://spraakbanken.gu.se/</url>
 		</developer>
+                <developer>
+                        <id>jdd</id>
+                        <name>Jesse de Does</name>
+                        <organization>INT</organization>
+                        <url>https://www.ivdnt.org/</url>
+                </developer>
+                <developer>
+                        <id>mf</id>
+                        <name>Mathieu Fannee</name>
+                        <organization>INT</organization>
+                        <url>https://www.ivdnt.org/</url>
+                </developer>
 	</developers>
 	<dependencies>
 		<dependency>
