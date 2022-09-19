@@ -9,18 +9,18 @@
     "@type": "SoftwareSourceCode",
     "author": [
         {
-            "@id": "/person/leif-jöran-olsson",
-            "@type": "Person",
-            "familyName": "Olsson",
-            "givenName": "Leif-Jöran",
-            "url": "https://spraakbanken.gu.se/"
-        },
-        {
             "@id": "/person/mathieu-fannee",
             "@type": "Person",
             "familyName": "Fannee",
             "givenName": "Mathieu",
             "url": "https://www.ivdnt.org/"
+        },
+        {
+            "@id": "/person/leif-jöran-olsson",
+            "@type": "Person",
+            "familyName": "Olsson",
+            "givenName": "Leif-Jöran",
+            "url": "https://spraakbanken.gu.se/"
         },
         {
             "@id": "/person/jesse-de-does",
@@ -33,18 +33,18 @@
     "codeRepository": "https://github.com/INL/clariah-fcs-endpoints",
     "contributor": [
         {
-            "@id": "/person/leif-jöran-olsson",
-            "@type": "Person",
-            "familyName": "Olsson",
-            "givenName": "Leif-Jöran",
-            "url": "https://spraakbanken.gu.se/"
-        },
-        {
             "@id": "/person/mathieu-fannee",
             "@type": "Person",
             "familyName": "Fannee",
             "givenName": "Mathieu",
             "url": "https://www.ivdnt.org/"
+        },
+        {
+            "@id": "/person/leif-jöran-olsson",
+            "@type": "Person",
+            "familyName": "Olsson",
+            "givenName": "Leif-Jöran",
+            "url": "https://spraakbanken.gu.se/"
         },
         {
             "@id": "/person/jesse-de-does",
@@ -57,10 +57,10 @@
     "description": "CLARIAH Federated content search corpora, developed by the Dutch Language Institute (INT), is a service to enable searching in multiple Dutch corpora at the same time. This application implements the CLARIN FCS 2.0 specification on top of Dutch language corpora. This repository hosts the source code.",
     "developmentStatus": "https://www.repostatus.org/#inactive",
     "funding": {
-        "@id": "/stub/N07d40824f0184707bf0a0e235c65b043",
+        "@id": "/stub/N10fb11dd17284d3f82d61f7b52c56e05",
         "@type": "Grant",
         "funder": {
-            "@id": "/stub/N4667d60d82f24008be9bacabe4218ade",
+            "@id": "/stub/N5c645e57c6544f50bac4762617fe7110",
             "@type": "Organization",
             "name": "NWO",
             "url": "https://www.nwo.nl"
@@ -81,9 +81,16 @@
         "http://www.gnu.org/licenses/gpl.txt",
         "https://www.gnu.org/licenses/gpl-3.0.html"
     ],
+    "maintainer": {
+        "@id": "/person/mathieu-fannee",
+        "@type": "Person",
+        "familyName": "Fannee",
+        "givenName": "Mathieu",
+        "url": "https://www.ivdnt.org/"
+    },
     "name": "A Blacklab Server CLARIN FCS 2.0 endpoint",
     "producer": {
-        "@id": "/stub/Na0975839c3934fed942d9fb1457ac3bf",
+        "@id": "/stub/N801c83ea27114f709c79afbc7a093d98",
         "@type": "Organization",
         "name": "INT",
         "url": "https://www.ivdnt.org"
@@ -168,7 +175,7 @@
         }
     ],
     "targetProduct": {
-        "@id": "/stub/N35b780628eea468eb03a3e1045f77bfd",
+        "@id": "/stub/N0e99494bd3f949a4aa70df2e1e415011",
         "@type": "WebService",
         "name": "Dutch FCS endpoints hosted at INT"
     },

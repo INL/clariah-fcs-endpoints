@@ -12,6 +12,15 @@
         "name": "INT",
         "url": "https://www.ivdnt.org"
    },
+    "maintainer": [
+        {
+            "@id": "/person/mathieu-fannee",
+            "@type": "Person",
+            "familyName": "Fannee",
+            "givenName": "Mathieu",
+            "url": "https://www.ivdnt.org/"
+        }
+    ],
    "developmentStatus": "https://www.repostatus.org/#inactive",
    "keywords": [ "corpus search", "Federated Content Search", "FCS 2.0", "CLARIN", "BlackLab", "Nederlab" ],
    "funding": [{
