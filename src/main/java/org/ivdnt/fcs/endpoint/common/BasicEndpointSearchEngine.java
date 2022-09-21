@@ -52,8 +52,8 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	 * 
 	 * Get the corpus name out of the request
 	 * 
-	 * @param request
-	 * @param defaultCorpus
+	 * @param request request
+	 * @param defaultCorpus default corpus
 	 * @return fcsContextCorpus
 	 */
 	public static String getCorpusNameFromRequest(SRURequest request, String defaultCorpus) {
@@ -93,9 +93,9 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	 * 1-parameter version of translateQuery, which calls the main translateQuery
 	 * method, which requires 2 parameters
 	 * 
-	 * @param request
+	 * @param request SRU request
 	 * @return translated query
-	 * @throws SRUException
+	 * @throws SRUException (an SRU exception)
 	 */
 	public static String translateQuery(SRURequest request) throws SRUException {
 		return translateQuery(request, null);
@@ -122,7 +122,7 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	 * 
 	 * it can contain boolean logic like: dinosaur or bird dinosaur not reptile
 	 * 
-	 * and it can access publication indexes like: publicationYear < 1980 date
+	 * and it can access publication indexes like: publicationYear &lt; 1980 date
 	 * within "2002 2005"
 	 * 
 	 * etc.
@@ -135,10 +135,10 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	 * 
 	 * but it has no means to access publication indexes...
 	 * 
-	 * @param request
-	 * @param conversion
+	 * @param request an SRU request
+	 * @param conversion a conversion engine
 	 * @return translated Query
-	 * @throws SRUException
+	 * @throws SRUException (an SRU exception)
 	 */
 	public static String translateQuery(SRURequest request, ConversionEngine conversion) throws SRUException {
 		String query;

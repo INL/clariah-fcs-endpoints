@@ -53,11 +53,17 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 	 * 
 	 * @param cqpQuery
 	 *            a query like [word='lopen']
-	 * 
-         * @param startPosition
-         * @param maximumResults
-         * @param restrictTotalNumberOfResults
-         * @param engineNativeUrlTemplate 
+	 * @param contextCache context Cache
+	 * @param  server server
+	 * @param  corpus corpus
+	 * @param  cqpQuery CQP Query
+         * @param startPosition  start Position
+         * @param maximumResults maximum nr Results
+         * @param restrictTotalNumberOfResults restrict Total Number Of Results
+	 * @param nederlabQueryTemplate nederlab Query Template
+	 * @param nederlabDocumentQueryTemplate nederlab Document Query Template
+	 * @param  engineNativeUrlTemplate engine Native Url Template
+	 * @param  nederlabExtraResponseFields nederlab ExtraResponseFields
 	 */
 	public NederlabQuery(ServletContext contextCache, String server, String corpus, String cqpQuery, int startPosition,
 			int maximumResults, int restrictTotalNumberOfResults, QueryTemplate nederlabQueryTemplate, QueryTemplate nederlabDocumentQueryTemplate,

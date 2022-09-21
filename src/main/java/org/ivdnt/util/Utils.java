@@ -13,7 +13,7 @@ public class Utils {
 	/**
 	 * print the stack trace to the ERROR console convenient when debugging
 	 * 
-	 * @param e
+	 * @param e an exception
 	 */
 	public static void printStackTrace(Exception e) {
 

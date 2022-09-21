@@ -48,10 +48,10 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 	 * 
 	 * @param cqpQuery
 	 *            a query like [word='lopen']
-	 * @param startPosition
-         * @param maximumResults
-         * @param restrictTotalNumberOfResults
-         * @param engineNativeUrlTemplate 
+	 * @param startPosition  start Position
+         * @param maximumResults maximum Results
+         * @param restrictTotalNumberOfResults restrict Total Number Of Results
+         * @param engineNativeUrlTemplate  engine Native Url Template
 	 */
 	public BlacklabServerQuery(String server, String corpus, String cqpQuery, int startPosition, int maximumResults, int restrictTotalNumberOfResults, 
 			String engineNativeUrlTemplate) {
@@ -99,7 +99,7 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 	 * Build a SRU request URL to be able to send some CQL query.
 	 * 
 	 * The CQL query will be put into the 'patt' parameter of the SRU request.
-	 * 
+	 * @param  returnNativeUrl return native URL or not
 	 * @return the SRU URL with the CQL in it
 	 */
 	public String getSruRequestUrl(Boolean returnNativeUrl) {

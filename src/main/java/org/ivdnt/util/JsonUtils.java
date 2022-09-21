@@ -19,8 +19,8 @@ public class JsonUtils {
 	 * 
 	 * @param is
 	 * @return JSON object
-	 * @throws IOException
-	 * @throws ParseException
+	 * @throws IOException IO exception
+	 * @throws ParseException parse exception
 	 */
 	public static JSONObject getJsonFromStream(InputStream is) throws IOException, ParseException {
 
@@ -39,8 +39,8 @@ public class JsonUtils {
 	/**
 	 * Get value of a given key out of the JSON object
 	 * 
-	 * @param context
-	 * @param pname
+	 * @param context context object
+	 * @param pname property name
 	 * @return values
 	 */
 	public static List<String> getProperty(JSONObject context, String pname) {

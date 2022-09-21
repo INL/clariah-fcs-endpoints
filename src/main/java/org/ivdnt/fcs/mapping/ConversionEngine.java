@@ -316,8 +316,8 @@ public class ConversionEngine {
 	/**
 	 * Translate a feature put in a given tag set into another tag set
 	 * 
-	 * @param feature
-	 * @param value
+	 * @param feature feature
+	 * @param value value
 	 * @return set of feature conjunctions
 	 */
 	public Set<FeatureConjunction> translateFeature(String feature, String value) {
@@ -364,7 +364,7 @@ public class ConversionEngine {
 	 * Translate the parts of speech of the result set (in the Kwic objects) back
 	 * into universal dependencies
 	 * 
-	 * @param resultSet
+	 * @param resultSet a query result set
 	 */
 	public void translateIntoUniversalDependencies(ResultSet resultSet) {
 
@@ -561,7 +561,9 @@ public class ConversionEngine {
 	 * 
 	 * Output is CQP, like:
 	 * 
-	 * cqp="[word="lopen"] [pos="^(N).*" & pos=".*[\(,\|](soort)[,\)\|].*"]
+	 * cqp="[word="lopen"] [pos="^(N).*" &amp; pos=".*[\(,\|](soort)[,\)\|].*"]
+	 * @param query a query
+	 * @return translated query
 	 */
 	public String translateQuery(String query) {
 		// convert the query into nodes

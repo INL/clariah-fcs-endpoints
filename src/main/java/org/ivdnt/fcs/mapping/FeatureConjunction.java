@@ -47,7 +47,7 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 	 * Write the conjunction of features stored in this class as a string with an
 	 * AND operator
 	 * 
-	 * like '[ ... & ... ]'
+	 * like '[ ... &amp; ... ]'
 	 * 
 	 * and join the feature values into Regexes
 	 * 
@@ -67,7 +67,7 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 	 * Write the conjunction of features stored in this class as a string with an
 	 * AND operator, like
 	 * 
-	 * '[ ... & ... ]'
+	 * '[ ... &amp; ... ]'
 	 * 
 	 * mapping the 'pos' tag field to a feature and all its values joined into a
 	 * Regex
@@ -123,7 +123,7 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 	/**
 	 * Join the values of a feature, given its name
 	 * 
-	 * @param name
+	 * @param name feature name
 	 * @return string representation
 	 */
 	public String getJoinedValues(String name) {
@@ -136,7 +136,7 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 	/**
 	 * Check if the conjunction stored in this class contains a given feature
 	 * 
-	 * @param featureName
+	 * @param featureName feature name
 	 * @return do we have this feature?
 	 */
 	public boolean hasFeature(String featureName) {
@@ -147,8 +147,8 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 	 * Check if the conjunction stored in this class contains a feature with a given
 	 * value
 	 * 
-	 * @param featureName
-	 * @param featureValue
+	 * @param featureName feature Name
+	 * @param featureValue feature Value
 	 * @return do we have this feature and value?
 	 */
 	public boolean hasFeatureWithValue(String featureName, String featureValue) {
@@ -172,8 +172,8 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 	/**
 	 * Store a feature as a hash mapping a feature name to a feature value
 	 * 
-	 * @param name
-	 * @param newValue
+	 * @param name  feature name
+	 * @param newValue feature value
 	 * 
 	 */
 	public void put(String name, String newValue) {

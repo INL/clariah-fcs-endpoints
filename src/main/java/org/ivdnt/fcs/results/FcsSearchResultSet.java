@@ -67,8 +67,8 @@ public class FcsSearchResultSet extends SRUSearchResultSet {
 	 *            this contains the base URL, host, port, etc.
 	 * @param request
 	 *            this contains the SRU query, the sorting key, the query type, etc.
-	 * @param diagnostics
-	 * @param resultSet
+	 * @param diagnostics  diagnostics list
+	 * @param resultSet result set
 	 */
 	public FcsSearchResultSet(SRUServerConfig config, SRURequest request, SRUDiagnosticList diagnostics,
 			ResultSet resultSet) {

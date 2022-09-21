@@ -40,7 +40,7 @@ public class CorpusDependentEngineBuilder {
 	/**
 	 * Constructor
 	 * 
-	 * @param contextCache
+	 * @param contextCache a servlet context
 	 */
 	public CorpusDependentEngineBuilder(ServletContext contextCache) {
 
@@ -51,6 +51,7 @@ public class CorpusDependentEngineBuilder {
 
 	/**
 	 * read and process the list of engines
+	 * @param engineMap Maps engine names to engine implementation
 	 */
 	public void fillEngineMap(Map<String, SimpleEndpointSearchEngineBase> engineMap) {
 
@@ -335,7 +336,7 @@ public class CorpusDependentEngineBuilder {
 	/**
 	 * Read the Nederlab query template
 	 * 
-	 * @param filename
+	 * @param filename file name to read template from
 	 * @return query template as string
 	 */
 	public String readQueryTemplate(String filename) {

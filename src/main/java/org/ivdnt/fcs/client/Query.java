@@ -51,10 +51,10 @@ public abstract class Query {
 	 * 
 	 * @param cqpQuery
 	 *            a CQL query string like [word="paard"]
-	 * @param startPosition
-         * @param maximumResults
-         * @param restrictTotalNumberOfResults
-         * @param engineNativeUrlTemplate 
+	 * @param startPosition  start Position
+         * @param maximumResults maximum Results
+         * @param restrictTotalNumberOfResults restrict Total Number Of Results
+         * @param engineNativeUrlTemplate  engine Native UrlTemplate
 	 */
 	public Query(String server, String corpus, String cqpQuery, int startPosition, int maximumResults, int restrictTotalNumberOfResults, 
 			String engineNativeUrlTemplate) {
@@ -77,8 +77,8 @@ public abstract class Query {
 	 * Start a search query (which as been prepared in the search() method of the
 	 * chosen Engine) and return the results as a ResultSet
 	 * 
-	 * @return Resultset
-	 * @throws Exception
+	 * @return Resultset result set
+	 * @throws Exception something might go wrong...
 	 */
 	public abstract ResultSet execute() throws Exception;
 

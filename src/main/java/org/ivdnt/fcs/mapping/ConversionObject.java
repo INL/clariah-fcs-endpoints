@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * The configuration files (stored in WEB-INF) have JSON format and contain tag
  * sets conversion tables for our endpoint engines (so some tags in a query can
  * be correctly translated into the tags set of a particular corpus. Eg.
- * pos='ADJ' --> pas='bnw').
+ * pos='ADJ' --&gt; pas='bnw').
  * 
  * This class makes sure the JSON input can be converted into a JAVA object to
  * be used by the engines

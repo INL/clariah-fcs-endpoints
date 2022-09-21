@@ -42,7 +42,7 @@ public class Feature {
 	 * Get an equality expression string for the current feature and all its values
 	 * joined into a Regex string
 	 * 
-	 * feature x -> { a, b, c}
+	 * feature x -&gt; { a, b, c}
 	 * 
 	 * will give
 	 * 
@@ -59,13 +59,13 @@ public class Feature {
 	 * Build an equality expression string mapping a given tag field to the current
 	 * feature name and all its values joined into a Regex string
 	 * 
-	 * feature x -> { a, b, c}
+	 * feature x -&gt; { a, b, c}
 	 * 
 	 * will give
 	 * 
 	 * field = '... x = a|b|c ...'
 	 * 
-	 * @param CQLTagField
+	 * @param CQLTagField the CQL tag field
 	 * @return CQL representation 
 	 */
 	public String asRegexInTag(String CQLTagField) {

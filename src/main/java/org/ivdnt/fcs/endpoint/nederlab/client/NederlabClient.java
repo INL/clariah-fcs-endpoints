@@ -100,9 +100,9 @@ public class NederlabClient {
 	 * perform a complete Nederlab search: build a query, send it, and parse the
 	 * response
 	 * 
-	 * @param CQL
-	 * @param start
-	 * @param number
+	 * @param CQL query
+	 * @param start first
+	 * @param number number of results
 	 * @return result set
 	 */
 	public NederlabResultSet doSearch(String CQL, int start, int number) {
@@ -122,7 +122,7 @@ public class NederlabClient {
 	 * Parse the document keys from the response, and send new query, requesting
 	 * document information
 	 * 
-	 * @param jsonHits
+	 * @param jsonHits JSON representation of hits
 	 * @return a document id to document info Map
 	 */
 	public Map<String, Document> parseAndRequestDocuments(String jsonHits) {
@@ -311,7 +311,7 @@ public class NederlabClient {
 	/**
 	 * post a query string to Nederlab
 	 * 
-	 * @param query
+	 * @param query a Nederlab Query
 	 * @return Query result
 	 */
 	public String sendQuery(String query) {

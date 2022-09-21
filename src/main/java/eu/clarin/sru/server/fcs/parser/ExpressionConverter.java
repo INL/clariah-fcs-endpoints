@@ -28,7 +28,7 @@ public class ExpressionConverter implements ExpressionRewriter {
 	 * An ExpressionConverter takes a ConversionEngine as a parameter, so as to be
 	 * able to convert features etc.
 	 * 
-	 * @param conversionEngine
+	 * @param conversionEngine conversion engine instance
 	 */
 	public ExpressionConverter(ConversionEngine conversionEngine) {
 		this.conversionEngine = conversionEngine;
