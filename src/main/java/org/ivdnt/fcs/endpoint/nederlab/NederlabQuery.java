@@ -54,9 +54,7 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 	 * @param cqpQuery
 	 *            a query like [word='lopen']
 	 * @param contextCache context Cache
-	 * @param  server server
-	 * @param  corpus corpus
-	 * @param  cqpQuery CQP Query
+
          * @param startPosition  start Position
          * @param maximumResults maximum nr Results
          * @param restrictTotalNumberOfResults restrict Total Number Of Results
