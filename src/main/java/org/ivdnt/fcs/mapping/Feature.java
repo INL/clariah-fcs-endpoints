@@ -48,7 +48,7 @@ public class Feature {
 	 * 
 	 * x = 'a|b|c'
 	 * 
-	 * @return
+	 * @return CQL representation
 	 */
 	public String asCQL() {
 		String pipeSeparatedValues = StringUtils.join(this.values, "|");
@@ -66,7 +66,7 @@ public class Feature {
 	 * field = '... x = a|b|c ...'
 	 * 
 	 * @param CQLTagField
-	 * @return
+	 * @return CQL representation 
 	 */
 	public String asRegexInTag(String CQLTagField) {
 		String pipeSeparatedValues = StringUtils.join(this.values, "|");

@@ -54,7 +54,7 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	 * 
 	 * @param request
 	 * @param defaultCorpus
-	 * @return
+	 * @return fcsContextCorpus
 	 */
 	public static String getCorpusNameFromRequest(SRURequest request, String defaultCorpus) {
 		String fcsContextCorpus = defaultCorpus;
@@ -94,7 +94,7 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	 * method, which requires 2 parameters
 	 * 
 	 * @param request
-	 * @return
+	 * @return translated query
 	 * @throws SRUException
 	 */
 	public static String translateQuery(SRURequest request) throws SRUException {
@@ -137,7 +137,7 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	 * 
 	 * @param request
 	 * @param conversion
-	 * @return
+	 * @return translated Query
 	 * @throws SRUException
 	 */
 	public static String translateQuery(SRURequest request, ConversionEngine conversion) throws SRUException {
@@ -242,11 +242,11 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	 * your environment and needs.
 	 *
 	 * @param context
-	 *            the {@link ServletContext} for the Servlet
+	 *            the ServletContext for the Servlet
 	 * @param config
-	 *            the {@link SRUServerConfig} object for this search engine
+	 *            the SRUServerConfig object for this search engine
 	 * @param queryParserBuilder
-	 *            the {@link SRUQueryParserRegistry.Builder} object to be used for
+	 *            the SRUQueryParserRegistry.Builder object to be used for
 	 *            this search engine. Use to register additional query parsers with
 	 *            the SRUServer.
 	 * @param params

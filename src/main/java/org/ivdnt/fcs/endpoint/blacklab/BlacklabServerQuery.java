@@ -39,16 +39,19 @@ public class BlacklabServerQuery extends org.ivdnt.fcs.client.Query {
 	/**
 	 * BlacklabServerQuery constructor
 	 * 
-	 * @param server,
+	 * @param server
 	 *            a URL string
 	 * 
-	 * @param corpus,
+	 * @param corpus
 	 *            a corpus name, like 'opensonar' (those are declared as Resource
 	 *            pid's in WEB-INF/endpoint-description.xml)
 	 * 
-	 * @param cqp,
+	 * @param cqpQuery
 	 *            a query like [word='lopen']
-	 * 
+	 * @param startPosition
+         * @param maximumResults
+         * @param restrictTotalNumberOfResults
+         * @param engineNativeUrlTemplate 
 	 */
 	public BlacklabServerQuery(String server, String corpus, String cqpQuery, int startPosition, int maximumResults, int restrictTotalNumberOfResults, 
 			String engineNativeUrlTemplate) {

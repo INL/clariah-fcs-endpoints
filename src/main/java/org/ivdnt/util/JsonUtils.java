@@ -18,7 +18,7 @@ public class JsonUtils {
 	 * Get JSON object out of InputStream
 	 * 
 	 * @param is
-	 * @return
+	 * @return JSON object
 	 * @throws IOException
 	 * @throws ParseException
 	 */
@@ -41,7 +41,7 @@ public class JsonUtils {
 	 * 
 	 * @param context
 	 * @param pname
-	 * @return
+	 * @return values
 	 */
 	public static List<String> getProperty(JSONObject context, String pname) {
 		List<String> list = new ArrayList<String>();

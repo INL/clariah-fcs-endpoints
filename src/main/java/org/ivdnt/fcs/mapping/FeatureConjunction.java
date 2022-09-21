@@ -51,7 +51,7 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 	 * 
 	 * and join the feature values into Regexes
 	 * 
-	 * @return
+	 * @return CQL query representation
 	 */
 	public String asCQL() {
 		Set<String> clauses = this.keySet().stream().map(
@@ -76,7 +76,7 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 	 * 
 	 * field = '... featureName = a|b|c ...'
 	 * 
-	 * @return
+	 * @return CQL representation
 	 */
 	public String asRegexInTag() {
 		Set<String> clauses = this.keySet().stream().map(
@@ -110,7 +110,7 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 	/**
 	 * Get all the features of the conjunction of features stored in this class
 	 * 
-	 * @return
+	 * @return feature set as stream
 	 */
 	public Stream<Feature> getFeatures() {
 		return this.keySet().stream().map(
@@ -124,7 +124,7 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 	 * Join the values of a feature, given its name
 	 * 
 	 * @param name
-	 * @return
+	 * @return string representation
 	 */
 	public String getJoinedValues(String name) {
 		return StringUtils.join(get(name), MappingConstants.MULTIVALUE_JOINER);
@@ -137,7 +137,7 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 	 * Check if the conjunction stored in this class contains a given feature
 	 * 
 	 * @param featureName
-	 * @return
+	 * @return do we have this feature?
 	 */
 	public boolean hasFeature(String featureName) {
 		return this.containsKey(featureName) || !this.get(featureName).isEmpty();
@@ -149,7 +149,7 @@ public class FeatureConjunction extends ConcurrentHashMap<String, Set<String>> {
 	 * 
 	 * @param featureName
 	 * @param featureValue
-	 * @return
+	 * @return do we have this feature and value?
 	 */
 	public boolean hasFeatureWithValue(String featureName, String featureValue) {
 

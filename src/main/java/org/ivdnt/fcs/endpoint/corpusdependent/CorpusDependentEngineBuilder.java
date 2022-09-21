@@ -336,7 +336,7 @@ public class CorpusDependentEngineBuilder {
 	 * Read the Nederlab query template
 	 * 
 	 * @param filename
-	 * @return
+	 * @return query template as string
 	 */
 	public String readQueryTemplate(String filename) {
 

@@ -26,16 +26,16 @@ public class CgnFeatureDecoder {
 	 * Give the CGN feature name corresponding to a given CGN pos tag and feature
 	 * value
 	 * 
-	 * @param CGN
+	 * @param posTag
 	 *            pos tag
-	 * @param CGN
+	 * @param pdtype
 	 *            pdtype feature, used to disambiguate some values for other
 	 *            features
-	 * @param Map
+	 * @param featureName2FeatureValues 
 	 *            of possible values for CGN features
-	 * @param Map
+	 * @param posTag2FeatureNames
 	 *            of possible CGN features per CGN POS tag
-	 * @param CGN
+	 * @param featureValue
 	 *            feature value
 	 * @return CGN feature name
 	 */

@@ -28,7 +28,7 @@ public class ExpressionConverter implements ExpressionRewriter {
 	 * An ExpressionConverter takes a ConversionEngine as a parameter, so as to be
 	 * able to convert features etc.
 	 * 
-	 * @param ConversionEngine
+	 * @param conversionEngine
 	 */
 	public ExpressionConverter(ConversionEngine conversionEngine) {
 		this.conversionEngine = conversionEngine;
@@ -110,7 +110,7 @@ public class ExpressionConverter implements ExpressionRewriter {
 	 * 
 	 * This method is called for simplex nodes, meaning NO disjunction NOR group of
 	 * nodes of any kind. A simplex node is supposed to contain a single feature,
-	 * consisting of a feature name and a feature value (identifier => regex value).
+	 * consisting of a feature name and a feature value (identifier =&gt; regex value).
 	 * 
 	 */
 	@Override

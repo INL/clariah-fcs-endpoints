@@ -47,7 +47,7 @@ public class Hit {
 	 * This constructor takes an unordered list of tokens, sorts this list straight
 	 * away, and store it in a new instance of this class.
 	 * 
-	 * @param The
+	 * @param unordered a list of topen properties
 	 *            input parameter is an unordered list of tokens. Each of them
 	 *            represents a part of the Nederlab JSON response:
 	 * 

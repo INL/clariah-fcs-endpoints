@@ -318,7 +318,7 @@ public class ConversionEngine {
 	 * 
 	 * @param feature
 	 * @param value
-	 * @return
+	 * @return set of feature conjunctions
 	 */
 	public Set<FeatureConjunction> translateFeature(String feature, String value) {
 		Set<FeatureConjunction> destination;
@@ -365,7 +365,6 @@ public class ConversionEngine {
 	 * into universal dependencies
 	 * 
 	 * @param resultSet
-	 * @return modified resultSet
 	 */
 	public void translateIntoUniversalDependencies(ResultSet resultSet) {
 

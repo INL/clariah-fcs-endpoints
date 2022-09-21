@@ -42,16 +42,19 @@ public abstract class Query {
 	/**
 	 * Query object constructor
 	 * 
-	 * @param server,
+	 * @param server
 	 *            a server URL
 	 * 
-	 * @param corpus,
+	 * @param corpus
 	 *            the name of a corpus to search (corpora names are declared as
 	 *            Resource pid's in WEB-INF/endpoint-description.xml)
 	 * 
-	 * @param cqp,
+	 * @param cqpQuery
 	 *            a CQL query string like [word="paard"]
-	 * 
+	 * @param startPosition
+         * @param maximumResults
+         * @param restrictTotalNumberOfResults
+         * @param engineNativeUrlTemplate 
 	 */
 	public Query(String server, String corpus, String cqpQuery, int startPosition, int maximumResults, int restrictTotalNumberOfResults, 
 			String engineNativeUrlTemplate) {
@@ -74,7 +77,7 @@ public abstract class Query {
 	 * Start a search query (which as been prepared in the search() method of the
 	 * chosen Engine) and return the results as a ResultSet
 	 * 
-	 * @return
+	 * @return Resultset
 	 * @throws Exception
 	 */
 	public abstract ResultSet execute() throws Exception;
