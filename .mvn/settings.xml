@@ -2,6 +2,13 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 http://maven.apache.org/xsd/settings-1.2.0.xsd">
     <mirrors>
+       <mirror>
+            <id>maven-default-http-blocker</id>
+            <mirrorOf>external:dummy:*</mirrorOf>
+            <name>Pseudo repository to mirror external repositories initially using HTTP.</name>
+            <url>http://0.0.0.0/</url>
+            <blocked>true</blocked>
+        </mirror>
         <mirror>
             <id>releases-java-net-http-unblocker</id>
             <mirrorOf>releases.java.net</mirrorOf>
