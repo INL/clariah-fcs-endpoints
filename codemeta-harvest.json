@@ -6,7 +6,15 @@
         {
             "@type": "WebService",
             "name": "Dutch FCS endpoints hosted at INT",
-            "url": "https://portal.clarin.inl.nl/fcscorpora/clariah-fcs-endpoints/sru"
+            "url": "https://portal.clarin.inl.nl/fcscorpora/clariah-fcs-endpoints/sru",
+            "runtimePlatform": [ "Linux"],
+            "description": "CLARIAH Federated content search backends - instances for several Dutch corpora"
+        },
+        {
+            "@type": "WebApplication",
+            "name": "FCS Aggregator",
+            "url": " https://spraakbanken.gu.se/ws/fcs/2.0/aggregator/",
+            "description": "The Aggregator application is a part of the CLARIN-FCS common federated content search infrastructure. It serves as a user interface to perform queries to CLARIN-resources and display search results. The Aggregator communicates with components called endpoints, which are provided as a service by all centres who participate in the federated content search. Each endpoint provides access to one or more searchable resources. The user can select a specific resource or resources, based on the resource name or on the language, or search through all of them. The content of these resources is searched with the query supplied to the endpoint. The endpoint returns results to this query and the aggregator collects the responses from all the endpoints and displays them to the user."
         }
    ],
    "softwareHelp": [
