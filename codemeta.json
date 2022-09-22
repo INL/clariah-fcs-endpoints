@@ -9,13 +9,6 @@
     "@type": "SoftwareSourceCode",
     "author": [
         {
-            "@id": "/person/mathieu-fannee",
-            "@type": "Person",
-            "familyName": "Fannee",
-            "givenName": "Mathieu",
-            "url": "https://www.ivdnt.org/"
-        },
-        {
             "@id": "/person/leif-jöran-olsson",
             "@type": "Person",
             "familyName": "Olsson",
@@ -27,18 +20,19 @@
             "@type": "Person",
             "familyName": "de Does",
             "givenName": "Jesse",
+            "url": "https://www.ivdnt.org/"
+        },
+        {
+            "@id": "/person/mathieu-fannee",
+            "@type": "Person",
+            "familyName": "Fannee",
+            "givenName": "Mathieu",
             "url": "https://www.ivdnt.org/"
         }
     ],
     "codeRepository": "https://github.com/INL/clariah-fcs-endpoints",
+    "contIntegration": "https://github.com/INL/clariah-fcs-endpoints",
     "contributor": [
-        {
-            "@id": "/person/mathieu-fannee",
-            "@type": "Person",
-            "familyName": "Fannee",
-            "givenName": "Mathieu",
-            "url": "https://www.ivdnt.org/"
-        },
         {
             "@id": "/person/leif-jöran-olsson",
             "@type": "Person",
@@ -51,16 +45,23 @@
             "@type": "Person",
             "familyName": "de Does",
             "givenName": "Jesse",
+            "url": "https://www.ivdnt.org/"
+        },
+        {
+            "@id": "/person/mathieu-fannee",
+            "@type": "Person",
+            "familyName": "Fannee",
+            "givenName": "Mathieu",
             "url": "https://www.ivdnt.org/"
         }
     ],
     "description": "CLARIAH Federated content search corpora, developed by the Dutch Language Institute (INT), is a service to enable searching in multiple Dutch corpora at the same time. This application implements the CLARIN FCS 2.0 specification on top of Dutch language corpora. This repository hosts the source code.",
     "developmentStatus": "https://www.repostatus.org/#inactive",
     "funding": {
-        "@id": "/stub/N23f7aab9fd7547c69eaf04c6c03bdd4b",
+        "@id": "/stub/N8a69a372f83547588e013df43c6cb794",
         "@type": "Grant",
         "funder": {
-            "@id": "/stub/Naf04bcecb5874876b197d7812405e94b",
+            "@id": "/stub/Nd7959efb7aa94837b1f2cbfe7470bf81",
             "@type": "Organization",
             "name": "NWO",
             "url": "https://www.nwo.nl"
@@ -90,7 +91,7 @@
     },
     "name": "A Blacklab Server CLARIN FCS 2.0 endpoint",
     "producer": {
-        "@id": "/stub/Nc6c0d962e3ed4a89852e0648c50f824f",
+        "@id": "/stub/N873b07ee7ee540a5b1b95b99b510cc54",
         "@type": "Organization",
         "name": "INT",
         "url": "https://www.ivdnt.org"
@@ -102,6 +103,12 @@
         "https://nexus.clarin.eu/content/repositories/clarin-snapshot"
     ],
     "runtimePlatform": "Java",
+    "softwareHelp": {
+        "@id": "https://www.clarin.eu/blog/clarin-federated-content-search-version-2",
+        "@type": "WebSite",
+        "name": "FCS 2.0 documentation",
+        "url": "https://www.clarin.eu/blog/clarin-federated-content-search-version-2"
+    },
     "softwareRequirements": [
         {
             "@id": "/dependency/eu.clarin.sru.fcs.fcs-simple-endpoint.1.4.0",
@@ -175,7 +182,7 @@
         }
     ],
     "targetProduct": {
-        "@id": "/stub/N284a2dcfa9b4441d8423cec318e21d90",
+        "@id": "/stub/Nbee2275831f6422eac6cd9c7124bfac7",
         "@type": "WebService",
         "name": "Dutch FCS endpoints hosted at INT",
         "url": "https://portal.clarin.inl.nl/fcscorpora/clariah-fcs-endpoints/sru"

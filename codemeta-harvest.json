@@ -1,6 +1,7 @@
 {
     "description": "CLARIAH Federated content search corpora, developed by the Dutch Language Institute (INT), is a service to enable searching in multiple Dutch corpora at the same time. This application implements the CLARIN FCS 2.0 specification on top of Dutch language corpora. This repository hosts the source code.",    
     "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+    "contIntegration": "https://github.com/INL/clariah-fcs-endpoints",
     "targetProduct": [
         {
             "@type": "WebService",
@@ -8,6 +9,14 @@
             "url": "https://portal.clarin.inl.nl/fcscorpora/clariah-fcs-endpoints/sru"
         }
    ],
+   "softwareHelp": [
+        {
+            "@id": "https://www.clarin.eu/blog/clarin-federated-content-search-version-2",
+            "@type": "WebSite",
+            "name": "FCS 2.0 documentation",
+            "url": "https://www.clarin.eu/blog/clarin-federated-content-search-version-2"
+        }
+    ],
    "producer": {
         "@type": "Organization",
         "name": "INT",
