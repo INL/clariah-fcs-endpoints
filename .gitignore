@@ -17,3 +17,6 @@ hs_err_pid*
 /.settings
 /WebContent/
 /bin/
+
+# Intellij
+*.iml
