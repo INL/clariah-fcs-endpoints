@@ -8,7 +8,7 @@ CLARIAH Federated content search corpora, developed by the [Dutch Language Insti
 
 
 ## Corpora
-CLARIAH FCS Corpora currently has initial basic support for corpora based on [Blacklab Server](https://inl.github.io/blacklab) (INT corpora) and [MTAS](https://meertensinstituut.github.io/mtas/) (Nederlab). The following corpora are included:
+CLARIAH FCS Corpora currently has initial basic support for corpora based on [Blacklab Server](https://blacklab.ivdnt.org/) (INT corpora) and [MTAS](https://meertensinstituut.github.io/mtas/) (Nederlab). The following corpora are included:
  * [Letters as Loot (Brieven als Buit, 17th and 18th century sailors' letters)](https://brievenalsbuit.ivdnt.org/)
  * [Corpus Gysseling (13th century)](http://gysseling.corpus.taalbanknederlands.inl.nl/gysseling/page/search)
  * [OpenSoNaR](https://portal.clarin.inl.nl/opensonar_frontend/opensonar/search)
@@ -36,7 +36,7 @@ Cf:
 * Also (alternative endpoint) https://github.com/KorAP/KorapSRU 
 
 
-The backend communicates with Blacklab Server for the INT corpora ([BlackLab Server documentation here](http://inl.github.io/BlackLab/blacklab-server-overview.html)). For Nederlab, the backend communicates not directly with [https://meertensinstituut.github.io/mtas/](MTAS), but with an intermediate layer, which restricts access to the corpus, but accepts the same MTAS queries. For more about MTAS, see also the [GitHub repository](https://github.com/meertensinstituut/mtas).
+The backend communicates with Blacklab Server for the INT corpora ([BlackLab Server documentation here](http://blacklab.ivdnt.org/server/)). For Nederlab, the backend communicates not directly with [https://meertensinstituut.github.io/mtas/](MTAS), but with an intermediate layer, which restricts access to the corpus, but accepts the same MTAS queries. For more about MTAS, see also the [GitHub repository](https://github.com/meertensinstituut/mtas).
 
 ### Aggregator
 
