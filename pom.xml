@@ -27,15 +27,15 @@
 		</license>
 	</licenses>
     <scm>
-        <url>https://github.com/INL/clariah-fcs-endpoints</url>
-        <connection>scm:git:git://github.com/INL/clariah-fcs-endpoints.git</connection>
-        <developerConnection>scm:git:git@github.com:INL/clariah-fcs-endpoints.git</developerConnection>
+        <url>https://github.com/instituutnederlandsetaal/clariah-fcs-endpoints</url>
+        <connection>scm:git:git://github.com/instituutnederlandsetaal/clariah-fcs-endpoints.git</connection>
+        <developerConnection>scm:git:git@github.com:instituutnederlandsetaal/clariah-fcs-endpoints.git</developerConnection>
     </scm>
 <!--
 	<scm>
 		<connection>scm:svn:https://svn.clarin.eu/browser/FCS-Korp-Endpoint</connection>
 		<developerConnection>scm:svn:https://svn.clarin.eu/FCS-Korp-Endpoint</developerConnection>
-		<url>https://github.com/INL/clariah-fcs-endpoints</url>
+		<url>https://github.com/instituutnederlandsetaal/clariah-fcs-endpoints</url>
 	</scm>
 -->
 	<developers>
