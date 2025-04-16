@@ -23,7 +23,7 @@
 	<Engine>
 		<engine-name>opensonar</engine-name>
 		<engine-type>blacklabserver</engine-type>
-		<engine-url>http://svprmc13.ivdnt.org:8080/blacklab-server/opensonar</engine-url>
+		<engine-url>http://svprmc33.ivdnt.org/blacklab-server/opensonar</engine-url>
 		<restrict-total-number-of-results>10</restrict-total-number-of-results>
 		<engine-native-url-template>https://portal.clarin.inl.nl/opensonar_frontend/opensonar</engine-native-url-template>
 		<tagset-conversion-table>UD2CGNSonar</tagset-conversion-table>
@@ -35,7 +35,7 @@
 		<engine-url>http://svprec10.ivdnt.loc/blacklab-server-chn/chn-extern</engine-url>
 		<restrict-total-number-of-results>10</restrict-total-number-of-results>
 		<engine-native-url-template>https://portal.clarin.inl.nl/corpus-frontend-chn/chn-extern</engine-native-url-template>
-	<tagset-conversion-table>UD2CHN</tagset-conversion-table>
+		<tagset-conversion-table>UD2CHN</tagset-conversion-table>
 	</Engine>
 
 	<Engine>
