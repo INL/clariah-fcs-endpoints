@@ -1,7 +1,6 @@
 package org.ivdnt.fcs.endpoint.nederlab.client;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -68,7 +67,7 @@ public class NederlabClient {
 	// fields
 	private List<String> nederlabExtraResponseFields;
 
-	private ServletContext contextCache;
+	private ServletContext servletContext;
 
 	// ------------------------------------------------------------------
 
@@ -78,9 +77,9 @@ public class NederlabClient {
 
 	// ------------------------------------------------------------------
 
-	public NederlabClient(ServletContext contextCache, QueryTemplate nederlabQueryTemplate,
+	public NederlabClient(ServletContext servletContext, QueryTemplate nederlabQueryTemplate,
 			QueryTemplate nederlabDocumentQueryTemplate, String server, List<String> nederlabExtraResponseFields) {
-		this.contextCache = contextCache;
+		this.servletContext = servletContext;
 		this.nederlabQueryTemplate = nederlabQueryTemplate;
 		this.nederlabDocumentQueryTemplate = nederlabDocumentQueryTemplate;
 		this.server = server;
@@ -325,7 +324,7 @@ public class NederlabClient {
 
 			con.setRequestMethod("POST");
 			// con.setRequestProperty("User-Agent", USER_AGENT);
-			String brokerKey = new FileUtils(contextCache, "key.txt").readConfigFileAsString().trim();
+			String brokerKey = new FileUtils(servletContext, "key.txt").readToString().trim();
 			con.setRequestProperty("X-API-KEY", brokerKey);
 			con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 			con.setRequestProperty("Accept", "application/json");

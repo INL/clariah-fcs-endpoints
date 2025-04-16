@@ -26,7 +26,7 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 	private QueryTemplate nederlabQueryTemplate;
 	private QueryTemplate nederlabDocumentQueryTemplate;
 	private List<String> nederlabExtraResponseFields;
-	private ServletContext contextCache;
+	private ServletContext servletContext;
 
 	ConcurrentHashMap<String, String> prefixMapping = new ConcurrentHashMap<String, String>() {
 		/**
@@ -53,7 +53,7 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 	 * 
 	 * @param cqpQuery
 	 *            a query like [word='lopen']
-	 * @param contextCache context Cache
+	 * @param servletContext context Cache
 
          * @param startPosition  start Position
          * @param maximumResults maximum nr Results
@@ -63,12 +63,12 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 	 * @param  engineNativeUrlTemplate engine Native Url Template
 	 * @param  nederlabExtraResponseFields nederlab ExtraResponseFields
 	 */
-	public NederlabQuery(ServletContext contextCache, String server, String corpus, String cqpQuery, int startPosition,
+	public NederlabQuery(ServletContext servletContext, String server, String corpus, String cqpQuery, int startPosition,
 			int maximumResults, int restrictTotalNumberOfResults, QueryTemplate nederlabQueryTemplate, QueryTemplate nederlabDocumentQueryTemplate,
 			String engineNativeUrlTemplate, List<String> nederlabExtraResponseFields) {
 		super(server, corpus, cqpQuery, startPosition, maximumResults, restrictTotalNumberOfResults, engineNativeUrlTemplate);
 
-		this.contextCache = contextCache;
+		this.servletContext = servletContext;
 		// template to build Nederlab queries
 		this.nederlabQueryTemplate = nederlabQueryTemplate;
 		this.nederlabDocumentQueryTemplate = nederlabDocumentQueryTemplate;
@@ -108,7 +108,7 @@ public class NederlabQuery extends org.ivdnt.fcs.client.Query {
 
 		// search
 
-		NederlabClient nederlabClient = new NederlabClient(this.contextCache, this.nederlabQueryTemplate,
+		NederlabClient nederlabClient = new NederlabClient(this.servletContext, this.nederlabQueryTemplate,
 				this.nederlabDocumentQueryTemplate, this.getServer(), this.nederlabExtraResponseFields);
 
 		NederlabResultSet nederlabResultSet = nederlabClient.doSearch(this.getCqpQuery(), this.getStartPosition(),

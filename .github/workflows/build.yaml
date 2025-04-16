@@ -8,11 +8,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Set up JDK 8
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '8.0.345+1'
-          distribution: 'adopt'
+          java-version: '17'
+          distribution: 'temurin'
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots package
   package:
@@ -21,8 +21,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
-          java-version: '8.0.345+1'
-          distribution: 'adopt'
+          java-version: '17'
+          distribution: 'temurin'
       - run: mvn --batch-mode --update-snapshots verify
       - run: mkdir staging && cp target/*.war staging
       - uses: actions/upload-artifact@v4

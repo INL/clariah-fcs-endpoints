@@ -1,5 +1,7 @@
 package org.ivdnt.fcs.endpoint.blacklab;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.ivdnt.fcs.endpoint.common.BasicEndpointSearchEngine;
 import org.ivdnt.fcs.mapping.ConversionEngine;
 import org.ivdnt.fcs.results.FcsSearchResultSet;
@@ -55,6 +57,10 @@ public class BlacklabServerEndpointSearchEngine extends BasicEndpointSearchEngin
 				request.getStartRecord() - 1, request.getMaximumRecords(), restrictTotalNumberOfResults, getEngineNativeUrlTemplate());
 
 		logger.info("Query to blacklab server: " + blacklabServerQuery);
+
+		// Log to Plausible server
+		HttpServletRequest servletRequest = request.getServletRequest();
+		logCorpusQuery(servletRequest, fcsContextCorpus, query);
 
 		// start the search and get the results
 		ResultSet resultSet;

@@ -33,7 +33,7 @@ public class TestCgn {
 	// logger
 	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	private static ResultSet createResultSet(String tag, ServletContext contextCache) {
+	private static ResultSet createResultSet(String tag, ServletContext servletContext) {
 		ConcurrentHashMap<String, String> prefixMapping = new ConcurrentHashMap<String, String>() {
 			/**
 			 * 
@@ -106,7 +106,7 @@ public class TestCgn {
 
 		ResultSet fcsResultSet = new ResultSet();
 		fcsResultSet.setHits(hitsConverted);
-		NederlabQuery q = new NederlabQuery(contextCache, "testserver", "testcorpus", "testquery", 0, 20, 0, null, null,
+		NederlabQuery q = new NederlabQuery(servletContext, "testserver", "testcorpus", "testquery", 0, 20, 0, null, null,
 				"testenginenativeurltemplate", Collections.emptyList());
 		fcsResultSet.setQuery(q);
 		fcsResultSet.setTotalNumberOfResults(nederlabResultSet.getTotalNumberOfHits());
@@ -127,8 +127,8 @@ public class TestCgn {
 
 	}
 
-	public static void testQueries(ServletContext contextCache, ConversionEngine convEng) {
-		String tagsFileContents = new FileUtils(contextCache, "cgn.tagset").readConfigFileAsString();
+	public static void testQueries(ServletContext servletContext, ConversionEngine convEng) {
+		String tagsFileContents = new FileUtils(servletContext, "cgn.tagset").readToString();
 		Scanner scanner = new Scanner(tagsFileContents);
 		PrintWriter writer = null;
 		try {
@@ -139,7 +139,7 @@ public class TestCgn {
 		}
 		while (scanner.hasNextLine()) {
 			String tag = scanner.nextLine().trim();
-			ResultSet r = createResultSet(tag, contextCache);
+			ResultSet r = createResultSet(tag, servletContext);
 			convEng.translateIntoUniversalDependencies(r);
 
 			String udTag = extractUniversalTag(r);

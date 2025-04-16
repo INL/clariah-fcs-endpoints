@@ -5,14 +5,21 @@
  */
 package org.ivdnt.fcs.endpoint.common;
 
+import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
+import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.ivdnt.fcs.mapping.ConversionEngine;
 import org.ivdnt.util.FileUtils;
+import org.ivdnt.util.Plausible;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +48,22 @@ import eu.clarin.sru.server.fcs.utils.SimpleEndpointDescriptionParser;
  *
  */
 public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
-		
+
+	/** Default URL for Plausible API */
+	private static final String DEFAULT_PLAUSIBLE_API_URL = "https://statistiek.ivdnt.org/api/event";
+
+	/** Default Plausible domain */
+	private static final String DEFAULT_PLAUSIBLE_DOMAIN = "fcs-corpora";
+
+	/** Default Plausible URL prefix for corpus query pageview */
+	private static final String DEFAULT_PLAUSIBLE_URL_PREFIX = "https://portal.clarin.ivdnt.org/fcscorpora/";
+
+	/** Our Plausible server reference, or null if not yet initialized */
+	private static Plausible _plausible;
+
+	/** Plausible URL prefix for corpus query pageview */
+	private static String plausibleUrlPrefix;
+
 	protected int restrictTotalNumberOfResults;
 
 	// logger
@@ -209,13 +231,13 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 
 	// Empty constructor, needed by CorpusDependentEngine subclass
 	public BasicEndpointSearchEngine() {
-
 	}
 
 	// Constructor with arguments, called by BlacklabServerEndpointSearchEngine and
 	// NederlabEndpointSearchEngine subclasses
 	public BasicEndpointSearchEngine(String server, ConversionEngine conversionEngine, 
 			int restrictTotalNumberOfResults, String engineNativeUrlTemplate) {
+		this();
 		this.server = server;
 		this.conversionEngine = conversionEngine;
 		this.restrictTotalNumberOfResults = restrictTotalNumberOfResults;
@@ -224,8 +246,7 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 
 	protected EndpointDescription createEndpointDescription(ServletContext context, SRUServerConfig config,
 			Map<String, String> params) throws SRUConfigException {
-
-		URL url = new FileUtils(context, "endpoint-description.xml").readConfigFileAsURL();
+		URL url = new FileUtils(context, "endpoint-description.xml").getURL();
 		return SimpleEndpointDescriptionParser.parse(url);
 	}
 
@@ -327,4 +348,42 @@ public class BasicEndpointSearchEngine extends SimpleEndpointSearchEngineBase {
 	public void setEngineNativeUrlTemplate(String engineNativeUrlTemplate) {
 		this.engineNativeUrlTemplate = engineNativeUrlTemplate;
 	}
+
+	/**
+	 * Log a corpus query to Plausible by sending a pageview event.
+	 *
+	 * @param request The servlet request object, used to get the user agent and remote ip
+	 * @param corpusName corpus we're querying
+	 * @param cql CQL query string
+	 */
+	public static void logCorpusQuery(HttpServletRequest request, String corpusName, String cql) {
+		String cqlUriEncoded;
+		cqlUriEncoded = URLEncoder.encode(cql, StandardCharsets.UTF_8);
+		String url = plausibleUrlPrefix + corpusName + "?query=" + cqlUriEncoded;
+        plausible(request).sendPlausiblePageview(url, request);
+	}
+
+	private static synchronized Plausible plausible(HttpServletRequest request) {
+		if (_plausible == null) {
+			ServletContext context = request.getSession().getServletContext();
+			FileUtils propFile = new FileUtils(context, "analytics.properties");
+			Properties properties = new Properties();
+			if (propFile.wasFound()) {
+				try (InputStream inputStream = propFile.getInputStream()) {
+					properties.load(inputStream);
+				} catch (Exception e) {
+					logger.error("Error loading analytics.properties", e);
+				}
+			}
+			String plausibleApiUrl = properties.getProperty("plausible.api", DEFAULT_PLAUSIBLE_API_URL);
+			String plausibleDomain = properties.getProperty("plausible.domain", DEFAULT_PLAUSIBLE_DOMAIN);
+			plausibleUrlPrefix = properties.getProperty("plausible.urlPrefix", DEFAULT_PLAUSIBLE_URL_PREFIX);
+			if (!plausibleUrlPrefix.endsWith("/")) {
+				plausibleUrlPrefix += "/";
+			}
+			_plausible = new Plausible(plausibleApiUrl, plausibleDomain);
+		}
+		return _plausible;
+	}
+
 }

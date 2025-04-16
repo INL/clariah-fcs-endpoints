@@ -4,6 +4,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.ivdnt.fcs.endpoint.common.BasicEndpointSearchEngine;
 import org.ivdnt.fcs.endpoint.nederlab.client.QueryTemplate;
@@ -28,19 +29,19 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 	private QueryTemplate nederlabQueryTemplate;
 	private QueryTemplate nederlabDocumentQueryTemplate;
 	private List<String> nederlabExtraResponseFields;
-	private ServletContext contextCache;
+	private ServletContext servletContext;
 
 	// ---------------------------------------------------------------------------------
 	// constructors
 
-	public NederlabEndpointSearchEngine(ServletContext contextCache, String server, ConversionEngine conversionEngine,
+	public NederlabEndpointSearchEngine(ServletContext servletContext, String server, ConversionEngine conversionEngine,
 			int restrictTotalNumberOfResults, String nederlabQueryTemplate, String nederlabDocumentQueryTemplate,
 			String engineNativeUrlTemplate,	List<String> nederlabExtraResponseFields) {
 		super(server, conversionEngine, restrictTotalNumberOfResults, engineNativeUrlTemplate);
 
 		// instantiate a Nederlab query template (needed to post well formed query's to
 		// Nederlab)
-		this.contextCache = contextCache;
+		this.servletContext = servletContext;
 		this.nederlabQueryTemplate = new QueryTemplate(nederlabQueryTemplate);
 		this.nederlabDocumentQueryTemplate = new QueryTemplate(nederlabDocumentQueryTemplate);
 		this.nederlabExtraResponseFields = nederlabExtraResponseFields;
@@ -59,7 +60,7 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 			throws SRUException {
 
 		/*
-		 * TestCgn.testQueries(contextCache, this.getConversionEngine()); if (true) {
+		 * TestCgn.testQueries(servletContext, this.getConversionEngine()); if (true) {
 		 * return null; }
 		 */
 
@@ -76,10 +77,14 @@ public class NederlabEndpointSearchEngine extends BasicEndpointSearchEngine {
 
 		// instantiate the Nederlab query
 		// fcs begint bij 1 te tellen, nederlab bij 0 (?)
-		NederlabQuery nederlabQuery = new NederlabQuery(contextCache, this.getServer(), fcsContextCorpus, cqpQuery,
+		NederlabQuery nederlabQuery = new NederlabQuery(servletContext, this.getServer(), fcsContextCorpus, cqpQuery,
 				request.getStartRecord() - 1, request.getMaximumRecords(), this.restrictTotalNumberOfResults, this.nederlabQueryTemplate,
 				this.nederlabDocumentQueryTemplate, this.getEngineNativeUrlTemplate(),
 				this.nederlabExtraResponseFields);
+
+		// Log to Plausible server
+		HttpServletRequest servletRequest = request.getServletRequest();
+		logCorpusQuery(servletRequest, fcsContextCorpus, cqpQuery);
 
 		// start the search and get the results
 

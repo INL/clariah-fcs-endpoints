@@ -28,13 +28,11 @@ import eu.clarin.sru.server.fcs.SimpleEndpointSearchEngineBase;
  */
 public class CorpusDependentEngine extends BasicEndpointSearchEngine {
 
-	// logger
 	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	SimpleEndpointSearchEngineBase engine;
-	ServletContext contextCache;
+	ServletContext servletContext;
 
-	Map<String, SimpleEndpointSearchEngineBase> engineMap = new ConcurrentHashMap<String, SimpleEndpointSearchEngineBase>();
+	Map<String, BasicEndpointSearchEngine> engineMap = new ConcurrentHashMap<>();
 
 	/**
 	 * Load and choose an Engine, upon a search request
@@ -44,39 +42,17 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine {
 	 */
 	private synchronized SimpleEndpointSearchEngineBase chooseEngine(String corpusId) {
 
-		CorpusDependentEngineBuilder enginebuilder = new CorpusDependentEngineBuilder(this.contextCache);
-
-		// Beware: This method must be synchronized, otherwise a first call involving
-		// ------ more than one engine would cause the engines the be initialized
-		// in each thread, which malfunction as a consequence. One single
-		// initialisation in the very first thread is enough.
-
-		/*
-		 * // FIRST CALL: // ---------- // fill tag sets conversion maps
-		 * 
-		 * if ((ConversionObjectProcessor.getConversionEngines()).size() == 0) {
-		 * System.err.println(">> loading tagsets conversion tables...");
-		 * 
-		 * enginebuilder.fillTagSetsConversionMap();
-		 * 
-		 * System.err.println(">> " +
-		 * (ConversionObjectProcessor.getConversionEngines()).size() +
-		 * " tagsets conversion tables loaded"); }
-		 */
-
 		// fill engine map
-
 		if (this.engineMap.size() == 0) {
 			logger.info(">> loading engines...");
-
-			enginebuilder.fillEngineMap(this.engineMap);
-
+			CorpusDependentEngineBuilder.fillEngineMap(engineMap, servletContext);
+//			engineBuilder = new CorpusDependentEngineBuilder(this.servletContext, analyticsTracker);
+//			engineBuilder.fillEngineMap(this.engineMap);
 			logger.info(">> " + this.engineMap.size() + " engines loaded");
 		}
 
 		// now pick up the engine we need
-
-		for (String k : this.engineMap.keySet())
+		for (String k: this.engineMap.keySet())
 			if (corpusId.toLowerCase().contains(k.toLowerCase())) {
 				System.err.printf("Choosing %s for %s\n", this.engineMap.get(k), corpusId);
 				return this.engineMap.get(k);
@@ -88,7 +64,7 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine {
 
 	protected void doInit(ServletContext context, SRUServerConfig config,
 			SRUQueryParserRegistry.Builder queryParserBuilder, Map<String, String> params) throws SRUConfigException {
-		this.contextCache = context;
+		this.servletContext = context;
 		super.doInit(context, config, queryParserBuilder, params);
 	}
 
@@ -99,5 +75,4 @@ public class CorpusDependentEngine extends BasicEndpointSearchEngine {
 		SimpleEndpointSearchEngineBase engine = chooseEngine(fcsContextCorpus);
 		return engine.search(config, request, diagnostics);
 	}
-
 }

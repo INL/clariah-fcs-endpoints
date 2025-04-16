@@ -25,7 +25,7 @@ public class ClarinCenterList extends HttpServlet {
 		// https://stackoverflow.com/questions/10621580/how-to-get-the-servlet-context-from-servletrequest-in-servlet-2-5
 		ServletContext context = request.getSession().getServletContext();
 
-		xmlFileContent = new FileUtils(context, "clarin_center_ivdnt.xml").readConfigFileAsString();
+		xmlFileContent = new FileUtils(context, "clarin_center_ivdnt.xml").readToString();
 
 		// Set response content type
 		response.setContentType("text/xml");
